@@ -11,6 +11,14 @@ email, teams, methodologies, culture, and people. AllianceOne assembles it into
 one coherent, living account and puts it back in the hands of the people who
 built it. We **operationalize** judgment; we never **commoditize** it.
 
+**Evidence & commoditization.** The judgment is grounded in **evidence** — what
+actually worked, for whom, and why (the Outcome dimension). Generic AI hands
+anyone an opinion in seconds, so advice built on frameworks alone commoditizes
+and competes on price; the firm's proprietary evidence is the differentiator
+that doesn't. "Evidence" and "opinion vs. evidence" are first-class language.
+Keep the commoditization stakes measured — analysis, not alarm; calm is still
+the register.
+
 The four-part capture: **Who** (context) · **What** (approach — the commodity
 everyone has) · **Why** (the reasoning — the moat) · **Outcome** (what actually
 happened — the dimension that compounds; partly roadmap).
