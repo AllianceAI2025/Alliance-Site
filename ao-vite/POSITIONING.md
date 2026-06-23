@@ -19,6 +19,27 @@ that doesn't. "Evidence" and "opinion vs. evidence" are first-class language.
 Keep the commoditization stakes measured — analysis, not alarm; calm is still
 the register.
 
+**Experience → expertise → judgment (the layered asset).** "Judgment" is the
+apex, not the whole story — don't let it become the catch-all noun for the
+asset (it did, and the site read as if judgment was all the product was good
+for). Use the layer that fits:
+- **Experience** — the raw accumulated record: every engagement, decision, and
+  outcome the firm has lived. The asset/source (hero; the animation's inputs).
+- **Expertise** — that experience assembled into something usable. The
+  product/output (Product headline; the animation's core node).
+- **Judgment** — the apex of expertise, the part that doesn't commoditize.
+  Concentrate it in Approach (the moat), the Why/Outcome capture, and where a
+  firm's deliverable literally *is* judgment. Elsewhere prefer experience/
+  expertise. The product does more than recall judgment: it remembers,
+  structures, and *acts* (plans, compares deliverables/matrices, drafts,
+  reviews) — lead with those verbs so the breadth shows.
+
+**People do the work; the firm is the body they draw on.** The firm is the
+*source/possessive* ("your firm's experience," "how your firm works"), but the
+subject of every action verb is a person — a partner, a junior, a reviewer,
+*your team*. Never write "work that reads like the firm wrote it"; people draft,
+plan, compare, and review, equipped with the firm's expertise.
+
 The four-part capture: **Who** (context) · **What** (approach — the commodity
 everyone has) · **Why** (the reasoning — the moat) · **Outcome** (what actually
 happened — the dimension that compounds; partly roadmap).

@@ -4,9 +4,10 @@ import React, { useState, useEffect, useRef } from "react";
 // AllianceOne — product site v6
 // Spine: Consulting is applying proven frameworks to specific problems.
 //   Frameworks are the easy part (every firm AND every AI has them).
-//   The judgment — which approach, for whom, why, and whether it worked —
-//   is the moat. AllianceOne operationalizes that judgment by assembling
-//   the firm's own distributed knowledge into a usable, living account.
+//   The asset is the firm's accumulated EXPERIENCE — every engagement,
+//   decision, and outcome — assembled into usable EXPERTISE, with JUDGMENT
+//   (which approach, for whom, why, whether it worked) as the apex/moat.
+//   AllianceOne assembles that distributed experience into one living account.
 // Voice: anti-hype, calm, firm-as-hero. No "neural network"/"brain" in copy.
 // ASG appears only as quiet plumbing in the footer.
 // v4: consolidated to remove repetition. Thesis stated once, sections halved,
@@ -178,7 +179,7 @@ function Hero({ onCta }) {
           AllianceOne assembles what your firm has learned across every engagement — the decisions, the reasoning, the outcomes — into one living account of how your firm actually solves problems.
         </p>
         <p style={{ fontSize: "clamp(1rem,1.5vw,1.15rem)", maxWidth: "52ch", marginTop: "1.1rem", color: C.inkSoft }}>
-          Not a general model trained on everyone else's work — your firm's own judgment, put to work in the hands of the people who built it.
+          Not a general model trained on everyone else's work — your firm's own experience, put to work in the hands of the people who built it.
         </p>
         <div style={{ marginTop: "2.4rem", display: "flex", gap: "1rem", flexWrap: "wrap" }}>
           <Btn variant="primary" onClick={onCta}>Start a deliberate conversation</Btn>
@@ -192,7 +193,7 @@ function Hero({ onCta }) {
 
 
 // Animated: source documents stream extracted data into a knowledge graph that
-// assembles around the firm's judgment. Builds once when scrolled into view,
+// assembles around the firm's expertise. Builds once when scrolled into view,
 // then settles into a calm steady state (mote flow + soft pulse). Honors
 // prefers-reduced-motion by showing the finished, static graph.
 function GraphCard() {
@@ -226,8 +227,8 @@ function GraphCard() {
 
   return (
     <div ref={ref} className={cls} style={{ ["--e"]: ease, background: C.ink, borderRadius: 8, padding: "2.2rem 2.2rem 1.6rem", overflow: "hidden", boxShadow: "0 30px 60px -30px rgba(20,22,15,0.5)" }}>
-      <svg viewBox="0 0 460 400" role="img" aria-label="AllianceOne extracting data from a firm's proposals, email, deliverables, delivery plans, methods, and outcomes, and assembling it into one connected knowledge graph">
-        <title>Scattered sources, extracted and assembled into one living knowledge graph</title>
+      <svg viewBox="0 0 460 400" role="img" aria-label="AllianceOne extracting a firm's proposals, email, deliverables, delivery plans, methods, and outcomes, and assembling that experience into one connected account of the firm's expertise">
+        <title>Your firm's scattered experience, assembled into usable expertise</title>
         <defs>
           <linearGradient id="ed" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0" stopColor={C.gold} stopOpacity="0.85" />
@@ -290,17 +291,17 @@ function GraphCard() {
             style={{ animationDelay: `${1.15 + j * 0.07}s` }} />
         ))}
 
-        {/* core: the firm's judgment */}
+        {/* core: the firm's expertise */}
         <g className="ao-core">
           <circle cx={core.x} cy={core.y} r="58" fill="url(#coreglow)" />
           <circle cx={core.x} cy={core.y} r="34" fill={C.gold} />
           <text x={core.x} y={core.y - 3} textAnchor="middle" fontFamily={sans} fontSize="11" fontWeight="700" fill={C.ink}>Your firm's</text>
-          <text x={core.x} y={core.y + 10} textAnchor="middle" fontFamily={sans} fontSize="11" fontWeight="700" fill={C.ink}>judgment</text>
+          <text x={core.x} y={core.y + 10} textAnchor="middle" fontFamily={sans} fontSize="11" fontWeight="700" fill={C.ink}>expertise</text>
         </g>
       </svg>
 
       <p style={{ fontFamily: sans, fontSize: "0.7rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(244,241,232,0.5)", textAlign: "center", margin: "0.6rem 0 0" }}>
-        Extracted from your firm's work — assembled into one living graph
+        Your firm's experience — assembled into expertise your people can use
       </p>
 
       <style>{`
@@ -343,7 +344,7 @@ function Product() {
   const work = [
     ["Project planning", "Scope and plan a new engagement from how your firm actually ran the ones like it — the real approach, the shape of the team, and what to watch for.",
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M3 3v18h18" /><path d="M7 14l3-4 3 3 5-7" /></svg>],
-    ["Execution", "A junior drafts against the firm's own precedents and voice — work that reads like the firm wrote it, carrying the reasoning behind every call.",
+    ["Execution", "Build the deliverable by comparing it, structurally, to the closest past engagements — their project matrix, their deliverable shape, what they included and why — so your team starts from real precedent, not a blank page or a generic template.",
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" /></svg>],
     ["Review", "Work arrives carrying its grounding, so a senior reviews reasoning against how the firm has handled this before — not a blank page.",
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" /></svg>],
@@ -356,10 +357,10 @@ function Product() {
           <div>
             <Eyebrow>Product</Eyebrow>
             <Head size="display" style={{ maxWidth: "18ch", marginBottom: "1.1rem" }}>
-              Your firm's judgment, working for everyone in it.
+              Your firm's expertise, working for everyone in it.
             </Head>
             <p style={{ color: C.inkSoft, fontSize: "1.08rem", marginBottom: "1.1rem" }}>
-              AllianceOne assembles your firm's accumulated work — every engagement, decision, and outcome, scattered across documents, threads, methodologies, and people — into <strong style={{ color: C.ink, fontWeight: 600 }}>one living account</strong> of how your firm actually works, in the hands of the people who built it.
+              AllianceOne assembles your firm's <strong style={{ color: C.ink, fontWeight: 600 }}>experience</strong> — every engagement, decision, and outcome, today scattered across documents, threads, methodologies, and people — into one living account of how your firm works: hard-won <strong style={{ color: C.ink, fontWeight: 600 }}>expertise</strong> your people can draw on, in the hands of the ones who built it.
             </p>
             <p style={{ color: C.inkSoft, margin: 0 }}>
               We don't train a model on your firm; we build a living model <em style={{ fontStyle: "italic" }}>of</em> it. The structure stays explicit, so every connection is traceable to its source — legible, auditable, and yours.
@@ -393,7 +394,7 @@ function Product() {
             Where it shows up in the work.
           </Head>
           <p style={{ color: C.inkSoft, fontSize: "1.05rem", maxWidth: "56ch", marginTop: "1rem" }}>
-            Not a chatbot bolted to the side. The account drives the everyday work of an engagement — planning it, doing it, checking it.
+            Not a chatbot bolted to the side. Your people work from the account across the everyday arc of an engagement — planning it, doing it, checking it.
           </p>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: "1.6rem", marginTop: "2.4rem" }}>
             {work.map(([h, p, icon], i) => (
@@ -405,7 +406,7 @@ function Product() {
             ))}
           </div>
           <p style={{ color: C.inkSoft, fontSize: "1.05rem", maxWidth: "60ch", marginTop: "2.4rem", marginBottom: 0 }}>
-            And it compounds: as each engagement completes, its decisions connect to outcomes and feed back in — so the account gets richer and the firm gets sharper with every project.
+            And it compounds: as each engagement completes, its decisions connect to outcomes and feed back in — so the account gets richer and the people drawing on it get sharper with every engagement.
           </p>
         </div>
       </Wrap>
@@ -485,7 +486,7 @@ function Approach() {
   );
 }
 
-// ---- industries (the firms it's built for — verticals whose product is judgment)
+// ---- industries (the firms it's built for — verticals whose product is expertise)
 
 function Industries() {
   const items = [
@@ -499,10 +500,10 @@ function Industries() {
       <Wrap>
         <Eyebrow>Industries</Eyebrow>
         <Head size="section" style={{ maxWidth: "24ch", marginBottom: "1.1rem" }}>
-          Built for firms whose product is judgment.
+          Built for firms whose product is expertise.
         </Head>
         <p style={{ color: C.inkSoft, fontSize: "1.05rem", maxWidth: "58ch", marginBottom: "2.8rem" }}>
-          The work differs, but the asset is the same: decades of hard-won reasoning, distributed across people and engagements — and never assembled until now.
+          The work differs, but the asset is the same: decades of hard-won experience, distributed across people and engagements — and never assembled until now.
         </p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: "2rem 2.5rem" }}>
           {items.map(([h, p]) => (
@@ -528,7 +529,7 @@ function Footer({ onCta }) {
           <div style={{ maxWidth: "38ch" }}>
             <Logo light />
             <p style={{ color: "rgba(244,241,232,0.6)", fontSize: "0.92rem", marginTop: "1rem" }}>
-              A living model of your firm — assembling your own knowledge into usable judgment, in the hands of the people who built it.
+              A living model of your firm — assembling its experience into usable expertise, in the hands of the people who built it.
             </p>
           </div>
           <div style={{ display: "flex", gap: "4rem", flexWrap: "wrap" }}>
