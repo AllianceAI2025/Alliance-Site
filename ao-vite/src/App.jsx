@@ -123,13 +123,11 @@ function Section({ children, style }) {
 
 // ---- nav -----------------------------------------------------------------
 
-// Four anchors in reading order — a shorter nav reads as a shorter page. The
+// Two anchors in reading order — a shorter nav reads as a shorter page. The
 // hero and the craft (how it works) carry their own weight without nav links.
 const SECTIONS = [
   ["different", "Why not just AI"],
   ["assembly", "What it does"],
-  ["honest", "Straight answers"],
-  ["adopt", "Build partners"],
 ];
 
 function Nav({ onCta }) {
@@ -496,118 +494,10 @@ function Craft() {
   );
 }
 
-// ---- straight answers (what we won't / will promise — the anti-hype beat) --
-
-function Honest() {
-  const wont = [
-    "That AI will replace your professionals",
-    "Tenfold productivity by Friday",
-    "That one tool transforms your culture",
-    "That we've perfected this — we're early, and we'll tell you so",
-  ];
-  const will = [
-    "A working platform today, with a clear, honest view of where it's headed",
-    "Your firm's own knowledge, assembled and traceable to its source",
-    "Senior judgment carried forward — operationalized, never commoditized",
-    "A deliberate adoption path, sized to your firm, with checkpoints to walk away",
-  ];
-  return (
-    <Section>
-      <div id="honest" style={{ scrollMarginTop: 80 }} />
-      <Wrap>
-        <Eyebrow>Straight answers</Eyebrow>
-        <Head size="section" style={{ maxWidth: "20ch" }}>
-          What we won't promise — and what we will.
-        </Head>
-        <p style={{ color: C.inkSoft, fontSize: "1.05rem", maxWidth: "56ch", marginTop: "1.1rem" }}>
-          You've been promised enough. Here's the boundary of our claims — because in this market, trust is built by what a vendor refuses to say.
-        </p>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: "1.6rem", marginTop: "2.8rem" }}>
-          <div style={{ background: C.paper, border: `1px solid ${C.line}`, borderRadius: 8, padding: "2.2rem 2rem" }}>
-            <h3 style={{ fontFamily: sans, fontSize: "0.78rem", letterSpacing: "0.18em", textTransform: "uppercase", color: C.inkSoft, margin: "0 0 1.4rem" }}>We won't promise</h3>
-            {wont.map((t, i) => (
-              <div key={i} style={{ display: "flex", gap: "0.8rem", alignItems: "baseline", padding: "0.65rem 0", borderTop: i === 0 ? "none" : `1px solid ${C.lineSoft}` }}>
-                <span style={{ color: C.oliveLite, fontFamily: serif, fontStyle: "italic", flex: "none" }}>—</span>
-                <span style={{ fontSize: "0.97rem", color: C.inkSoft }}>{t}</span>
-              </div>
-            ))}
-          </div>
-          <div style={{ background: C.ink, color: C.bone, borderRadius: 8, padding: "2.2rem 2rem" }}>
-            <h3 style={{ fontFamily: sans, fontSize: "0.78rem", letterSpacing: "0.18em", textTransform: "uppercase", color: C.gold, margin: "0 0 1.4rem" }}>We will deliver</h3>
-            {will.map((t, i) => (
-              <div key={i} style={{ display: "flex", gap: "0.8rem", alignItems: "baseline", padding: "0.65rem 0", borderTop: i === 0 ? "none" : "1px solid rgba(244,241,232,0.12)" }}>
-                <span style={{ color: C.gold, flex: "none" }}>✓</span>
-                <span style={{ fontSize: "0.97rem", color: "rgba(244,241,232,0.85)" }}>{t}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </Wrap>
-    </Section>
-  );
-}
-
-// ---- who it's for (quiet qualification strip — recedes by design) ----------
-
-function Who() {
-  const items = [
-    ["Managing partners", "Adapting the firm's model — tired of choosing between paralysis and a panic purchase."],
-    ["Senior practitioners", "Whose judgment is the firm's edge, and who'd rather see it scale than retire with them."],
-    ["Advisory, accounting & tax", "Where engagement history and institutional knowledge shape quality, risk, and margin."],
-    ["Firms building what's next", "Rethinking how judgment develops and travels now the apprenticeship path has changed shape."],
-  ];
-  return (
-    <Section style={{ paddingBottom: "clamp(2.5rem,5vw,4rem)" }}>
-      <Wrap>
-        <Eyebrow>Who it's for</Eyebrow>
-        <Head size="quiet" style={{ maxWidth: "26ch", marginBottom: "2.2rem" }}>
-          Built for firms whose product is judgment.
-        </Head>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(230px,1fr))", gap: "2rem 2.5rem" }}>
-          {items.map(([h, p]) => (
-            <div key={h} style={{ borderTop: `1px solid ${C.line}`, paddingTop: "1rem" }}>
-              <h4 style={{ fontFamily: sans, fontSize: "0.78rem", letterSpacing: "0.14em", textTransform: "uppercase", color: C.oliveDeep, margin: "0 0 0.5rem" }}>{h}</h4>
-              <p style={{ fontSize: "0.94rem", color: C.inkSoft, margin: 0 }}>{p}</p>
-            </div>
-          ))}
-        </div>
-      </Wrap>
-    </Section>
-  );
-}
-
-// ---- the close (build partners + final CTA, merged) ------------------------
-
-function Adopt({ onCta }) {
-  return (
-    <Section style={{ paddingTop: "clamp(2.5rem,5vw,4rem)" }}>
-      <div id="adopt" style={{ scrollMarginTop: 80 }} />
-      <Wrap>
-        <div style={{ background: C.oliveDeep, color: C.bone, borderRadius: 10, padding: "clamp(2.5rem,5vw,4rem)", position: "relative", overflow: "hidden" }}>
-          <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 88% 12%, rgba(180,150,90,0.25), transparent 42%), radial-gradient(circle at 5% 95%, rgba(138,145,111,0.25), transparent 48%)" }} />
-          <div style={{ position: "relative", zIndex: 1, maxWidth: "64ch" }}>
-            <Eyebrow color={C.gold}>Build partners</Eyebrow>
-            <Head light size="display" style={{ maxWidth: "26ch", margin: "1rem 0 1.2rem" }}>
-              The antidote to a rushed AI decision is a small, honest one.
-            </Head>
-            <p style={{ color: "rgba(244,241,232,0.82)", fontSize: "1.05rem", marginBottom: "1.8rem" }}>
-              We're working with a small number of founding build partners — firms that shape AllianceOne around their real engagements. Founding terms, direct influence over the roadmap, and clear checkpoints where either side can step away. It's how a careful firm tries the new baseline without betting on a slogan.
-            </p>
-            <p style={{ fontFamily: serif, fontStyle: "italic", fontSize: "1.45rem", color: C.bone, lineHeight: 1.3, margin: "0 0 2rem", maxWidth: "30ch" }}>
-              Your firm already knows more than it can see. Let's put it to work.
-            </p>
-            <Btn variant="gold" onClick={onCta}>Start the conversation</Btn>
-          </div>
-        </div>
-      </Wrap>
-    </Section>
-  );
-}
-
 // ---- footer (ASG as quiet plumbing) -----------------------------------------
 
 function Footer({ onCta }) {
-  const links = [["different", "Why not just AI"], ["assembly", "What it does"], ["honest", "Straight answers"], ["adopt", "Build partners"]];
+  const links = [["different", "Why not just AI"], ["assembly", "What it does"]];
   return (
     <footer style={{ background: C.ink, color: C.bone, padding: "4rem 0 2.5rem", borderTop: "1px solid rgba(244,241,232,0.1)" }}>
       <Wrap>
@@ -691,9 +581,6 @@ export default function App() {
       <Different />
       <Assembly />
       <Craft />
-      <Honest />
-      <Who />
-      <Adopt onCta={openCta} />
       <Footer onCta={openCta} />
       <Modal open={modal} onClose={() => setModal(false)} />
     </div>
