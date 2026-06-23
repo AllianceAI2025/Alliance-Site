@@ -96,5 +96,8 @@ honest, with walk-away checkpoints.
 
 Three buyers, one anxiety (noise-induced): managing partner (paralysis vs.
 panic), senior practitioner (judgment scaling vs. retiring with them), firm
-leader (being out-adapted). The page speaks to all three but the hero leads
-with the calm reframe, not a feature.
+leader (being out-adapted). The page speaks to all three; the hero now leads
+with the firm's own judgment as the asset ("your firm already knows more than it
+can see"), with calm as the tone rather than the headline. The vs-general-AI
+distinction comes next, then the tangible payoff. "Straight answers" carries the
+anti-hype trust.
