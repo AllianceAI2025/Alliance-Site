@@ -3,10 +3,11 @@
 Product-first landing site for AllianceOne, built with React + Vite, deployed to
 GitHub Pages. Alliance Systems Group appears only as quiet plumbing in the footer.
 
-Positioning: anti-hype, "new baseline" — AI adoption is inevitable, the hype is
-optional. Lead story is judgment acceleration (junior AI fluency × senior
-judgment); the engagement memory / living-model foundation is the credibility
-layer underneath. See `POSITIONING.md` for the language registers.
+Positioning: the firm's own accumulated judgment is the asset — today scattered
+and leaking away; AllianceOne assembles it into a living account so it scales and
+compounds. The hero leads with that value (not an AI-market reframe); anti-hype
+is the tone, carried mainly by "Straight answers." See `POSITIONING.md` for the
+language registers.
 
 ---
 
@@ -28,9 +29,12 @@ npm run preview
 
 ## Where to edit things
 
-- `src/App.jsx` — the entire site. Sections top to bottom: Hero, Reality,
-  Shift, Platform, Honest (won't/will promise), Adopt (build partners),
-  Who, FinalCta, Footer, Modal. Colors are in the `C` object at the top.
+- `src/App.jsx` — the entire site. Sections top to bottom: Hero (firm's-
+  knowledge value prop), Different (why not just AI), Assembly (what it does),
+  Craft (the thesis → four-part capture), Honest (won't/will promise), Who,
+  Adopt (build partners + close), Footer, Modal. Colors are in the `C` object
+  at the top; section headlines use the `Head` atom (`display` / `section` /
+  `quiet` sizes).
 - `index.html` — title, meta description.
 - `public/favicon.svg` — the AllianceOne node-mark tab icon.
 - `public/CNAME` — currently `myalliance.ai`. Change this single line if the
