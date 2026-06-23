@@ -29,8 +29,10 @@ npm run preview
 ## Where to edit things
 
 - `src/App.jsx` — the entire site. Sections top to bottom: Hero, Reality,
-  Shift, Platform, Honest (won't/will promise), Adopt (build partners),
-  Who, FinalCta, Footer, Modal. Colors are in the `C` object at the top.
+  Craft (the thesis → four-part capture), Assembly, Different (why not just
+  AI), Honest (won't/will promise), Who, Adopt (build partners + close),
+  Footer, Modal. Colors are in the `C` object at the top; section headlines
+  use the `Head` atom (`display` / `section` / `quiet` sizes).
 - `index.html` — title, meta description.
 - `public/favicon.svg` — the AllianceOne node-mark tab icon.
 - `public/CNAME` — currently `myalliance.ai`. Change this single line if the
