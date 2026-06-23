@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 
 // ============================================================
-// AllianceOne — product site v5
+// AllianceOne — product site v6
 // Spine: Consulting is applying proven frameworks to specific problems.
 //   Frameworks are the easy part (every firm AND every AI has them).
 //   The judgment — which approach, for whom, why, and whether it worked —
@@ -12,9 +12,12 @@ import React, { useState, useEffect, useRef } from "react";
 // v4: consolidated to remove repetition. Thesis stated once, sections halved,
 //   hierarchy via the Head atom — one display peak.
 // v5: value-forward. The hero leads with the firm's own knowledge as the asset
-//   (not an AI-market reframe), and the body arc is firm-knowledge → why-not-AI
-//   → what-it-does → how-it-works. The AI-fatigue framing is gone; "Straight
-//   answers" carries the anti-hype trust alone — calm is the tone, not the lede.
+//   (not an AI-market reframe). The AI-fatigue framing is gone; calm is the
+//   tone, not the lede.
+// v6: product-site IA. Three body sections — Product (what it is + what it
+//   captures + where it shows up in the work), Approach (the philosophy, with
+//   "why not just AI" folded in), and Industries (the firms it's built for).
+//   Logo mark removed; wordmark only. Nav: Product · Approach · Industries.
 // ============================================================
 
 const C = {
@@ -94,23 +97,9 @@ function Btn({ children, onClick, variant = "primary", href }) {
 
 function Logo({ light = false, size = 1 }) {
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: "0.55rem" }}>
-      <svg viewBox="0 0 36 36" width={30 * size} height={30 * size} style={{ display: "block", flex: "none" }}>
-        <circle cx="18" cy="18" r="16" fill="none" stroke={light ? C.gold : C.olive} strokeWidth="2" />
-        <circle cx="18" cy="18" r="3" fill={light ? C.gold : C.olive} />
-        <circle cx="18" cy="4.5" r="2.4" fill={light ? C.goldSoft : C.oliveLite} />
-        <circle cx="31.5" cy="24" r="2.4" fill={light ? C.goldSoft : C.oliveLite} />
-        <circle cx="6" cy="24" r="2.4" fill={light ? C.goldSoft : C.oliveLite} />
-        <g stroke={light ? C.gold : C.olive} strokeWidth="1.2" opacity="0.8">
-          <line x1="18" y1="18" x2="18" y2="4.5" />
-          <line x1="18" y1="18" x2="31.5" y2="24" />
-          <line x1="18" y1="18" x2="6" y2="24" />
-        </g>
-      </svg>
-      <span style={{ fontFamily: serif, fontWeight: 600, fontSize: `${1.32 * size}rem`, letterSpacing: "-0.01em", lineHeight: 1, color: light ? C.bone : C.ink }}>
-        Alliance<span style={{ color: light ? C.gold : C.olive }}>One</span>
-      </span>
-    </div>
+    <span style={{ fontFamily: serif, fontWeight: 600, fontSize: `${1.32 * size}rem`, letterSpacing: "-0.01em", lineHeight: 1, color: light ? C.bone : C.ink }}>
+      Alliance<span style={{ color: light ? C.gold : C.olive }}>One</span>
+    </span>
   );
 }
 
@@ -123,11 +112,12 @@ function Section({ children, style }) {
 
 // ---- nav -----------------------------------------------------------------
 
-// Two anchors in reading order — a shorter nav reads as a shorter page. The
-// hero and the craft (how it works) carry their own weight without nav links.
+// Three anchors in reading order — product, then philosophy, then fit. A short
+// nav reads as a short page; the hero carries its own weight without a link.
 const SECTIONS = [
-  ["different", "Why not just AI"],
-  ["assembly", "What it does"],
+  ["product", "Product"],
+  ["approach", "Approach"],
+  ["industries", "Industries"],
 ];
 
 function Nav({ onCta }) {
@@ -192,72 +182,14 @@ function Hero({ onCta }) {
         </p>
         <div style={{ marginTop: "2.4rem", display: "flex", gap: "1rem", flexWrap: "wrap" }}>
           <Btn variant="primary" onClick={onCta}>Start a deliberate conversation</Btn>
-          <Btn variant="ghost" onClick={() => document.getElementById("assembly")?.scrollIntoView({ behavior: "smooth" })}>See what it does</Btn>
+          <Btn variant="ghost" onClick={() => document.getElementById("product")?.scrollIntoView({ behavior: "smooth" })}>See the product</Btn>
         </div>
       </Wrap>
     </section>
   );
 }
 
-// ---- why not just use general AI ------------------------------------------
-// The one dark content beat, and the first section after the hero — it answers
-// the skeptic's reflex head-on. One setup line, then the contrast does the work.
 
-function Different() {
-  const general = [
-    "Has read every framework ever published — so it gives you the average of all consulting knowledge.",
-    "Sees only the fragment you paste, disconnected from everything around it.",
-    "Starts fresh each time. Nothing it learns on your work today survives tomorrow.",
-    "Knows the frameworks. It can't know your firm's earned opinion of them.",
-  ];
-  const ours = [
-    "Holds your firm's hard-won deviation from the average — what you learned actually works, and where.",
-    "Sees the whole: how each piece connects to the decision behind it and the outcome it led to.",
-    "Accumulates. Every completed engagement makes the account richer and the firm sharper.",
-    "Carries your firm's judgment about the frameworks — the thing a client pays a premium for.",
-  ];
-  return (
-    <Section style={{ background: C.ink, color: C.bone }}>
-      <div id="different" style={{ scrollMarginTop: 80 }} />
-      <Wrap>
-        <Eyebrow color={C.gold}>Why not just AI</Eyebrow>
-        <Head light size="section" style={{ maxWidth: "24ch" }}>
-          &ldquo;Couldn't we just do this with Claude or ChatGPT?&rdquo;
-        </Head>
-        <p style={{ color: "rgba(244,241,232,0.72)", fontSize: "1.05rem", maxWidth: "60ch", marginTop: "1.1rem" }}>
-          Good tools — you're probably already using them, and you should keep doing so. But there's one thing they can't do: not from any lack of capability, but because of what they fundamentally are.
-        </p>
-
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: "1px", background: "rgba(244,241,232,0.14)", border: "1px solid rgba(244,241,232,0.14)", marginTop: "2.8rem" }}>
-          <div style={{ background: C.ink, padding: "2.2rem 2rem" }}>
-            <h3 style={{ fontFamily: sans, fontSize: "0.78rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(244,241,232,0.55)", margin: "0 0 1.2rem" }}>A general model</h3>
-            {general.map((t, i) => (
-              <div key={i} style={{ display: "flex", gap: "0.8rem", alignItems: "baseline", padding: "0.7rem 0", borderTop: i === 0 ? "none" : "1px solid rgba(244,241,232,0.1)" }}>
-                <span style={{ color: "rgba(244,241,232,0.4)", flex: "none" }}>—</span>
-                <span style={{ fontSize: "0.96rem", color: "rgba(244,241,232,0.78)" }}>{t}</span>
-              </div>
-            ))}
-          </div>
-          <div style={{ background: C.oliveDeep, padding: "2.2rem 2rem" }}>
-            <h3 style={{ fontFamily: sans, fontSize: "0.78rem", letterSpacing: "0.16em", textTransform: "uppercase", color: C.gold, margin: "0 0 1.2rem" }}>AllianceOne</h3>
-            {ours.map((t, i) => (
-              <div key={i} style={{ display: "flex", gap: "0.8rem", alignItems: "baseline", padding: "0.7rem 0", borderTop: i === 0 ? "none" : "1px solid rgba(244,241,232,0.14)" }}>
-                <span style={{ color: C.gold, flex: "none" }}>✓</span>
-                <span style={{ fontSize: "0.96rem", color: "rgba(244,241,232,0.9)" }}>{t}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <p style={{ color: "rgba(244,241,232,0.72)", fontSize: "1.05rem", maxWidth: "62ch", marginTop: "2.4rem" }}>
-          It's not a contest of quality, and a better model won't close the gap. A general model hands anyone an opinion in seconds — the same average one your competitors get. What it can't hand them is <em style={{ fontStyle: "italic", color: C.goldSoft }}>evidence</em>: what actually worked, for whom, and why. General models <em style={{ fontStyle: "italic", color: C.goldSoft }}>retrieve</em> from everything; AllianceOne <em style={{ fontStyle: "italic", color: C.goldSoft }}>accumulates</em> that evidence from your firm — the one thing no model brings.
-        </p>
-      </Wrap>
-    </Section>
-  );
-}
-
-// ---- what it does (firm-as-hero benefits — the tangible payoff) -----------
 
 // Animated: source documents stream extracted data into a knowledge graph that
 // assembles around the firm's judgment. Builds once when scrolled into view,
@@ -395,19 +327,39 @@ function GraphCard() {
   );
 }
 
-function Assembly() {
+
+
+// ---- product (what it is, what it captures, where it shows up in the work) -
+// The centerpiece. Folds the old "what it does" mechanism and the craft's
+// capture model into one concrete product section, then shows it in real work.
+
+function Product() {
+  const capture = [
+    ["Who", "The client, the context, the constraints — the specific situation the work answered to.", false],
+    ["What", "The approach: framework, methodology, plan. The part every firm — and every general AI — already has.", false],
+    ["Why", "The reasoning behind the choice. Why this approach over the obvious alternative — the judgment that rarely gets written down.", true],
+    ["Outcome", "Promised versus delivered, what worked and what didn't. The evidence only your firm holds — the dimension that turns a record into calibrated judgment.", true],
+  ];
+  const work = [
+    ["Project planning", "Scope and plan a new engagement from how your firm actually ran the ones like it — the real approach, the shape of the team, and what to watch for.",
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M3 3v18h18" /><path d="M7 14l3-4 3 3 5-7" /></svg>],
+    ["Execution", "A junior drafts against the firm's own precedents and voice — work that reads like the firm wrote it, carrying the reasoning behind every call.",
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" /></svg>],
+    ["Review", "Work arrives carrying its grounding, so a senior reviews reasoning against how the firm has handled this before — not a blank page.",
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" /></svg>],
+  ];
   return (
     <Section style={{ background: C.boneDim }}>
-      <div id="assembly" style={{ scrollMarginTop: 80 }} />
+      <div id="product" style={{ scrollMarginTop: 80 }} />
       <Wrap>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))", gap: "4rem", alignItems: "center" }}>
           <div>
-            <Eyebrow>What it does</Eyebrow>
-            <Head size="section" style={{ maxWidth: "20ch", marginBottom: "1.1rem" }}>
+            <Eyebrow>Product</Eyebrow>
+            <Head size="display" style={{ maxWidth: "18ch", marginBottom: "1.1rem" }}>
               Your firm's judgment, working for everyone in it.
             </Head>
-            <p style={{ color: C.inkSoft, marginBottom: "1.1rem" }}>
-              Your firm's accumulated work — every engagement, decision, and outcome — is a proprietary asset, scattered across too many places to put to use. It's already there, in your documents, threads, methodologies, and people. AllianceOne assembles it into <strong style={{ color: C.ink, fontWeight: 600 }}>one living account</strong> of how your firm works and puts it back in their hands, so the firm's hard-won judgment shows up in the work instead of leaking away.
+            <p style={{ color: C.inkSoft, fontSize: "1.08rem", marginBottom: "1.1rem" }}>
+              AllianceOne assembles your firm's accumulated work — every engagement, decision, and outcome, scattered across documents, threads, methodologies, and people — into <strong style={{ color: C.ink, fontWeight: 600 }}>one living account</strong> of how your firm actually works, in the hands of the people who built it.
             </p>
             <p style={{ color: C.inkSoft, margin: 0 }}>
               We don't train a model on your firm; we build a living model <em style={{ fontStyle: "italic" }}>of</em> it. The structure stays explicit, so every connection is traceable to its source — legible, auditable, and yours.
@@ -416,46 +368,73 @@ function Assembly() {
           <GraphCard />
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: "1.6rem", marginTop: "4rem" }}>
-          {[
-            ["Juniors deliver like the firm", "A junior drafts against the firm's real precedents and voice — work that reads like the firm wrote it, not a generic model."],
-            ["Seniors review reasoning, not piles", "Work carries its grounding with it, so review starts from “does this match how we've handled this — and should it?” not a blank page."],
-            ["The firm gets sharper with use", "As engagements complete, decisions connect to outcomes. What surfaces next is shaped by what actually happened — so judgment compounds."],
-          ].map(([h, p], i) => (
-            <div key={i} style={{ background: C.paper, border: `1px solid ${C.line}`, borderRadius: 6, padding: "2rem 1.8rem" }}>
-              <div style={{ width: 34, height: 34, color: C.olive, marginBottom: "1rem" }}>
-                {i === 0 && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" /></svg>}
-                {i === 1 && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" /></svg>}
-                {i === 2 && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M3 3v18h18" /><path d="M7 14l3-4 3 3 5-7" /></svg>}
+        <p style={{ color: C.ink, fontWeight: 500, fontSize: "1.12rem", maxWidth: "58ch", margin: "4rem 0 0" }}>
+          It assembles around the shape of the work itself — four things, for every engagement your firm has done.
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: "1.4rem", marginTop: "1.8rem" }}>
+          {capture.map(([term, desc, moat], i) => (
+            <div key={i} style={{ background: moat ? C.ink : C.paper, color: moat ? C.bone : C.ink, border: `1px solid ${moat ? C.ink : C.line}`, borderRadius: 8, padding: "2rem 1.8rem" }}>
+              <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: "0.8rem" }}>
+                <h3 style={{ fontFamily: serif, fontWeight: 600, fontSize: "1.9rem", margin: 0, color: moat ? C.gold : C.oliveDeep }}>{term}</h3>
+                <span style={{ fontFamily: sans, fontSize: "0.62rem", fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: moat ? C.gold : C.oliveLite, border: `1px solid ${moat ? "rgba(180,150,90,0.4)" : C.line}`, borderRadius: 100, padding: "0.2rem 0.55rem" }}>
+                  {moat ? "the moat" : "commodity"}
+                </span>
               </div>
-              <h3 style={{ fontFamily: serif, fontWeight: 500, fontSize: "1.4rem", margin: "0 0 0.55rem" }}>{h}</h3>
-              <p style={{ fontSize: "0.95rem", color: C.inkSoft, margin: 0 }}>{p}</p>
+              <p style={{ fontSize: "0.93rem", color: moat ? "rgba(244,241,232,0.72)" : C.inkSoft, margin: 0 }}>{desc}</p>
             </div>
           ))}
+        </div>
+        <p style={{ fontFamily: serif, fontStyle: "italic", fontSize: "1.3rem", color: C.oliveDeep, maxWidth: "62ch", margin: "2.4rem 0 0", lineHeight: 1.4 }}>
+          The What is the part anyone can already give you. The Why and the Outcome live only in your firm's own history — and they're the evidence your judgment is built on.
+        </p>
+
+        <div style={{ borderTop: `1px solid ${C.line}`, margin: "4rem 0 0", paddingTop: "3rem" }}>
+          <Head size="section" style={{ maxWidth: "22ch" }}>
+            Where it shows up in the work.
+          </Head>
+          <p style={{ color: C.inkSoft, fontSize: "1.05rem", maxWidth: "56ch", marginTop: "1rem" }}>
+            Not a chatbot bolted to the side. The account drives the everyday work of an engagement — planning it, doing it, checking it.
+          </p>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: "1.6rem", marginTop: "2.4rem" }}>
+            {work.map(([h, p, icon], i) => (
+              <div key={i} style={{ background: C.paper, border: `1px solid ${C.line}`, borderRadius: 6, padding: "2rem 1.8rem" }}>
+                <div style={{ width: 34, height: 34, color: C.olive, marginBottom: "1rem" }}>{icon}</div>
+                <h3 style={{ fontFamily: serif, fontWeight: 500, fontSize: "1.4rem", margin: "0 0 0.55rem" }}>{h}</h3>
+                <p style={{ fontSize: "0.95rem", color: C.inkSoft, margin: 0 }}>{p}</p>
+              </div>
+            ))}
+          </div>
+          <p style={{ color: C.inkSoft, fontSize: "1.05rem", maxWidth: "60ch", marginTop: "2.4rem", marginBottom: 0 }}>
+            And it compounds: as each engagement completes, its decisions connect to outcomes and feed back in — so the account gets richer and the firm gets sharper with every project.
+          </p>
         </div>
       </Wrap>
     </Section>
   );
 }
 
-// ---- the craft → what we capture (the spine; how it actually works) -------
-// The thesis is stated ONCE here, then resolves into the four-part capture.
-// This is the single display-size peak — the engine behind the payoff above.
+// ---- approach (the philosophy + why-not-just-AI, folded into one argument) -
 
-function Craft() {
-  const cards = [
-    ["Who", "The client, the context, the constraints — the specific situation the work answered to.", false],
-    ["What", "The approach: framework, methodology, plan. The part every firm — and every general AI — already has.", false],
-    ["Why", "The reasoning behind the choice. Why this approach over the obvious alternative — the judgment that rarely gets written down.", true],
-    ["Outcome", "What actually happened: promised versus delivered, what worked and what didn't. The evidence only your firm holds — and the dimension that turns a record into calibrated judgment.", true],
+function Approach() {
+  const general = [
+    "Has read every framework ever published — so it gives you the average of all consulting knowledge.",
+    "Sees only the fragment you paste, disconnected from everything around it.",
+    "Starts fresh each time. Nothing it learns on your work today survives tomorrow.",
+    "Knows the frameworks. It can't know your firm's earned opinion of them.",
+  ];
+  const ours = [
+    "Holds your firm's hard-won deviation from the average — what you learned actually works, and where.",
+    "Sees the whole: how each piece connects to the decision behind it and the outcome it led to.",
+    "Accumulates. Every completed engagement makes the account richer and the firm sharper.",
+    "Carries your firm's judgment about the frameworks — the thing a client pays a premium for.",
   ];
   return (
     <Section>
-      <div id="craft" style={{ scrollMarginTop: 80 }} />
+      <div id="approach" style={{ scrollMarginTop: 80 }} />
       <Wrap>
         <div style={{ maxWidth: "60ch" }}>
-          <Eyebrow>The craft</Eyebrow>
-          <Head size="display" style={{ maxWidth: "20ch", marginBottom: "1.3rem" }}>
+          <Eyebrow>Approach</Eyebrow>
+          <Head size="section" style={{ maxWidth: "20ch", marginBottom: "1.3rem" }}>
             The framework was never the hard part.
           </Head>
           <p style={{ color: C.inkSoft, fontSize: "1.12rem", marginBottom: "1.1rem" }}>
@@ -469,26 +448,70 @@ function Craft() {
           </p>
         </div>
 
-        <p style={{ color: C.ink, fontWeight: 500, fontSize: "1.12rem", maxWidth: "58ch", margin: "3.4rem 0 0" }}>
-          AllianceOne assembles it around the shape of the work itself — four things, for every engagement your firm has done.
+        <div style={{ background: C.ink, color: C.bone, borderRadius: 10, padding: "clamp(2rem,4vw,3.2rem)", marginTop: "3.4rem" }}>
+          <Eyebrow color={C.gold}>Why not just AI</Eyebrow>
+          <Head light size="section" style={{ maxWidth: "24ch" }}>
+            &ldquo;Couldn't we just do this with Claude or ChatGPT?&rdquo;
+          </Head>
+          <p style={{ color: "rgba(244,241,232,0.72)", fontSize: "1.05rem", maxWidth: "60ch", marginTop: "1.1rem" }}>
+            Good tools — you're probably already using them, and you should keep doing so. But there's one thing they can't do: not from any lack of capability, but because of what they fundamentally are.
+          </p>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "1px", background: "rgba(244,241,232,0.14)", border: "1px solid rgba(244,241,232,0.14)", marginTop: "2.4rem" }}>
+            <div style={{ background: C.ink, padding: "2.2rem 2rem" }}>
+              <h3 style={{ fontFamily: sans, fontSize: "0.78rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(244,241,232,0.55)", margin: "0 0 1.2rem" }}>A general model</h3>
+              {general.map((t, i) => (
+                <div key={i} style={{ display: "flex", gap: "0.8rem", alignItems: "baseline", padding: "0.7rem 0", borderTop: i === 0 ? "none" : "1px solid rgba(244,241,232,0.1)" }}>
+                  <span style={{ color: "rgba(244,241,232,0.4)", flex: "none" }}>—</span>
+                  <span style={{ fontSize: "0.96rem", color: "rgba(244,241,232,0.78)" }}>{t}</span>
+                </div>
+              ))}
+            </div>
+            <div style={{ background: C.oliveDeep, padding: "2.2rem 2rem" }}>
+              <h3 style={{ fontFamily: sans, fontSize: "0.78rem", letterSpacing: "0.16em", textTransform: "uppercase", color: C.gold, margin: "0 0 1.2rem" }}>AllianceOne</h3>
+              {ours.map((t, i) => (
+                <div key={i} style={{ display: "flex", gap: "0.8rem", alignItems: "baseline", padding: "0.7rem 0", borderTop: i === 0 ? "none" : "1px solid rgba(244,241,232,0.14)" }}>
+                  <span style={{ color: C.gold, flex: "none" }}>✓</span>
+                  <span style={{ fontSize: "0.96rem", color: "rgba(244,241,232,0.9)" }}>{t}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <p style={{ color: "rgba(244,241,232,0.72)", fontSize: "1.05rem", maxWidth: "62ch", margin: "2.4rem 0 0" }}>
+            It's not a contest of quality, and a better model won't close the gap. A general model hands anyone an opinion in seconds — the same average one your competitors get. What it can't hand them is <em style={{ fontStyle: "italic", color: C.goldSoft }}>evidence</em>: what actually worked, for whom, and why. General models <em style={{ fontStyle: "italic", color: C.goldSoft }}>retrieve</em> from everything; AllianceOne <em style={{ fontStyle: "italic", color: C.goldSoft }}>accumulates</em> that evidence from your firm — the one thing no model brings.
+          </p>
+        </div>
+      </Wrap>
+    </Section>
+  );
+}
+
+// ---- industries (the firms it's built for — verticals whose product is judgment)
+
+function Industries() {
+  const items = [
+    ["Management consulting", "Where the deliverable is judgment itself — which approach, why, and whether it worked. The reasoning behind every recommendation becomes reusable, instead of walking out the door with the partner who made it."],
+    ["Advisory", "Deals, risk, restructuring — high-stakes, precedent-driven work where what you did last time, and how it actually turned out, is the most valuable thing in the room."],
+    ["Accounting & tax", "Where engagement history, positions taken, and institutional knowledge shape quality, risk, and margin across hundreds of recurring engagements."],
+  ];
+  return (
+    <Section style={{ background: C.boneDim }}>
+      <div id="industries" style={{ scrollMarginTop: 80 }} />
+      <Wrap>
+        <Eyebrow>Industries</Eyebrow>
+        <Head size="section" style={{ maxWidth: "24ch", marginBottom: "1.1rem" }}>
+          Built for firms whose product is judgment.
+        </Head>
+        <p style={{ color: C.inkSoft, fontSize: "1.05rem", maxWidth: "58ch", marginBottom: "2.8rem" }}>
+          The work differs, but the asset is the same: decades of hard-won reasoning, distributed across people and engagements — and never assembled until now.
         </p>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: "1.4rem", marginTop: "1.8rem" }}>
-          {cards.map(([term, desc, moat], i) => (
-            <div key={i} style={{ background: moat ? C.ink : C.paper, color: moat ? C.bone : C.ink, border: `1px solid ${moat ? C.ink : C.line}`, borderRadius: 8, padding: "2rem 1.8rem" }}>
-              <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: "0.8rem" }}>
-                <h3 style={{ fontFamily: serif, fontWeight: 600, fontSize: "1.9rem", margin: 0, color: moat ? C.gold : C.oliveDeep }}>{term}</h3>
-                <span style={{ fontFamily: sans, fontSize: "0.62rem", fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: moat ? C.gold : C.oliveLite, border: `1px solid ${moat ? "rgba(180,150,90,0.4)" : C.line}`, borderRadius: 100, padding: "0.2rem 0.55rem" }}>
-                  {moat ? "the moat" : "commodity"}
-                </span>
-              </div>
-              <p style={{ fontSize: "0.93rem", color: moat ? "rgba(244,241,232,0.72)" : C.inkSoft, margin: 0 }}>{desc}</p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: "2rem 2.5rem" }}>
+          {items.map(([h, p]) => (
+            <div key={h} style={{ borderTop: `2px solid ${C.olive}`, paddingTop: "1.1rem" }}>
+              <h3 style={{ fontFamily: serif, fontWeight: 500, fontSize: "1.5rem", margin: "0 0 0.6rem" }}>{h}</h3>
+              <p style={{ fontSize: "0.97rem", color: C.inkSoft, margin: 0 }}>{p}</p>
             </div>
           ))}
         </div>
-
-        <p style={{ fontFamily: serif, fontStyle: "italic", fontSize: "1.3rem", color: C.oliveDeep, maxWidth: "62ch", margin: "2.4rem 0 0", lineHeight: 1.4 }}>
-          The What is the part anyone can already give you. The Why and the Outcome live only in your firm's own history — and they're the evidence your judgment is built on.
-        </p>
       </Wrap>
     </Section>
   );
@@ -497,7 +520,7 @@ function Craft() {
 // ---- footer (ASG as quiet plumbing) -----------------------------------------
 
 function Footer({ onCta }) {
-  const links = [["different", "Why not just AI"], ["assembly", "What it does"]];
+  const links = [["product", "Product"], ["approach", "Approach"], ["industries", "Industries"]];
   return (
     <footer style={{ background: C.ink, color: C.bone, padding: "4rem 0 2.5rem", borderTop: "1px solid rgba(244,241,232,0.1)" }}>
       <Wrap>
@@ -578,9 +601,9 @@ export default function App() {
     <div style={{ fontFamily: sans, background: C.bone, color: C.ink, fontSize: 17, lineHeight: 1.6, minHeight: "100vh", overflowX: "hidden" }}>
       <Nav onCta={openCta} />
       <Hero onCta={openCta} />
-      <Different />
-      <Assembly />
-      <Craft />
+      <Product />
+      <Approach />
+      <Industries />
       <Footer onCta={openCta} />
       <Modal open={modal} onClose={() => setModal(false)} />
     </div>
