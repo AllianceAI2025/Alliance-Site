@@ -123,12 +123,11 @@ function Section({ children, style }) {
 
 // ---- nav -----------------------------------------------------------------
 
-// Three anchors in reading order — a shorter nav reads as a shorter page. The
+// Two anchors in reading order — a shorter nav reads as a shorter page. The
 // hero and the craft (how it works) carry their own weight without nav links.
 const SECTIONS = [
   ["different", "Why not just AI"],
   ["assembly", "What it does"],
-  ["adopt", "Build partners"],
 ];
 
 function Nav({ onCta }) {
@@ -495,38 +494,10 @@ function Craft() {
   );
 }
 
-// ---- the close (build partners + final CTA, merged) ------------------------
-
-function Adopt({ onCta }) {
-  return (
-    <Section style={{ paddingTop: "clamp(2.5rem,5vw,4rem)" }}>
-      <div id="adopt" style={{ scrollMarginTop: 80 }} />
-      <Wrap>
-        <div style={{ background: C.oliveDeep, color: C.bone, borderRadius: 10, padding: "clamp(2.5rem,5vw,4rem)", position: "relative", overflow: "hidden" }}>
-          <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 88% 12%, rgba(180,150,90,0.25), transparent 42%), radial-gradient(circle at 5% 95%, rgba(138,145,111,0.25), transparent 48%)" }} />
-          <div style={{ position: "relative", zIndex: 1, maxWidth: "64ch" }}>
-            <Eyebrow color={C.gold}>Build partners</Eyebrow>
-            <Head light size="display" style={{ maxWidth: "26ch", margin: "1rem 0 1.2rem" }}>
-              The antidote to a rushed AI decision is a small, honest one.
-            </Head>
-            <p style={{ color: "rgba(244,241,232,0.82)", fontSize: "1.05rem", marginBottom: "1.8rem" }}>
-              We're working with a small number of founding build partners — firms that shape AllianceOne around their real engagements. Founding terms, direct influence over the roadmap, and clear checkpoints where either side can step away. It's how a careful firm tries the new baseline without betting on a slogan.
-            </p>
-            <p style={{ fontFamily: serif, fontStyle: "italic", fontSize: "1.45rem", color: C.bone, lineHeight: 1.3, margin: "0 0 2rem", maxWidth: "30ch" }}>
-              Your firm already knows more than it can see. Let's put it to work.
-            </p>
-            <Btn variant="gold" onClick={onCta}>Start the conversation</Btn>
-          </div>
-        </div>
-      </Wrap>
-    </Section>
-  );
-}
-
 // ---- footer (ASG as quiet plumbing) -----------------------------------------
 
 function Footer({ onCta }) {
-  const links = [["different", "Why not just AI"], ["assembly", "What it does"], ["adopt", "Build partners"]];
+  const links = [["different", "Why not just AI"], ["assembly", "What it does"]];
   return (
     <footer style={{ background: C.ink, color: C.bone, padding: "4rem 0 2.5rem", borderTop: "1px solid rgba(244,241,232,0.1)" }}>
       <Wrap>
@@ -610,7 +581,6 @@ export default function App() {
       <Different />
       <Assembly />
       <Craft />
-      <Adopt onCta={openCta} />
       <Footer onCta={openCta} />
       <Modal open={modal} onClose={() => setModal(false)} />
     </div>
