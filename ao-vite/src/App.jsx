@@ -183,8 +183,7 @@ function Hero({ onCta }) {
     <section style={{ position: "relative", overflow: "hidden", padding: "clamp(4rem,8vw,7rem) 0 clamp(4rem,7vw,6rem)" }}>
       <div style={{ position: "absolute", inset: 0, opacity: 0.5, backgroundImage: `linear-gradient(${C.lineSoft} 1px, transparent 1px), linear-gradient(90deg, ${C.lineSoft} 1px, transparent 1px)`, backgroundSize: "64px 64px", WebkitMaskImage: "radial-gradient(ellipse 75% 70% at 72% 32%, #000 0%, transparent 72%)", maskImage: "radial-gradient(ellipse 75% 70% at 72% 32%, #000 0%, transparent 72%)" }} />
       <Wrap style={{ position: "relative", zIndex: 1 }}>
-        <Eyebrow>For professional services firms</Eyebrow>
-        <h1 style={{ fontFamily: serif, fontWeight: 500, fontSize: "clamp(2.6rem,6vw,5rem)", lineHeight: 1.04, letterSpacing: "-0.025em", maxWidth: "18ch", margin: "0.8rem 0 0" }}>
+        <h1 style={{ fontFamily: serif, fontWeight: 500, fontSize: "clamp(2.6rem,6vw,5rem)", lineHeight: 1.04, letterSpacing: "-0.025em", maxWidth: "18ch", margin: 0 }}>
           Your firm already knows <em style={{ fontStyle: "italic", color: C.olive }}>more than it can see.</em>
         </h1>
         <p style={{ fontSize: "clamp(1.1rem,1.8vw,1.4rem)", maxWidth: "54ch", marginTop: "1.6rem", color: C.ink, fontWeight: 500 }}>
