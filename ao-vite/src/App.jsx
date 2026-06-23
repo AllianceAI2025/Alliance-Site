@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 // ============================================================
 // AllianceOne — product site v5
@@ -262,36 +262,138 @@ function Different() {
 
 // ---- what it does (firm-as-hero benefits — the tangible payoff) -----------
 
+// Animated: source documents stream extracted data into a knowledge graph that
+// assembles around the firm's judgment. Builds once when scrolled into view,
+// then settles into a calm steady state (mote flow + soft pulse). Honors
+// prefers-reduced-motion by showing the finished, static graph.
 function GraphCard() {
+  const ref = useRef(null);
+  const [play, setPlay] = useState(false);
+  const [reduce] = useState(() => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || !("IntersectionObserver" in window)) { setPlay(true); return; }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { setPlay(true); io.disconnect(); } });
+    }, { threshold: 0.35 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  const core = { x: 230, y: 196 };
+  const sources = [
+    { label: "Proposals", x: 80, y: 70 },
+    { label: "Email", x: 380, y: 70 },
+    { label: "Deliverables", x: 58, y: 196 },
+    { label: "Delivery plans", x: 402, y: 196 },
+    { label: "Methods", x: 100, y: 322 },
+    { label: "Outcomes", x: 360, y: 322 },
+  ];
+  const inner = [
+    { x: 230, y: 132 }, { x: 296, y: 174 }, { x: 272, y: 250 }, { x: 190, y: 252 }, { x: 166, y: 176 },
+  ];
+  const cls = `ao-graph${reduce ? "" : " arm"}${play ? " play" : ""}`;
+
   return (
-    <div style={{ background: C.ink, borderRadius: 8, padding: "2.4rem", position: "relative", minHeight: 380, overflow: "hidden", boxShadow: "0 30px 60px -30px rgba(20,22,15,0.5)" }}>
-      <svg viewBox="0 0 420 360" style={{ width: "100%", height: "auto", display: "block" }} aria-label="Distributed sources assembled into one connected account">
+    <div ref={ref} className={cls} style={{ ["--e"]: ease, background: C.ink, borderRadius: 8, padding: "2.2rem 2.2rem 1.6rem", overflow: "hidden", boxShadow: "0 30px 60px -30px rgba(20,22,15,0.5)" }}>
+      <svg viewBox="0 0 460 400" role="img" aria-label="AllianceOne extracting data from a firm's proposals, email, deliverables, delivery plans, methods, and outcomes, and assembling it into one connected knowledge graph">
+        <title>Scattered sources, extracted and assembled into one living knowledge graph</title>
         <defs>
           <linearGradient id="ed" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0" stopColor={C.gold} stopOpacity="0.85" />
             <stop offset="1" stopColor={C.oliveLite} stopOpacity="0.4" />
           </linearGradient>
+          <radialGradient id="coreglow" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0" stopColor={C.gold} stopOpacity="0.32" />
+            <stop offset="1" stopColor={C.gold} stopOpacity="0" />
+          </radialGradient>
         </defs>
-        <g stroke="url(#ed)" strokeWidth="1.4" fill="none">
-          <line x1="210" y1="185" x2="95" y2="70" /><line x1="210" y1="185" x2="335" y2="80" />
-          <line x1="210" y1="185" x2="70" y2="200" /><line x1="210" y1="185" x2="350" y2="210" />
-          <line x1="210" y1="185" x2="130" y2="305" /><line x1="210" y1="185" x2="300" y2="300" />
-        </g>
-        <circle cx="210" cy="185" r="40" fill={C.gold} />
-        <text x="210" y="181" textAnchor="middle" fontFamily={sans} fontSize="11" fontWeight="700" fill={C.ink}>Your firm's</text>
-        <text x="210" y="194" textAnchor="middle" fontFamily={sans} fontSize="11" fontWeight="700" fill={C.ink}>judgment</text>
-        <g fontFamily={sans} fontSize="9.5" fontWeight="500" fill={C.bone} textAnchor="middle">
-          <circle cx="95" cy="70" r="25" fill={C.olive} /><text x="95" y="73">Proposals</text>
-          <circle cx="335" cy="80" r="25" fill={C.olive} /><text x="335" y="83">Email</text>
-          <circle cx="70" cy="200" r="25" fill={C.olive} /><text x="70" y="203">Teams</text>
-          <circle cx="350" cy="210" r="25" fill={C.olive} /><text x="350" y="213">Methods</text>
-          <circle cx="130" cy="305" r="25" fill={C.olive} /><text x="130" y="308">People</text>
-          <circle cx="300" cy="300" r="25" fill={C.olive} /><text x="300" y="303">Outcomes</text>
+
+        {/* perimeter connectors: source -> core */}
+        {sources.map((s, i) => (
+          <path key={`e${i}`} className="ao-edge" d={`M${s.x},${s.y} L${core.x},${core.y}`} pathLength="1"
+            fill="none" stroke="url(#ed)" strokeWidth="1.3" strokeDasharray="1"
+            style={{ animationDelay: `${0.5 + i * 0.06}s` }} />
+        ))}
+
+        {/* inner knowledge-graph edges: spokes + ring */}
+        {inner.map((n, j) => (
+          <path key={`sp${j}`} className="ao-edge-inner" d={`M${core.x},${core.y} L${n.x},${n.y}`} pathLength="1"
+            fill="none" stroke={C.goldSoft} strokeOpacity="0.5" strokeWidth="1" strokeDasharray="1"
+            style={{ animationDelay: `${1.0 + j * 0.05}s` }} />
+        ))}
+        {inner.map((n, j) => {
+          const m = inner[(j + 1) % inner.length];
+          return (
+            <path key={`rg${j}`} className="ao-edge-inner" d={`M${n.x},${n.y} L${m.x},${m.y}`} pathLength="1"
+              fill="none" stroke={C.oliveLite} strokeOpacity="0.45" strokeWidth="1" strokeDasharray="1"
+              style={{ animationDelay: `${1.2 + j * 0.05}s` }} />
+          );
+        })}
+
+        {/* source documents */}
+        {sources.map((s, i) => (
+          <g key={`d${i}`} className="ao-src" style={{ animationDelay: `${0.1 + i * 0.06}s` }}>
+            <g transform={`translate(${s.x - 13},${s.y - 16})`}>
+              <path d="M0,2 a2,2 0 0 1 2,-2 h16 l8,8 v22 a2,2 0 0 1 -2,2 h-22 a2,2 0 0 1 -2,-2 z" fill={C.oliveDeep} stroke={C.oliveLite} strokeWidth="1" />
+              <path d="M18,0 v6 a2,2 0 0 0 2,2 h6" fill="none" stroke={C.oliveLite} strokeWidth="1" />
+              <line x1="5" y1="14" x2="21" y2="14" stroke={C.goldSoft} strokeOpacity="0.7" strokeWidth="1.4" />
+              <line x1="5" y1="19" x2="21" y2="19" stroke={C.goldSoft} strokeOpacity="0.5" strokeWidth="1.4" />
+              <line x1="5" y1="24" x2="15" y2="24" stroke={C.goldSoft} strokeOpacity="0.4" strokeWidth="1.4" />
+            </g>
+            <text x={s.x} y={s.y + 34} textAnchor="middle" fontFamily={sans} fontSize="9.5" fontWeight="600" fill="rgba(244,241,232,0.62)" letterSpacing="0.04em">{s.label}</text>
+          </g>
+        ))}
+
+        {/* data motes streaming source -> core */}
+        {sources.map((s, i) => {
+          const dx = core.x - s.x, dy = core.y - s.y;
+          return [0, 1].map((k) => (
+            <circle key={`m${i}-${k}`} className="ao-mote" cx={s.x} cy={s.y} r="3.1" fill={C.gold}
+              style={{ ["--dx"]: `${dx}px`, ["--dy"]: `${dy}px`, animationDelay: `${0.9 + i * 0.12 + k * 1.3}s` }} />
+          ));
+        })}
+
+        {/* inner graph nodes */}
+        {inner.map((n, j) => (
+          <circle key={`n${j}`} className="ao-node" cx={n.x} cy={n.y} r="5" fill={C.goldSoft}
+            style={{ animationDelay: `${1.15 + j * 0.07}s` }} />
+        ))}
+
+        {/* core: the firm's judgment */}
+        <g className="ao-core">
+          <circle cx={core.x} cy={core.y} r="58" fill="url(#coreglow)" />
+          <circle cx={core.x} cy={core.y} r="34" fill={C.gold} />
+          <text x={core.x} y={core.y - 3} textAnchor="middle" fontFamily={sans} fontSize="11" fontWeight="700" fill={C.ink}>Your firm's</text>
+          <text x={core.x} y={core.y + 10} textAnchor="middle" fontFamily={sans} fontSize="11" fontWeight="700" fill={C.ink}>judgment</text>
         </g>
       </svg>
-      <span style={{ position: "absolute", bottom: "1.3rem", left: "2.4rem", fontSize: "0.7rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(244,241,232,0.5)" }}>
-        Scattered everywhere — assembled into one account
-      </span>
+
+      <p style={{ fontFamily: sans, fontSize: "0.7rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(244,241,232,0.5)", textAlign: "center", margin: "0.6rem 0 0" }}>
+        Extracted from your firm's work — assembled into one living graph
+      </p>
+
+      <style>{`
+        .ao-graph svg{width:100%;height:auto;display:block}
+        .ao-graph .ao-node,.ao-graph .ao-core{transform-box:fill-box;transform-origin:center}
+        .ao-graph .ao-mote{opacity:0}
+        @media (prefers-reduced-motion: no-preference){
+          .ao-graph.arm .ao-src,.ao-graph.arm .ao-edge,.ao-graph.arm .ao-edge-inner,.ao-graph.arm .ao-node,.ao-graph.arm .ao-core{opacity:0}
+          .ao-graph.play .ao-src{animation:ao-rise .7s var(--e) both}
+          .ao-graph.play .ao-edge{animation:ao-draw .9s var(--e) both}
+          .ao-graph.play .ao-edge-inner{animation:ao-draw 1s var(--e) both}
+          .ao-graph.play .ao-node{animation:ao-pop .6s var(--e) both, ao-bob 5s ease-in-out 1.8s infinite}
+          .ao-graph.play .ao-core{animation:ao-pop .7s var(--e) .45s both, ao-pulse 4.5s ease-in-out 2s infinite}
+          .ao-graph.play .ao-mote{animation:ao-mote 2.6s linear infinite}
+        }
+        @keyframes ao-rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+        @keyframes ao-pop{from{opacity:0;transform:scale(.55)}to{opacity:1;transform:none}}
+        @keyframes ao-draw{from{stroke-dashoffset:1;opacity:1}to{stroke-dashoffset:0;opacity:1}}
+        @keyframes ao-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}
+        @keyframes ao-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+        @keyframes ao-mote{0%{transform:translate(0,0);opacity:0}14%{opacity:1}80%{opacity:1}100%{transform:translate(var(--dx),var(--dy));opacity:0}}
+      `}</style>
     </div>
   );
 }
