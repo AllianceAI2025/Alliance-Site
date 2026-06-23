@@ -183,8 +183,7 @@ function Hero({ onCta }) {
     <section style={{ position: "relative", overflow: "hidden", padding: "clamp(4rem,8vw,7rem) 0 clamp(4rem,7vw,6rem)" }}>
       <div style={{ position: "absolute", inset: 0, opacity: 0.5, backgroundImage: `linear-gradient(${C.lineSoft} 1px, transparent 1px), linear-gradient(90deg, ${C.lineSoft} 1px, transparent 1px)`, backgroundSize: "64px 64px", WebkitMaskImage: "radial-gradient(ellipse 75% 70% at 72% 32%, #000 0%, transparent 72%)", maskImage: "radial-gradient(ellipse 75% 70% at 72% 32%, #000 0%, transparent 72%)" }} />
       <Wrap style={{ position: "relative", zIndex: 1 }}>
-        <Eyebrow>For professional services firms</Eyebrow>
-        <h1 style={{ fontFamily: serif, fontWeight: 500, fontSize: "clamp(2.6rem,6vw,5rem)", lineHeight: 1.04, letterSpacing: "-0.025em", maxWidth: "18ch", margin: "0.8rem 0 0" }}>
+        <h1 style={{ fontFamily: serif, fontWeight: 500, fontSize: "clamp(2.6rem,6vw,5rem)", lineHeight: 1.04, letterSpacing: "-0.025em", maxWidth: "18ch", margin: 0 }}>
           Your firm already knows <em style={{ fontStyle: "italic", color: C.olive }}>more than it can see.</em>
         </h1>
         <p style={{ fontSize: "clamp(1.1rem,1.8vw,1.4rem)", maxWidth: "54ch", marginTop: "1.6rem", color: C.ink, fontWeight: 500 }}>
@@ -253,7 +252,7 @@ function Different() {
         </div>
 
         <p style={{ color: "rgba(244,241,232,0.72)", fontSize: "1.05rem", maxWidth: "62ch", marginTop: "2.4rem" }}>
-          It's not a contest of quality, and a better model won't close the gap. General models <em style={{ fontStyle: "italic", color: C.goldSoft }}>retrieve</em> from everything; AllianceOne <em style={{ fontStyle: "italic", color: C.goldSoft }}>accumulates</em> from your firm. We use models too — to reason over that history. The history is the difference, and it's the one thing no model brings.
+          It's not a contest of quality, and a better model won't close the gap. A general model hands anyone an opinion in seconds — the same average one your competitors get. What it can't hand them is <em style={{ fontStyle: "italic", color: C.goldSoft }}>evidence</em>: what actually worked, for whom, and why. General models <em style={{ fontStyle: "italic", color: C.goldSoft }}>retrieve</em> from everything; AllianceOne <em style={{ fontStyle: "italic", color: C.goldSoft }}>accumulates</em> that evidence from your firm — the one thing no model brings.
         </p>
       </Wrap>
     </Section>
@@ -410,7 +409,7 @@ function Assembly() {
               Your firm's judgment, working for everyone in it.
             </Head>
             <p style={{ color: C.inkSoft, marginBottom: "1.1rem" }}>
-              The knowledge is already there — in your documents, threads, methodologies, and people. AllianceOne assembles it into <strong style={{ color: C.ink, fontWeight: 600 }}>one living account</strong> of how your firm works and puts it back in their hands, so the firm's hard-won judgment shows up in the work instead of leaking away.
+              Your firm's accumulated work — every engagement, decision, and outcome — is a proprietary asset, scattered across too many places to put to use. It's already there, in your documents, threads, methodologies, and people. AllianceOne assembles it into <strong style={{ color: C.ink, fontWeight: 600 }}>one living account</strong> of how your firm works and puts it back in their hands, so the firm's hard-won judgment shows up in the work instead of leaking away.
             </p>
             <p style={{ color: C.inkSoft, margin: 0 }}>
               We don't train a model on your firm; we build a living model <em style={{ fontStyle: "italic" }}>of</em> it. The structure stays explicit, so every connection is traceable to its source — legible, auditable, and yours.
@@ -450,7 +449,7 @@ function Craft() {
     ["Who", "The client, the context, the constraints — the specific situation the work answered to.", false],
     ["What", "The approach: framework, methodology, plan. The part every firm — and every general AI — already has.", false],
     ["Why", "The reasoning behind the choice. Why this approach over the obvious alternative — the judgment that rarely gets written down.", true],
-    ["Outcome", "What actually happened: promised versus delivered, what worked and what didn't. The dimension that turns a record into calibrated judgment.", true],
+    ["Outcome", "What actually happened: promised versus delivered, what worked and what didn't. The evidence only your firm holds — and the dimension that turns a record into calibrated judgment.", true],
   ];
   return (
     <Section>
@@ -464,8 +463,11 @@ function Craft() {
           <p style={{ color: C.inkSoft, fontSize: "1.12rem", marginBottom: "1.1rem" }}>
             Consulting is the craft of applying proven frameworks to specific problems. But the frameworks were never what made a firm valuable. Every firm has them. Now every AI has them too.
           </p>
+          <p style={{ color: C.inkSoft, fontSize: "1.12rem", marginBottom: "1.1rem" }}>
+            When the same competent answer is available to everyone in seconds, the framework alone stops being a differentiator — and advice built on it competes on price.
+          </p>
           <p style={{ color: C.inkSoft, fontSize: "1.12rem", margin: 0 }}>
-            The hard part — the part that takes a career — is the <strong style={{ color: C.ink, fontWeight: 600 }}>judgment</strong>: which approach fits which problem, why, and whether it actually worked. It isn't lost. It's <strong style={{ color: C.ink, fontWeight: 600 }}>unassembled</strong> — scattered across your proposals, email, teams, methodologies, and people, so no one has ever seen the whole of it at once.
+            What doesn't commoditize is the <strong style={{ color: C.ink, fontWeight: 600 }}>judgment</strong> underneath — the part that takes a career: which approach fits which problem, why, and whether it actually worked. It isn't lost. It's <strong style={{ color: C.ink, fontWeight: 600 }}>unassembled</strong> — scattered across your proposals, email, teams, methodologies, and people, so no one has ever seen the whole of it at once.
           </p>
         </div>
 
@@ -487,7 +489,7 @@ function Craft() {
         </div>
 
         <p style={{ fontFamily: serif, fontStyle: "italic", fontSize: "1.3rem", color: C.oliveDeep, maxWidth: "62ch", margin: "2.4rem 0 0", lineHeight: 1.4 }}>
-          The What is the part anyone can already give you. The Why and the Outcome live only in your firm's own history — and they're what your judgment is made of.
+          The What is the part anyone can already give you. The Why and the Outcome live only in your firm's own history — and they're the evidence your judgment is built on.
         </p>
       </Wrap>
     </Section>
