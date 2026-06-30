@@ -71,7 +71,7 @@ Nav anchors: "How it works" → §2/§3 cluster · "Why AllianceOne" → §5/§6
 - **Modal** (rework): minimal demo form (name / firm / work email) → composes a pre-filled email;
   restyle as "Request a demo"; keep ungated content (§6).
 
-## Phase 1 — conversion core (this pass)
+## Phase 1 — conversion core ✅ SHIPPED
 
 1. Nav: relabel + gold persistent "Request a demo" + scrollspy.
 2. Hero rewrite (§4.1).

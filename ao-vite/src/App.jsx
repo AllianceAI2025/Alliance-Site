@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 
 // ============================================================
-// AllianceOne — product site v6
+// AllianceOne — product site v7 (Upgrade Blueprint, Phase 1)
 // Spine: Consulting is applying proven frameworks to specific problems.
 //   Frameworks are the easy part (every firm AND every AI has them).
 //   The asset is the firm's accumulated EXPERIENCE — every engagement,
@@ -18,7 +18,13 @@ import React, { useState, useEffect, useRef } from "react";
 // v6: product-site IA. Three body sections — Product (what it is + what it
 //   captures + where it shows up in the work), Approach (the philosophy, with
 //   "why not just AI" folded in), and Industries (the firms it's built for).
-//   Logo mark removed; wordmark only. Nav: Product · Approach · Industries.
+//   Logo mark removed; wordmark only.
+// v7: demo-driving teaser (Upgrade Blueprint). PHASE 1 done — lead with the
+//   day-one job, one repeated CTA ("Request a demo", gold). New hero +
+//   DayOne (the wedge in words) + ClosingCTA + minimal demo form; nav relabel
+//   (How it works · Why AllianceOne · Who it's for) with scroll-spy. PHASE 2
+//   pending: how-it-shows diagram, four-dimensions honesty reframe, split
+//   why-not-AI, worked example (real fixtures + screenshots), partner/role.
 // ============================================================
 
 const C = {
@@ -113,21 +119,32 @@ function Section({ children, style }) {
 
 // ---- nav -----------------------------------------------------------------
 
-// Three anchors in reading order — product, then philosophy, then fit. A short
-// nav reads as a short page; the hero carries its own weight without a link.
+// Three plain-language anchors + one persistent gold CTA (NN/g). The active
+// section is highlighted as you scroll; labels describe, they don't brand.
 const SECTIONS = [
-  ["product", "Product"],
-  ["approach", "Approach"],
-  ["industries", "Industries"],
+  ["how-it-works", "How it works"],
+  ["why", "Why AllianceOne"],
+  ["who", "Who it's for"],
 ];
 
 function Nav({ onCta }) {
   const [open, setOpen] = useState(false);
   const [hover, setHover] = useState(null);
+  const [active, setActive] = useState(null);
   const goTo = (id) => {
     setOpen(false);
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
+  useEffect(() => {
+    if (!("IntersectionObserver" in window)) return;
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.id); }),
+      { rootMargin: "-45% 0px -50% 0px" }
+    );
+    SECTIONS.forEach(([id]) => { const el = document.getElementById(id); if (el) io.observe(el); });
+    return () => io.disconnect();
+  }, []);
+  const goldCta = { fontFamily: sans, fontSize: "0.84rem", fontWeight: 600, padding: "0.6rem 1.25rem", background: C.gold, color: C.ink, borderRadius: 2, cursor: "pointer" };
   return (
     <header style={{ position: "sticky", top: 0, zIndex: 50, backdropFilter: "blur(12px)", background: "rgba(244,241,232,0.82)", borderBottom: `1px solid ${C.lineSoft}` }}>
       <Wrap style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1rem clamp(1.25rem,5vw,4.5rem)" }}>
@@ -135,16 +152,17 @@ function Nav({ onCta }) {
           <Logo />
         </div>
         <nav className="ao-desktop" style={{ display: "flex", alignItems: "center", gap: "1.6rem" }}>
-          {SECTIONS.map(([id, label]) => (
-            <span key={id} onClick={() => goTo(id)} onMouseEnter={() => setHover(id)} onMouseLeave={() => setHover(null)}
-              style={{ fontFamily: sans, fontSize: "0.84rem", fontWeight: 500, color: C.inkSoft, cursor: "pointer", position: "relative", padding: "0.2rem 0" }}>
-              {label}
-              <span style={{ position: "absolute", left: 0, bottom: -2, height: 1, background: C.olive, width: hover === id ? "100%" : 0, transition: `width .35s ${ease}` }} />
-            </span>
-          ))}
-          <span onClick={onCta} style={{ fontFamily: sans, fontSize: "0.84rem", fontWeight: 600, padding: "0.6rem 1.25rem", border: `1px solid ${C.ink}`, borderRadius: 2, cursor: "pointer" }}>
-            Talk to us
-          </span>
+          {SECTIONS.map(([id, label]) => {
+            const on = active === id || hover === id;
+            return (
+              <span key={id} onClick={() => goTo(id)} onMouseEnter={() => setHover(id)} onMouseLeave={() => setHover(null)}
+                style={{ fontFamily: sans, fontSize: "0.84rem", fontWeight: active === id ? 600 : 500, color: on ? C.ink : C.inkSoft, cursor: "pointer", position: "relative", padding: "0.2rem 0", transition: `color .25s ${ease}` }}>
+                {label}
+                <span style={{ position: "absolute", left: 0, bottom: -2, height: 1, background: C.olive, width: on ? "100%" : 0, transition: `width .35s ${ease}` }} />
+              </span>
+            );
+          })}
+          <span onClick={onCta} style={goldCta}>Request a demo</span>
         </nav>
         <button className="ao-mobile-btn" onClick={() => setOpen((o) => !o)} style={{ display: "none", background: "none", border: 0, cursor: "pointer", padding: 6 }} aria-label="Menu">
           {[0, 1, 2].map((i) => <span key={i} style={{ display: "block", width: 24, height: 2, background: C.ink, margin: "5px 0" }} />)}
@@ -155,7 +173,7 @@ function Nav({ onCta }) {
           {SECTIONS.map(([id, label]) => (
             <span key={id} onClick={() => goTo(id)} style={{ fontFamily: sans, fontSize: "1rem", fontWeight: 500, color: C.inkSoft, cursor: "pointer" }}>{label}</span>
           ))}
-          <span onClick={() => { setOpen(false); onCta(); }} style={{ fontFamily: sans, fontSize: "1rem", fontWeight: 600, color: C.ink, cursor: "pointer" }}>Talk to us</span>
+          <span onClick={() => { setOpen(false); onCta(); }} style={{ ...goldCta, fontSize: "1rem", textAlign: "center" }}>Request a demo</span>
         </div>
       )}
       <style>{`@media (max-width:1040px){.ao-desktop{display:none!important}.ao-mobile-btn{display:block!important}}`}</style>
@@ -172,18 +190,19 @@ function Hero({ onCta }) {
     <section style={{ position: "relative", overflow: "hidden", padding: "clamp(4rem,8vw,7rem) 0 clamp(4rem,7vw,6rem)" }}>
       <div style={{ position: "absolute", inset: 0, opacity: 0.5, backgroundImage: `linear-gradient(${C.lineSoft} 1px, transparent 1px), linear-gradient(90deg, ${C.lineSoft} 1px, transparent 1px)`, backgroundSize: "64px 64px", WebkitMaskImage: "radial-gradient(ellipse 75% 70% at 72% 32%, #000 0%, transparent 72%)", maskImage: "radial-gradient(ellipse 75% 70% at 72% 32%, #000 0%, transparent 72%)" }} />
       <Wrap style={{ position: "relative", zIndex: 1 }}>
-        <h1 style={{ fontFamily: serif, fontWeight: 500, fontSize: "clamp(2.6rem,6vw,5rem)", lineHeight: 1.04, letterSpacing: "-0.025em", maxWidth: "18ch", margin: 0 }}>
-          Your firm already knows <em style={{ fontStyle: "italic", color: C.olive }}>more than it can see.</em>
+        <Eyebrow style={{ marginBottom: "1.4rem" }}>For firms whose product is expertise</Eyebrow>
+        <h1 style={{ fontFamily: serif, fontWeight: 500, fontSize: "clamp(2.4rem,5.4vw,4.4rem)", lineHeight: 1.05, letterSpacing: "-0.025em", maxWidth: "22ch", margin: 0 }}>
+          Every engagement should start from <em style={{ fontStyle: "italic", color: C.olive }}>how the last one actually turned out.</em>
         </h1>
-        <p style={{ fontSize: "clamp(1.1rem,1.8vw,1.4rem)", maxWidth: "54ch", marginTop: "1.6rem", color: C.ink, fontWeight: 500 }}>
-          AllianceOne assembles what your firm has learned across every engagement — the decisions, the reasoning, the outcomes — into one living account of how your firm actually solves problems.
+        <p style={{ fontSize: "clamp(1.08rem,1.7vw,1.32rem)", maxWidth: "60ch", marginTop: "1.6rem", color: C.ink, fontWeight: 500 }}>
+          AllianceOne assembles your firm's own history — the work, the decisions behind it, and how each engagement turned out — into one account your people work from. Scope new work, plan deliverables, and adapt what your firm has already done, drawn from the closest past engagements and what they actually produced — the wins and the ones that didn't go to plan.
         </p>
-        <p style={{ fontSize: "clamp(1rem,1.5vw,1.15rem)", maxWidth: "52ch", marginTop: "1.1rem", color: C.inkSoft }}>
-          Not a general model trained on everyone else's work — your firm's own experience, put to work in the hands of the people who built it.
+        <p style={{ fontSize: "clamp(1rem,1.4vw,1.12rem)", maxWidth: "58ch", marginTop: "1.1rem", color: C.inkSoft }}>
+          Not a blank page. Not the generic average every competitor's AI hands back. And every engagement that completes makes the account sharper — connecting decisions to outcomes, so your firm compounds its own judgment instead of re-solving from scratch.
         </p>
         <div style={{ marginTop: "2.4rem", display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-          <Btn variant="primary" onClick={onCta}>Start a deliberate conversation</Btn>
-          <Btn variant="ghost" onClick={() => document.getElementById("product")?.scrollIntoView({ behavior: "smooth" })}>See the product</Btn>
+          <Btn variant="gold" onClick={onCta}>Request a demo</Btn>
+          <Btn variant="ghost" onClick={() => document.getElementById("how-it-works")?.scrollIntoView({ behavior: "smooth" })}>See how it works</Btn>
         </div>
       </Wrap>
     </section>
@@ -191,6 +210,48 @@ function Hero({ onCta }) {
 }
 
 
+
+// ---- what you can do on day one (the wedge, in words) ----------------------
+// The loudest concrete section: jobs a partner gets the week history loads.
+// Each card pairs a job-to-be-done with an "instead of" contrast.
+
+function DayOne() {
+  const cards = [
+    ["Scope a new engagement from real precedent", "Pull the approach, team shape, and risks from how your firm actually ran the closest past engagements", "instead of a blank page or a generic template."],
+    ["Interrogate your own past work", "Ask what your firm did, for whom, and how it was structured — across every engagement at once", "instead of hunting through drives, threads, and people's memories."],
+    ["Plan deliverables from what shipped before", "Build a project and deliverable plan off the closest real engagements — their structure, what they included, and why", "instead of rebuilding the same scaffolding every time."],
+    ["Adapt precedent you can trust", "Find the documents, sections, and structures your firm has used before — carrying how each engagement turned out, so you build on what worked and learn from what didn't", "instead of reusing similar-looking work with no idea whether it succeeded."],
+  ];
+  return (
+    <Section style={{ background: C.boneDim }}>
+      <div id="how-it-works" style={{ scrollMarginTop: 80 }} />
+      <Wrap>
+        <Eyebrow>What you can do on day one</Eyebrow>
+        <Head size="display" style={{ maxWidth: "20ch", marginBottom: "1.1rem" }}>
+          Useful the day your history is loaded.
+        </Head>
+        <p style={{ color: C.inkSoft, fontSize: "1.08rem", maxWidth: "60ch", marginBottom: "2.8rem" }}>
+          AllianceOne ingests the engagements your firm has already done. From day one, your people can:
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: "1.4rem" }}>
+          {cards.map(([h, body, instead], i) => (
+            <div key={i} style={{ background: C.paper, border: `1px solid ${C.line}`, borderRadius: 8, padding: "2rem 1.9rem", display: "flex", flexDirection: "column", gap: "0.7rem" }}>
+              <div style={{ display: "flex", gap: "0.9rem", alignItems: "baseline" }}>
+                <span style={{ fontFamily: serif, fontSize: "1.5rem", fontWeight: 600, color: C.gold, lineHeight: 1, flex: "none" }}>{`0${i + 1}`}</span>
+                <h3 style={{ fontFamily: serif, fontWeight: 600, fontSize: "1.4rem", margin: 0, lineHeight: 1.15 }}>{h}.</h3>
+              </div>
+              <p style={{ fontSize: "0.97rem", color: C.inkSoft, margin: 0 }}>{body}.</p>
+              <p style={{ fontSize: "0.92rem", color: C.oliveLite, fontStyle: "italic", margin: "auto 0 0", paddingTop: "0.4rem" }}>{instead}</p>
+            </div>
+          ))}
+        </div>
+        <p style={{ color: C.ink, fontWeight: 500, fontSize: "1.08rem", maxWidth: "64ch", marginTop: "2.8rem" }}>
+          And it compounds: as each engagement completes, its decisions connect to outcomes and feed back in — so the account gets richer and the people drawing on it get sharper with every engagement.
+        </p>
+      </Wrap>
+    </Section>
+  );
+}
 
 // Animated: source documents stream extracted data into a knowledge graph that
 // assembles around the firm's expertise. Builds once when scrolled into view,
@@ -341,16 +402,8 @@ function Product() {
     ["Why", "The reasoning behind the choice. Why this approach over the obvious alternative — the judgment that rarely gets written down.", true],
     ["Outcome", "Promised versus delivered, what worked and what didn't. The evidence only your firm holds — the dimension that turns a record into calibrated judgment.", true],
   ];
-  const work = [
-    ["Project planning", "Scope and plan a new engagement from how your firm actually ran the ones like it — the real approach, the shape of the team, and what to watch for.",
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M3 3v18h18" /><path d="M7 14l3-4 3 3 5-7" /></svg>],
-    ["Execution", "Build the deliverable by comparing it, structurally, to the closest past engagements — their project matrix, their deliverable shape, what they included and why — so your team starts from real precedent, not a blank page or a generic template.",
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" /></svg>],
-    ["Review", "Work arrives carrying its grounding, so a senior reviews reasoning against how the firm has handled this before — not a blank page.",
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" /></svg>],
-  ];
   return (
-    <Section style={{ background: C.boneDim }}>
+    <Section>
       <div id="product" style={{ scrollMarginTop: 80 }} />
       <Wrap>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))", gap: "4rem", alignItems: "center" }}>
@@ -363,7 +416,7 @@ function Product() {
               AllianceOne assembles your firm's <strong style={{ color: C.ink, fontWeight: 600 }}>experience</strong> — every engagement, decision, and outcome, today scattered across documents, threads, methodologies, and people — into one living account of how your firm works: hard-won <strong style={{ color: C.ink, fontWeight: 600 }}>expertise</strong> your people can draw on, in the hands of the ones who built it.
             </p>
             <p style={{ color: C.inkSoft, margin: 0 }}>
-              We don't train a model on your firm; we build a living model <em style={{ fontStyle: "italic" }}>of</em> it. The structure stays explicit, so every connection is traceable to its source — legible, auditable, and yours.
+              We don't train a model on your firm. We assemble your firm's own history into a structure your people can use — explicit, traceable, and yours.
             </p>
           </div>
           <GraphCard />
@@ -388,27 +441,6 @@ function Product() {
         <p style={{ fontFamily: serif, fontStyle: "italic", fontSize: "1.3rem", color: C.oliveDeep, maxWidth: "62ch", margin: "2.4rem 0 0", lineHeight: 1.4 }}>
           The What is the part anyone can already give you. The Why and the Outcome live only in your firm's own history — and they're the evidence your judgment is built on.
         </p>
-
-        <div style={{ borderTop: `1px solid ${C.line}`, margin: "4rem 0 0", paddingTop: "3rem" }}>
-          <Head size="section" style={{ maxWidth: "22ch" }}>
-            Where it shows up in the work.
-          </Head>
-          <p style={{ color: C.inkSoft, fontSize: "1.05rem", maxWidth: "56ch", marginTop: "1rem" }}>
-            Not a chatbot bolted to the side. Your people work from the account across the everyday arc of an engagement — planning it, doing it, checking it.
-          </p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: "1.6rem", marginTop: "2.4rem" }}>
-            {work.map(([h, p, icon], i) => (
-              <div key={i} style={{ background: C.paper, border: `1px solid ${C.line}`, borderRadius: 6, padding: "2rem 1.8rem" }}>
-                <div style={{ width: 34, height: 34, color: C.olive, marginBottom: "1rem" }}>{icon}</div>
-                <h3 style={{ fontFamily: serif, fontWeight: 500, fontSize: "1.4rem", margin: "0 0 0.55rem" }}>{h}</h3>
-                <p style={{ fontSize: "0.95rem", color: C.inkSoft, margin: 0 }}>{p}</p>
-              </div>
-            ))}
-          </div>
-          <p style={{ color: C.inkSoft, fontSize: "1.05rem", maxWidth: "60ch", marginTop: "2.4rem", marginBottom: 0 }}>
-            And it compounds: as each engagement completes, its decisions connect to outcomes and feed back in — so the account gets richer and the people drawing on it get sharper with every engagement.
-          </p>
-        </div>
       </Wrap>
     </Section>
   );
@@ -416,7 +448,7 @@ function Product() {
 
 // ---- approach (the philosophy + why-not-just-AI, folded into one argument) -
 
-function Approach() {
+function Approach({ onCta }) {
   const general = [
     "Has read every framework ever published — so it gives you the average of all consulting knowledge.",
     "Sees only the fragment you paste, disconnected from everything around it.",
@@ -431,7 +463,7 @@ function Approach() {
   ];
   return (
     <Section>
-      <div id="approach" style={{ scrollMarginTop: 80 }} />
+      <div id="why" style={{ scrollMarginTop: 80 }} />
       <Wrap>
         <div style={{ maxWidth: "60ch" }}>
           <Eyebrow>Approach</Eyebrow>
@@ -481,6 +513,10 @@ function Approach() {
             It's not a contest of quality, and a better model won't close the gap. A general model hands anyone an opinion in seconds — the same average one your competitors get. What it can't hand them is <em style={{ fontStyle: "italic", color: C.goldSoft }}>evidence</em>: what actually worked, for whom, and why. General models <em style={{ fontStyle: "italic", color: C.goldSoft }}>retrieve</em> from everything; AllianceOne <em style={{ fontStyle: "italic", color: C.goldSoft }}>accumulates</em> that evidence from your firm — the one thing no model brings.
           </p>
         </div>
+
+        <div style={{ textAlign: "center", marginTop: "3.4rem" }}>
+          <Btn variant="gold" onClick={onCta}>Request a demo</Btn>
+        </div>
       </Wrap>
     </Section>
   );
@@ -496,7 +532,7 @@ function Industries() {
   ];
   return (
     <Section style={{ background: C.boneDim }}>
-      <div id="industries" style={{ scrollMarginTop: 80 }} />
+      <div id="who" style={{ scrollMarginTop: 80 }} />
       <Wrap>
         <Eyebrow>Industries</Eyebrow>
         <Head size="section" style={{ maxWidth: "24ch", marginBottom: "1.1rem" }}>
@@ -518,10 +554,30 @@ function Industries() {
   );
 }
 
+// ---- closing CTA (end on the action) ---------------------------------------
+
+function ClosingCTA({ onCta }) {
+  return (
+    <Section>
+      <Wrap>
+        <div style={{ maxWidth: "62ch", margin: "0 auto", textAlign: "center" }}>
+          <Head size="display" style={{ margin: "0 auto 1.4rem" }}>
+            Your firm's experience is its most valuable asset. It's also its least usable.
+          </Head>
+          <p style={{ color: C.inkSoft, fontSize: "1.12rem", marginBottom: "2rem" }}>
+            See what AllianceOne does with it.
+          </p>
+          <Btn variant="gold" onClick={onCta}>Request a demo</Btn>
+        </div>
+      </Wrap>
+    </Section>
+  );
+}
+
 // ---- footer (ASG as quiet plumbing) -----------------------------------------
 
 function Footer({ onCta }) {
-  const links = [["product", "Product"], ["approach", "Approach"], ["industries", "Industries"]];
+  const links = [["how-it-works", "How it works"], ["why", "Why AllianceOne"], ["who", "Who it's for"]];
   return (
     <footer style={{ background: C.ink, color: C.bone, padding: "4rem 0 2.5rem", borderTop: "1px solid rgba(244,241,232,0.1)" }}>
       <Wrap>
@@ -529,7 +585,7 @@ function Footer({ onCta }) {
           <div style={{ maxWidth: "38ch" }}>
             <Logo light />
             <p style={{ color: "rgba(244,241,232,0.6)", fontSize: "0.92rem", marginTop: "1rem" }}>
-              A living model of your firm — assembling its experience into usable expertise, in the hands of the people who built it.
+              Your firm's own experience, assembled into usable expertise — in the hands of the people who built it.
             </p>
           </div>
           <div style={{ display: "flex", gap: "4rem", flexWrap: "wrap" }}>
@@ -541,7 +597,7 @@ function Footer({ onCta }) {
             </div>
             <div>
               <h5 style={{ fontFamily: sans, fontSize: "0.72rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(244,241,232,0.5)", marginBottom: "1rem" }}>Connect</h5>
-              <div onClick={onCta} style={{ fontSize: "0.92rem", color: "rgba(244,241,232,0.8)", marginBottom: "0.6rem", cursor: "pointer" }}>Talk to us</div>
+              <div onClick={onCta} style={{ fontSize: "0.92rem", color: "rgba(244,241,232,0.8)", marginBottom: "0.6rem", cursor: "pointer" }}>Request a demo</div>
               <div style={{ fontSize: "0.92rem", color: "rgba(244,241,232,0.8)" }}>hello@myalliance.ai</div>
             </div>
           </div>
@@ -561,21 +617,35 @@ function Footer({ onCta }) {
 // ---- contact modal ----------------------------------------------------------
 
 function Modal({ open, onClose }) {
+  const [form, setForm] = useState({ name: "", firm: "", email: "" });
   if (!open) return null;
+  const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
+  const submit = (e) => {
+    e.preventDefault();
+    const subject = encodeURIComponent("Demo request — AllianceOne");
+    const body = encodeURIComponent(`Name: ${form.name}\nFirm: ${form.firm}\nWork email: ${form.email}\n\nWe'd like to see AllianceOne on our firm's own work.`);
+    window.location.href = `mailto:hello@myalliance.ai?subject=${subject}&body=${body}`;
+  };
+  const field = { fontFamily: sans, fontSize: "0.95rem", padding: "0.75rem 0.9rem", borderRadius: 4, border: `1px solid ${C.line}`, background: C.bone, color: C.ink, width: "100%", boxSizing: "border-box" };
   return (
     <div onClick={onClose} style={{ position: "fixed", inset: 0, zIndex: 100, background: "rgba(20,22,15,0.55)", backdropFilter: "blur(4px)", display: "grid", placeItems: "center", padding: "1.5rem" }}>
       <div onClick={(e) => e.stopPropagation()} style={{ background: C.paper, borderRadius: 10, maxWidth: 460, width: "100%", padding: "2.5rem", position: "relative", boxShadow: "0 40px 80px -30px rgba(20,22,15,0.5)" }}>
         <button onClick={onClose} aria-label="Close" style={{ position: "absolute", top: 18, right: 18, background: "none", border: 0, fontSize: "1.4rem", lineHeight: 1, cursor: "pointer", color: C.inkSoft }}>×</button>
-        <Eyebrow>A quieter conversation</Eyebrow>
-        <h3 style={{ fontFamily: serif, fontWeight: 500, fontSize: "1.9rem", margin: "0.8rem 0 0.8rem", lineHeight: 1.1 }}>No pitch deck. Just talk.</h3>
+        <Eyebrow>Request a demo</Eyebrow>
+        <h3 style={{ fontFamily: serif, fontWeight: 500, fontSize: "1.9rem", margin: "0.8rem 0 0.6rem", lineHeight: 1.1 }}>See it on your firm's own work.</h3>
         <p style={{ color: C.inkSoft, fontSize: "0.97rem", marginBottom: "1.6rem" }}>
-          Tell us about your firm and what adoption pressure looks like from where you sit. We're keeping the founding cohort small, so every note gets read personally.
+          A 30-minute walkthrough on engagements like yours. Tell us where to reach you and we'll set it up.
         </p>
-        <a href="mailto:hello@myalliance.ai?subject=AllianceOne%20inquiry" style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", background: C.ink, color: C.bone, fontFamily: sans, fontWeight: 600, fontSize: "0.92rem", padding: "0.95rem 1.7rem", borderRadius: 2, textDecoration: "none" }}>
-          Email hello@myalliance.ai →
-        </a>
-        <p style={{ fontSize: "0.8rem", color: C.oliveLite, marginTop: "1.4rem" }}>
-          A full inquiry form will live here once the site is hosted — for now this opens your email client.
+        <form onSubmit={submit} style={{ display: "flex", flexDirection: "column", gap: "0.8rem" }}>
+          <input style={field} type="text" required placeholder="Name" value={form.name} onChange={set("name")} />
+          <input style={field} type="text" required placeholder="Firm" value={form.firm} onChange={set("firm")} />
+          <input style={field} type="email" required placeholder="Work email" value={form.email} onChange={set("email")} />
+          <button type="submit" style={{ marginTop: "0.4rem", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", background: C.gold, color: C.ink, fontFamily: sans, fontWeight: 600, fontSize: "0.95rem", padding: "0.95rem 1.7rem", borderRadius: 2, border: 0, cursor: "pointer" }}>
+            Request a demo →
+          </button>
+        </form>
+        <p style={{ fontSize: "0.8rem", color: C.oliveLite, marginTop: "1.2rem", marginBottom: 0 }}>
+          Prefer email? <a href="mailto:hello@myalliance.ai?subject=AllianceOne%20demo" style={{ color: C.olive }}>hello@myalliance.ai</a>
         </p>
       </div>
     </div>
@@ -602,9 +672,11 @@ export default function App() {
     <div style={{ fontFamily: sans, background: C.bone, color: C.ink, fontSize: 17, lineHeight: 1.6, minHeight: "100vh", overflowX: "hidden" }}>
       <Nav onCta={openCta} />
       <Hero onCta={openCta} />
+      <DayOne />
       <Product />
-      <Approach />
+      <Approach onCta={openCta} />
       <Industries />
+      <ClosingCTA onCta={openCta} />
       <Footer onCta={openCta} />
       <Modal open={modal} onClose={() => setModal(false)} />
     </div>
