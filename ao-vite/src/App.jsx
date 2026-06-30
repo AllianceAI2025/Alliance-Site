@@ -7,7 +7,7 @@ import React, { useState, useEffect, useRef } from "react";
 //   The asset is the firm's accumulated EXPERIENCE (every engagement,
 //   decision, and outcome), assembled into usable EXPERTISE, with JUDGMENT
 //   (which approach, for whom, why, whether it worked) as the apex/moat.
-//   AllianceOne assembles that distributed experience into one living account.
+//   AllianceOne assembles that distributed experience into one living record.
 // Voice: anti-hype, calm, firm-as-hero. No "neural network"/"brain" in copy.
 // ASG appears only as quiet plumbing in the footer.
 // v4: consolidated to remove repetition. Thesis stated once, sections halved,
@@ -195,7 +195,7 @@ function Hero({ onCta }) {
           Every engagement leaves a record of what worked. <em style={{ fontStyle: "italic", color: C.olive }}>And what didn't.</em>
         </h1>
         <p style={{ fontSize: "clamp(1.1rem,1.7vw,1.34rem)", maxWidth: "60ch", marginTop: "1.6rem", color: C.ink, fontWeight: 500 }}>
-          AllianceOne assembles your firm's own engagements into one account your team scopes and builds from. It holds the work, the decisions behind it, and how each one turned out.
+          AllianceOne assembles your firm's own engagements into one record your team scopes and builds from. It holds the work, the decisions behind it, and how each one turned out.
         </p>
         <p style={{ fontSize: "clamp(1rem,1.4vw,1.14rem)", maxWidth: "62ch", marginTop: "1.1rem", color: C.inkSoft }}>
           Every new engagement starts from precedent that carries its own verdict: what worked, what didn't, what you'd do differently. So the firm builds on its own hard-won judgment instead of solving the same problem twice. Not a blank page, and not the generic average a general model hands everyone. And the record sharpens every time you close another engagement.
@@ -246,7 +246,7 @@ function DayOne() {
           ))}
         </div>
         <p style={{ color: C.ink, fontWeight: 500, fontSize: "1.08rem", maxWidth: "64ch", marginTop: "2.8rem" }}>
-          And it compounds: as each engagement completes, its decisions connect to outcomes and feed back in, so the account gets richer and the people drawing on it get sharper with every engagement.
+          And it compounds: as each engagement completes, its decisions connect to outcomes and feed back in, so the record gets richer and the people drawing on it get sharper with every engagement.
         </p>
       </Wrap>
     </Section>
@@ -288,7 +288,7 @@ function GraphCard() {
 
   return (
     <div ref={ref} className={cls} style={{ ["--e"]: ease, background: C.ink, borderRadius: 8, padding: "2.2rem 2.2rem 1.6rem", overflow: "hidden", boxShadow: "0 30px 60px -30px rgba(20,22,15,0.5)" }}>
-      <svg viewBox="0 0 460 400" role="img" aria-label="AllianceOne extracting a firm's proposals, email, deliverables, delivery plans, methods, and outcomes, and assembling that experience into one connected account of the firm's expertise">
+      <svg viewBox="0 0 460 400" role="img" aria-label="AllianceOne extracting a firm's proposals, email, deliverables, delivery plans, methods, and outcomes, and assembling that experience into one connected record of the firm's expertise">
         <title>Your firm's scattered experience, assembled into usable expertise</title>
         <defs>
           <linearGradient id="ed" x1="0" y1="0" x2="1" y2="1">
@@ -395,42 +395,42 @@ function GraphCard() {
 
 function HowItShows() {
   const stages = [
-    ["Planning", "Scope and shape the engagement from the closest past work.",
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M3 3v18h18" /><path d="M7 14l3-4 3 3 5-7" /></svg>],
-    ["Execution", "Build deliverables against real precedent and its structure.",
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" /></svg>],
-    ["Review", "Check the work against how the firm has handled this before.",
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.6"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" /></svg>],
+    ["Planning", "Scope from what actually worked, not just what was done before.",
+      "Shape the engagement from the closest past work, and see how those engagements turned out before you commit to an approach. Lean on what delivered, and flag the patterns that led somewhere your firm regretted. A blank page can't warn you. Neither can precedent that doesn't know its own result.",
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M3 3v18h18" /><path d="M7 14l3-4 3 3 5-7" /></svg>],
+    ["Execution", "Build against precedent that carries its verdict.",
+      "Start the deliverable from the structure of real past work, with what worked in those engagements reinforced and the missteps surfaced so they aren't repeated. The team builds on the firm's best version of this, not the nearest lookalike. Retrieval finds you something similar. It can't tell you whether it succeeded.",
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" /></svg>],
+    ["Review", "Check the reasoning, not just the format.",
+      "Work arrives carrying the decisions behind it, so a senior reviews why this approach, checking it against how the firm's comparable calls actually played out, instead of re-deriving the judgment from scratch or rubber-stamping the shape. The hardest part of review was never checking the formatting.",
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.6"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" /></svg>],
   ];
   return (
     <Section>
       <Wrap>
         <Eyebrow>How it shows up in the work</Eyebrow>
-        <Head size="section" style={{ maxWidth: "26ch", marginBottom: "1rem" }}>
-          One account, across the whole engagement.
+        <Head size="section" style={{ maxWidth: "24ch", marginBottom: "1rem" }}>
+          One record, across the whole engagement.
         </Head>
-        <p style={{ color: C.inkSoft, fontSize: "1.05rem", maxWidth: "58ch", marginBottom: "3rem" }}>
-          The account isn't a chatbot off to the side. Your team works from it at every stage, from the first scope to the final review.
+        <p style={{ color: C.inkSoft, fontSize: "1.08rem", maxWidth: "66ch", marginBottom: "3.4rem" }}>
+          The record isn't a chatbot off to the side. Your team works from it at every stage, and at each one, the firm's past work arrives with its outcomes attached, not just its contents.
         </p>
-        <div className="ao-arc" style={{ display: "flex", alignItems: "stretch", gap: "1rem" }}>
-          {stages.map(([h, p, icon], i) => (
-            <React.Fragment key={i}>
-              <div style={{ flex: "1 1 240px", background: C.paper, border: `1px solid ${C.line}`, borderRadius: 8, padding: "2rem 1.8rem" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", marginBottom: "1.1rem" }}>
-                  <span style={{ width: 40, height: 40, borderRadius: "50%", background: C.oliveDeep, color: C.bone, display: "grid", placeItems: "center", flex: "none" }}>{icon}</span>
-                  <span style={{ fontFamily: sans, fontSize: "0.7rem", letterSpacing: "0.16em", textTransform: "uppercase", color: C.oliveLite }}>Stage {i + 1}</span>
-                </div>
-                <h3 style={{ fontFamily: serif, fontWeight: 500, fontSize: "1.5rem", margin: "0 0 0.5rem" }}>{h}</h3>
-                <p style={{ fontSize: "0.96rem", color: C.inkSoft, margin: 0 }}>{p}</p>
+        <div>
+          {stages.map(([name, headline, body, icon], i) => (
+            <div key={i} style={{ display: "flex", gap: "clamp(1rem,3vw,2.2rem)", alignItems: "stretch" }}>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flex: "none" }}>
+                <div style={{ width: 52, height: 52, borderRadius: "50%", background: C.oliveDeep, color: C.bone, display: "grid", placeItems: "center", flex: "none" }}>{icon}</div>
+                {i < stages.length - 1 && <div style={{ width: 2, flex: 1, background: C.line, marginTop: 6, marginBottom: 6 }} />}
               </div>
-              {i < stages.length - 1 && (
-                <div className="ao-arc-join" style={{ display: "flex", alignItems: "center", color: C.oliveLite, fontSize: "1.5rem", flex: "none" }}>→</div>
-              )}
-            </React.Fragment>
+              <div style={{ paddingBottom: i < stages.length - 1 ? "2.8rem" : 0 }}>
+                <p style={{ fontFamily: sans, fontSize: "0.72rem", letterSpacing: "0.18em", textTransform: "uppercase", color: C.oliveLite, margin: "0.5rem 0 0.6rem" }}>Stage {i + 1} &middot; {name}</p>
+                <h3 style={{ fontFamily: serif, fontWeight: 500, fontSize: "clamp(1.45rem,2.4vw,1.95rem)", margin: "0 0 0.7rem", lineHeight: 1.15, maxWidth: "30ch" }}>{headline}</h3>
+                <p style={{ fontSize: "1.02rem", color: C.inkSoft, margin: 0, maxWidth: "66ch" }}>{body}</p>
+              </div>
+            </div>
           ))}
         </div>
       </Wrap>
-      <style>{`@media (max-width:760px){.ao-arc{flex-direction:column}.ao-arc-join{transform:rotate(90deg)}}`}</style>
     </Section>
   );
 }
@@ -455,7 +455,7 @@ function Product() {
               Your firm's expertise, working for everyone in it.
             </Head>
             <p style={{ color: C.inkSoft, fontSize: "1.08rem", marginBottom: "1.1rem" }}>
-              Today your firm's <strong style={{ color: C.ink, fontWeight: 600 }}>experience</strong> is scattered across documents, threads, methodologies, and people. AllianceOne assembles every engagement, decision, and outcome into one living account of how your firm works. The result is hard-won <strong style={{ color: C.ink, fontWeight: 600 }}>expertise</strong> your people can draw on, in the hands of the ones who built it.
+              Today your firm's <strong style={{ color: C.ink, fontWeight: 600 }}>experience</strong> is scattered across documents, threads, methodologies, and people. AllianceOne assembles every engagement, decision, and outcome into one living record of how your firm works. The result is hard-won <strong style={{ color: C.ink, fontWeight: 600 }}>expertise</strong> your people can draw on, in the hands of the ones who built it.
             </p>
             <p style={{ color: C.inkSoft, margin: 0 }}>
               We don't train a model on your firm. We assemble your firm's own history into a structure your people can use. It's explicit, traceable, and yours.
@@ -530,7 +530,7 @@ function WhyNotAI({ onCta }) {
   const ours = [
     "Holds your firm's hard-won deviation from the average: what you learned actually works, and where.",
     "Sees the whole: how each piece connects to the decision behind it and the outcome it led to.",
-    "Accumulates. Every completed engagement makes the account richer and the firm sharper.",
+    "Accumulates. Every completed engagement makes the record richer and the firm sharper.",
     "Carries your firm's judgment about the frameworks, the thing a client pays a premium for.",
   ];
   return (
