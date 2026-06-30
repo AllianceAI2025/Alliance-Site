@@ -1,25 +1,25 @@
 import React, { useState, useEffect, useRef } from "react";
 
 // ============================================================
-// AllianceOne — product site v7 (Upgrade Blueprint, Phase 1)
+// AllianceOne, product site v7 (Upgrade Blueprint, Phase 1)
 // Spine: Consulting is applying proven frameworks to specific problems.
 //   Frameworks are the easy part (every firm AND every AI has them).
-//   The asset is the firm's accumulated EXPERIENCE — every engagement,
-//   decision, and outcome — assembled into usable EXPERTISE, with JUDGMENT
+//   The asset is the firm's accumulated EXPERIENCE (every engagement,
+//   decision, and outcome), assembled into usable EXPERTISE, with JUDGMENT
 //   (which approach, for whom, why, whether it worked) as the apex/moat.
 //   AllianceOne assembles that distributed experience into one living account.
 // Voice: anti-hype, calm, firm-as-hero. No "neural network"/"brain" in copy.
 // ASG appears only as quiet plumbing in the footer.
 // v4: consolidated to remove repetition. Thesis stated once, sections halved,
-//   hierarchy via the Head atom — one display peak.
+//   hierarchy via the Head atom, one display peak.
 // v5: value-forward. The hero leads with the firm's own knowledge as the asset
 //   (not an AI-market reframe). The AI-fatigue framing is gone; calm is the
 //   tone, not the lede.
-// v6: product-site IA. Three body sections — Product (what it is + what it
+// v6: product-site IA. Three body sections. Product (what it is + what it
 //   captures + where it shows up in the work), Approach (the philosophy, with
 //   "why not just AI" folded in), and Industries (the firms it's built for).
 //   Logo mark removed; wordmark only.
-// v7: demo-driving teaser (Upgrade Blueprint). PHASE 1 done — lead with the
+// v7: demo-driving teaser (Upgrade Blueprint). PHASE 1 done. Lead with the
 //   day-one job, one repeated CTA ("Request a demo", gold). New hero +
 //   DayOne (the wedge in words) + ClosingCTA + minimal demo form; nav relabel
 //   (How it works · Why AllianceOne · Who it's for) with scroll-spy. PHASE 2
@@ -57,8 +57,8 @@ function Eyebrow({ children, color = C.olive, style }) {
 }
 
 // Section headline with a deliberate size hierarchy so the page has rest:
-//   display — the one peak (the centerpiece); section — the working default;
-//   quiet — recessive (qualification strips that shouldn't compete).
+//   display (the one peak / centerpiece), section (the working default),
+//   quiet (recessive; qualification strips that shouldn't compete).
 function Head({ children, light = false, size = "section", style }) {
   const sizes = {
     display: "clamp(2.1rem,4.6vw,3.5rem)",
@@ -192,13 +192,13 @@ function Hero({ onCta }) {
       <Wrap style={{ position: "relative", zIndex: 1 }}>
         <Eyebrow style={{ marginBottom: "1.4rem" }}>For firms whose product is expertise</Eyebrow>
         <h1 style={{ fontFamily: serif, fontWeight: 500, fontSize: "clamp(2.3rem,5.2vw,4.2rem)", lineHeight: 1.06, letterSpacing: "-0.025em", maxWidth: "24ch", margin: 0 }}>
-          Every engagement leaves a record of what worked <em style={{ fontStyle: "italic", color: C.olive }}>— and what didn't.</em>
+          Every engagement leaves a record of what worked. <em style={{ fontStyle: "italic", color: C.olive }}>And what didn't.</em>
         </h1>
         <p style={{ fontSize: "clamp(1.1rem,1.7vw,1.34rem)", maxWidth: "60ch", marginTop: "1.6rem", color: C.ink, fontWeight: 500 }}>
-          AllianceOne assembles your firm's own engagements — the work, the decisions behind it, and how each one turned out — into one account your team scopes and builds from.
+          AllianceOne assembles your firm's own engagements into one account your team scopes and builds from. It holds the work, the decisions behind it, and how each one turned out.
         </p>
         <p style={{ fontSize: "clamp(1rem,1.4vw,1.14rem)", maxWidth: "62ch", marginTop: "1.1rem", color: C.inkSoft }}>
-          Every new engagement starts from precedent that carries its own verdict: what worked, what didn't, what you'd do differently. So the firm builds on its own hard-won judgment instead of solving the same problem twice — not a blank page, and not the generic average a general model hands everyone. And the record sharpens every time you close another engagement.
+          Every new engagement starts from precedent that carries its own verdict: what worked, what didn't, what you'd do differently. So the firm builds on its own hard-won judgment instead of solving the same problem twice. Not a blank page, and not the generic average a general model hands everyone. And the record sharpens every time you close another engagement.
         </p>
         <div style={{ marginTop: "2.4rem", display: "flex", gap: "1rem", flexWrap: "wrap" }}>
           <Btn variant="gold" onClick={onCta}>Request a demo</Btn>
@@ -218,9 +218,9 @@ function Hero({ onCta }) {
 function DayOne() {
   const cards = [
     ["Scope a new engagement from real precedent", "Pull the approach, team shape, and risks from how your firm actually ran the closest past engagements", "instead of a blank page or a generic template."],
-    ["Interrogate your own past work", "Ask what your firm did, for whom, and how it was structured — across every engagement at once", "instead of hunting through drives, threads, and people's memories."],
-    ["Plan deliverables from what shipped before", "Build a project and deliverable plan off the closest real engagements — their structure, what they included, and why", "instead of rebuilding the same scaffolding every time."],
-    ["Adapt precedent you can trust", "Find the documents, sections, and structures your firm has used before — carrying how each engagement turned out, so you build on what worked and learn from what didn't", "instead of reusing similar-looking work with no idea whether it succeeded."],
+    ["Interrogate your own past work", "Ask what your firm did, for whom, and how it was structured, across every engagement at once", "instead of hunting through drives, threads, and people's memories."],
+    ["Plan deliverables from what shipped before", "Build a project and deliverable plan off the closest real engagements, drawing on their structure, what they included, and why", "instead of rebuilding the same scaffolding every time."],
+    ["Adapt precedent you can trust", "Find the documents, sections, and structures your firm has used before, each carrying how its engagement turned out, so you build on what worked and learn from what didn't", "instead of reusing similar-looking work with no idea whether it succeeded."],
   ];
   return (
     <Section style={{ background: C.boneDim }}>
@@ -246,7 +246,7 @@ function DayOne() {
           ))}
         </div>
         <p style={{ color: C.ink, fontWeight: 500, fontSize: "1.08rem", maxWidth: "64ch", marginTop: "2.8rem" }}>
-          And it compounds: as each engagement completes, its decisions connect to outcomes and feed back in — so the account gets richer and the people drawing on it get sharper with every engagement.
+          And it compounds: as each engagement completes, its decisions connect to outcomes and feed back in, so the account gets richer and the people drawing on it get sharper with every engagement.
         </p>
       </Wrap>
     </Section>
@@ -362,7 +362,7 @@ function GraphCard() {
       </svg>
 
       <p style={{ fontFamily: sans, fontSize: "0.7rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(244,241,232,0.5)", textAlign: "center", margin: "0.6rem 0 0" }}>
-        Your firm's experience — assembled into expertise your people can use
+        Your firm's experience, assembled into expertise your people can use
       </p>
 
       <style>{`
@@ -397,10 +397,10 @@ function GraphCard() {
 
 function Product() {
   const capture = [
-    ["Who", "The client, the context, the constraints — the specific situation the work answered to.", false],
-    ["What", "The approach: framework, methodology, plan. The part every firm — and every general AI — already has.", false],
-    ["Why", "The reasoning behind the choice. Why this approach over the obvious alternative — the judgment that rarely gets written down.", true],
-    ["Outcome", "Promised versus delivered, what worked and what didn't. The evidence only your firm holds — the dimension that turns a record into calibrated judgment.", true],
+    ["Who", "The client, the context, the constraints. The specific situation the work answered to.", false],
+    ["What", "The approach: framework, methodology, plan. The part every firm, and every general AI, already has.", false],
+    ["Why", "The reasoning behind the choice. Why this approach over the obvious alternative, the judgment that rarely gets written down.", true],
+    ["Outcome", "Promised versus delivered, what worked and what didn't. The evidence only your firm holds. The dimension that turns a record into calibrated judgment.", true],
   ];
   return (
     <Section>
@@ -413,17 +413,17 @@ function Product() {
               Your firm's expertise, working for everyone in it.
             </Head>
             <p style={{ color: C.inkSoft, fontSize: "1.08rem", marginBottom: "1.1rem" }}>
-              AllianceOne assembles your firm's <strong style={{ color: C.ink, fontWeight: 600 }}>experience</strong> — every engagement, decision, and outcome, today scattered across documents, threads, methodologies, and people — into one living account of how your firm works: hard-won <strong style={{ color: C.ink, fontWeight: 600 }}>expertise</strong> your people can draw on, in the hands of the ones who built it.
+              Today your firm's <strong style={{ color: C.ink, fontWeight: 600 }}>experience</strong> is scattered across documents, threads, methodologies, and people. AllianceOne assembles every engagement, decision, and outcome into one living account of how your firm works. The result is hard-won <strong style={{ color: C.ink, fontWeight: 600 }}>expertise</strong> your people can draw on, in the hands of the ones who built it.
             </p>
             <p style={{ color: C.inkSoft, margin: 0 }}>
-              We don't train a model on your firm. We assemble your firm's own history into a structure your people can use — explicit, traceable, and yours.
+              We don't train a model on your firm. We assemble your firm's own history into a structure your people can use. It's explicit, traceable, and yours.
             </p>
           </div>
           <GraphCard />
         </div>
 
         <p style={{ color: C.ink, fontWeight: 500, fontSize: "1.12rem", maxWidth: "58ch", margin: "4rem 0 0" }}>
-          It assembles around the shape of the work itself — four things, for every engagement your firm has done.
+          It assembles around the shape of the work itself: four things, for every engagement your firm has done.
         </p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: "1.4rem", marginTop: "1.8rem" }}>
           {capture.map(([term, desc, moat], i) => (
@@ -439,7 +439,7 @@ function Product() {
           ))}
         </div>
         <p style={{ fontFamily: serif, fontStyle: "italic", fontSize: "1.3rem", color: C.oliveDeep, maxWidth: "62ch", margin: "2.4rem 0 0", lineHeight: 1.4 }}>
-          The What is the part anyone can already give you. The Why and the Outcome live only in your firm's own history — and they're the evidence your judgment is built on.
+          The What is the part anyone can already give you. The Why and the Outcome live only in your firm's own history, and they're the evidence your judgment is built on.
         </p>
       </Wrap>
     </Section>
@@ -450,16 +450,16 @@ function Product() {
 
 function Approach({ onCta }) {
   const general = [
-    "Has read every framework ever published — so it gives you the average of all consulting knowledge.",
+    "Has read every framework ever published, so it gives you the average of all consulting knowledge.",
     "Sees only the fragment you paste, disconnected from everything around it.",
     "Starts fresh each time. Nothing it learns on your work today survives tomorrow.",
     "Knows the frameworks. It can't know your firm's earned opinion of them.",
   ];
   const ours = [
-    "Holds your firm's hard-won deviation from the average — what you learned actually works, and where.",
+    "Holds your firm's hard-won deviation from the average: what you learned actually works, and where.",
     "Sees the whole: how each piece connects to the decision behind it and the outcome it led to.",
     "Accumulates. Every completed engagement makes the account richer and the firm sharper.",
-    "Carries your firm's judgment about the frameworks — the thing a client pays a premium for.",
+    "Carries your firm's judgment about the frameworks, the thing a client pays a premium for.",
   ];
   return (
     <Section>
@@ -474,10 +474,10 @@ function Approach({ onCta }) {
             Consulting is the craft of applying proven frameworks to specific problems. But the frameworks were never what made a firm valuable. Every firm has them. Now every AI has them too.
           </p>
           <p style={{ color: C.inkSoft, fontSize: "1.12rem", marginBottom: "1.1rem" }}>
-            When the same competent answer is available to everyone in seconds, the framework alone stops being a differentiator — and advice built on it competes on price.
+            When the same competent answer is available to everyone in seconds, the framework alone stops being a differentiator, and advice built on it competes on price.
           </p>
           <p style={{ color: C.inkSoft, fontSize: "1.12rem", margin: 0 }}>
-            What doesn't commoditize is the <strong style={{ color: C.ink, fontWeight: 600 }}>judgment</strong> underneath — the part that takes a career: which approach fits which problem, why, and whether it actually worked. It isn't lost. It's <strong style={{ color: C.ink, fontWeight: 600 }}>unassembled</strong> — scattered across your proposals, email, teams, methodologies, and people, so no one has ever seen the whole of it at once.
+            What doesn't commoditize is the <strong style={{ color: C.ink, fontWeight: 600 }}>judgment</strong> underneath, the part that takes a career: which approach fits which problem, why, and whether it actually worked. It isn't lost. It's <strong style={{ color: C.ink, fontWeight: 600 }}>unassembled</strong>, scattered across your proposals, email, teams, methodologies, and people, so no one has ever seen the whole of it at once.
           </p>
         </div>
 
@@ -487,14 +487,14 @@ function Approach({ onCta }) {
             &ldquo;Couldn't we just do this with Claude or ChatGPT?&rdquo;
           </Head>
           <p style={{ color: "rgba(244,241,232,0.72)", fontSize: "1.05rem", maxWidth: "60ch", marginTop: "1.1rem" }}>
-            Good tools — you're probably already using them, and you should keep doing so. But there's one thing they can't do: not from any lack of capability, but because of what they fundamentally are.
+            Good tools. You're probably already using them, and you should keep doing so. But there's one thing they can't do, and it's not from any lack of capability. It's because of what they fundamentally are.
           </p>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "1px", background: "rgba(244,241,232,0.14)", border: "1px solid rgba(244,241,232,0.14)", marginTop: "2.4rem" }}>
             <div style={{ background: C.ink, padding: "2.2rem 2rem" }}>
               <h3 style={{ fontFamily: sans, fontSize: "0.78rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(244,241,232,0.55)", margin: "0 0 1.2rem" }}>A general model</h3>
               {general.map((t, i) => (
                 <div key={i} style={{ display: "flex", gap: "0.8rem", alignItems: "baseline", padding: "0.7rem 0", borderTop: i === 0 ? "none" : "1px solid rgba(244,241,232,0.1)" }}>
-                  <span style={{ color: "rgba(244,241,232,0.4)", flex: "none" }}>—</span>
+                  <span style={{ color: "rgba(244,241,232,0.4)", flex: "none" }}>·</span>
                   <span style={{ fontSize: "0.96rem", color: "rgba(244,241,232,0.78)" }}>{t}</span>
                 </div>
               ))}
@@ -510,7 +510,7 @@ function Approach({ onCta }) {
             </div>
           </div>
           <p style={{ color: "rgba(244,241,232,0.72)", fontSize: "1.05rem", maxWidth: "62ch", margin: "2.4rem 0 0" }}>
-            It's not a contest of quality, and a better model won't close the gap. A general model hands anyone an opinion in seconds — the same average one your competitors get. What it can't hand them is <em style={{ fontStyle: "italic", color: C.goldSoft }}>evidence</em>: what actually worked, for whom, and why. General models <em style={{ fontStyle: "italic", color: C.goldSoft }}>retrieve</em> from everything; AllianceOne <em style={{ fontStyle: "italic", color: C.goldSoft }}>accumulates</em> that evidence from your firm — the one thing no model brings.
+            It's not a contest of quality, and a better model won't close the gap. A general model hands anyone an opinion in seconds, the same average one your competitors get. What it can't hand them is <em style={{ fontStyle: "italic", color: C.goldSoft }}>evidence</em>: what actually worked, for whom, and why. General models <em style={{ fontStyle: "italic", color: C.goldSoft }}>retrieve</em> from everything. AllianceOne <em style={{ fontStyle: "italic", color: C.goldSoft }}>accumulates</em> that evidence from your firm. It's the one thing no model brings.
           </p>
         </div>
 
@@ -522,12 +522,12 @@ function Approach({ onCta }) {
   );
 }
 
-// ---- industries (the firms it's built for — verticals whose product is expertise)
+// ---- industries (the firms it's built for; verticals whose product is expertise)
 
 function Industries() {
   const items = [
-    ["Management consulting", "Where the deliverable is judgment itself — which approach, why, and whether it worked. The reasoning behind every recommendation becomes reusable, instead of walking out the door with the partner who made it."],
-    ["Advisory", "Deals, risk, restructuring — high-stakes, precedent-driven work where what you did last time, and how it actually turned out, is the most valuable thing in the room."],
+    ["Management consulting", "Where the deliverable is judgment itself: which approach, why, and whether it worked. The reasoning behind every recommendation becomes reusable, instead of walking out the door with the partner who made it."],
+    ["Advisory", "Deals, risk, restructuring. High-stakes, precedent-driven work where what you did last time, and how it actually turned out, is the most valuable thing in the room."],
     ["Accounting & tax", "Where engagement history, positions taken, and institutional knowledge shape quality, risk, and margin across hundreds of recurring engagements."],
   ];
   return (
@@ -539,7 +539,7 @@ function Industries() {
           Built for firms whose product is expertise.
         </Head>
         <p style={{ color: C.inkSoft, fontSize: "1.05rem", maxWidth: "58ch", marginBottom: "2.8rem" }}>
-          The work differs, but the asset is the same: decades of hard-won experience, distributed across people and engagements — and never assembled until now.
+          The work differs, but the asset is the same: decades of hard-won experience, distributed across people and engagements, and never assembled until now.
         </p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: "2rem 2.5rem" }}>
           {items.map(([h, p]) => (
@@ -585,7 +585,7 @@ function Footer({ onCta }) {
           <div style={{ maxWidth: "38ch" }}>
             <Logo light />
             <p style={{ color: "rgba(244,241,232,0.6)", fontSize: "0.92rem", marginTop: "1rem" }}>
-              Your firm's own experience, assembled into usable expertise — in the hands of the people who built it.
+              Your firm's own experience, assembled into usable expertise, in the hands of the people who built it.
             </p>
           </div>
           <div style={{ display: "flex", gap: "4rem", flexWrap: "wrap" }}>
@@ -622,7 +622,7 @@ function Modal({ open, onClose }) {
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
   const submit = (e) => {
     e.preventDefault();
-    const subject = encodeURIComponent("Demo request — AllianceOne");
+    const subject = encodeURIComponent("AllianceOne demo request");
     const body = encodeURIComponent(`Name: ${form.name}\nFirm: ${form.firm}\nWork email: ${form.email}\n\nWe'd like to see AllianceOne on our firm's own work.`);
     window.location.href = `mailto:hello@myalliance.ai?subject=${subject}&body=${body}`;
   };
