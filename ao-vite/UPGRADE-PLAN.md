@@ -90,8 +90,8 @@ Nav anchors: "How it works" → §2/§3 cluster · "Why AllianceOne" → §5/§6
 - Split **Why not just AI** into its own dark section; lean **Approach**
   (§4.5/4.6); mid-page CTA now sits at the end of Why-not-AI. ✅
 - **Who it's for** partner/role framing block (§4.8). ✅
-- **Worked example** (§4.7) — PENDING your Worx fixtures + product
-  screenshots; build it from real material then.
+- **Worked example** (§4.7) ✅ built as the "See it on real work" section
+  from the real product screenshot (the Scope view).
 - All new copy written de-AI'd (no em dashes). Aesthetics audit (§5) —
   light pass done; revisit alongside the worked example.
 
