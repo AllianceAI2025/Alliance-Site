@@ -191,14 +191,14 @@ function Hero({ onCta }) {
       <div style={{ position: "absolute", inset: 0, opacity: 0.5, backgroundImage: `linear-gradient(${C.lineSoft} 1px, transparent 1px), linear-gradient(90deg, ${C.lineSoft} 1px, transparent 1px)`, backgroundSize: "64px 64px", WebkitMaskImage: "radial-gradient(ellipse 75% 70% at 72% 32%, #000 0%, transparent 72%)", maskImage: "radial-gradient(ellipse 75% 70% at 72% 32%, #000 0%, transparent 72%)" }} />
       <Wrap style={{ position: "relative", zIndex: 1 }}>
         <Eyebrow style={{ marginBottom: "1.4rem" }}>For firms whose product is expertise</Eyebrow>
-        <h1 style={{ fontFamily: serif, fontWeight: 500, fontSize: "clamp(2.4rem,5.4vw,4.4rem)", lineHeight: 1.05, letterSpacing: "-0.025em", maxWidth: "22ch", margin: 0 }}>
-          Every engagement should start from <em style={{ fontStyle: "italic", color: C.olive }}>how the last one actually turned out.</em>
+        <h1 style={{ fontFamily: serif, fontWeight: 500, fontSize: "clamp(2.5rem,5.6vw,4.6rem)", lineHeight: 1.05, letterSpacing: "-0.025em", maxWidth: "20ch", margin: 0 }}>
+          Never start from scratch. Start from <em style={{ fontStyle: "italic", color: C.olive }}>what actually worked.</em>
         </h1>
-        <p style={{ fontSize: "clamp(1.08rem,1.7vw,1.32rem)", maxWidth: "60ch", marginTop: "1.6rem", color: C.ink, fontWeight: 500 }}>
-          AllianceOne assembles your firm's own history — the work, the decisions behind it, and how each engagement turned out — into one account your people work from. Scope new work, plan deliverables, and adapt what your firm has already done, drawn from the closest past engagements and what they actually produced — the wins and the ones that didn't go to plan.
+        <p style={{ fontSize: "clamp(1.1rem,1.7vw,1.34rem)", maxWidth: "58ch", marginTop: "1.6rem", color: C.ink, fontWeight: 500 }}>
+          AllianceOne assembles your firm's own history — every engagement, the decisions behind it, and how each one turned out — into one account your people build from.
         </p>
-        <p style={{ fontSize: "clamp(1rem,1.4vw,1.12rem)", maxWidth: "58ch", marginTop: "1.1rem", color: C.inkSoft }}>
-          Not a blank page. Not the generic average every competitor's AI hands back. And every engagement that completes makes the account sharper — connecting decisions to outcomes, so your firm compounds its own judgment instead of re-solving from scratch.
+        <p style={{ fontSize: "clamp(1rem,1.4vw,1.14rem)", maxWidth: "60ch", marginTop: "1.1rem", color: C.inkSoft }}>
+          Every new engagement starts from precedent you can trust, with the outcomes attached — not a blank page, not the generic average, and never the same problem solved twice. And it sharpens every time you close another engagement.
         </p>
         <div style={{ marginTop: "2.4rem", display: "flex", gap: "1rem", flexWrap: "wrap" }}>
           <Btn variant="gold" onClick={onCta}>Request a demo</Btn>
