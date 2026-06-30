@@ -82,14 +82,18 @@ Nav anchors: "How it works" → §2/§3 cluster · "Why AllianceOne" → §5/§6
 
 → build, push, review the new top-of-page + demo path.
 
-## Phase 2 — depth & proof (next pass)
+## Phase 2 — depth & proof ✅ SHIPPED (except the worked example)
 
-- How-it-shows **diagram** (§4.3).
-- Four-dimensions reframe + pull-quote + GraphCard relocation (§4.4).
-- Split **Why not just AI** into its own section; tighten **Approach** (§4.5/4.6).
-- **Worked example** (§4.7, illustrative).
-- **Who it's for** role framing (§4.8).
-- Aesthetics audit (§5): serif in headings only; gold = CTA only; whitespace.
+- How-it-shows **diagram** (§4.3) — planning → execution → review arc. ✅
+- Four-dimensions reframe + failure-learning pull-quote (§4.4); GraphCard
+  lives in this section. ✅
+- Split **Why not just AI** into its own dark section; lean **Approach**
+  (§4.5/4.6); mid-page CTA now sits at the end of Why-not-AI. ✅
+- **Who it's for** partner/role framing block (§4.8). ✅
+- **Worked example** (§4.7) — PENDING your Worx fixtures + product
+  screenshots; build it from real material then.
+- All new copy written de-AI'd (no em dashes). Aesthetics audit (§5) —
+  light pass done; revisit alongside the worked example.
 
 ## Verification
 
