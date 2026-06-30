@@ -7,7 +7,7 @@ import React, { useState, useEffect, useRef } from "react";
 //   The asset is the firm's accumulated EXPERIENCE (every engagement,
 //   decision, and outcome), assembled into usable EXPERTISE, with JUDGMENT
 //   (which approach, for whom, why, whether it worked) as the apex/moat.
-//   AllianceOne assembles that distributed experience into one living record.
+//   AllianceOne assembles that distributed experience into one living system.
 // Voice: anti-hype, calm, firm-as-hero. No "neural network"/"brain" in copy.
 // ASG appears only as quiet plumbing in the footer.
 // v4: consolidated to remove repetition. Thesis stated once, sections halved,
@@ -192,13 +192,13 @@ function Hero({ onCta }) {
       <Wrap style={{ position: "relative", zIndex: 1 }}>
         <Eyebrow style={{ marginBottom: "1.4rem" }}>For firms whose product is expertise</Eyebrow>
         <h1 style={{ fontFamily: serif, fontWeight: 500, fontSize: "clamp(2.3rem,5.2vw,4.2rem)", lineHeight: 1.06, letterSpacing: "-0.025em", maxWidth: "24ch", margin: 0 }}>
-          Every engagement leaves a record of what worked. <em style={{ fontStyle: "italic", color: C.olive }}>And what didn't.</em>
+          Start the next engagement from every one your firm has <em style={{ fontStyle: "italic", color: C.olive }}>already run.</em>
         </h1>
         <p style={{ fontSize: "clamp(1.1rem,1.7vw,1.34rem)", maxWidth: "60ch", marginTop: "1.6rem", color: C.ink, fontWeight: 500 }}>
-          AllianceOne assembles your firm's own engagements into one record your team scopes and builds from. It holds the work, the decisions behind it, and how each one turned out.
+          AllianceOne is the system that holds your firm's engagements whole: the problem, the approach, the reasoning behind it, and how it turned out.
         </p>
         <p style={{ fontSize: "clamp(1rem,1.4vw,1.14rem)", maxWidth: "62ch", marginTop: "1.1rem", color: C.inkSoft }}>
-          Every new engagement starts from precedent that carries its own verdict: what worked, what didn't, what you'd do differently. So the firm builds on its own hard-won judgment instead of solving the same problem twice. Not a blank page, and not the generic average a general model hands everyone. And the record sharpens every time you close another engagement.
+          When your team scopes new work, the closest past engagements are already on the page, with their methods, their watch-outs, and their results. Not a blank page, and not the generic average a general model returns. And the system gets sharper with every engagement you close.
         </p>
         <div style={{ marginTop: "2.4rem", display: "flex", gap: "1rem", flexWrap: "wrap" }}>
           <Btn variant="gold" onClick={onCta}>Request a demo</Btn>
@@ -246,7 +246,7 @@ function DayOne() {
           ))}
         </div>
         <p style={{ color: C.ink, fontWeight: 500, fontSize: "1.08rem", maxWidth: "64ch", marginTop: "2.8rem" }}>
-          And it compounds: as each engagement completes, its decisions connect to outcomes and feed back in, so the record gets richer and the people drawing on it get sharper with every engagement.
+          And it compounds: as each engagement completes, its decisions connect to outcomes and feed back in, so the system gets richer and the people drawing on it get sharper with every engagement.
         </p>
       </Wrap>
     </Section>
@@ -288,7 +288,7 @@ function GraphCard() {
 
   return (
     <div ref={ref} className={cls} style={{ ["--e"]: ease, background: C.ink, borderRadius: 8, padding: "2.2rem 2.2rem 1.6rem", overflow: "hidden", boxShadow: "0 30px 60px -30px rgba(20,22,15,0.5)" }}>
-      <svg viewBox="0 0 460 400" role="img" aria-label="AllianceOne extracting a firm's proposals, email, deliverables, delivery plans, methods, and outcomes, and assembling that experience into one connected record of the firm's expertise">
+      <svg viewBox="0 0 460 400" role="img" aria-label="AllianceOne extracting a firm's proposals, email, deliverables, delivery plans, methods, and outcomes, and assembling that experience into one connected system of the firm's expertise">
         <title>Your firm's scattered experience, assembled into usable expertise</title>
         <defs>
           <linearGradient id="ed" x1="0" y1="0" x2="1" y2="1">
@@ -410,10 +410,10 @@ function HowItShows() {
       <Wrap>
         <Eyebrow>How it shows up in the work</Eyebrow>
         <Head size="section" style={{ maxWidth: "24ch", marginBottom: "1rem" }}>
-          One record, across the whole engagement.
+          One system, across the whole engagement.
         </Head>
         <p style={{ color: C.inkSoft, fontSize: "1.08rem", maxWidth: "66ch", marginBottom: "3.4rem" }}>
-          The record isn't a chatbot off to the side. Your team works from it at every stage, and at each one, the firm's past work arrives with its outcomes attached, not just its contents.
+          The system isn't a chatbot off to the side. Your team works from it at every stage, and at each one, the closest past engagements arrive whole: the problem they faced, the approach they took, the watch-outs, and how they turned out.
         </p>
         <div>
           {stages.map(([name, headline, body, icon], i) => (
@@ -442,7 +442,7 @@ function Product() {
     ["Who", "The client, the context, the constraints. The specific situation the work answered to.", false],
     ["What", "The approach: framework, methodology, plan. The part every firm, and every general AI, already has.", false],
     ["Why", "The reasoning behind the choice: this approach over the obvious alternative. The judgment that rarely gets written down, captured where your history already holds it and recorded with every new engagement.", true],
-    ["Outcome", "Promised versus delivered, what worked and what didn't. The evidence only your firm holds. It turns a record into calibrated judgment, and it deepens with every engagement that completes inside AllianceOne.", true],
+    ["Outcome", "Promised versus delivered, what worked and what didn't. The evidence only your firm holds. It turns activity into calibrated judgment, and it deepens with every engagement that completes inside AllianceOne.", true],
   ];
   return (
     <Section style={{ background: C.boneDim }}>
@@ -455,7 +455,7 @@ function Product() {
               Your firm's expertise, working for everyone in it.
             </Head>
             <p style={{ color: C.inkSoft, fontSize: "1.08rem", marginBottom: "1.1rem" }}>
-              Today your firm's <strong style={{ color: C.ink, fontWeight: 600 }}>experience</strong> is scattered across documents, threads, methodologies, and people. AllianceOne assembles every engagement, decision, and outcome into one living record of how your firm works. The result is hard-won <strong style={{ color: C.ink, fontWeight: 600 }}>expertise</strong> your people can draw on, in the hands of the ones who built it.
+              Today your firm's <strong style={{ color: C.ink, fontWeight: 600 }}>experience</strong> is scattered across documents, threads, methodologies, and people. AllianceOne brings every engagement into one system, whole and connected, so the firm's hard-won <strong style={{ color: C.ink, fontWeight: 600 }}>expertise</strong> is there for the people doing the next one.
             </p>
             <p style={{ color: C.inkSoft, margin: 0 }}>
               We don't train a model on your firm. We assemble your firm's own history into a structure your people can use. It's explicit, traceable, and yours.
@@ -465,7 +465,7 @@ function Product() {
         </div>
 
         <p style={{ color: C.ink, fontWeight: 500, fontSize: "1.12rem", maxWidth: "58ch", margin: "4rem 0 0" }}>
-          It assembles around the shape of the work itself: four things, for every engagement your firm has done.
+          Every engagement is four things, captured together: the problem it solved, the approach taken, the reasoning behind it, and how it turned out.
         </p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: "1.4rem", marginTop: "1.8rem" }}>
           {capture.map(([term, desc, moat], i) => (
@@ -481,10 +481,10 @@ function Product() {
           ))}
         </div>
         <p style={{ fontFamily: serif, fontStyle: "italic", fontSize: "1.5rem", color: C.oliveDeep, maxWidth: "60ch", margin: "2.8rem 0 0", lineHeight: 1.35 }}>
-          Your firm learns from every engagement, including the ones that didn't work.
+          Any one of these is a fragment. The four together are the engagement.
         </p>
         <p style={{ color: C.inkSoft, fontSize: "1.02rem", maxWidth: "62ch", marginTop: "1.1rem" }}>
-          A retrieval tool surfaces work that looks similar. It can't tell a deck that won the client from one that lost it. Outcomes, wins and failures alike, are what make precedent trustworthy instead of merely similar, and they're the dimension a similarity engine is built to miss.
+          A general model works from the fragment you paste. AllianceOne works from the whole engagement, problem through outcome, connected the way your firm actually ran it. A lookalike can't reconstruct that.
         </p>
       </Wrap>
     </Section>
@@ -530,7 +530,7 @@ function WhyNotAI({ onCta }) {
   const ours = [
     "Holds your firm's hard-won deviation from the average: what you learned actually works, and where.",
     "Sees the whole: how each piece connects to the decision behind it and the outcome it led to.",
-    "Accumulates. Every completed engagement makes the record richer and the firm sharper.",
+    "Accumulates. Every completed engagement makes the system richer and the firm sharper.",
     "Carries your firm's judgment about the frameworks, the thing a client pays a premium for.",
   ];
   return (
@@ -569,6 +569,45 @@ function WhyNotAI({ onCta }) {
         </p>
         <div style={{ marginTop: "2.8rem" }}>
           <Btn variant="gold" onClick={onCta}>Request a demo</Btn>
+        </div>
+      </Wrap>
+    </Section>
+  );
+}
+
+// ---- proof (a real product view of scoping a new engagement) --------------
+
+function Proof() {
+  const points = [
+    ["Similar engagements, ranked", "The closest past engagements surface on their own, each with how it was actually run, not just that it exists."],
+    ["Watch-outs from history", "The risks the firm hit before are flagged before scoping, so they aren't walked into a second time."],
+    ["A scope that starts written", "Discovery feeds the scope directly. The first draft is the firm's real approach, not a generic template."],
+  ];
+  return (
+    <Section>
+      <Wrap>
+        <Eyebrow>See it on real work</Eyebrow>
+        <Head size="section" style={{ maxWidth: "28ch", marginBottom: "1rem" }}>
+          Scoping a new engagement, grounded in the ones before it.
+        </Head>
+        <p style={{ color: C.inkSoft, fontSize: "1.08rem", maxWidth: "66ch", marginBottom: "2.6rem" }}>
+          A partner opens a new engagement, and the scope starts to build itself from the firm's closest past work: the engagements that resemble it, the methods they used, and the watch-outs that surfaced along the way. The blank page is already filled in with the firm's own experience.
+        </p>
+        <figure style={{ margin: 0 }}>
+          <div style={{ borderRadius: 10, overflow: "hidden", border: `1px solid ${C.line}`, boxShadow: "0 36px 70px -34px rgba(20,22,15,0.5)", background: C.paper }}>
+            <img src="/worked-example.png" alt="The Scope view in AllianceOne: a new engagement being scoped from similar past engagements ranked by match, the in-scope items and constraints carried from discovery, and watch-outs surfaced automatically." style={{ display: "block", width: "100%", height: "auto" }} />
+          </div>
+          <figcaption style={{ fontFamily: sans, fontSize: "0.8rem", color: C.oliveLite, marginTop: "0.9rem", textAlign: "center" }}>
+            The Scope view in AllianceOne. Firm names shown are illustrative.
+          </figcaption>
+        </figure>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: "1.6rem 2rem", marginTop: "3rem" }}>
+          {points.map(([h, p], i) => (
+            <div key={i} style={{ borderTop: `2px solid ${C.olive}`, paddingTop: "1rem" }}>
+              <h3 style={{ fontFamily: serif, fontWeight: 500, fontSize: "1.3rem", margin: "0 0 0.5rem" }}>{h}</h3>
+              <p style={{ fontSize: "0.95rem", color: C.inkSoft, margin: 0 }}>{p}</p>
+            </div>
+          ))}
         </div>
       </Wrap>
     </Section>
@@ -736,6 +775,7 @@ export default function App() {
       <Product />
       <Approach />
       <WhyNotAI onCta={openCta} />
+      <Proof />
       <Industries />
       <ClosingCTA onCta={openCta} />
       <Footer onCta={openCta} />
