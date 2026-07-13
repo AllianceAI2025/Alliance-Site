@@ -44,6 +44,7 @@ const C = {
 
 const serif = "'Cormorant Garamond', Georgia, serif";
 const sans = "'DM Sans', system-ui, sans-serif";
+const mono = "'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace";
 const ease = "cubic-bezier(.22,1,.36,1)";
 
 // ---- atoms ---------------------------------------------------------------
@@ -185,27 +186,130 @@ function Nav({ onCta }) {
 // Leads with the firm's own knowledge as the asset, then plants the
 // general-AI distinction so the next section pays it off.
 
-function Hero({ onCta }) {
+// Mono section marker: "NN / LABEL", the report-style divider that replaces
+// the generic eyebrow on the rebuilt (dossier) sections.
+function Marker({ n, children, color = C.oliveLite }) {
   return (
-    <section style={{ position: "relative", overflow: "hidden", padding: "clamp(4rem,8vw,7rem) 0 clamp(4rem,7vw,6rem)" }}>
-      <div style={{ position: "absolute", inset: 0, opacity: 0.5, backgroundImage: `linear-gradient(${C.lineSoft} 1px, transparent 1px), linear-gradient(90deg, ${C.lineSoft} 1px, transparent 1px)`, backgroundSize: "64px 64px", WebkitMaskImage: "radial-gradient(ellipse 75% 70% at 72% 32%, #000 0%, transparent 72%)", maskImage: "radial-gradient(ellipse 75% 70% at 72% 32%, #000 0%, transparent 72%)" }} />
-      <Wrap style={{ position: "relative", zIndex: 1 }}>
-        <Eyebrow style={{ marginBottom: "1.4rem" }}>For firms whose product is expertise</Eyebrow>
-        <h1 style={{ fontFamily: serif, fontWeight: 500, fontSize: "clamp(2.3rem,5.2vw,4.2rem)", lineHeight: 1.06, letterSpacing: "-0.025em", maxWidth: "24ch", margin: 0 }}>
-          Start the next engagement from every one your firm has <em style={{ fontStyle: "italic", color: C.olive }}>already run.</em>
+    <div style={{ display: "flex", alignItems: "center", gap: "0.7rem", fontFamily: mono, fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color }}>
+      <span style={{ fontWeight: 500 }}>{n}</span>
+      <span style={{ width: 26, height: 1, background: color, opacity: 0.5, display: "inline-block" }} />
+      <span>{children}</span>
+    </div>
+  );
+}
+
+function Hero({ onCta }) {
+  const spec = [
+    ["What it is", "A system that models how your firm actually works, across every engagement."],
+    ["What it does", "Turns your best partners' judgment into methods the whole firm can run."],
+    ["Instead of", "Generic AI that hands every firm the same average answer."],
+  ];
+  return (
+    <section style={{ borderBottom: `1px solid ${C.line}` }}>
+      <Wrap style={{ padding: "clamp(3rem,6vw,5.5rem) clamp(1.25rem,5vw,4.5rem) clamp(3rem,6vw,5rem)" }}>
+        <p style={{ fontFamily: mono, fontSize: "0.74rem", letterSpacing: "0.16em", textTransform: "uppercase", color: C.olive, margin: 0 }}>
+          For consulting, advisory &amp; professional-services firms
+        </p>
+        <h1 style={{ fontFamily: serif, fontWeight: 500, fontSize: "clamp(2.7rem,6.2vw,5.2rem)", lineHeight: 1.0, letterSpacing: "-0.03em", maxWidth: "15ch", margin: "1.5rem 0 0" }}>
+          Your firm's expertise, made <em style={{ fontStyle: "italic", color: C.olive }}>repeatable.</em>
         </h1>
-        <p style={{ fontSize: "clamp(1.1rem,1.7vw,1.34rem)", maxWidth: "60ch", marginTop: "1.6rem", color: C.ink, fontWeight: 500 }}>
-          AllianceOne is the system that holds your firm's engagements whole: the problem, the approach, the reasoning behind it, and how it turned out.
+        <p style={{ fontSize: "clamp(1.1rem,1.7vw,1.4rem)", maxWidth: "56ch", marginTop: "1.7rem", color: C.ink, fontWeight: 500, lineHeight: 1.5 }}>
+          AllianceOne models your firm's practice: how you approach problems, how you reason through them, and how you deliver. Your expertise becomes traceable, repeatable, and compounding, instead of walking out the door with whoever did the work.
         </p>
-        <p style={{ fontSize: "clamp(1rem,1.4vw,1.14rem)", maxWidth: "62ch", marginTop: "1.1rem", color: C.inkSoft }}>
-          When your team scopes new work, the closest past engagements are already on the page, with their methods, their watch-outs, and their results. Not a blank page, and not the generic average a general model returns. And the system gets sharper with every engagement you close.
-        </p>
-        <div style={{ marginTop: "2.4rem", display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+        <div style={{ marginTop: "2.8rem", borderTop: `2px solid ${C.ink}`, display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(210px,1fr))", gap: "0" }}>
+          {spec.map(([label, text], i) => (
+            <div key={i} style={{ padding: "1.4rem 1.6rem 0.4rem 0" }}>
+              <p style={{ fontFamily: mono, fontSize: "0.7rem", letterSpacing: "0.12em", textTransform: "uppercase", color: C.oliveLite, margin: "0 0 0.5rem" }}>{label}</p>
+              <p style={{ fontSize: "0.98rem", color: C.inkSoft, margin: 0, maxWidth: "30ch" }}>{text}</p>
+            </div>
+          ))}
+        </div>
+        <div style={{ marginTop: "2.6rem", display: "flex", gap: "1rem", flexWrap: "wrap" }}>
           <Btn variant="gold" onClick={onCta}>Request a demo</Btn>
-          <Btn variant="ghost" onClick={() => document.getElementById("how-it-works")?.scrollIntoView({ behavior: "smooth" })}>See how it works</Btn>
+          <Btn variant="ghost" onClick={() => document.getElementById("model")?.scrollIntoView({ behavior: "smooth" })}>See how it works</Btn>
         </div>
       </Wrap>
     </section>
+  );
+}
+
+// ---- 01 the shift (the market moved to us; receipts with sources) ---------
+
+function TheShift() {
+  const findings = [
+    ["95% of enterprise AI pilots delivered no measurable P&L impact.", "MIT · The GenAI Divide · 2025"],
+    ["Enterprises are “livid” over AI models that capture their business value. The real fight is control and ownership.", "Palantir CEO Alex Karp · 2026"],
+    ["Up to 90% of a firm's value is tacit knowledge, the one thing competitors cannot copy.", "California Management Review · 2026"],
+  ];
+  return (
+    <Section style={{ background: C.ink, color: C.bone }}>
+      <div id="shift" style={{ scrollMarginTop: 80 }} />
+      <Wrap>
+        <Marker n="01" color={C.gold}>The shift</Marker>
+        <Head light size="display" style={{ maxWidth: "18ch", margin: "1.5rem 0 0" }}>
+          Generic AI gave everyone the average.
+        </Head>
+        <p style={{ color: "rgba(244,241,232,0.74)", fontSize: "1.14rem", maxWidth: "62ch", marginTop: "1.4rem", lineHeight: 1.6 }}>
+          Two years of enterprise AI proved a point the market is only now saying out loud. A model trained on everyone else's work hands your firm the same answer it hands your competitors, and quietly exports your value to whoever owns the model. The counter-move is to model and own your own intelligence. For a firm whose product is expertise, that intelligence is the practice.
+        </p>
+        <div style={{ marginTop: "3rem", borderTop: "1px solid rgba(244,241,232,0.22)" }}>
+          {findings.map(([claim, src], i) => (
+            <div key={i} style={{ display: "grid", gridTemplateColumns: "2.5rem 1fr", gap: "0.5rem", alignItems: "start", padding: "1.5rem 0", borderBottom: "1px solid rgba(244,241,232,0.12)" }}>
+              <span style={{ fontFamily: mono, fontSize: "0.8rem", color: C.gold, paddingTop: "0.4rem" }}>{`0${i + 1}`}</span>
+              <div>
+                <p style={{ fontFamily: serif, fontSize: "clamp(1.25rem,2vw,1.5rem)", color: C.bone, margin: 0, lineHeight: 1.3, maxWidth: "46ch" }}>{claim}</p>
+                <p style={{ fontFamily: mono, fontSize: "0.72rem", letterSpacing: "0.04em", color: "rgba(244,241,232,0.5)", margin: "0.6rem 0 0" }}>{src}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Wrap>
+    </Section>
+  );
+}
+
+// ---- 02 model the practice (what it is; the three-axes table) -------------
+
+function ModelThePractice() {
+  const axes = [
+    ["How you approach", "Problem framing, what you look at first, your diagnostic style."],
+    ["How you think", "The options you weigh, the rationale, which frameworks you choose and why."],
+    ["How you deliver", "Work structures, sequencing, staffing shapes, how you handle variance."],
+  ];
+  return (
+    <Section>
+      <div id="model" style={{ scrollMarginTop: 80 }} />
+      <Wrap>
+        <Marker n="02">What it is</Marker>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))", gap: "2.6rem 4.5rem", marginTop: "1.5rem", alignItems: "start" }}>
+          <div>
+            <Head size="display" style={{ maxWidth: "15ch", margin: 0 }}>
+              We model the practice, not the archive.
+            </Head>
+            <p style={{ color: C.inkSoft, fontSize: "1.1rem", marginTop: "1.5rem", maxWidth: "46ch", lineHeight: 1.6 }}>
+              Everyone else in AI for consulting indexes your documents and retrieves the ones that look similar. They model the archive. AllianceOne models the practice: your firm's cognitive fingerprint, the particular way your firm approaches, thinks, and delivers.
+            </p>
+            <p style={{ color: C.ink, fontSize: "1.1rem", fontWeight: 500, marginTop: "1.1rem", maxWidth: "46ch", lineHeight: 1.6 }}>
+              The moat was never the case library. It's the why's and how's, with receipts, and the loop that keeps them current.
+            </p>
+          </div>
+          <div style={{ borderTop: `2px solid ${C.ink}` }}>
+            <div style={{ display: "flex", justifyContent: "space-between", padding: "0.7rem 0 0.9rem", fontFamily: mono, fontSize: "0.68rem", letterSpacing: "0.12em", textTransform: "uppercase", color: C.oliveLite, borderBottom: `1px solid ${C.line}` }}>
+              <span>Axis</span><span>The cognitive fingerprint</span>
+            </div>
+            {axes.map(([axis, desc], i) => (
+              <div key={i} style={{ padding: "1.4rem 0", borderBottom: `1px solid ${C.line}`, display: "grid", gridTemplateColumns: "2rem 1fr", gap: "0.6rem", alignItems: "baseline" }}>
+                <span style={{ fontFamily: mono, fontSize: "0.72rem", color: C.gold }}>{`0${i + 1}`}</span>
+                <div>
+                  <h3 style={{ fontFamily: serif, fontWeight: 500, fontSize: "1.4rem", margin: 0 }}>{axis}</h3>
+                  <p style={{ color: C.inkSoft, fontSize: "0.98rem", margin: "0.35rem 0 0", maxWidth: "40ch" }}>{desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Wrap>
+    </Section>
   );
 }
 
@@ -761,7 +865,7 @@ export default function App() {
       const link = document.createElement("link");
       link.id = "ao-fonts";
       link.rel = "stylesheet";
-      link.href = "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap";
+      link.href = "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap";
       document.head.appendChild(link);
     }
   }, []);
@@ -770,6 +874,8 @@ export default function App() {
     <div style={{ fontFamily: sans, background: C.bone, color: C.ink, fontSize: 17, lineHeight: 1.6, minHeight: "100vh", overflowX: "hidden" }}>
       <Nav onCta={openCta} />
       <Hero onCta={openCta} />
+      <TheShift />
+      <ModelThePractice />
       <DayOne />
       <HowItShows />
       <Product />
