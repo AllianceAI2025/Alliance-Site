@@ -54,10 +54,22 @@ export const C = {
   lineSoft: "rgba(20,22,15,0.07)",
 };
 
-const serif = "'Cormorant Garamond', Georgia, serif";
-const sans = "'DM Sans', system-ui, sans-serif";
-const mono = "'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace";
+export const serif = "'Cormorant Garamond', Georgia, serif";
+export const sans = "'DM Sans', system-ui, sans-serif";
+export const mono = "'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace";
 const ease = "cubic-bezier(.22,1,.36,1)";
+
+export function useFonts() {
+  useEffect(() => {
+    if (!document.getElementById("ao-fonts")) {
+      const link = document.createElement("link");
+      link.id = "ao-fonts";
+      link.rel = "stylesheet";
+      link.href = "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap";
+      document.head.appendChild(link);
+    }
+  }, []);
+}
 
 // ---- atoms ---------------------------------------------------------------
 
@@ -928,15 +940,7 @@ export default function App() {
   const [modal, setModal] = useState(false);
   const openCta = () => setModal(true);
 
-  useEffect(() => {
-    if (!document.getElementById("ao-fonts")) {
-      const link = document.createElement("link");
-      link.id = "ao-fonts";
-      link.rel = "stylesheet";
-      link.href = "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap";
-      document.head.appendChild(link);
-    }
-  }, []);
+  useFonts();
 
   return (
     <div style={{ fontFamily: sans, background: C.bone, color: C.ink, fontSize: 17, lineHeight: 1.6, minHeight: "100vh", overflowX: "hidden" }}>
