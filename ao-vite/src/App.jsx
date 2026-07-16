@@ -161,7 +161,7 @@ const SECTIONS = [
   ["who", "Who it's for"],
   ["model", "What it is"],
   ["product", "The product"],
-  ["why", "The difference"],
+  ["why", "Why AllianceOne"],
 ];
 
 // Smart anchor: real <a href> (crawlable, keyboard-focusable) that upgrades to
@@ -448,50 +448,65 @@ function ModelThePractice() {
 
 
 
-// ---- 05 the difference (why not generic AI, as a real table) --------------
+// ---- 05 why AllianceOne (the vs-general-model columns + the moat) ---------
 
 function WhyNotGenericAI({ onCta }) {
-  const rows = [
-    ["Unit of value", "A deliverable, produced fast and on-brand", "The engagement: problem, decision, delivery, outcome"],
-    ["What it draws on", "Every framework ever published, the average", "Your firm's earned deviation from that average"],
-    ["Memory", "Starts fresh each session", "Accumulates, and sharpens with every engagement"],
-    ["Precedent", "Whatever looks similar", "What your firm actually did, with receipts"],
-    ["Whose value it grows", "The model provider's", "Yours"],
+  const general = [
+    "Has read every framework ever published, so it gives you the average of all consulting knowledge.",
+    "Sees only the fragment you paste, disconnected from everything around it.",
+    "Remembers fragments for one user at a time. Nothing assembles into a firm-wide record of decisions and outcomes.",
+    "Knows the frameworks. It can't know your firm's earned opinion of them.",
   ];
-  const thBase = { fontFamily: mono, fontSize: "0.7rem", letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 500, padding: "0 1rem 0.9rem 0" };
-  const tdBase = { fontSize: "1.02rem", padding: "1.1rem 1rem", verticalAlign: "top", lineHeight: 1.45 };
+  const ours = [
+    "Holds your firm's hard-won deviation from the average: what you learned actually works, and where.",
+    "Sees the whole: how each piece connects to the decision behind it and the outcome it led to.",
+    "Accumulates. Every completed engagement makes the system richer and the firm sharper.",
+    "Carries your firm's judgment about the frameworks, the thing a client pays a premium for.",
+  ];
   return (
-    <Section>
+    <Section style={{ background: C.ink, color: C.bone }}>
       <div id="why" style={{ scrollMarginTop: 80 }} />
       <Wrap>
-        <Marker n="05">The difference</Marker>
-        <Head size="display" style={{ maxWidth: "24ch", margin: "1.5rem 0 0" }}>
+        <Marker n="05" color={C.gold}>Why AllianceOne</Marker>
+        <Head light size="section" style={{ maxWidth: "24ch", margin: "1.5rem 0 0" }}>
           &ldquo;Couldn't we just do this with Claude or ChatGPT?&rdquo;
         </Head>
-        <p style={{ color: C.inkSoft, fontSize: "1.1rem", maxWidth: "62ch", marginTop: "1.4rem", lineHeight: 1.6 }}>
-          Good tools. Your team is probably using them, and should keep doing so. But a general model and AllianceOne are built to do different things, and a better model does not close the distance.
+        <p style={{ color: "rgba(244,241,232,0.72)", fontSize: "1.05rem", maxWidth: "60ch", marginTop: "1.1rem" }}>
+          Good tools. You're probably already using them, and you should keep doing so. But there's one thing they can't do, and it's not from any lack of capability. It's because of what they fundamentally are.
         </p>
-        <div style={{ overflowX: "auto", marginTop: "2.6rem" }}>
-          <table style={{ width: "100%", minWidth: 640, borderCollapse: "collapse", textAlign: "left" }}>
-            <thead>
-              <tr style={{ borderBottom: `2px solid ${C.ink}` }}>
-                <th style={{ ...thBase, width: "22%" }}> </th>
-                <th style={{ ...thBase, width: "39%", color: C.inkSoft }}>A general model</th>
-                <th style={{ ...thBase, width: "39%", color: C.oliveDeep, paddingLeft: "1rem" }}>AllianceOne</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map(([dim, gen, ours], i) => (
-                <tr key={i} style={{ borderBottom: `1px solid ${C.line}` }}>
-                  <td style={{ ...tdBase, paddingLeft: 0, fontFamily: mono, fontSize: "0.72rem", letterSpacing: "0.05em", textTransform: "uppercase", color: C.oliveLite }}>{dim}</td>
-                  <td style={{ ...tdBase, color: C.inkSoft }}>{gen}</td>
-                  <td style={{ ...tdBase, color: C.ink, fontWeight: 500, background: "rgba(180,150,90,0.07)" }}>{ours}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "1px", background: "rgba(244,241,232,0.14)", border: "1px solid rgba(244,241,232,0.14)", marginTop: "2.4rem" }}>
+          <div style={{ background: C.ink, padding: "2.2rem 2rem" }}>
+            <h3 style={{ fontFamily: sans, fontSize: "0.78rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(244,241,232,0.55)", margin: "0 0 1.2rem" }}>A general model</h3>
+            {general.map((t, i) => (
+              <div key={i} style={{ display: "flex", gap: "0.8rem", alignItems: "baseline", padding: "0.7rem 0", borderTop: i === 0 ? "none" : "1px solid rgba(244,241,232,0.1)" }}>
+                <span style={{ color: "rgba(244,241,232,0.4)", flex: "none" }}>·</span>
+                <span style={{ fontSize: "0.96rem", color: "rgba(244,241,232,0.78)" }}>{t}</span>
+              </div>
+            ))}
+          </div>
+          <div style={{ background: C.oliveDeep, padding: "2.2rem 2rem" }}>
+            <h3 style={{ fontFamily: sans, fontSize: "0.78rem", letterSpacing: "0.16em", textTransform: "uppercase", color: C.gold, margin: "0 0 1.2rem" }}>AllianceOne</h3>
+            {ours.map((t, i) => (
+              <div key={i} style={{ display: "flex", gap: "0.8rem", alignItems: "baseline", padding: "0.7rem 0", borderTop: i === 0 ? "none" : "1px solid rgba(244,241,232,0.14)" }}>
+                <span style={{ color: C.gold, flex: "none" }}>✓</span>
+                <span style={{ fontSize: "0.96rem", color: "rgba(244,241,232,0.9)" }}>{t}</span>
+              </div>
+            ))}
+          </div>
         </div>
-        <div style={{ marginTop: "2.6rem" }}>
+        <p style={{ color: "rgba(244,241,232,0.72)", fontSize: "1.05rem", maxWidth: "62ch", margin: "2.4rem 0 0" }}>
+          It's not a contest of quality, and a better model won't close the gap. A general model hands anyone an opinion in seconds, the same average one your competitors get. What it can't hand them is <em style={{ fontStyle: "italic", color: C.goldSoft }}>evidence</em>: what actually worked, for whom, and why. General models <em style={{ fontStyle: "italic", color: C.goldSoft }}>retrieve</em> from everything. AllianceOne <em style={{ fontStyle: "italic", color: C.goldSoft }}>accumulates</em> that evidence from your firm. It's the one thing no model brings.
+        </p>
+        <div style={{ marginTop: "3rem", borderLeft: `3px solid ${C.gold}`, paddingLeft: "1.6rem", maxWidth: "70ch" }}>
+          <p style={{ fontFamily: mono, fontSize: "0.7rem", letterSpacing: "0.12em", textTransform: "uppercase", color: C.gold, margin: "0 0 0.6rem" }}>The moat</p>
+          <p style={{ fontFamily: serif, fontSize: "clamp(1.3rem,2.1vw,1.6rem)", color: C.bone, margin: 0, lineHeight: 1.3 }}>
+            Every engagement you complete widens a gap no better model can close.
+          </p>
+          <p style={{ color: "rgba(244,241,232,0.72)", fontSize: "1.02rem", margin: "0.9rem 0 0", lineHeight: 1.6 }}>
+            The advantage compounds in private. Your evidence accumulates inside your own system, sharpening your firm's fingerprint with every engagement, and it never leaves to train anyone else's model. A competitor can license the same AI tomorrow. They can't license your history.
+          </p>
+        </div>
+        <div style={{ marginTop: "2.8rem" }}>
           <Btn variant="gold" onClick={onCta}>Request a demo</Btn>
         </div>
       </Wrap>
@@ -540,12 +555,12 @@ function WhoItsFor() {
 
 function Close({ onCta }) {
   return (
-    <Section style={{ background: C.ink, color: C.bone }}>
+    <Section>
       <Wrap>
-        <Head light size="display" style={{ maxWidth: "16ch", margin: 0 }}>
+        <Head size="display" style={{ maxWidth: "16ch", margin: 0 }}>
           Own your practice.
         </Head>
-        <p style={{ color: "rgba(244,241,232,0.74)", fontSize: "1.16rem", maxWidth: "54ch", marginTop: "1.4rem", lineHeight: 1.6 }}>
+        <p style={{ color: C.inkSoft, fontSize: "1.16rem", maxWidth: "54ch", marginTop: "1.4rem", lineHeight: 1.6 }}>
           Your firm's expertise is its most valuable asset. Today it's also its least usable. AllianceOne is how you change that.
         </p>
         <div style={{ marginTop: "2.2rem" }}>
@@ -559,7 +574,7 @@ function Close({ onCta }) {
 // ---- footer (ASG as quiet plumbing) -----------------------------------------
 
 export function Footer({ onCta }) {
-  const links = [["who", "Who it's for"], ["model", "What it is"], ["product", "The product"], ["why", "The difference"]];
+  const links = [["who", "Who it's for"], ["model", "What it is"], ["product", "The product"], ["why", "Why AllianceOne"]];
   const linkStyle = { display: "block", fontSize: "0.92rem", color: "rgba(244,241,232,0.8)", marginBottom: "0.6rem", cursor: "pointer", textDecoration: "none" };
   return (
     <footer style={{ background: C.ink, color: C.bone, padding: "4rem 0 2.5rem", borderTop: "1px solid rgba(244,241,232,0.1)" }}>
