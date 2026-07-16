@@ -29,16 +29,27 @@ npm run preview
 
 ## Where to edit things
 
-- `src/App.jsx` — the entire site. Sections top to bottom: Hero (firm's-
-  knowledge value prop), Different (why not just AI), Assembly (what it does),
-  Craft (the thesis → four-part capture), Honest (won't/will promise), Who,
-  Adopt (build partners + close), Footer, Modal. Colors are in the `C` object
-  at the top; section headlines use the `Head` atom (`display` / `section` /
-  `quiet` sizes).
-- `index.html` — title, meta description.
+- `src/App.jsx` — the homepage. Sections top to bottom: Hero, DayOne (day-one
+  jobs), Proof (real Scope-view screenshot + walkthrough), HowItShows
+  (planning → execution → review arc), Product (four-part capture + graph
+  animation), Approach (framework-is-commodity), WhyNotAI (vs general models),
+  Industries (+ partner block), ClosingCTA, Footer, Modal. Colors are in the
+  `C` object at the top; section headlines use the `Head` atom (`display` /
+  `section` / `quiet` sizes). Shared atoms are exported for the security page.
+- `src/SecurityPage.jsx` — the `/security/` page (data ownership, isolation,
+  traceability, straight answers). Entry: `security/index.html` +
+  `src/security-main.jsx` (Vite multi-page build, see `vite.config.js`).
+- `index.html` / `security/index.html` — title, meta description, Open Graph
+  tags, canonical URL.
+- `public/og-image.png` — the 1200×630 link-preview card (shown when the URL is
+  shared in Slack/LinkedIn/iMessage).
+- `public/robots.txt` / `public/sitemap.xml` — crawler hygiene; update the
+  sitemap if pages are added.
 - `public/favicon.svg` — the AllianceOne node-mark tab icon.
 - `public/CNAME` — currently `myalliance.ai`. Change this single line if the
   product moves to its own domain (e.g. `allianceone.ai`) or a subdomain.
+  If the domain changes, also update the canonical/OG URLs in both HTML files
+  and `public/sitemap.xml`.
 
 **Voice rule for all copy edits:** no superlatives, no "transform" /
 "revolutionize" / unattributed speed claims. Every claim sits next to its
@@ -91,8 +102,17 @@ propagates, enable **Enforce HTTPS** in Settings → Pages.
 
 ---
 
-## Known placeholder
+## Demo form: go-live checklist
 
-The "Talk to us" modal opens a `mailto:` link rather than a real inquiry form
-(a working form needs a backend). When ready, wire it to Formspree or similar
-in the `Modal` component in `src/App.jsx`.
+The "Request a demo" modal POSTs to a form endpoint when one is configured, and
+falls back to a pre-filled `mailto:` when it isn't. A `mailto:` silently does
+nothing on machines without a configured mail client — exactly the corporate
+desktops partners use — so wiring the endpoint is strongly recommended before
+driving any traffic:
+
+1. Create a form at [formspree.io](https://formspree.io) (or any service that
+   accepts a JSON POST and returns 2xx).
+2. Paste its URL into `DEMO_FORM_ENDPOINT` at the top of `src/App.jsx`
+   (e.g. `"https://formspree.io/f/XXXXXXXX"`).
+3. Rebuild and deploy. Submissions then show an in-modal confirmation; network
+   failures offer the mailto fallback.

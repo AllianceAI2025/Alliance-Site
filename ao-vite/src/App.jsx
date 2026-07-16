@@ -25,9 +25,21 @@ import React, { useState, useEffect, useRef } from "react";
 //   (How it works · Why AllianceOne · Who it's for) with scroll-spy. PHASE 2
 //   pending: how-it-shows diagram, four-dimensions honesty reframe, split
 //   why-not-AI, worked example (real fixtures + screenshots), partner/role.
+// v8: content-review pass. Proof moved up (after DayOne) and its bullets
+//   rewritten to match what the screenshot actually shows; Execution-stage
+//   claim trimmed to shipped capability; Who relabeled "table stakes";
+//   memory-proof rewrite of the "starts fresh" contrast; demo form POSTs to
+//   a configurable endpoint (mailto fallback); real anchors for nav/footer;
+//   /security/ page added (Vite MPA) and linked.
 // ============================================================
 
-const C = {
+// Demo-form endpoint (Formspree-style: accepts JSON POST, returns 2xx on ok).
+// Leave "" to fall back to a pre-filled mailto:. To go live, create a form at
+// formspree.io (or any equivalent) and paste its URL here, e.g.
+// "https://formspree.io/f/XXXXXXXX".
+export const DEMO_FORM_ENDPOINT = "";
+
+export const C = {
   ink: "#14160f",
   inkSoft: "#2a2d22",
   bone: "#f4f1e8",
@@ -49,7 +61,7 @@ const ease = "cubic-bezier(.22,1,.36,1)";
 
 // ---- atoms ---------------------------------------------------------------
 
-function Eyebrow({ children, color = C.olive, style }) {
+export function Eyebrow({ children, color = C.olive, style }) {
   return (
     <p style={{ fontFamily: sans, fontSize: "0.72rem", fontWeight: 600, letterSpacing: "0.22em", textTransform: "uppercase", color, margin: 0, ...style }}>
       {children}
@@ -60,7 +72,7 @@ function Eyebrow({ children, color = C.olive, style }) {
 // Section headline with a deliberate size hierarchy so the page has rest:
 //   display (the one peak / centerpiece), section (the working default),
 //   quiet (recessive; qualification strips that shouldn't compete).
-function Head({ children, light = false, size = "section", style }) {
+export function Head({ children, light = false, size = "section", style }) {
   const sizes = {
     display: "clamp(2.1rem,4.6vw,3.5rem)",
     section: "clamp(1.8rem,3.6vw,2.8rem)",
@@ -73,7 +85,7 @@ function Head({ children, light = false, size = "section", style }) {
   );
 }
 
-function Btn({ children, onClick, variant = "primary", href }) {
+export function Btn({ children, onClick, variant = "primary", href }) {
   const [hover, setHover] = useState(false);
   const base = {
     display: "inline-flex", alignItems: "center", gap: "0.6rem",
@@ -103,7 +115,7 @@ function Btn({ children, onClick, variant = "primary", href }) {
   );
 }
 
-function Logo({ light = false, size = 1 }) {
+export function Logo({ light = false, size = 1 }) {
   return (
     <span style={{ fontFamily: serif, fontWeight: 600, fontSize: `${1.32 * size}rem`, letterSpacing: "-0.01em", lineHeight: 1, color: light ? C.bone : C.ink }}>
       Alliance<span style={{ color: light ? C.gold : C.olive }}>One</span>
@@ -111,10 +123,10 @@ function Logo({ light = false, size = 1 }) {
   );
 }
 
-function Wrap({ children, style }) {
+export function Wrap({ children, style }) {
   return <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(1.25rem,5vw,4.5rem)", ...style }}>{children}</div>;
 }
-function Section({ children, style }) {
+export function Section({ children, style }) {
   return <section style={{ padding: "clamp(4.5rem,9vw,8rem) 0", ...style }}>{children}</section>;
 }
 
@@ -128,14 +140,30 @@ const SECTIONS = [
   ["who", "Who it's for"],
 ];
 
-function Nav({ onCta }) {
+// Smart anchor: real <a href> (crawlable, keyboard-focusable) that upgrades to
+// a smooth scroll when the target section exists on the current page, and
+// falls through to normal navigation (e.g. /security/ -> /#how-it-works) when
+// it doesn't.
+export function AnchorLink({ id, children, style, onNavigate, ...rest }) {
+  const handle = (e) => {
+    const el = document.getElementById(id);
+    if (el) {
+      e.preventDefault();
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    onNavigate?.();
+  };
+  return (
+    <a href={`/#${id}`} onClick={handle} style={{ textDecoration: "none", ...style }} {...rest}>
+      {children}
+    </a>
+  );
+}
+
+export function Nav({ onCta }) {
   const [open, setOpen] = useState(false);
   const [hover, setHover] = useState(null);
   const [active, setActive] = useState(null);
-  const goTo = (id) => {
-    setOpen(false);
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
   useEffect(() => {
     if (!("IntersectionObserver" in window)) return;
     const io = new IntersectionObserver(
@@ -145,36 +173,36 @@ function Nav({ onCta }) {
     SECTIONS.forEach(([id]) => { const el = document.getElementById(id); if (el) io.observe(el); });
     return () => io.disconnect();
   }, []);
-  const goldCta = { fontFamily: sans, fontSize: "0.84rem", fontWeight: 600, padding: "0.6rem 1.25rem", background: C.gold, color: C.ink, borderRadius: 2, cursor: "pointer" };
+  const goldCta = { fontFamily: sans, fontSize: "0.84rem", fontWeight: 600, padding: "0.6rem 1.25rem", background: C.gold, color: C.ink, borderRadius: 2, cursor: "pointer", border: 0 };
   return (
     <header style={{ position: "sticky", top: 0, zIndex: 50, backdropFilter: "blur(12px)", background: "rgba(244,241,232,0.82)", borderBottom: `1px solid ${C.lineSoft}` }}>
       <Wrap style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1rem clamp(1.25rem,5vw,4.5rem)" }}>
-        <div style={{ cursor: "pointer" }} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+        <a href="/" onClick={(e) => { if (window.location.pathname === "/") { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); } }} style={{ textDecoration: "none" }} aria-label="AllianceOne home">
           <Logo />
-        </div>
+        </a>
         <nav className="ao-desktop" style={{ display: "flex", alignItems: "center", gap: "1.6rem" }}>
           {SECTIONS.map(([id, label]) => {
             const on = active === id || hover === id;
             return (
-              <span key={id} onClick={() => goTo(id)} onMouseEnter={() => setHover(id)} onMouseLeave={() => setHover(null)}
+              <AnchorLink key={id} id={id} onMouseEnter={() => setHover(id)} onMouseLeave={() => setHover(null)}
                 style={{ fontFamily: sans, fontSize: "0.84rem", fontWeight: active === id ? 600 : 500, color: on ? C.ink : C.inkSoft, cursor: "pointer", position: "relative", padding: "0.2rem 0", transition: `color .25s ${ease}` }}>
                 {label}
                 <span style={{ position: "absolute", left: 0, bottom: -2, height: 1, background: C.olive, width: on ? "100%" : 0, transition: `width .35s ${ease}` }} />
-              </span>
+              </AnchorLink>
             );
           })}
-          <span onClick={onCta} style={goldCta}>Request a demo</span>
+          <button onClick={onCta} style={goldCta}>Request a demo</button>
         </nav>
-        <button className="ao-mobile-btn" onClick={() => setOpen((o) => !o)} style={{ display: "none", background: "none", border: 0, cursor: "pointer", padding: 6 }} aria-label="Menu">
+        <button className="ao-mobile-btn" onClick={() => setOpen((o) => !o)} style={{ display: "none", background: "none", border: 0, cursor: "pointer", padding: 6 }} aria-label="Menu" aria-expanded={open}>
           {[0, 1, 2].map((i) => <span key={i} style={{ display: "block", width: 24, height: 2, background: C.ink, margin: "5px 0" }} />)}
         </button>
       </Wrap>
       {open && (
         <div style={{ background: C.bone, borderBottom: `1px solid ${C.line}`, padding: "1.4rem clamp(1.25rem,5vw,4.5rem) 2rem", display: "flex", flexDirection: "column", gap: "1.2rem" }}>
           {SECTIONS.map(([id, label]) => (
-            <span key={id} onClick={() => goTo(id)} style={{ fontFamily: sans, fontSize: "1rem", fontWeight: 500, color: C.inkSoft, cursor: "pointer" }}>{label}</span>
+            <AnchorLink key={id} id={id} onNavigate={() => setOpen(false)} style={{ fontFamily: sans, fontSize: "1rem", fontWeight: 500, color: C.inkSoft, cursor: "pointer" }}>{label}</AnchorLink>
           ))}
-          <span onClick={() => { setOpen(false); onCta(); }} style={{ ...goldCta, fontSize: "1rem", textAlign: "center" }}>Request a demo</span>
+          <button onClick={() => { setOpen(false); onCta(); }} style={{ ...goldCta, fontSize: "1rem", textAlign: "center" }}>Request a demo</button>
         </div>
       )}
       <style>{`@media (max-width:1040px){.ao-desktop{display:none!important}.ao-mobile-btn{display:block!important}}`}</style>
@@ -324,7 +352,7 @@ function DayOne() {
     ["Scope a new engagement from real precedent", "Pull the approach, team shape, and risks from how your firm actually ran the closest past engagements", "instead of a blank page or a generic template."],
     ["Interrogate your own past work", "Ask what your firm did, for whom, and how it was structured, across every engagement at once", "instead of hunting through drives, threads, and people's memories."],
     ["Plan deliverables from what shipped before", "Build a project and deliverable plan off the closest real engagements, drawing on their structure, what they included, and why", "instead of rebuilding the same scaffolding every time."],
-    ["Adapt precedent you can trust", "Find the documents, sections, and structures your firm has used before, each carrying how its engagement turned out, so you build on what worked and learn from what didn't", "instead of reusing similar-looking work with no idea whether it succeeded."],
+    ["Adapt precedent you can trust", "Find the documents, sections, and structures your firm has used before, connected to how their engagements turned out, so you build on what worked and learn from what didn't", "instead of reusing similar-looking work with no idea whether it succeeded."],
   ];
   return (
     <Section style={{ background: C.boneDim }}>
@@ -383,7 +411,7 @@ function GraphCard() {
     { label: "Deliverables", x: 58, y: 196 },
     { label: "Delivery plans", x: 402, y: 196 },
     { label: "Methods", x: 100, y: 322 },
-    { label: "Outcomes", x: 360, y: 322 },
+    { label: "Retrospectives", x: 360, y: 322 },
   ];
   const inner = [
     { x: 230, y: 132 }, { x: 296, y: 174 }, { x: 272, y: 250 }, { x: 190, y: 252 }, { x: 166, y: 176 },
@@ -392,7 +420,7 @@ function GraphCard() {
 
   return (
     <div ref={ref} className={cls} style={{ ["--e"]: ease, background: C.ink, borderRadius: 8, padding: "2.2rem 2.2rem 1.6rem", overflow: "hidden", boxShadow: "0 30px 60px -30px rgba(20,22,15,0.5)" }}>
-      <svg viewBox="0 0 460 400" role="img" aria-label="AllianceOne extracting a firm's proposals, email, deliverables, delivery plans, methods, and outcomes, and assembling that experience into one connected system of the firm's expertise">
+      <svg viewBox="0 0 460 400" role="img" aria-label="AllianceOne extracting a firm's proposals, email, deliverables, delivery plans, methods, and retrospectives, and assembling that experience into one connected system of the firm's expertise">
         <title>Your firm's scattered experience, assembled into usable expertise</title>
         <defs>
           <linearGradient id="ed" x1="0" y1="0" x2="1" y2="1">
@@ -503,7 +531,7 @@ function HowItShows() {
       "Shape the engagement from the closest past work, and see how those engagements turned out before you commit to an approach. Lean on what delivered, and flag the patterns that led somewhere your firm regretted. A blank page can't warn you. Neither can precedent that doesn't know its own result.",
       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M3 3v18h18" /><path d="M7 14l3-4 3 3 5-7" /></svg>],
     ["Execution", "Build against precedent that carries its verdict.",
-      "Start the deliverable from the structure of real past work, with what worked in those engagements reinforced and the missteps surfaced so they aren't repeated. The team builds on the firm's best version of this, not the nearest lookalike. Retrieval finds you something similar. It can't tell you whether it succeeded.",
+      "Start the deliverable from the structure of real past work, each precedent carrying how its engagement actually turned out. The team builds on the firm's best version of this, not the nearest lookalike. Retrieval finds you something similar. It can't tell you whether it succeeded.",
       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" /></svg>],
     ["Review", "Check the reasoning, not just the format.",
       "Work arrives carrying the decisions behind it, so a senior reviews why this approach, checking it against how the firm's comparable calls actually played out, instead of re-deriving the judgment from scratch or rubber-stamping the shape. The hardest part of review was never checking the formatting.",
@@ -543,10 +571,10 @@ function HowItShows() {
 
 function Product() {
   const capture = [
-    ["Who", "The client, the context, the constraints. The specific situation the work answered to.", false],
-    ["What", "The approach: framework, methodology, plan. The part every firm, and every general AI, already has.", false],
-    ["Why", "The reasoning behind the choice: this approach over the obvious alternative. The judgment that rarely gets written down, captured where your history already holds it and recorded with every new engagement.", true],
-    ["Outcome", "Promised versus delivered, what worked and what didn't. The evidence only your firm holds. It turns activity into calibrated judgment, and it deepens with every engagement that completes inside AllianceOne.", true],
+    ["Who", "The client, the context, the constraints. The specific situation the work answered to.", false, "table stakes"],
+    ["What", "The approach: framework, methodology, plan. The part every firm, and every general AI, already has.", false, "the commodity"],
+    ["Why", "The reasoning behind the choice: this approach over the obvious alternative. The judgment that rarely gets written down, captured where your history already holds it and recorded with every new engagement.", true, "the moat"],
+    ["Outcome", "Promised versus delivered, what worked and what didn't. The evidence only your firm holds. It turns activity into calibrated judgment, and it deepens with every engagement that completes inside AllianceOne.", true, "the moat"],
   ];
   return (
     <Section style={{ background: C.boneDim }}>
@@ -562,7 +590,8 @@ function Product() {
               Today your firm's <strong style={{ color: C.ink, fontWeight: 600 }}>experience</strong> is scattered across documents, threads, methodologies, and people. AllianceOne brings every engagement into one system, whole and connected, so the firm's hard-won <strong style={{ color: C.ink, fontWeight: 600 }}>expertise</strong> is there for the people doing the next one.
             </p>
             <p style={{ color: C.inkSoft, margin: 0 }}>
-              We don't train a model on your firm. We assemble your firm's own history into a structure your people can use. It's explicit, traceable, and yours.
+              We don't train a model on your firm. We assemble your firm's own history into a structure your people can use. It's explicit, traceable, and yours.{" "}
+              <a href="/security/" style={{ color: C.olive, fontWeight: 600, textDecoration: "none", borderBottom: `1px solid ${C.olive}` }}>How we handle your firm's data →</a>
             </p>
           </div>
           <GraphCard />
@@ -572,12 +601,12 @@ function Product() {
           Every engagement is four things, captured together: the problem it solved, the approach taken, the reasoning behind it, and how it turned out.
         </p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: "1.4rem", marginTop: "1.8rem" }}>
-          {capture.map(([term, desc, moat], i) => (
+          {capture.map(([term, desc, moat, label], i) => (
             <div key={i} style={{ background: moat ? C.ink : C.paper, color: moat ? C.bone : C.ink, border: `1px solid ${moat ? C.ink : C.line}`, borderRadius: 8, padding: "2rem 1.8rem" }}>
               <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: "0.8rem" }}>
                 <h3 style={{ fontFamily: serif, fontWeight: 600, fontSize: "1.9rem", margin: 0, color: moat ? C.gold : C.oliveDeep }}>{term}</h3>
-                <span style={{ fontFamily: sans, fontSize: "0.62rem", fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: moat ? C.gold : C.oliveLite, border: `1px solid ${moat ? "rgba(180,150,90,0.4)" : C.line}`, borderRadius: 100, padding: "0.2rem 0.55rem" }}>
-                  {moat ? "the moat" : "commodity"}
+                <span style={{ fontFamily: sans, fontSize: "0.62rem", fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: moat ? C.gold : C.oliveLite, border: `1px solid ${moat ? "rgba(180,150,90,0.4)" : C.line}`, borderRadius: 100, padding: "0.2rem 0.55rem", whiteSpace: "nowrap" }}>
+                  {label}
                 </span>
               </div>
               <p style={{ fontSize: "0.93rem", color: moat ? "rgba(244,241,232,0.72)" : C.inkSoft, margin: 0 }}>{desc}</p>
@@ -628,7 +657,7 @@ function WhyNotAI({ onCta }) {
   const general = [
     "Has read every framework ever published, so it gives you the average of all consulting knowledge.",
     "Sees only the fragment you paste, disconnected from everything around it.",
-    "Starts fresh each time. Nothing it learns on your work today survives tomorrow.",
+    "Remembers fragments for one user at a time. Nothing assembles into a firm-wide record of decisions and outcomes.",
     "Knows the frameworks. It can't know your firm's earned opinion of them.",
   ];
   const ours = [
@@ -684,8 +713,8 @@ function WhyNotAI({ onCta }) {
 function Proof() {
   const points = [
     ["Similar engagements, ranked", "The closest past engagements surface on their own, each with how it was actually run, not just that it exists."],
-    ["Watch-outs from history", "The risks the firm hit before are flagged before scoping, so they aren't walked into a second time."],
-    ["A scope that starts written", "Discovery feeds the scope directly. The first draft is the firm's real approach, not a generic template."],
+    ["Watch-outs before you commit", "Risks are flagged while you scope, drawn from discovery and from how the firm's comparable engagements actually went, so they aren't walked into blind."],
+    ["A scope that doesn't start blank", "Discovery, similar engagements, and watch-outs feed scope generation directly, so the first draft is the firm's real approach, not a generic template."],
   ];
   return (
     <Section>
@@ -695,7 +724,7 @@ function Proof() {
           Scoping a new engagement, grounded in the ones before it.
         </Head>
         <p style={{ color: C.inkSoft, fontSize: "1.08rem", maxWidth: "66ch", marginBottom: "2.6rem" }}>
-          A partner opens a new engagement, and the scope starts to build itself from the firm's closest past work: the engagements that resemble it, the methods they used, and the watch-outs that surfaced along the way. The blank page is already filled in with the firm's own experience.
+          A partner opens a new engagement and the groundwork is already on the page: the engagements that resemble it, the methods they used, and the watch-outs that surfaced along the way. Scoping starts from the firm's own experience, not a blank page.
         </p>
         <figure style={{ margin: 0 }}>
           <div style={{ borderRadius: 10, overflow: "hidden", border: `1px solid ${C.line}`, boxShadow: "0 36px 70px -34px rgba(20,22,15,0.5)", background: C.paper }}>
@@ -778,8 +807,9 @@ function ClosingCTA({ onCta }) {
 
 // ---- footer (ASG as quiet plumbing) -----------------------------------------
 
-function Footer({ onCta }) {
+export function Footer({ onCta }) {
   const links = [["how-it-works", "How it works"], ["why", "Why AllianceOne"], ["who", "Who it's for"]];
+  const linkStyle = { display: "block", fontSize: "0.92rem", color: "rgba(244,241,232,0.8)", marginBottom: "0.6rem", cursor: "pointer", textDecoration: "none" };
   return (
     <footer style={{ background: C.ink, color: C.bone, padding: "4rem 0 2.5rem", borderTop: "1px solid rgba(244,241,232,0.1)" }}>
       <Wrap>
@@ -794,13 +824,14 @@ function Footer({ onCta }) {
             <div>
               <h5 style={{ fontFamily: sans, fontSize: "0.72rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(244,241,232,0.5)", marginBottom: "1rem" }}>Explore</h5>
               {links.map(([id, label]) => (
-                <div key={id} onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })} style={{ fontSize: "0.92rem", color: "rgba(244,241,232,0.8)", marginBottom: "0.6rem", cursor: "pointer" }}>{label}</div>
+                <AnchorLink key={id} id={id} style={linkStyle}>{label}</AnchorLink>
               ))}
+              <a href="/security/" style={linkStyle}>Security &amp; data ownership</a>
             </div>
             <div>
               <h5 style={{ fontFamily: sans, fontSize: "0.72rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(244,241,232,0.5)", marginBottom: "1rem" }}>Connect</h5>
-              <div onClick={onCta} style={{ fontSize: "0.92rem", color: "rgba(244,241,232,0.8)", marginBottom: "0.6rem", cursor: "pointer" }}>Request a demo</div>
-              <div style={{ fontSize: "0.92rem", color: "rgba(244,241,232,0.8)" }}>hello@myalliance.ai</div>
+              <button onClick={onCta} style={{ ...linkStyle, background: "none", border: 0, padding: 0, fontFamily: "inherit", textAlign: "left" }}>Request a demo</button>
+              <a href="mailto:hello@myalliance.ai" style={{ ...linkStyle, marginBottom: 0 }}>hello@myalliance.ai</a>
             </div>
           </div>
         </div>
@@ -818,34 +849,71 @@ function Footer({ onCta }) {
 
 // ---- contact modal ----------------------------------------------------------
 
-function Modal({ open, onClose }) {
+export function Modal({ open, onClose }) {
   const [form, setForm] = useState({ name: "", firm: "", email: "" });
+  const [status, setStatus] = useState("idle"); // idle | sending | sent | error
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open, onClose]);
   if (!open) return null;
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
-  const submit = (e) => {
-    e.preventDefault();
+  const mailtoFallback = () => {
     const subject = encodeURIComponent("AllianceOne demo request");
     const body = encodeURIComponent(`Name: ${form.name}\nFirm: ${form.firm}\nWork email: ${form.email}\n\nWe'd like to see AllianceOne on our firm's own work.`);
     window.location.href = `mailto:hello@myalliance.ai?subject=${subject}&body=${body}`;
   };
+  const submit = async (e) => {
+    e.preventDefault();
+    if (!DEMO_FORM_ENDPOINT) { mailtoFallback(); return; }
+    setStatus("sending");
+    try {
+      const res = await fetch(DEMO_FORM_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ name: form.name, firm: form.firm, email: form.email, _subject: "AllianceOne demo request" }),
+      });
+      setStatus(res.ok ? "sent" : "error");
+    } catch {
+      setStatus("error");
+    }
+  };
   const field = { fontFamily: sans, fontSize: "0.95rem", padding: "0.75rem 0.9rem", borderRadius: 4, border: `1px solid ${C.line}`, background: C.bone, color: C.ink, width: "100%", boxSizing: "border-box" };
   return (
     <div onClick={onClose} style={{ position: "fixed", inset: 0, zIndex: 100, background: "rgba(20,22,15,0.55)", backdropFilter: "blur(4px)", display: "grid", placeItems: "center", padding: "1.5rem" }}>
-      <div onClick={(e) => e.stopPropagation()} style={{ background: C.paper, borderRadius: 10, maxWidth: 460, width: "100%", padding: "2.5rem", position: "relative", boxShadow: "0 40px 80px -30px rgba(20,22,15,0.5)" }}>
+      <div role="dialog" aria-modal="true" aria-label="Request a demo" onClick={(e) => e.stopPropagation()} style={{ background: C.paper, borderRadius: 10, maxWidth: 460, width: "100%", padding: "2.5rem", position: "relative", boxShadow: "0 40px 80px -30px rgba(20,22,15,0.5)" }}>
         <button onClick={onClose} aria-label="Close" style={{ position: "absolute", top: 18, right: 18, background: "none", border: 0, fontSize: "1.4rem", lineHeight: 1, cursor: "pointer", color: C.inkSoft }}>×</button>
         <Eyebrow>Request a demo</Eyebrow>
-        <h3 style={{ fontFamily: serif, fontWeight: 500, fontSize: "1.9rem", margin: "0.8rem 0 0.6rem", lineHeight: 1.1 }}>See it on your firm's own work.</h3>
-        <p style={{ color: C.inkSoft, fontSize: "0.97rem", marginBottom: "1.6rem" }}>
-          A 30-minute walkthrough on engagements like yours. Tell us where to reach you and we'll set it up.
-        </p>
-        <form onSubmit={submit} style={{ display: "flex", flexDirection: "column", gap: "0.8rem" }}>
-          <input style={field} type="text" required placeholder="Name" value={form.name} onChange={set("name")} />
-          <input style={field} type="text" required placeholder="Firm" value={form.firm} onChange={set("firm")} />
-          <input style={field} type="email" required placeholder="Work email" value={form.email} onChange={set("email")} />
-          <button type="submit" style={{ marginTop: "0.4rem", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", background: C.gold, color: C.ink, fontFamily: sans, fontWeight: 600, fontSize: "0.95rem", padding: "0.95rem 1.7rem", borderRadius: 2, border: 0, cursor: "pointer" }}>
-            Request a demo →
-          </button>
-        </form>
+        {status === "sent" ? (
+          <>
+            <h3 style={{ fontFamily: serif, fontWeight: 500, fontSize: "1.9rem", margin: "0.8rem 0 0.6rem", lineHeight: 1.1 }}>Thank you. We'll be in touch.</h3>
+            <p style={{ color: C.inkSoft, fontSize: "0.97rem", marginBottom: 0 }}>
+              We'll reach out at {form.email} to set up a 30-minute walkthrough on engagements like yours.
+            </p>
+          </>
+        ) : (
+          <>
+            <h3 style={{ fontFamily: serif, fontWeight: 500, fontSize: "1.9rem", margin: "0.8rem 0 0.6rem", lineHeight: 1.1 }}>See it on your firm's own work.</h3>
+            <p style={{ color: C.inkSoft, fontSize: "0.97rem", marginBottom: "1.6rem" }}>
+              A 30-minute walkthrough on engagements like yours. Tell us where to reach you and we'll set it up.
+            </p>
+            <form onSubmit={submit} style={{ display: "flex", flexDirection: "column", gap: "0.8rem" }}>
+              <input style={field} type="text" required placeholder="Name" aria-label="Name" value={form.name} onChange={set("name")} />
+              <input style={field} type="text" required placeholder="Firm" aria-label="Firm" value={form.firm} onChange={set("firm")} />
+              <input style={field} type="email" required placeholder="Work email" aria-label="Work email" value={form.email} onChange={set("email")} />
+              <button type="submit" disabled={status === "sending"} style={{ marginTop: "0.4rem", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", background: C.gold, color: C.ink, fontFamily: sans, fontWeight: 600, fontSize: "0.95rem", padding: "0.95rem 1.7rem", borderRadius: 2, border: 0, cursor: "pointer", opacity: status === "sending" ? 0.7 : 1 }}>
+                {status === "sending" ? "Sending…" : "Request a demo →"}
+              </button>
+            </form>
+            {status === "error" && (
+              <p style={{ fontSize: "0.85rem", color: "#a0522d", marginTop: "0.9rem", marginBottom: 0 }}>
+                That didn't go through. <a href="#" onClick={(e) => { e.preventDefault(); mailtoFallback(); }} style={{ color: C.olive }}>Email us instead</a> and we'll take it from there.
+              </p>
+            )}
+          </>
+        )}
         <p style={{ fontSize: "0.8rem", color: C.oliveLite, marginTop: "1.2rem", marginBottom: 0 }}>
           Prefer email? <a href="mailto:hello@myalliance.ai?subject=AllianceOne%20demo" style={{ color: C.olive }}>hello@myalliance.ai</a>
         </p>
@@ -877,11 +945,11 @@ export default function App() {
       <TheShift />
       <ModelThePractice />
       <DayOne />
+      <Proof />
       <HowItShows />
       <Product />
       <Approach />
       <WhyNotAI onCta={openCta} />
-      <Proof />
       <Industries />
       <ClosingCTA onCta={openCta} />
       <Footer onCta={openCta} />
