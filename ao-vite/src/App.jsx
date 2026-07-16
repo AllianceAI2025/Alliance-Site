@@ -34,9 +34,14 @@ import React, { useState, useEffect, useRef } from "react";
 // v9: editorial dossier body (capability frame: model the PRACTICE, not the
 //   archive; expertise made traceable / repeatable / compounding). Mono
 //   accent, numbered markers, ruled tables, receipts with sources; no card
-//   grids or graph animation. Order: hero, 01 who-it's-for + practice
-//   profile (screenshot), 02 what-it-is + what-you-get, 03 the shift,
-//   04 the difference ("just use Claude/ChatGPT?" + comparison table), close.
+//   grids or graph animation.
+// v10: hero leads "the practice, not the projects" (engagements as
+//   observations; the three-axes cognitive fingerprint), 02 extends it
+//   (every engagement teaches the system). Practice Profile messaging
+//   retired; replaced by 03 The product: Discover -> Scope -> Propose ->
+//   Deliver, data-driven with an optional screenshot per stage (Scope has
+//   the real one). Order: hero, 01 who-it's-for, 02 what-it-is + what-you-
+//   get, 03 the product, 04 the shift, 05 the difference, close.
 // ============================================================
 
 // Demo-form endpoint (Formspree-style: accepts JSON POST, returns 2xx on ok).
@@ -155,6 +160,7 @@ export function Section({ children, style }) {
 const SECTIONS = [
   ["who", "Who it's for"],
   ["model", "What it is"],
+  ["product", "The product"],
   ["why", "The difference"],
 ];
 
@@ -260,7 +266,7 @@ function Hero({ onCta }) {
           Your firm's expertise, made <em style={{ fontStyle: "italic", color: C.olive }}>repeatable.</em>
         </h1>
         <p style={{ fontSize: "clamp(1.1rem,1.7vw,1.4rem)", maxWidth: "56ch", marginTop: "1.7rem", color: C.ink, fontWeight: 500, lineHeight: 1.5 }}>
-          AllianceOne models your firm's practice: how you approach problems, how you reason through them, and how you deliver. Your expertise becomes traceable, repeatable, and compounding, instead of walking out the door with whoever did the work.
+          AllianceOne models the practice, not the projects. Every engagement is an observation of how your firm approaches client problems, thinks through solutions, and delivers. Those three axes are your firm's cognitive fingerprint, captured in one system. Your expertise becomes traceable, repeatable, and compounding.
         </p>
         <div style={{ marginTop: "2.8rem", borderTop: `2px solid ${C.ink}`, display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(210px,1fr))", gap: "0" }}>
           {spec.map(([label, text], i) => (
@@ -272,14 +278,69 @@ function Hero({ onCta }) {
         </div>
         <div style={{ marginTop: "2.6rem", display: "flex", gap: "1rem", flexWrap: "wrap" }}>
           <Btn variant="gold" onClick={onCta}>Request a demo</Btn>
-          <Btn variant="ghost" onClick={() => document.getElementById("model")?.scrollIntoView({ behavior: "smooth" })}>See how it works</Btn>
+          <Btn variant="ghost" onClick={() => document.getElementById("product")?.scrollIntoView({ behavior: "smooth" })}>See how it works</Btn>
         </div>
       </Wrap>
     </section>
   );
 }
 
-// ---- 03 the shift (the market moved to us; receipts with sources) ---------
+// ---- 03 the product (discover -> scope -> propose -> deliver) --------------
+// Data-driven: each stage takes an optional screenshot (img + alt). Scope has
+// the real one; drop new files in public/ and fill the img fields as they come.
+
+function TheProduct() {
+  const stages = [
+    ["Discover", "A new pursuit opens and AllianceOne reads it against everything your firm has done. The closest engagements surface ranked, each carrying how it was run, what it produced, and the watch-outs it hit along the way.", null, null],
+    ["Scope", "Discovery feeds the scope directly. Similar engagements, constraints, and watch-outs carry straight in, so the first draft is your firm's real approach to this kind of problem, not a generic template.",
+      "/worked-example.png",
+      "The Scope view in AllianceOne: a new engagement scoped from similar past engagements ranked by match, in-scope items and constraints carried from discovery, and watch-outs surfaced automatically."],
+    ["Propose", "The proposal assembles from deliverables your firm has actually shipped: their structure, what they included, and why. What worked in past engagements is reinforced, and the missteps surface before they're repeated.", null, null],
+    ["Deliver", "The team executes with the firm's precedent at hand. As the engagement closes, its decisions and outcomes feed back into the model, so the next engagement starts sharper than this one did.", null, null],
+  ];
+  return (
+    <Section>
+      <div id="product" style={{ scrollMarginTop: 80 }} />
+      <Wrap>
+        <Marker n="03">The product</Marker>
+        <Head size="display" style={{ maxWidth: "18ch", margin: "1.5rem 0 0" }}>
+          From first read to final delivery.
+        </Head>
+        <p style={{ color: C.inkSoft, fontSize: "1.1rem", maxWidth: "60ch", marginTop: "1.4rem", lineHeight: 1.6 }}>
+          Not a chatbot bolted to the side. AllianceOne works the way an engagement actually moves, in four stages, each drawing on the practice.
+        </p>
+        <div style={{ borderTop: `2px solid ${C.ink}`, marginTop: "2.6rem" }}>
+          {stages.map(([name, body, img, alt], i) => (
+            <div key={i} style={{ borderBottom: `1px solid ${C.line}`, padding: "2rem 0" }}>
+              <div className="ao-def" style={{ display: "grid", gridTemplateColumns: "minmax(190px,0.7fr) 1.5fr", gap: "0.8rem 3rem", alignItems: "start" }}>
+                <div>
+                  <span style={{ fontFamily: mono, fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.gold }}>Stage {`0${i + 1}`}</span>
+                  <h3 style={{ fontFamily: serif, fontWeight: 500, fontSize: "clamp(1.8rem,2.8vw,2.3rem)", margin: "0.35rem 0 0", lineHeight: 1 }}>{name}</h3>
+                </div>
+                <p style={{ color: C.inkSoft, fontSize: "1.06rem", margin: 0, lineHeight: 1.6, maxWidth: "56ch" }}>{body}</p>
+              </div>
+              {img && (
+                <figure style={{ margin: "2.2rem 0 0.4rem" }}>
+                  <div style={{ borderRadius: 8, overflow: "hidden", border: `1px solid ${C.line}`, boxShadow: "0 36px 70px -34px rgba(20,22,15,0.5)", background: C.paper }}>
+                    <img src={img} alt={alt} style={{ display: "block", width: "100%", height: "auto" }} />
+                  </div>
+                  <figcaption style={{ fontFamily: mono, fontSize: "0.72rem", letterSpacing: "0.04em", color: C.oliveLite, marginTop: "0.9rem" }}>
+                    AllianceOne · {name} view · firm names shown are illustrative
+                  </figcaption>
+                </figure>
+              )}
+            </div>
+          ))}
+        </div>
+        <p style={{ fontSize: "0.98rem", color: C.inkSoft, marginTop: "1.6rem", marginBottom: 0 }}>
+          Your engagements stay yours. <a href="/security/" style={{ color: C.olive, fontWeight: 600 }}>How we handle your firm's data →</a>
+        </p>
+      </Wrap>
+    </Section>
+  );
+}
+
+// ---- 04 the shift (the market moved to us; receipts with sources) ---------
 
 function TheShift() {
   const findings = [
@@ -291,7 +352,7 @@ function TheShift() {
     <Section style={{ background: C.ink, color: C.bone }}>
       <div id="shift" style={{ scrollMarginTop: 80 }} />
       <Wrap>
-        <Marker n="03" color={C.gold}>The shift</Marker>
+        <Marker n="04" color={C.gold}>The shift</Marker>
         <Head light size="display" style={{ maxWidth: "18ch", margin: "1.5rem 0 0" }}>
           Generic AI gave everyone the average.
         </Head>
@@ -329,11 +390,11 @@ function ModelThePractice() {
         <Marker n="02">What it is</Marker>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))", gap: "2.6rem 4.5rem", marginTop: "1.5rem", alignItems: "start" }}>
           <div>
-            <Head size="display" style={{ maxWidth: "15ch", margin: 0 }}>
-              We model the practice, not the archive.
+            <Head size="display" style={{ maxWidth: "18ch", margin: 0 }}>
+              Every engagement teaches the system how your firm works.
             </Head>
             <p style={{ color: C.inkSoft, fontSize: "1.1rem", marginTop: "1.5rem", maxWidth: "46ch", lineHeight: 1.6 }}>
-              Everyone else in AI for consulting indexes your documents and retrieves the ones that look similar. They model the archive. AllianceOne models the practice: your firm's cognitive fingerprint, the particular way your firm approaches, thinks, and delivers.
+              Everyone else in AI for consulting indexes your documents and retrieves the ones that look similar. They model the archive. AllianceOne reads each engagement as an observation: how your firm framed the problem, why it chose the approach it did, and how the delivery actually went. Observation by observation, the fingerprint comes into focus.
             </p>
             <p style={{ color: C.ink, fontSize: "1.1rem", fontWeight: 500, marginTop: "1.1rem", maxWidth: "46ch", lineHeight: 1.6 }}>
               The moat was never the case library. It's the why's and how's, with receipts, and the loop that keeps them current.
@@ -387,7 +448,7 @@ function ModelThePractice() {
 
 
 
-// ---- 04 the difference (why not generic AI, as a real table) --------------
+// ---- 05 the difference (why not generic AI, as a real table) --------------
 
 function WhyNotGenericAI({ onCta }) {
   const rows = [
@@ -403,7 +464,7 @@ function WhyNotGenericAI({ onCta }) {
     <Section>
       <div id="why" style={{ scrollMarginTop: 80 }} />
       <Wrap>
-        <Marker n="04">The difference</Marker>
+        <Marker n="05">The difference</Marker>
         <Head size="display" style={{ maxWidth: "24ch", margin: "1.5rem 0 0" }}>
           &ldquo;Couldn't we just do this with Claude or ChatGPT?&rdquo;
         </Head>
@@ -438,18 +499,13 @@ function WhyNotGenericAI({ onCta }) {
   );
 }
 
-// ---- 01 who it's for + the practice profile (the firms, the partner, the proof)
+// ---- 01 who it's for (the firms and the partner) ---------------------------
 
 function WhoItsFor() {
   const verticals = [
     ["Management consulting", "Where the deliverable is judgment itself: which approach, why, and whether it worked. The reasoning behind every recommendation becomes reusable, instead of leaving with the partner who made it."],
     ["Advisory", "Deals, risk, restructuring. High-stakes, precedent-driven work where what you did last time, and how it turned out, is the most valuable thing in the room."],
     ["Accounting & tax", "Where engagement history, positions taken, and institutional knowledge shape quality, risk, and margin across hundreds of recurring engagements."],
-  ];
-  const readout = [
-    ["Similar engagements, ranked", "The closest past engagements surface on their own, each with how it was actually run, not just that it exists."],
-    ["Watch-outs from history", "The risks the firm hit before are flagged before scoping, so they aren't walked into a second time."],
-    ["A scope that starts written", "Discovery feeds the scope directly. The first draft is the firm's real approach, not a generic template."],
   ];
   return (
     <Section style={{ background: C.boneDim }}>
@@ -475,38 +531,6 @@ function WhoItsFor() {
           </p>
         </div>
 
-        <div id="proof" style={{ scrollMarginTop: 80 }} />
-        <div style={{ marginTop: "3.6rem", borderTop: `2px solid ${C.ink}`, paddingTop: "2.2rem" }}>
-          <p style={{ fontFamily: mono, fontSize: "0.7rem", letterSpacing: "0.12em", textTransform: "uppercase", color: C.oliveLite, margin: 0 }}>The first deliverable · The Practice Profile</p>
-          <Head size="section" style={{ maxWidth: "18ch", margin: "0.9rem 0 0" }}>
-            First, a portrait of your firm.
-          </Head>
-          <p style={{ color: C.inkSoft, fontSize: "1.1rem", maxWidth: "64ch", marginTop: "1.2rem", lineHeight: 1.6 }}>
-            Onboarding doesn't end with your documents made searchable. It ends with a Practice Profile: a picture of how your firm actually works, drawn from your own engagements. Your discovery patterns, your decision style, your delivery shapes, and which of your frameworks earn their keep, and under what conditions. Most firms have never seen themselves this way. It stays honest about what it can see so far, with confidence levels attached.
-          </p>
-          <p style={{ color: C.ink, fontWeight: 500, fontSize: "1.1rem", maxWidth: "64ch", marginTop: "1.1rem", lineHeight: 1.6 }}>
-            From there, the practice shows up in the everyday work. Below, it scopes a new engagement, grounded in the closest past ones, their methods, and the watch-outs they surfaced.
-          </p>
-          <figure style={{ margin: "2.4rem 0 0" }}>
-            <div style={{ borderRadius: 8, overflow: "hidden", border: `1px solid ${C.line}`, boxShadow: "0 36px 70px -34px rgba(20,22,15,0.5)", background: C.paper }}>
-              <img src="/worked-example.png" alt="The Scope view in AllianceOne: a new engagement scoped from similar past engagements ranked by match, in-scope items and constraints carried from discovery, and watch-outs surfaced automatically." style={{ display: "block", width: "100%", height: "auto" }} />
-            </div>
-            <figcaption style={{ fontFamily: mono, fontSize: "0.72rem", letterSpacing: "0.04em", color: C.oliveLite, marginTop: "0.9rem" }}>
-              AllianceOne · Scope view · firm names shown are illustrative
-            </figcaption>
-          </figure>
-          <div style={{ borderTop: `1px solid ${C.line}`, marginTop: "2.6rem" }}>
-            {readout.map(([h, p], i) => (
-              <div key={i} className="ao-def" style={{ display: "grid", gridTemplateColumns: "minmax(200px,0.7fr) 1.5fr", gap: "0.8rem 3rem", padding: "1.4rem 0", borderBottom: `1px solid ${C.line}`, alignItems: "baseline" }}>
-                <h3 style={{ fontFamily: serif, fontWeight: 500, fontSize: "1.35rem", margin: 0 }}>{h}</h3>
-                <p style={{ color: C.inkSoft, fontSize: "1rem", margin: 0, maxWidth: "56ch" }}>{p}</p>
-              </div>
-            ))}
-          </div>
-          <p style={{ fontSize: "0.98rem", color: C.inkSoft, marginTop: "1.6rem", marginBottom: 0 }}>
-            Your engagements stay yours. <a href="/security/" style={{ color: C.olive, fontWeight: 600 }}>How we handle your firm's data →</a>
-          </p>
-        </div>
       </Wrap>
     </Section>
   );
@@ -535,7 +559,7 @@ function Close({ onCta }) {
 // ---- footer (ASG as quiet plumbing) -----------------------------------------
 
 export function Footer({ onCta }) {
-  const links = [["who", "Who it's for"], ["model", "What it is"], ["why", "The difference"]];
+  const links = [["who", "Who it's for"], ["model", "What it is"], ["product", "The product"], ["why", "The difference"]];
   const linkStyle = { display: "block", fontSize: "0.92rem", color: "rgba(244,241,232,0.8)", marginBottom: "0.6rem", cursor: "pointer", textDecoration: "none" };
   return (
     <footer style={{ background: C.ink, color: C.bone, padding: "4rem 0 2.5rem", borderTop: "1px solid rgba(244,241,232,0.1)" }}>
@@ -662,6 +686,7 @@ export default function App() {
       <Hero onCta={openCta} />
       <WhoItsFor />
       <ModelThePractice />
+      <TheProduct />
       <TheShift />
       <WhyNotGenericAI onCta={openCta} />
       <Close onCta={openCta} />
