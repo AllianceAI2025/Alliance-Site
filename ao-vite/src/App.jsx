@@ -65,6 +65,10 @@ import React, { useState, useEffect, useRef } from "react";
 //   once: truncated-apex low-crossbar A in ink/white + a flag-bar 1 in the
 //   brand green. LogoMark component in the nav/footer lockup, favicon tile,
 //   and standalone assets in public/brand/ (light + dark).
+// v15 (mark v2, chosen from the 7-variant sheet): slanted A (V5's diagonal
+//   left leg + vertical right stem + low crossbar) with V4's notched-bar 1.
+//   ONE brand green (#86C43D) for the 1 in both light and dark contexts;
+//   deep forest remains a site TEXT color only, never in the mark.
 // ============================================================
 
 // Demo-form endpoint (Formspree-style: accepts JSON POST, returns 2xx on ok).
@@ -171,20 +175,20 @@ export function Btn({ children, onClick, variant = "primary", href }) {
   );
 }
 
-// The A1 mark. Reads "A1" (AllianceOne) and "AI" at once: a truncated-apex,
-// low-crossbar A in ink, and a bar-with-flag "1" in the brand green whose
-// flag makes it a 1 while the bar alone reads I. Flat uniform strokes, sharp
-// corners; deliberately unlike Anthropic's pointed-apex, high-crossbar A.
+// The A1 mark. Reads "A1" (AllianceOne) and "AI" at once: a slanted A
+// (diagonal left leg, vertical right stem, low crossbar) in ink/white, and a
+// notched-bar 1 whose notch whispers "1" while the bar reads "I". The 1
+// always carries the ONE brand green, identical on light and dark. Flat
+// uniform strokes, sharp corners; nothing like Anthropic's construction.
 export function LogoMark({ size = 26, light = false }) {
   const a = light ? "#fff" : C.ink;
-  const one = light ? C.gold : C.olive;
   return (
     <svg viewBox="0 0 48 48" width={size} height={size} aria-hidden="true" style={{ display: "block", flex: "none" }}>
-      <path fill={a} d="M15 8 H21 L12 40 H5.5 Z" />
-      <path fill={a} d="M16 8 H22 L31.5 40 H25 Z" />
-      <rect fill={a} x="13" y="27.5" width="11" height="5.5" />
-      <path fill={one} d="M36.5 8 L30 14.5 L30 19.5 L36.5 13 Z" />
-      <rect fill={one} x="36.5" y="8" width="6.5" height="32" />
+      <path fill={a} d="M23.5 8 H30 L11 40 H4.5 Z" />
+      <rect fill={a} x="23.5" y="8" width="6.5" height="32" />
+      <rect fill={a} x="15" y="27.5" width="9.5" height="5.5" />
+      <path fill={C.gold} d="M37 8 L33.5 11.5 L33.5 15 L37 11.5 Z" />
+      <rect fill={C.gold} x="37" y="8" width="6.5" height="32" />
     </svg>
   );
 }
