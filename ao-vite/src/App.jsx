@@ -185,12 +185,14 @@ export function Btn({ children, onClick, variant = "primary", href }) {
 // always carries the ONE brand green. Distance from Deloitte is structural:
 // theirs is a round period ending a wordmark; ours is a rectangular cursor
 // beside a monogram, and it never trails the wordmark.
-export function LogoMark({ size = 26, light = false }) {
-  const a = light ? "#fff" : C.ink;
+export function LogoMark({ size = 26, light = false, tile = false }) {
+  const a = tile ? "#fff" : light ? "#fff" : C.ink;
   const reduce = usePRM();
   return (
     <svg viewBox="0 0 48 48" width={size} height={size} aria-hidden="true" style={{ display: "block", flex: "none" }}>
       {!reduce && <style>{`@keyframes aoblink{0%{opacity:1}50%{opacity:0}100%{opacity:0}}.ao-cursor{animation:aoblink .8s step-end 2}`}</style>}
+      {tile && <rect width="48" height="48" fill={C.ink} />}
+      {tile && light && <rect x="0.75" y="0.75" width="46.5" height="46.5" fill="none" stroke="rgba(255,255,255,0.22)" strokeWidth="1.5" />}
       <path fill={a} d="M15 8 H21 L12 40 H5.5 Z" />
       <path fill={a} d="M16 8 H22 L31.5 40 H25 Z" />
       <rect fill={a} x="13" y="27.5" width="11" height="5.5" />
@@ -199,12 +201,15 @@ export function LogoMark({ size = 26, light = false }) {
   );
 }
 
+// Lockup: the mark on its ink tile (reads as an app icon, so the mark's A
+// doesn't stutter against the wordmark's A), then a single-color wordmark.
+// The cursor is the lockup's only green.
 export function Logo({ light = false, size = 1 }) {
   return (
-    <span style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem" }}>
-      <LogoMark size={25 * size} light={light} />
-      <span style={{ fontFamily: serif, fontWeight: 700, fontSize: `${1.28 * size}rem`, letterSpacing: "-0.035em", lineHeight: 1, color: light ? "#fff" : C.ink }}>
-        Alliance<span style={{ color: light ? C.gold : C.olive }}>One</span>
+    <span style={{ display: "inline-flex", alignItems: "center", gap: "0.7rem" }}>
+      <LogoMark size={28 * size} tile light={light} />
+      <span style={{ fontFamily: serif, fontWeight: 700, fontSize: `${1.24 * size}rem`, letterSpacing: "-0.035em", lineHeight: 1, color: light ? "#fff" : C.ink }}>
+        AllianceOne
       </span>
     </span>
   );

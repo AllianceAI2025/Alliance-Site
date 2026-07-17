@@ -69,9 +69,11 @@ expertise about to be applied) is a meaning, not a style effect.
 - Clear space around the mark: at least the height of the A's crossbar.
 - Don't recolor (the underscore is #86C43D, period), stretch, rotate,
   outline, add shadows, slant, or place on the old warm palette.
-- The wordmark lockup is mark + "AllianceOne" in IBM Plex Sans 700; the
-  "One" may use deep green on white for contrast, bright green on dark.
-  Never append the underscore to the wordmark.
+- The lockup is the mark on its ink tile (app-icon style, so the mark's A
+  doesn't sit letter-to-letter against the wordmark's A) beside
+  "AllianceOne" in IBM Plex Sans 700, single color: ink on light, white on
+  dark. No green in the wordmark, ever; the cursor is the lockup's only
+  green. Never append the underscore to the wordmark.
 
 Sources: Paul Rand's seven-step logo test (brandsthatpunch.com), Sagi Haviv
 on simplicity (teorise.com), favicon scalability guidance (unwrite.co,
