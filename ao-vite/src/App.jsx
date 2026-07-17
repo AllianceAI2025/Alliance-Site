@@ -54,6 +54,13 @@ import React, { useState, useEffect, useRef } from "react";
 //   count-up stat band (Stat) + Karp pull-quote; full-bleed electric-blue
 //   Close band; scroll reveals across all sections. All motion honors
 //   prefers-reduced-motion (static render).
+// v13 (UI-refine brand): green brand system replaces the electric blue.
+//   Deep forest #0E6B3E (light-bg accents, fills, close band) + bright
+//   Deloitte-adjacent #86C43D (dark-bg accents, nav signature line, favicon
+//   mark). Product-media machinery added for Cursor-style captures:
+//   MediaFrame (muted-loop video with poster + reduced-motion fallback),
+//   video slots on all four product stages, HERO_MEDIA slot under the hero
+//   CTAs. Capture shot list in MEDIA-SPEC.md.
 // ============================================================
 
 // Demo-form endpoint (Formspree-style: accepts JSON POST, returns 2xx on ok).
@@ -62,23 +69,25 @@ import React, { useState, useEffect, useRef } from "react";
 // "https://formspree.io/f/XXXXXXXX".
 export const DEMO_FORM_ENDPOINT = "";
 
-// v11 palette: Big-3 consulting grammar. White page, cold near-black, ONE
-// electric-blue accent. Key names kept from the old warm palette so every
-// call site (and SecurityPage's imports) re-skins without edits:
-//   olive    -> primary accent on light bg + button fills
-//   gold     -> accent on dark bg (light blue, AA on ink)
-//   goldSoft -> emphasis text on dark bg
+// v13 palette: the green brand system on the cold Big-3 base. White page,
+// near-black ink, and a two-tone green: deep forest for light-bg accents and
+// fills (AA with white text), bright Deloitte-adjacent lime as the signature
+// accent on dark surfaces, the nav line, and the mark. Key names kept so
+// every call site (and SecurityPage's imports) re-skins without edits:
+//   olive    -> deep brand green: light-bg accents, button fills, close band
+//   gold     -> bright signature green: dark-bg accents, nav line, favicon
+//   goldSoft -> emphasis text on dark bg (pale lime)
 export const C = {
   ink: "#0B0D12",
   inkSoft: "#3A3F4A",
   bone: "#FFFFFF",
   boneDim: "#F4F5F7",
   paper: "#FFFFFF",
-  olive: "#2447E6",
-  oliveDeep: "#10141F",
+  olive: "#0E6B3E",
+  oliveDeep: "#122A1C",
   oliveLite: "#6E7480",
-  gold: "#8FA7FF",
-  goldSoft: "#BCCBFF",
+  gold: "#86C43D",
+  goldSoft: "#CDE8A6",
   line: "rgba(11,13,18,0.14)",
   lineSoft: "rgba(11,13,18,0.07)",
 };
@@ -144,7 +153,7 @@ export function Btn({ children, onClick, variant = "primary", href }) {
   };
   const hoverStyle = {
     primary: { background: C.olive },
-    gold: { background: "#1B38C4" },
+    gold: { background: "#0A5230" },
     ghost: { background: C.ink, color: "#fff", borderColor: C.ink },
     bone: { background: C.boneDim },
   }[variant];
@@ -219,7 +228,7 @@ export function Nav({ onCta }) {
   }, []);
   const goldCta = { fontFamily: sans, fontSize: "0.84rem", fontWeight: 600, padding: "0.6rem 1.25rem", background: C.olive, color: "#fff", borderRadius: 0, cursor: "pointer", border: 0 };
   return (
-    <header style={{ position: "sticky", top: 0, zIndex: 50, backdropFilter: "blur(12px)", background: "rgba(255,255,255,0.88)", borderTop: `3px solid ${C.olive}`, borderBottom: `1px solid ${C.lineSoft}` }}>
+    <header style={{ position: "sticky", top: 0, zIndex: 50, backdropFilter: "blur(12px)", background: "rgba(255,255,255,0.88)", borderTop: `3px solid ${C.gold}`, borderBottom: `1px solid ${C.lineSoft}` }}>
       <Wrap style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1rem clamp(1.25rem,5vw,4.5rem)" }}>
         <a href="/" onClick={(e) => { if (window.location.pathname === "/") { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); } }} style={{ textDecoration: "none" }} aria-label="AllianceOne home">
           <Logo />
@@ -341,6 +350,33 @@ function Stat({ value, suffix, label, source }) {
   );
 }
 
+// Product capture frame. Give it a video (muted loop, Cursor-style) and it
+// plays inline with the still as poster; reduced motion or no video falls
+// back to the still. Drop files in public/ and pass paths.
+function MediaFrame({ img, video, alt, caption, style }) {
+  const reduce = usePRM();
+  const showVideo = Boolean(video) && !reduce;
+  return (
+    <figure style={{ margin: 0, ...style }}>
+      <div style={{ overflow: "hidden", border: `1px solid ${C.line}`, background: C.paper }}>
+        {showVideo ? (
+          <video src={video} poster={img || undefined} autoPlay muted loop playsInline preload="metadata" aria-label={alt} style={{ display: "block", width: "100%", height: "auto" }} />
+        ) : (
+          <img src={img} alt={alt} style={{ display: "block", width: "100%", height: "auto" }} />
+        )}
+      </div>
+      {caption && (
+        <figcaption style={{ fontFamily: mono, fontSize: "0.72rem", letterSpacing: "0.04em", color: C.oliveLite, marginTop: "0.9rem" }}>{caption}</figcaption>
+      )}
+    </figure>
+  );
+}
+
+// Hero money shot: set to { img, video?, alt, caption } once the capture
+// exists (see MEDIA-SPEC.md) and the hero renders it full-width below the
+// CTAs. Null keeps the hero type-led.
+const HERO_MEDIA = null;
+
 function Hero({ onCta }) {
   const spec = [
     ["What it is", "A system that models how your firm actually works, across every engagement."],
@@ -387,6 +423,11 @@ function Hero({ onCta }) {
             </div>
           </div>
         </Reveal>
+        {HERO_MEDIA && (
+          <Reveal delay={0.4}>
+            <MediaFrame {...HERO_MEDIA} style={{ marginTop: "3.4rem" }} />
+          </Reveal>
+        )}
       </Wrap>
       <style>{`
         @media (prefers-reduced-motion: no-preference){.ao-cue-dot{animation:ao-cue 2.2s ${ease} infinite}}
@@ -402,13 +443,16 @@ function Hero({ onCta }) {
 // the real one; drop new files in public/ and fill the img fields as they come.
 
 function TheProduct() {
+  // [name, body, img, alt, video] — img/video are public/ paths; a video plays
+  // as a muted loop with the img as poster (see MEDIA-SPEC.md for capture specs).
   const stages = [
-    ["Discover", "A new pursuit opens and AllianceOne reads it against everything your firm has done. The closest engagements surface ranked, each carrying how it was run, what it produced, and the watch-outs it hit along the way.", null, null],
+    ["Discover", "A new pursuit opens and AllianceOne reads it against everything your firm has done. The closest engagements surface ranked, each carrying how it was run, what it produced, and the watch-outs it hit along the way.", null, null, null],
     ["Scope", "Discovery feeds the scope directly. Similar engagements, constraints, and watch-outs carry straight in, so the first draft is your firm's real approach to this kind of problem, not a generic template.",
       "/worked-example.png",
-      "The Scope view in AllianceOne: a new engagement scoped from similar past engagements ranked by match, in-scope items and constraints carried from discovery, and watch-outs surfaced automatically."],
-    ["Propose", "The proposal assembles from deliverables your firm has actually shipped: their structure, what they included, and why. What worked in past engagements is reinforced, and the missteps surface before they're repeated.", null, null],
-    ["Deliver", "The team executes with the firm's precedent at hand. As the engagement closes, its decisions and outcomes feed back into the model, so the next engagement starts sharper than this one did.", null, null],
+      "The Scope view in AllianceOne: a new engagement scoped from similar past engagements ranked by match, in-scope items and constraints carried from discovery, and watch-outs surfaced automatically.",
+      null],
+    ["Propose", "The proposal assembles from deliverables your firm has actually shipped: their structure, what they included, and why. What worked in past engagements is reinforced, and the missteps surface before they're repeated.", null, null, null],
+    ["Deliver", "The team executes with the firm's precedent at hand. As the engagement closes, its decisions and outcomes feed back into the model, so the next engagement starts sharper than this one did.", null, null, null],
   ];
   return (
     <Section>
@@ -424,7 +468,7 @@ function TheProduct() {
           </p>
         </Reveal>
         <div style={{ borderTop: `2px solid ${C.ink}`, marginTop: "2.6rem" }}>
-          {stages.map(([name, body, img, alt], i) => (
+          {stages.map(([name, body, img, alt, video], i) => (
             <Reveal key={i} delay={Math.min(i * 0.06, 0.18)} style={{ borderBottom: `1px solid ${C.line}`, padding: "2rem 0" }}>
               <div className="ao-def" style={{ display: "grid", gridTemplateColumns: "minmax(190px,0.7fr) 1.5fr", gap: "0.8rem 3rem", alignItems: "start" }}>
                 <div>
@@ -433,15 +477,8 @@ function TheProduct() {
                 </div>
                 <p style={{ color: C.inkSoft, fontSize: "1.06rem", margin: 0, lineHeight: 1.6, maxWidth: "56ch" }}>{body}</p>
               </div>
-              {img && (
-                <figure style={{ margin: "2.2rem 0 0.4rem" }}>
-                  <div style={{ borderRadius: 0, overflow: "hidden", border: `1px solid ${C.line}`, background: C.paper }}>
-                    <img src={img} alt={alt} style={{ display: "block", width: "100%", height: "auto" }} />
-                  </div>
-                  <figcaption style={{ fontFamily: mono, fontSize: "0.72rem", letterSpacing: "0.04em", color: C.oliveLite, marginTop: "0.9rem" }}>
-                    AllianceOne · {name} view · firm names shown are illustrative
-                  </figcaption>
-                </figure>
+              {(img || video) && (
+                <MediaFrame img={img} video={video} alt={alt} caption={`AllianceOne · ${name} view · firm names shown are illustrative`} style={{ margin: "2.2rem 0 0.4rem" }} />
               )}
             </Reveal>
           ))}
