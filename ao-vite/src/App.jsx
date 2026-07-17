@@ -48,6 +48,12 @@ import React, { useState, useEffect, useRef } from "react";
 //   (no display serif), zero border-radius, hairline rules, flat imagery,
 //   no italics, no hover bounce. Copy unchanged. Palette key names kept so
 //   SecurityPage re-skins via its existing imports.
+// v12 (UI-refine wow): Big-3 presence layer. Near-full-viewport hero with
+//   staggered load-in (Reveal), headline to clamp 6.6rem, scroll cue; blue
+//   3px signature line atop the nav; The-shift receipts rebuilt as a giant
+//   count-up stat band (Stat) + Karp pull-quote; full-bleed electric-blue
+//   Close band; scroll reveals across all sections. All motion honors
+//   prefers-reduced-motion (static render).
 // ============================================================
 
 // Demo-form endpoint (Formspree-style: accepts JSON POST, returns 2xx on ok).
@@ -111,7 +117,7 @@ export function Eyebrow({ children, color = C.olive, style }) {
 //   quiet (recessive; qualification strips that shouldn't compete).
 export function Head({ children, light = false, size = "section", style }) {
   const sizes = {
-    display: "clamp(2.1rem,4.6vw,3.5rem)",
+    display: "clamp(2.3rem,5vw,3.9rem)",
     section: "clamp(1.8rem,3.6vw,2.8rem)",
     quiet: "clamp(1.45rem,2.8vw,2rem)",
   };
@@ -213,7 +219,7 @@ export function Nav({ onCta }) {
   }, []);
   const goldCta = { fontFamily: sans, fontSize: "0.84rem", fontWeight: 600, padding: "0.6rem 1.25rem", background: C.olive, color: "#fff", borderRadius: 0, cursor: "pointer", border: 0 };
   return (
-    <header style={{ position: "sticky", top: 0, zIndex: 50, backdropFilter: "blur(12px)", background: "rgba(255,255,255,0.82)", borderBottom: `1px solid ${C.lineSoft}` }}>
+    <header style={{ position: "sticky", top: 0, zIndex: 50, backdropFilter: "blur(12px)", background: "rgba(255,255,255,0.88)", borderTop: `3px solid ${C.olive}`, borderBottom: `1px solid ${C.lineSoft}` }}>
       <Wrap style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1rem clamp(1.25rem,5vw,4.5rem)" }}>
         <a href="/" onClick={(e) => { if (window.location.pathname === "/") { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); } }} style={{ textDecoration: "none" }} aria-label="AllianceOne home">
           <Logo />
@@ -264,6 +270,77 @@ function Marker({ n, children, color = C.oliveLite }) {
   );
 }
 
+// ---- motion (restrained; all gated on prefers-reduced-motion) --------------
+
+function usePRM() {
+  const [r] = useState(() => typeof window !== "undefined" && window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  return r;
+}
+
+// Rises 26px and fades in the first time it enters the viewport.
+function Reveal({ children, delay = 0, style }) {
+  const ref = useRef(null);
+  const reduce = usePRM();
+  const [on, setOn] = useState(reduce);
+  useEffect(() => {
+    if (on) return;
+    const el = ref.current;
+    if (!el || !("IntersectionObserver" in window)) { setOn(true); return; }
+    const io = new IntersectionObserver(
+      (es) => es.forEach((e) => { if (e.isIntersecting) { setOn(true); io.disconnect(); } }),
+      { rootMargin: "0px 0px -10% 0px", threshold: 0.01 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [on]);
+  return (
+    <div ref={ref} style={{ opacity: on ? 1 : 0, transform: on ? "none" : "translateY(26px)", transition: `opacity .7s ${ease} ${delay}s, transform .7s ${ease} ${delay}s`, ...style }}>
+      {children}
+    </div>
+  );
+}
+
+// Big number that counts up when scrolled into view; snaps when motion is off.
+function Stat({ value, suffix, label, source }) {
+  const ref = useRef(null);
+  const reduce = usePRM();
+  const [play, setPlay] = useState(false);
+  const [n, setN] = useState(reduce ? value : 0);
+  useEffect(() => {
+    const el = ref.current;
+    if (reduce) return;
+    if (!el || !("IntersectionObserver" in window)) { setPlay(true); return; }
+    const io = new IntersectionObserver(
+      (es) => es.forEach((e) => { if (e.isIntersecting) { setPlay(true); io.disconnect(); } }),
+      { threshold: 0.4 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [reduce]);
+  useEffect(() => {
+    if (!play || reduce) return;
+    let raf;
+    const t0 = performance.now();
+    const dur = 1300;
+    const tick = (t) => {
+      const p = Math.min(1, (t - t0) / dur);
+      setN(Math.round((1 - Math.pow(1 - p, 3)) * value));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [play, reduce, value]);
+  return (
+    <div ref={ref} style={{ paddingTop: "2rem" }}>
+      <p style={{ fontFamily: sans, fontWeight: 700, fontSize: "clamp(3.6rem,8vw,6.4rem)", letterSpacing: "-0.045em", lineHeight: 1, color: "#fff", margin: 0 }}>
+        {n}{suffix}
+      </p>
+      <p style={{ color: "rgba(255,255,255,0.75)", fontSize: "1.04rem", margin: "1rem 0 0", maxWidth: "34ch", lineHeight: 1.55 }}>{label}</p>
+      <p style={{ fontFamily: mono, fontSize: "0.72rem", letterSpacing: "0.04em", color: "rgba(255,255,255,0.5)", margin: "0.9rem 0 0" }}>{source}</p>
+    </div>
+  );
+}
+
 function Hero({ onCta }) {
   const spec = [
     ["What it is", "A system that models how your firm actually works, across every engagement."],
@@ -271,30 +348,51 @@ function Hero({ onCta }) {
     ["Instead of", "Generic AI that hands every firm the same average answer."],
   ];
   return (
-    <section style={{ borderBottom: `1px solid ${C.line}` }}>
-      <Wrap style={{ padding: "clamp(3rem,6vw,5.5rem) clamp(1.25rem,5vw,4.5rem) clamp(3rem,6vw,5rem)" }}>
-        <p style={{ fontFamily: mono, fontSize: "0.74rem", letterSpacing: "0.16em", textTransform: "uppercase", color: C.olive, margin: 0 }}>
-          For consulting, advisory &amp; professional-services firms
-        </p>
-        <h1 style={{ fontFamily: serif, fontWeight: 700, fontSize: "clamp(2.7rem,6.2vw,5.4rem)", lineHeight: 1.02, letterSpacing: "-0.045em", maxWidth: "15ch", margin: "1.5rem 0 0" }}>
-          Your firm's expertise, made <em style={{ fontStyle: "normal", color: C.olive }}>repeatable.</em>
-        </h1>
-        <p style={{ fontSize: "clamp(1.1rem,1.7vw,1.4rem)", maxWidth: "56ch", marginTop: "1.7rem", color: C.ink, fontWeight: 500, lineHeight: 1.5 }}>
-          AllianceOne models the practice, not the projects. Every engagement is an observation of how your firm approaches client problems, thinks through solutions, and delivers. Those three axes are your firm's cognitive fingerprint, captured in one system. Your expertise becomes traceable, repeatable, and compounding.
-        </p>
-        <div style={{ marginTop: "2.8rem", borderTop: `2px solid ${C.ink}`, display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(210px,1fr))", gap: "0" }}>
-          {spec.map(([label, text], i) => (
-            <div key={i} style={{ padding: "1.4rem 1.6rem 0.4rem 0" }}>
-              <p style={{ fontFamily: mono, fontSize: "0.7rem", letterSpacing: "0.12em", textTransform: "uppercase", color: C.oliveLite, margin: "0 0 0.5rem" }}>{label}</p>
-              <p style={{ fontSize: "0.98rem", color: C.inkSoft, margin: 0, maxWidth: "30ch" }}>{text}</p>
+    <section style={{ borderBottom: `1px solid ${C.line}`, minHeight: "min(88vh, 880px)", display: "flex", alignItems: "center" }}>
+      <Wrap style={{ padding: "clamp(3.5rem,7vw,6rem) clamp(1.25rem,5vw,4.5rem)", width: "100%" }}>
+        <Reveal>
+          <p style={{ fontFamily: mono, fontSize: "0.74rem", letterSpacing: "0.16em", textTransform: "uppercase", color: C.olive, margin: 0 }}>
+            For consulting, advisory &amp; professional-services firms
+          </p>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <h1 style={{ fontFamily: serif, fontWeight: 700, fontSize: "clamp(3rem,7.6vw,6.6rem)", lineHeight: 0.99, letterSpacing: "-0.05em", maxWidth: "14ch", margin: "1.6rem 0 0" }}>
+            Your firm's expertise, made <em style={{ fontStyle: "normal", color: C.olive }}>repeatable.</em>
+          </h1>
+        </Reveal>
+        <Reveal delay={0.16}>
+          <p style={{ fontSize: "clamp(1.1rem,1.7vw,1.4rem)", maxWidth: "56ch", marginTop: "1.8rem", color: C.ink, fontWeight: 500, lineHeight: 1.5 }}>
+            AllianceOne models the practice, not the projects. Every engagement is an observation of how your firm approaches client problems, thinks through solutions, and delivers. Those three axes are your firm's cognitive fingerprint, captured in one system. Your expertise becomes traceable, repeatable, and compounding.
+          </p>
+        </Reveal>
+        <Reveal delay={0.24}>
+          <div style={{ marginTop: "2.8rem", borderTop: `2px solid ${C.ink}`, display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(210px,1fr))", gap: "0" }}>
+            {spec.map(([label, text], i) => (
+              <div key={i} style={{ padding: "1.4rem 1.6rem 0.4rem 0" }}>
+                <p style={{ fontFamily: mono, fontSize: "0.7rem", letterSpacing: "0.12em", textTransform: "uppercase", color: C.oliveLite, margin: "0 0 0.5rem" }}>{label}</p>
+                <p style={{ fontSize: "0.98rem", color: C.inkSoft, margin: 0, maxWidth: "30ch" }}>{text}</p>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+        <Reveal delay={0.32}>
+          <div style={{ marginTop: "2.6rem", display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+            <Btn variant="gold" onClick={onCta}>Request a demo</Btn>
+            <Btn variant="ghost" onClick={() => document.getElementById("product")?.scrollIntoView({ behavior: "smooth" })}>See how it works</Btn>
+            <div className="ao-cue" aria-hidden="true" style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: "0.7rem" }}>
+              <span style={{ fontFamily: mono, fontSize: "0.68rem", letterSpacing: "0.18em", textTransform: "uppercase", color: C.oliveLite }}>Scroll</span>
+              <span style={{ position: "relative", width: 1, height: 44, background: C.line, overflow: "hidden", display: "inline-block" }}>
+                <span className="ao-cue-dot" style={{ position: "absolute", left: 0, top: 0, width: 1, height: 12, background: C.olive }} />
+              </span>
             </div>
-          ))}
-        </div>
-        <div style={{ marginTop: "2.6rem", display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-          <Btn variant="gold" onClick={onCta}>Request a demo</Btn>
-          <Btn variant="ghost" onClick={() => document.getElementById("product")?.scrollIntoView({ behavior: "smooth" })}>See how it works</Btn>
-        </div>
+          </div>
+        </Reveal>
       </Wrap>
+      <style>{`
+        @media (prefers-reduced-motion: no-preference){.ao-cue-dot{animation:ao-cue 2.2s ${ease} infinite}}
+        @keyframes ao-cue{0%{transform:translateY(-12px)}70%{transform:translateY(44px)}100%{transform:translateY(44px)}}
+        @media (max-width:760px){.ao-cue{display:none!important}}
+      `}</style>
     </section>
   );
 }
@@ -316,16 +414,18 @@ function TheProduct() {
     <Section>
       <div id="product" style={{ scrollMarginTop: 80 }} />
       <Wrap>
-        <Marker n="03">The product</Marker>
-        <Head size="display" style={{ maxWidth: "18ch", margin: "1.5rem 0 0" }}>
-          From first read to final delivery.
-        </Head>
-        <p style={{ color: C.inkSoft, fontSize: "1.1rem", maxWidth: "60ch", marginTop: "1.4rem", lineHeight: 1.6 }}>
-          Not a chatbot bolted to the side. AllianceOne works the way an engagement actually moves, in four stages, each drawing on the practice.
-        </p>
+        <Reveal>
+          <Marker n="03">The product</Marker>
+          <Head size="display" style={{ maxWidth: "18ch", margin: "1.5rem 0 0" }}>
+            From first read to final delivery.
+          </Head>
+          <p style={{ color: C.inkSoft, fontSize: "1.1rem", maxWidth: "60ch", marginTop: "1.4rem", lineHeight: 1.6 }}>
+            Not a chatbot bolted to the side. AllianceOne works the way an engagement actually moves, in four stages, each drawing on the practice.
+          </p>
+        </Reveal>
         <div style={{ borderTop: `2px solid ${C.ink}`, marginTop: "2.6rem" }}>
           {stages.map(([name, body, img, alt], i) => (
-            <div key={i} style={{ borderBottom: `1px solid ${C.line}`, padding: "2rem 0" }}>
+            <Reveal key={i} delay={Math.min(i * 0.06, 0.18)} style={{ borderBottom: `1px solid ${C.line}`, padding: "2rem 0" }}>
               <div className="ao-def" style={{ display: "grid", gridTemplateColumns: "minmax(190px,0.7fr) 1.5fr", gap: "0.8rem 3rem", alignItems: "start" }}>
                 <div>
                   <span style={{ fontFamily: mono, fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.olive }}>Stage {`0${i + 1}`}</span>
@@ -343,7 +443,7 @@ function TheProduct() {
                   </figcaption>
                 </figure>
               )}
-            </div>
+            </Reveal>
           ))}
         </div>
         <p style={{ fontSize: "0.98rem", color: C.inkSoft, marginTop: "1.6rem", marginBottom: 0 }}>
@@ -357,33 +457,33 @@ function TheProduct() {
 // ---- 04 the shift (the market moved to us; receipts with sources) ---------
 
 function TheShift() {
-  const findings = [
-    ["95% of enterprise AI pilots delivered no measurable P&L impact.", "MIT · The GenAI Divide · 2025"],
-    ["Enterprises are “livid” over AI models that capture their business value. The real fight is control and ownership.", "Palantir CEO Alex Karp · 2026"],
-    ["Up to 90% of a firm's value is tacit knowledge, the one thing competitors cannot copy.", "California Management Review · 2026"],
-  ];
   return (
     <Section style={{ background: C.ink, color: C.bone }}>
       <div id="shift" style={{ scrollMarginTop: 80 }} />
       <Wrap>
-        <Marker n="04" color={C.gold}>The shift</Marker>
-        <Head light size="display" style={{ maxWidth: "18ch", margin: "1.5rem 0 0" }}>
-          Generic AI gave everyone the average.
-        </Head>
-        <p style={{ color: "rgba(255,255,255,0.74)", fontSize: "1.14rem", maxWidth: "62ch", marginTop: "1.4rem", lineHeight: 1.6 }}>
-          Two years of enterprise AI proved a point the market is only now saying out loud. A model trained on everyone else's work hands your firm the same answer it hands your competitors, and quietly exports your value to whoever owns the model. The counter-move is to model and own your own intelligence. For a firm whose product is expertise, that intelligence is the practice.
-        </p>
-        <div style={{ marginTop: "3rem", borderTop: "1px solid rgba(255,255,255,0.22)" }}>
-          {findings.map(([claim, src], i) => (
-            <div key={i} style={{ display: "grid", gridTemplateColumns: "2.5rem 1fr", gap: "0.5rem", alignItems: "start", padding: "1.5rem 0", borderBottom: "1px solid rgba(255,255,255,0.12)" }}>
-              <span style={{ fontFamily: mono, fontSize: "0.8rem", color: C.gold, paddingTop: "0.4rem" }}>{`0${i + 1}`}</span>
-              <div>
-                <p style={{ fontFamily: serif, fontSize: "clamp(1.25rem,2vw,1.5rem)", color: C.bone, margin: 0, lineHeight: 1.3, maxWidth: "46ch" }}>{claim}</p>
-                <p style={{ fontFamily: mono, fontSize: "0.72rem", letterSpacing: "0.04em", color: "rgba(255,255,255,0.5)", margin: "0.6rem 0 0" }}>{src}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+        <Reveal>
+          <Marker n="04" color={C.gold}>The shift</Marker>
+          <Head light size="display" style={{ maxWidth: "18ch", margin: "1.5rem 0 0" }}>
+            Generic AI gave everyone the average.
+          </Head>
+          <p style={{ color: "rgba(255,255,255,0.74)", fontSize: "1.14rem", maxWidth: "62ch", marginTop: "1.4rem", lineHeight: 1.6 }}>
+            Two years of enterprise AI proved a point the market is only now saying out loud. A model trained on everyone else's work hands your firm the same answer it hands your competitors, and quietly exports your value to whoever owns the model. The counter-move is to model and own your own intelligence. For a firm whose product is expertise, that intelligence is the practice.
+          </p>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <div style={{ marginTop: "3.2rem", borderTop: "1px solid rgba(255,255,255,0.22)", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "0 4rem" }}>
+            <Stat value={95} suffix="%" label="of enterprise AI pilots delivered no measurable P&L impact." source="MIT · The GenAI Divide · 2025" />
+            <Stat value={90} suffix="%" label="of a firm's value is tacit knowledge, the one thing competitors cannot copy." source="California Management Review · 2026" />
+          </div>
+        </Reveal>
+        <Reveal delay={0.18}>
+          <div style={{ marginTop: "3.2rem", borderLeft: `3px solid ${C.gold}`, paddingLeft: "1.8rem", maxWidth: "62ch" }}>
+            <p style={{ fontSize: "clamp(1.35rem,2.4vw,1.8rem)", fontWeight: 500, color: "#fff", margin: 0, lineHeight: 1.35, letterSpacing: "-0.015em" }}>
+              &ldquo;Enterprises are livid over AI models that capture their business value. The real fight is control and ownership.&rdquo;
+            </p>
+            <p style={{ fontFamily: mono, fontSize: "0.72rem", letterSpacing: "0.04em", color: "rgba(255,255,255,0.5)", margin: "1rem 0 0" }}>Palantir CEO Alex Karp · 2026</p>
+          </div>
+        </Reveal>
       </Wrap>
     </Section>
   );
@@ -401,7 +501,10 @@ function ModelThePractice() {
     <Section>
       <div id="model" style={{ scrollMarginTop: 80 }} />
       <Wrap>
-        <Marker n="02">What it is</Marker>
+        <Reveal>
+          <Marker n="02">What it is</Marker>
+        </Reveal>
+        <Reveal delay={0.06}>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))", gap: "2.6rem 4.5rem", marginTop: "1.5rem", alignItems: "start" }}>
           <div>
             <Head size="display" style={{ maxWidth: "18ch", margin: 0 }}>
@@ -430,6 +533,8 @@ function ModelThePractice() {
           </div>
         </div>
 
+        </Reveal>
+        <Reveal delay={0.1}>
         <div style={{ marginTop: "3.6rem", borderTop: `2px solid ${C.ink}`, paddingTop: "2.2rem" }}>
           <p style={{ fontFamily: mono, fontSize: "0.7rem", letterSpacing: "0.12em", textTransform: "uppercase", color: C.oliveLite, margin: 0 }}>What you get</p>
           <Head size="section" style={{ maxWidth: "22ch", margin: "0.9rem 0 0" }}>
@@ -454,6 +559,7 @@ function ModelThePractice() {
             ))}
           </div>
         </div>
+        </Reveal>
       </Wrap>
       <style>{`@media (max-width:720px){.ao-def{grid-template-columns:1fr !important;gap:0.6rem !important}}`}</style>
     </Section>
@@ -481,13 +587,16 @@ function WhyNotGenericAI({ onCta }) {
     <Section style={{ background: C.ink, color: C.bone }}>
       <div id="why" style={{ scrollMarginTop: 80 }} />
       <Wrap>
-        <Marker n="05" color={C.gold}>Why AllianceOne</Marker>
-        <Head light size="section" style={{ maxWidth: "24ch", margin: "1.5rem 0 0" }}>
-          &ldquo;Couldn't we just do this with Claude or ChatGPT?&rdquo;
-        </Head>
-        <p style={{ color: "rgba(255,255,255,0.72)", fontSize: "1.05rem", maxWidth: "60ch", marginTop: "1.1rem" }}>
-          Good tools. You're probably already using them, and you should keep doing so. But there's one thing they can't do, and it's not from any lack of capability. It's because of what they fundamentally are.
-        </p>
+        <Reveal>
+          <Marker n="05" color={C.gold}>Why AllianceOne</Marker>
+          <Head light size="section" style={{ maxWidth: "24ch", margin: "1.5rem 0 0" }}>
+            &ldquo;Couldn't we just do this with Claude or ChatGPT?&rdquo;
+          </Head>
+          <p style={{ color: "rgba(255,255,255,0.72)", fontSize: "1.05rem", maxWidth: "60ch", marginTop: "1.1rem" }}>
+            Good tools. You're probably already using them, and you should keep doing so. But there's one thing they can't do, and it's not from any lack of capability. It's because of what they fundamentally are.
+          </p>
+        </Reveal>
+        <Reveal delay={0.08}>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "1px", background: "rgba(255,255,255,0.14)", border: "1px solid rgba(255,255,255,0.14)", marginTop: "2.4rem" }}>
           <div style={{ background: C.ink, padding: "2.2rem 2rem" }}>
             <h3 style={{ fontFamily: sans, fontSize: "0.78rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.55)", margin: "0 0 1.2rem" }}>A general model</h3>
@@ -508,6 +617,8 @@ function WhyNotGenericAI({ onCta }) {
             ))}
           </div>
         </div>
+        </Reveal>
+        <Reveal delay={0.12}>
         <p style={{ color: "rgba(255,255,255,0.72)", fontSize: "1.05rem", maxWidth: "62ch", margin: "2.4rem 0 0" }}>
           It's not a contest of quality, and a better model won't close the gap. A general model hands anyone an opinion in seconds, the same average one your competitors get. What it can't hand them is <em style={{ fontStyle: "normal", fontWeight: 600, color: C.goldSoft }}>evidence</em>: what actually worked, for whom, and why. General models <em style={{ fontStyle: "normal", fontWeight: 600, color: C.goldSoft }}>retrieve</em> from everything. AllianceOne <em style={{ fontStyle: "normal", fontWeight: 600, color: C.goldSoft }}>accumulates</em> that evidence from your firm. It's the one thing no model brings.
         </p>
@@ -523,6 +634,7 @@ function WhyNotGenericAI({ onCta }) {
         <div style={{ marginTop: "2.8rem" }}>
           <Btn variant="gold" onClick={onCta}>Request a demo</Btn>
         </div>
+        </Reveal>
       </Wrap>
     </Section>
   );
@@ -540,10 +652,13 @@ function WhoItsFor() {
     <Section style={{ background: C.boneDim }}>
       <div id="who" style={{ scrollMarginTop: 80 }} />
       <Wrap>
-        <Marker n="01">Who it's for</Marker>
-        <Head size="display" style={{ maxWidth: "22ch", margin: "1.5rem 0 0" }}>
-          Firms whose product is expertise.
-        </Head>
+        <Reveal>
+          <Marker n="01">Who it's for</Marker>
+          <Head size="display" style={{ maxWidth: "22ch", margin: "1.5rem 0 0" }}>
+            Firms whose product is expertise.
+          </Head>
+        </Reveal>
+        <Reveal delay={0.08}>
         <div style={{ borderTop: `2px solid ${C.ink}`, marginTop: "2.4rem" }}>
           {verticals.map(([h, p], i) => (
             <div key={i} className="ao-def" style={{ display: "grid", gridTemplateColumns: "minmax(210px,0.7fr) 1.5fr", gap: "0.8rem 3rem", padding: "1.8rem 0", borderBottom: `1px solid ${C.line}`, alignItems: "baseline" }}>
@@ -559,7 +674,7 @@ function WhoItsFor() {
             AllianceOne is for the operating and managing partners whose margin, quality, and risk ride on judgment that today lives in scattered files and a few senior people's heads. It puts the firm's accumulated experience where the whole firm can draw on it, so the best thinking doesn't leave with the person who had it, and quality doesn't depend on who's staffed.
           </p>
         </div>
-
+        </Reveal>
       </Wrap>
     </Section>
   );
@@ -569,17 +684,19 @@ function WhoItsFor() {
 
 function Close({ onCta }) {
   return (
-    <Section>
+    <Section style={{ background: C.olive, color: "#fff" }}>
       <Wrap>
-        <Head size="display" style={{ maxWidth: "16ch", margin: 0 }}>
-          Own your practice.
-        </Head>
-        <p style={{ color: C.inkSoft, fontSize: "1.16rem", maxWidth: "54ch", marginTop: "1.4rem", lineHeight: 1.6 }}>
-          Your firm's expertise is its most valuable asset. Today it's also its least usable. AllianceOne is how you change that.
-        </p>
-        <div style={{ marginTop: "2.2rem" }}>
-          <Btn variant="gold" onClick={onCta}>Request a demo</Btn>
-        </div>
+        <Reveal>
+          <h2 style={{ fontFamily: sans, fontWeight: 700, fontSize: "clamp(2.8rem,6.8vw,5.6rem)", lineHeight: 1.0, letterSpacing: "-0.05em", color: "#fff", maxWidth: "14ch", margin: 0 }}>
+            Own your practice.
+          </h2>
+          <p style={{ color: "rgba(255,255,255,0.88)", fontSize: "clamp(1.1rem,1.7vw,1.3rem)", maxWidth: "50ch", marginTop: "1.6rem", lineHeight: 1.55 }}>
+            Your firm's expertise is its most valuable asset. Today it's also its least usable. AllianceOne is how you change that.
+          </p>
+          <div style={{ marginTop: "2.4rem" }}>
+            <Btn variant="bone" onClick={onCta}>Request a demo</Btn>
+          </div>
+        </Reveal>
       </Wrap>
     </Section>
   );
