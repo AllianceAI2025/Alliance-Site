@@ -73,6 +73,12 @@ import React, { useState, useEffect, useRef } from "react";
 //   structural: a rectangular cursor beside a monogram, never a round
 //   period ending a wordmark; the underscore never trails the wordmark.
 //   Rationale, treatments, and rules live in BRAND.md.
+// v17: ONE green. The signature #86C43D is the only green in the system;
+//   deep forest retired. Pairing flipped where needed: green fills carry
+//   ink text (buttons, nav CTA, modal submit, the Close band); labels that
+//   were deep-green text went neutral gray; links on white are ink with a
+//   green underline. Interim Scope screenshot removed pending the real
+//   capture set (slots + MEDIA-SPEC.md unchanged).
 // ============================================================
 
 // Demo-form endpoint (Formspree-style: accepts JSON POST, returns 2xx on ok).
@@ -81,25 +87,24 @@ import React, { useState, useEffect, useRef } from "react";
 // "https://formspree.io/f/XXXXXXXX".
 export const DEMO_FORM_ENDPOINT = "";
 
-// v13 palette: the green brand system on the cold Big-3 base. White page,
-// near-black ink, and a two-tone green: deep forest for light-bg accents and
-// fills (AA with white text), bright Deloitte-adjacent lime as the signature
-// accent on dark surfaces, the nav line, and the mark. Key names kept so
-// every call site (and SecurityPage's imports) re-skins without edits:
-//   olive    -> deep brand green: light-bg accents, button fills, close band
-//   gold     -> bright signature green: dark-bg accents, nav line, favicon
-//   goldSoft -> emphasis text on dark bg (pale lime)
+// v17 palette: ONE green. The signature green #86C43D is the only green in
+// the system, everywhere. Because it is light, it never carries white text
+// and never sets body copy on white: green fills pair with INK text
+// (black-on-lime, the Deloitte pairing, ~9:1), and on light surfaces green
+// appears as graphics, short mono accents, and display-size emphasis only.
+// olive/gold/goldSoft all resolve to the signature green; the keys survive
+// so call sites and SecurityPage's imports need no edits.
 export const C = {
   ink: "#0B0D12",
   inkSoft: "#3A3F4A",
   bone: "#FFFFFF",
   boneDim: "#F4F5F7",
   paper: "#FFFFFF",
-  olive: "#0E6B3E",
+  olive: "#86C43D",
   oliveDeep: "#122A1C",
   oliveLite: "#6E7480",
   gold: "#86C43D",
-  goldSoft: "#CDE8A6",
+  goldSoft: "#86C43D",
   line: "rgba(11,13,18,0.14)",
   lineSoft: "rgba(11,13,18,0.07)",
 };
@@ -125,7 +130,7 @@ export function useFonts() {
 
 // ---- atoms ---------------------------------------------------------------
 
-export function Eyebrow({ children, color = C.olive, style }) {
+export function Eyebrow({ children, color = C.oliveLite, style }) {
   return (
     <p style={{ fontFamily: sans, fontSize: "0.72rem", fontWeight: 600, letterSpacing: "0.22em", textTransform: "uppercase", color, margin: 0, ...style }}>
       {children}
@@ -159,13 +164,13 @@ export function Btn({ children, onClick, variant = "primary", href }) {
   };
   const variants = {
     primary: { background: C.ink, color: "#fff" },
-    gold: { background: C.olive, color: "#fff" },
+    gold: { background: C.gold, color: C.ink },
     ghost: { background: "transparent", color: C.ink, borderColor: C.ink },
     bone: { background: "#fff", color: C.ink },
   };
   const hoverStyle = {
-    primary: { background: C.olive },
-    gold: { background: "#0A5230" },
+    primary: { background: C.gold, color: C.ink },
+    gold: { background: "#74B32E" },
     ghost: { background: C.ink, color: "#fff", borderColor: C.ink },
     bone: { background: C.boneDim },
   }[variant];
@@ -266,7 +271,7 @@ export function Nav({ onCta }) {
     SECTIONS.forEach(([id]) => { const el = document.getElementById(id); if (el) io.observe(el); });
     return () => io.disconnect();
   }, []);
-  const goldCta = { fontFamily: sans, fontSize: "0.84rem", fontWeight: 600, padding: "0.6rem 1.25rem", background: C.olive, color: "#fff", borderRadius: 0, cursor: "pointer", border: 0 };
+  const goldCta = { fontFamily: sans, fontSize: "0.84rem", fontWeight: 600, padding: "0.6rem 1.25rem", background: C.gold, color: C.ink, borderRadius: 0, cursor: "pointer", border: 0 };
   return (
     <header style={{ position: "sticky", top: 0, zIndex: 50, backdropFilter: "blur(12px)", background: "rgba(255,255,255,0.88)", borderTop: `3px solid ${C.gold}`, borderBottom: `1px solid ${C.lineSoft}` }}>
       <Wrap style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1rem clamp(1.25rem,5vw,4.5rem)" }}>
@@ -427,7 +432,7 @@ function Hero({ onCta }) {
     <section style={{ borderBottom: `1px solid ${C.line}`, minHeight: "min(88vh, 880px)", display: "flex", alignItems: "center" }}>
       <Wrap style={{ padding: "clamp(3.5rem,7vw,6rem) clamp(1.25rem,5vw,4.5rem)", width: "100%" }}>
         <Reveal>
-          <p style={{ fontFamily: mono, fontSize: "0.74rem", letterSpacing: "0.16em", textTransform: "uppercase", color: C.olive, margin: 0 }}>
+          <p style={{ fontFamily: mono, fontSize: "0.74rem", letterSpacing: "0.16em", textTransform: "uppercase", color: C.oliveLite, margin: 0 }}>
             For consulting, advisory &amp; professional-services firms
           </p>
         </Reveal>
@@ -487,10 +492,7 @@ function TheProduct() {
   // as a muted loop with the img as poster (see MEDIA-SPEC.md for capture specs).
   const stages = [
     ["Discover", "A new pursuit opens and AllianceOne reads it against everything your firm has done. The closest engagements surface ranked, each carrying how it was run, what it produced, and the watch-outs it hit along the way.", null, null, null],
-    ["Scope", "Discovery feeds the scope directly. Similar engagements, constraints, and watch-outs carry straight in, so the first draft is your firm's real approach to this kind of problem, not a generic template.",
-      "/worked-example.png",
-      "The Scope view in AllianceOne: a new engagement scoped from similar past engagements ranked by match, in-scope items and constraints carried from discovery, and watch-outs surfaced automatically.",
-      null],
+    ["Scope", "Discovery feeds the scope directly. Similar engagements, constraints, and watch-outs carry straight in, so the first draft is your firm's real approach to this kind of problem, not a generic template.", null, null, null],
     ["Propose", "The proposal assembles from deliverables your firm has actually shipped: their structure, what they included, and why. What worked in past engagements is reinforced, and the missteps surface before they're repeated.", null, null, null],
     ["Deliver", "The team executes with the firm's precedent at hand. As the engagement closes, its decisions and outcomes feed back into the model, so the next engagement starts sharper than this one did.", null, null, null],
   ];
@@ -524,7 +526,7 @@ function TheProduct() {
           ))}
         </div>
         <p style={{ fontSize: "0.98rem", color: C.inkSoft, marginTop: "1.6rem", marginBottom: 0 }}>
-          Your engagements stay yours. <a href="/security/" style={{ color: C.olive, fontWeight: 600 }}>How we handle your firm's data →</a>
+          Your engagements stay yours. <a href="/security/" style={{ color: C.ink, fontWeight: 600, textDecoration: "none", borderBottom: `2px solid ${C.gold}` }}>How we handle your firm's data →</a>
         </p>
       </Wrap>
     </Section>
@@ -761,13 +763,13 @@ function WhoItsFor() {
 
 function Close({ onCta }) {
   return (
-    <Section style={{ background: C.olive, color: "#fff" }}>
+    <Section style={{ background: C.gold, color: C.ink }}>
       <Wrap>
         <Reveal>
-          <h2 style={{ fontFamily: sans, fontWeight: 700, fontSize: "clamp(2.8rem,6.8vw,5.6rem)", lineHeight: 1.0, letterSpacing: "-0.05em", color: "#fff", maxWidth: "14ch", margin: 0 }}>
+          <h2 style={{ fontFamily: sans, fontWeight: 700, fontSize: "clamp(2.8rem,6.8vw,5.6rem)", lineHeight: 1.0, letterSpacing: "-0.05em", color: C.ink, maxWidth: "14ch", margin: 0 }}>
             Own your practice.
           </h2>
-          <p style={{ color: "rgba(255,255,255,0.88)", fontSize: "clamp(1.1rem,1.7vw,1.3rem)", maxWidth: "50ch", marginTop: "1.6rem", lineHeight: 1.55 }}>
+          <p style={{ color: "rgba(11,13,18,0.82)", fontSize: "clamp(1.1rem,1.7vw,1.3rem)", maxWidth: "50ch", marginTop: "1.6rem", lineHeight: 1.55 }}>
             Your firm's expertise is its most valuable asset. Today it's also its least usable. AllianceOne is how you change that.
           </p>
           <div style={{ marginTop: "2.4rem" }}>
@@ -877,19 +879,19 @@ export function Modal({ open, onClose }) {
               <input style={field} type="text" required placeholder="Name" aria-label="Name" value={form.name} onChange={set("name")} />
               <input style={field} type="text" required placeholder="Firm" aria-label="Firm" value={form.firm} onChange={set("firm")} />
               <input style={field} type="email" required placeholder="Work email" aria-label="Work email" value={form.email} onChange={set("email")} />
-              <button type="submit" disabled={status === "sending"} style={{ marginTop: "0.4rem", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", background: C.olive, color: "#fff", fontFamily: sans, fontWeight: 600, fontSize: "0.95rem", padding: "0.95rem 1.7rem", borderRadius: 0, border: 0, cursor: "pointer", opacity: status === "sending" ? 0.7 : 1 }}>
+              <button type="submit" disabled={status === "sending"} style={{ marginTop: "0.4rem", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", background: C.gold, color: C.ink, fontFamily: sans, fontWeight: 600, fontSize: "0.95rem", padding: "0.95rem 1.7rem", borderRadius: 0, border: 0, cursor: "pointer", opacity: status === "sending" ? 0.7 : 1 }}>
                 {status === "sending" ? "Sending…" : "Request a demo →"}
               </button>
             </form>
             {status === "error" && (
               <p style={{ fontSize: "0.85rem", color: "#a0522d", marginTop: "0.9rem", marginBottom: 0 }}>
-                That didn't go through. <a href="#" onClick={(e) => { e.preventDefault(); mailtoFallback(); }} style={{ color: C.olive }}>Email us instead</a> and we'll take it from there.
+                That didn't go through. <a href="#" onClick={(e) => { e.preventDefault(); mailtoFallback(); }} style={{ color: C.ink, fontWeight: 600, textDecoration: "none", borderBottom: `2px solid ${C.gold}` }}>Email us instead</a> and we'll take it from there.
               </p>
             )}
           </>
         )}
         <p style={{ fontSize: "0.8rem", color: C.oliveLite, marginTop: "1.2rem", marginBottom: 0 }}>
-          Prefer email? <a href="mailto:hello@myalliance.ai?subject=AllianceOne%20demo" style={{ color: C.olive }}>hello@myalliance.ai</a>
+          Prefer email? <a href="mailto:hello@myalliance.ai?subject=AllianceOne%20demo" style={{ color: C.ink, fontWeight: 600, textDecoration: "none", borderBottom: `2px solid ${C.gold}` }}>hello@myalliance.ai</a>
         </p>
       </div>
     </div>

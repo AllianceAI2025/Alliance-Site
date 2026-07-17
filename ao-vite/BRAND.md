@@ -21,11 +21,21 @@ uniform-weight.
 
 ## The green
 
-The identity has ONE green: **#86C43D**. It always carries the underscore,
-identically on light and dark; the A carries ink (`#0B0D12`) on light and
-white on dark. The deep forest **#0E6B3E** exists only as a site text color
-on white (accessibility) and as the far stop of large surface gradients. It
-never appears in the mark.
+The identity has ONE green: **#86C43D**, the signature green. It is the only
+green anywhere: the mark's cursor, the nav line, buttons, accents, bands.
+There is no second green; the old deep forest is retired.
+
+Because the signature green is light, two pairing laws keep it readable:
+
+1. **Green fills carry ink text, never white.** Buttons and the close band
+   are black-on-lime (about 9:1), the same pairing Deloitte uses.
+2. **Green is never body text on white.** On light surfaces it appears as
+   graphics (rules, borders, the nav line), short mono accents (numerals,
+   stage labels), display-size emphasis words, and green-filled surfaces.
+   Links on white are ink text with a green underline.
+
+Large-surface gradients and glows fade the signature green toward ink or
+transparent, never toward another green.
 
 ## Treatments
 
