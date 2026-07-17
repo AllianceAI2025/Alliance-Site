@@ -61,6 +61,10 @@ import React, { useState, useEffect, useRef } from "react";
 //   MediaFrame (muted-loop video with poster + reduced-motion fallback),
 //   video slots on all four product stages, HERO_MEDIA slot under the hero
 //   CTAs. Capture shot list in MEDIA-SPEC.md.
+// v14 (UI-refine logo): the A1 mark. Reads "A1" (AllianceOne) and "AI" at
+//   once: truncated-apex low-crossbar A in ink/white + a flag-bar 1 in the
+//   brand green. LogoMark component in the nav/footer lockup, favicon tile,
+//   and standalone assets in public/brand/ (light + dark).
 // ============================================================
 
 // Demo-form endpoint (Formspree-style: accepts JSON POST, returns 2xx on ok).
@@ -167,10 +171,31 @@ export function Btn({ children, onClick, variant = "primary", href }) {
   );
 }
 
+// The A1 mark. Reads "A1" (AllianceOne) and "AI" at once: a truncated-apex,
+// low-crossbar A in ink, and a bar-with-flag "1" in the brand green whose
+// flag makes it a 1 while the bar alone reads I. Flat uniform strokes, sharp
+// corners; deliberately unlike Anthropic's pointed-apex, high-crossbar A.
+export function LogoMark({ size = 26, light = false }) {
+  const a = light ? "#fff" : C.ink;
+  const one = light ? C.gold : C.olive;
+  return (
+    <svg viewBox="0 0 48 48" width={size} height={size} aria-hidden="true" style={{ display: "block", flex: "none" }}>
+      <path fill={a} d="M15 8 H21 L12 40 H5.5 Z" />
+      <path fill={a} d="M16 8 H22 L31.5 40 H25 Z" />
+      <rect fill={a} x="13" y="27.5" width="11" height="5.5" />
+      <path fill={one} d="M36.5 8 L30 14.5 L30 19.5 L36.5 13 Z" />
+      <rect fill={one} x="36.5" y="8" width="6.5" height="32" />
+    </svg>
+  );
+}
+
 export function Logo({ light = false, size = 1 }) {
   return (
-    <span style={{ fontFamily: serif, fontWeight: 700, fontSize: `${1.28 * size}rem`, letterSpacing: "-0.035em", lineHeight: 1, color: light ? "#fff" : C.ink }}>
-      Alliance<span style={{ color: light ? C.gold : C.olive }}>One</span>
+    <span style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem" }}>
+      <LogoMark size={25 * size} light={light} />
+      <span style={{ fontFamily: serif, fontWeight: 700, fontSize: `${1.28 * size}rem`, letterSpacing: "-0.035em", lineHeight: 1, color: light ? "#fff" : C.ink }}>
+        Alliance<span style={{ color: light ? C.gold : C.olive }}>One</span>
+      </span>
     </span>
   );
 }
