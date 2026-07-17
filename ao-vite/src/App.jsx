@@ -42,6 +42,12 @@ import React, { useState, useEffect, useRef } from "react";
 //   Deliver, data-driven with an optional screenshot per stage (Scope has
 //   the real one). Order: hero, 01 who-it's-for, 02 what-it-is + what-you-
 //   get, 03 the product, 04 the shift, 05 the difference, close.
+// v11 (UI-refine): full visual 180 away from the warm "AI-built" look, toward
+//   Big-3 consulting grammar (McKinsey / Deloitte / Accenture): white page,
+//   cold near-black, ONE electric-blue accent, IBM Plex Sans everywhere
+//   (no display serif), zero border-radius, hairline rules, flat imagery,
+//   no italics, no hover bounce. Copy unchanged. Palette key names kept so
+//   SecurityPage re-skins via its existing imports.
 // ============================================================
 
 // Demo-form endpoint (Formspree-style: accepts JSON POST, returns 2xx on ok).
@@ -50,23 +56,31 @@ import React, { useState, useEffect, useRef } from "react";
 // "https://formspree.io/f/XXXXXXXX".
 export const DEMO_FORM_ENDPOINT = "";
 
+// v11 palette: Big-3 consulting grammar. White page, cold near-black, ONE
+// electric-blue accent. Key names kept from the old warm palette so every
+// call site (and SecurityPage's imports) re-skins without edits:
+//   olive    -> primary accent on light bg + button fills
+//   gold     -> accent on dark bg (light blue, AA on ink)
+//   goldSoft -> emphasis text on dark bg
 export const C = {
-  ink: "#14160f",
-  inkSoft: "#2a2d22",
-  bone: "#f4f1e8",
-  boneDim: "#e7e2d3",
-  paper: "#fbfaf5",
-  olive: "#5c6444",
-  oliveDeep: "#3f4630",
-  oliveLite: "#8a916f",
-  gold: "#b4965a",
-  goldSoft: "#c9b184",
-  line: "rgba(20,22,15,0.12)",
-  lineSoft: "rgba(20,22,15,0.07)",
+  ink: "#0B0D12",
+  inkSoft: "#3A3F4A",
+  bone: "#FFFFFF",
+  boneDim: "#F4F5F7",
+  paper: "#FFFFFF",
+  olive: "#2447E6",
+  oliveDeep: "#10141F",
+  oliveLite: "#6E7480",
+  gold: "#8FA7FF",
+  goldSoft: "#BCCBFF",
+  line: "rgba(11,13,18,0.14)",
+  lineSoft: "rgba(11,13,18,0.07)",
 };
 
-export const serif = "'Cormorant Garamond', Georgia, serif";
-export const sans = "'DM Sans', system-ui, sans-serif";
+// One grotesk family everywhere (headlines heavy + tight, body regular);
+// `serif` keeps its export name for SecurityPage but now maps to the grotesk.
+export const serif = "'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif";
+export const sans = "'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif";
 const mono = "'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace";
 const ease = "cubic-bezier(.22,1,.36,1)";
 
@@ -77,7 +91,7 @@ export function useFonts() {
     const link = document.createElement("link");
     link.id = "ao-fonts";
     link.rel = "stylesheet";
-    link.href = "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap";
+    link.href = "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap";
     document.head.appendChild(link);
   }, []);
 }
@@ -102,7 +116,7 @@ export function Head({ children, light = false, size = "section", style }) {
     quiet: "clamp(1.45rem,2.8vw,2rem)",
   };
   return (
-    <h2 style={{ fontFamily: serif, fontWeight: 500, fontSize: sizes[size], lineHeight: 1.06, letterSpacing: "-0.015em", color: light ? C.bone : C.ink, margin: "0.9rem 0 0", ...style }}>
+    <h2 style={{ fontFamily: serif, fontWeight: 600, fontSize: sizes[size], lineHeight: 1.08, letterSpacing: "-0.03em", color: light ? C.bone : C.ink, margin: "0.9rem 0 0", ...style }}>
       {children}
     </h2>
   );
@@ -113,20 +127,20 @@ export function Btn({ children, onClick, variant = "primary", href }) {
   const base = {
     display: "inline-flex", alignItems: "center", gap: "0.6rem",
     fontFamily: sans, fontSize: "0.92rem", fontWeight: 600,
-    padding: "0.95rem 1.7rem", borderRadius: 2, cursor: "pointer",
+    padding: "0.95rem 1.7rem", borderRadius: 0, cursor: "pointer",
     border: "1px solid transparent", transition: `all .35s ${ease}`, textDecoration: "none",
   };
   const variants = {
-    primary: { background: C.ink, color: C.bone },
-    gold: { background: C.gold, color: C.ink },
-    ghost: { background: "transparent", color: C.ink, borderColor: C.line },
-    bone: { background: C.bone, color: C.ink },
+    primary: { background: C.ink, color: "#fff" },
+    gold: { background: C.olive, color: "#fff" },
+    ghost: { background: "transparent", color: C.ink, borderColor: C.ink },
+    bone: { background: "#fff", color: C.ink },
   };
   const hoverStyle = {
-    primary: { background: C.oliveDeep, transform: "translateY(-2px)" },
-    gold: { transform: "translateY(-2px)", background: C.goldSoft },
-    ghost: { background: C.ink, color: C.bone, borderColor: C.ink },
-    bone: { transform: "translateY(-2px)" },
+    primary: { background: C.olive },
+    gold: { background: "#1B38C4" },
+    ghost: { background: C.ink, color: "#fff", borderColor: C.ink },
+    bone: { background: C.boneDim },
   }[variant];
   const Tag = href ? "a" : "button";
   return (
@@ -140,7 +154,7 @@ export function Btn({ children, onClick, variant = "primary", href }) {
 
 export function Logo({ light = false, size = 1 }) {
   return (
-    <span style={{ fontFamily: serif, fontWeight: 600, fontSize: `${1.32 * size}rem`, letterSpacing: "-0.01em", lineHeight: 1, color: light ? C.bone : C.ink }}>
+    <span style={{ fontFamily: serif, fontWeight: 700, fontSize: `${1.28 * size}rem`, letterSpacing: "-0.035em", lineHeight: 1, color: light ? "#fff" : C.ink }}>
       Alliance<span style={{ color: light ? C.gold : C.olive }}>One</span>
     </span>
   );
@@ -197,9 +211,9 @@ export function Nav({ onCta }) {
     SECTIONS.forEach(([id]) => { const el = document.getElementById(id); if (el) io.observe(el); });
     return () => io.disconnect();
   }, []);
-  const goldCta = { fontFamily: sans, fontSize: "0.84rem", fontWeight: 600, padding: "0.6rem 1.25rem", background: C.gold, color: C.ink, borderRadius: 2, cursor: "pointer", border: 0 };
+  const goldCta = { fontFamily: sans, fontSize: "0.84rem", fontWeight: 600, padding: "0.6rem 1.25rem", background: C.olive, color: "#fff", borderRadius: 0, cursor: "pointer", border: 0 };
   return (
-    <header style={{ position: "sticky", top: 0, zIndex: 50, backdropFilter: "blur(12px)", background: "rgba(244,241,232,0.82)", borderBottom: `1px solid ${C.lineSoft}` }}>
+    <header style={{ position: "sticky", top: 0, zIndex: 50, backdropFilter: "blur(12px)", background: "rgba(255,255,255,0.82)", borderBottom: `1px solid ${C.lineSoft}` }}>
       <Wrap style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1rem clamp(1.25rem,5vw,4.5rem)" }}>
         <a href="/" onClick={(e) => { if (window.location.pathname === "/") { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); } }} style={{ textDecoration: "none" }} aria-label="AllianceOne home">
           <Logo />
@@ -262,8 +276,8 @@ function Hero({ onCta }) {
         <p style={{ fontFamily: mono, fontSize: "0.74rem", letterSpacing: "0.16em", textTransform: "uppercase", color: C.olive, margin: 0 }}>
           For consulting, advisory &amp; professional-services firms
         </p>
-        <h1 style={{ fontFamily: serif, fontWeight: 500, fontSize: "clamp(2.7rem,6.2vw,5.2rem)", lineHeight: 1.0, letterSpacing: "-0.03em", maxWidth: "15ch", margin: "1.5rem 0 0" }}>
-          Your firm's expertise, made <em style={{ fontStyle: "italic", color: C.olive }}>repeatable.</em>
+        <h1 style={{ fontFamily: serif, fontWeight: 700, fontSize: "clamp(2.7rem,6.2vw,5.4rem)", lineHeight: 1.02, letterSpacing: "-0.045em", maxWidth: "15ch", margin: "1.5rem 0 0" }}>
+          Your firm's expertise, made <em style={{ fontStyle: "normal", color: C.olive }}>repeatable.</em>
         </h1>
         <p style={{ fontSize: "clamp(1.1rem,1.7vw,1.4rem)", maxWidth: "56ch", marginTop: "1.7rem", color: C.ink, fontWeight: 500, lineHeight: 1.5 }}>
           AllianceOne models the practice, not the projects. Every engagement is an observation of how your firm approaches client problems, thinks through solutions, and delivers. Those three axes are your firm's cognitive fingerprint, captured in one system. Your expertise becomes traceable, repeatable, and compounding.
@@ -314,14 +328,14 @@ function TheProduct() {
             <div key={i} style={{ borderBottom: `1px solid ${C.line}`, padding: "2rem 0" }}>
               <div className="ao-def" style={{ display: "grid", gridTemplateColumns: "minmax(190px,0.7fr) 1.5fr", gap: "0.8rem 3rem", alignItems: "start" }}>
                 <div>
-                  <span style={{ fontFamily: mono, fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.gold }}>Stage {`0${i + 1}`}</span>
-                  <h3 style={{ fontFamily: serif, fontWeight: 500, fontSize: "clamp(1.8rem,2.8vw,2.3rem)", margin: "0.35rem 0 0", lineHeight: 1 }}>{name}</h3>
+                  <span style={{ fontFamily: mono, fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.olive }}>Stage {`0${i + 1}`}</span>
+                  <h3 style={{ fontFamily: serif, fontWeight: 600, fontSize: "clamp(1.8rem,2.8vw,2.3rem)", margin: "0.35rem 0 0", lineHeight: 1 }}>{name}</h3>
                 </div>
                 <p style={{ color: C.inkSoft, fontSize: "1.06rem", margin: 0, lineHeight: 1.6, maxWidth: "56ch" }}>{body}</p>
               </div>
               {img && (
                 <figure style={{ margin: "2.2rem 0 0.4rem" }}>
-                  <div style={{ borderRadius: 8, overflow: "hidden", border: `1px solid ${C.line}`, boxShadow: "0 36px 70px -34px rgba(20,22,15,0.5)", background: C.paper }}>
+                  <div style={{ borderRadius: 0, overflow: "hidden", border: `1px solid ${C.line}`, background: C.paper }}>
                     <img src={img} alt={alt} style={{ display: "block", width: "100%", height: "auto" }} />
                   </div>
                   <figcaption style={{ fontFamily: mono, fontSize: "0.72rem", letterSpacing: "0.04em", color: C.oliveLite, marginTop: "0.9rem" }}>
@@ -356,16 +370,16 @@ function TheShift() {
         <Head light size="display" style={{ maxWidth: "18ch", margin: "1.5rem 0 0" }}>
           Generic AI gave everyone the average.
         </Head>
-        <p style={{ color: "rgba(244,241,232,0.74)", fontSize: "1.14rem", maxWidth: "62ch", marginTop: "1.4rem", lineHeight: 1.6 }}>
+        <p style={{ color: "rgba(255,255,255,0.74)", fontSize: "1.14rem", maxWidth: "62ch", marginTop: "1.4rem", lineHeight: 1.6 }}>
           Two years of enterprise AI proved a point the market is only now saying out loud. A model trained on everyone else's work hands your firm the same answer it hands your competitors, and quietly exports your value to whoever owns the model. The counter-move is to model and own your own intelligence. For a firm whose product is expertise, that intelligence is the practice.
         </p>
-        <div style={{ marginTop: "3rem", borderTop: "1px solid rgba(244,241,232,0.22)" }}>
+        <div style={{ marginTop: "3rem", borderTop: "1px solid rgba(255,255,255,0.22)" }}>
           {findings.map(([claim, src], i) => (
-            <div key={i} style={{ display: "grid", gridTemplateColumns: "2.5rem 1fr", gap: "0.5rem", alignItems: "start", padding: "1.5rem 0", borderBottom: "1px solid rgba(244,241,232,0.12)" }}>
+            <div key={i} style={{ display: "grid", gridTemplateColumns: "2.5rem 1fr", gap: "0.5rem", alignItems: "start", padding: "1.5rem 0", borderBottom: "1px solid rgba(255,255,255,0.12)" }}>
               <span style={{ fontFamily: mono, fontSize: "0.8rem", color: C.gold, paddingTop: "0.4rem" }}>{`0${i + 1}`}</span>
               <div>
                 <p style={{ fontFamily: serif, fontSize: "clamp(1.25rem,2vw,1.5rem)", color: C.bone, margin: 0, lineHeight: 1.3, maxWidth: "46ch" }}>{claim}</p>
-                <p style={{ fontFamily: mono, fontSize: "0.72rem", letterSpacing: "0.04em", color: "rgba(244,241,232,0.5)", margin: "0.6rem 0 0" }}>{src}</p>
+                <p style={{ fontFamily: mono, fontSize: "0.72rem", letterSpacing: "0.04em", color: "rgba(255,255,255,0.5)", margin: "0.6rem 0 0" }}>{src}</p>
               </div>
             </div>
           ))}
@@ -406,9 +420,9 @@ function ModelThePractice() {
             </div>
             {axes.map(([axis, desc], i) => (
               <div key={i} style={{ padding: "1.4rem 0", borderBottom: `1px solid ${C.line}`, display: "grid", gridTemplateColumns: "2rem 1fr", gap: "0.6rem", alignItems: "baseline" }}>
-                <span style={{ fontFamily: mono, fontSize: "0.72rem", color: C.gold }}>{`0${i + 1}`}</span>
+                <span style={{ fontFamily: mono, fontSize: "0.72rem", color: C.olive }}>{`0${i + 1}`}</span>
                 <div>
-                  <h3 style={{ fontFamily: serif, fontWeight: 500, fontSize: "1.4rem", margin: 0 }}>{axis}</h3>
+                  <h3 style={{ fontFamily: serif, fontWeight: 600, fontSize: "1.4rem", margin: 0 }}>{axis}</h3>
                   <p style={{ color: C.inkSoft, fontSize: "0.98rem", margin: "0.35rem 0 0", maxWidth: "40ch" }}>{desc}</p>
                 </div>
               </div>
@@ -432,8 +446,8 @@ function ModelThePractice() {
             ].map(([term, body], i) => (
               <div key={i} className="ao-def" style={{ display: "grid", gridTemplateColumns: "minmax(190px,0.75fr) 1.5fr", gap: "1.4rem 3rem", padding: "2rem 0", borderBottom: `1px solid ${C.line}`, alignItems: "start" }}>
                 <div>
-                  <span style={{ fontFamily: mono, fontSize: "0.72rem", color: C.gold }}>{`0${i + 1}`}</span>
-                  <h3 style={{ fontFamily: serif, fontWeight: 500, fontSize: "clamp(1.8rem,2.8vw,2.3rem)", margin: "0.35rem 0 0", lineHeight: 1 }}>{term}</h3>
+                  <span style={{ fontFamily: mono, fontSize: "0.72rem", color: C.olive }}>{`0${i + 1}`}</span>
+                  <h3 style={{ fontFamily: serif, fontWeight: 600, fontSize: "clamp(1.8rem,2.8vw,2.3rem)", margin: "0.35rem 0 0", lineHeight: 1 }}>{term}</h3>
                 </div>
                 <p style={{ color: C.inkSoft, fontSize: "1.06rem", margin: 0, lineHeight: 1.6, maxWidth: "54ch" }}>{body}</p>
               </div>
@@ -471,38 +485,38 @@ function WhyNotGenericAI({ onCta }) {
         <Head light size="section" style={{ maxWidth: "24ch", margin: "1.5rem 0 0" }}>
           &ldquo;Couldn't we just do this with Claude or ChatGPT?&rdquo;
         </Head>
-        <p style={{ color: "rgba(244,241,232,0.72)", fontSize: "1.05rem", maxWidth: "60ch", marginTop: "1.1rem" }}>
+        <p style={{ color: "rgba(255,255,255,0.72)", fontSize: "1.05rem", maxWidth: "60ch", marginTop: "1.1rem" }}>
           Good tools. You're probably already using them, and you should keep doing so. But there's one thing they can't do, and it's not from any lack of capability. It's because of what they fundamentally are.
         </p>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "1px", background: "rgba(244,241,232,0.14)", border: "1px solid rgba(244,241,232,0.14)", marginTop: "2.4rem" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "1px", background: "rgba(255,255,255,0.14)", border: "1px solid rgba(255,255,255,0.14)", marginTop: "2.4rem" }}>
           <div style={{ background: C.ink, padding: "2.2rem 2rem" }}>
-            <h3 style={{ fontFamily: sans, fontSize: "0.78rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(244,241,232,0.55)", margin: "0 0 1.2rem" }}>A general model</h3>
+            <h3 style={{ fontFamily: sans, fontSize: "0.78rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.55)", margin: "0 0 1.2rem" }}>A general model</h3>
             {general.map((t, i) => (
-              <div key={i} style={{ display: "flex", gap: "0.8rem", alignItems: "baseline", padding: "0.7rem 0", borderTop: i === 0 ? "none" : "1px solid rgba(244,241,232,0.1)" }}>
-                <span style={{ color: "rgba(244,241,232,0.4)", flex: "none" }}>·</span>
-                <span style={{ fontSize: "0.96rem", color: "rgba(244,241,232,0.78)" }}>{t}</span>
+              <div key={i} style={{ display: "flex", gap: "0.8rem", alignItems: "baseline", padding: "0.7rem 0", borderTop: i === 0 ? "none" : "1px solid rgba(255,255,255,0.1)" }}>
+                <span style={{ color: "rgba(255,255,255,0.4)", flex: "none" }}>·</span>
+                <span style={{ fontSize: "0.96rem", color: "rgba(255,255,255,0.78)" }}>{t}</span>
               </div>
             ))}
           </div>
           <div style={{ background: C.oliveDeep, padding: "2.2rem 2rem" }}>
             <h3 style={{ fontFamily: sans, fontSize: "0.78rem", letterSpacing: "0.16em", textTransform: "uppercase", color: C.gold, margin: "0 0 1.2rem" }}>AllianceOne</h3>
             {ours.map((t, i) => (
-              <div key={i} style={{ display: "flex", gap: "0.8rem", alignItems: "baseline", padding: "0.7rem 0", borderTop: i === 0 ? "none" : "1px solid rgba(244,241,232,0.14)" }}>
+              <div key={i} style={{ display: "flex", gap: "0.8rem", alignItems: "baseline", padding: "0.7rem 0", borderTop: i === 0 ? "none" : "1px solid rgba(255,255,255,0.14)" }}>
                 <span style={{ color: C.gold, flex: "none" }}>✓</span>
-                <span style={{ fontSize: "0.96rem", color: "rgba(244,241,232,0.9)" }}>{t}</span>
+                <span style={{ fontSize: "0.96rem", color: "rgba(255,255,255,0.9)" }}>{t}</span>
               </div>
             ))}
           </div>
         </div>
-        <p style={{ color: "rgba(244,241,232,0.72)", fontSize: "1.05rem", maxWidth: "62ch", margin: "2.4rem 0 0" }}>
-          It's not a contest of quality, and a better model won't close the gap. A general model hands anyone an opinion in seconds, the same average one your competitors get. What it can't hand them is <em style={{ fontStyle: "italic", color: C.goldSoft }}>evidence</em>: what actually worked, for whom, and why. General models <em style={{ fontStyle: "italic", color: C.goldSoft }}>retrieve</em> from everything. AllianceOne <em style={{ fontStyle: "italic", color: C.goldSoft }}>accumulates</em> that evidence from your firm. It's the one thing no model brings.
+        <p style={{ color: "rgba(255,255,255,0.72)", fontSize: "1.05rem", maxWidth: "62ch", margin: "2.4rem 0 0" }}>
+          It's not a contest of quality, and a better model won't close the gap. A general model hands anyone an opinion in seconds, the same average one your competitors get. What it can't hand them is <em style={{ fontStyle: "normal", fontWeight: 600, color: C.goldSoft }}>evidence</em>: what actually worked, for whom, and why. General models <em style={{ fontStyle: "normal", fontWeight: 600, color: C.goldSoft }}>retrieve</em> from everything. AllianceOne <em style={{ fontStyle: "normal", fontWeight: 600, color: C.goldSoft }}>accumulates</em> that evidence from your firm. It's the one thing no model brings.
         </p>
         <div style={{ marginTop: "3rem", borderLeft: `3px solid ${C.gold}`, paddingLeft: "1.6rem", maxWidth: "70ch" }}>
           <p style={{ fontFamily: mono, fontSize: "0.7rem", letterSpacing: "0.12em", textTransform: "uppercase", color: C.gold, margin: "0 0 0.6rem" }}>The moat</p>
           <p style={{ fontFamily: serif, fontSize: "clamp(1.3rem,2.1vw,1.6rem)", color: C.bone, margin: 0, lineHeight: 1.3 }}>
             Every engagement you complete widens a gap no better model can close.
           </p>
-          <p style={{ color: "rgba(244,241,232,0.72)", fontSize: "1.02rem", margin: "0.9rem 0 0", lineHeight: 1.6 }}>
+          <p style={{ color: "rgba(255,255,255,0.72)", fontSize: "1.02rem", margin: "0.9rem 0 0", lineHeight: 1.6 }}>
             The advantage compounds in private. Your evidence accumulates inside your own system, sharpening your firm's fingerprint with every engagement, and it never leaves to train anyone else's model. A competitor can license the same AI tomorrow. They can't license your history.
           </p>
         </div>
@@ -533,14 +547,14 @@ function WhoItsFor() {
         <div style={{ borderTop: `2px solid ${C.ink}`, marginTop: "2.4rem" }}>
           {verticals.map(([h, p], i) => (
             <div key={i} className="ao-def" style={{ display: "grid", gridTemplateColumns: "minmax(210px,0.7fr) 1.5fr", gap: "0.8rem 3rem", padding: "1.8rem 0", borderBottom: `1px solid ${C.line}`, alignItems: "baseline" }}>
-              <h3 style={{ fontFamily: serif, fontWeight: 500, fontSize: "1.6rem", margin: 0 }}>{h}</h3>
+              <h3 style={{ fontFamily: serif, fontWeight: 600, fontSize: "1.6rem", margin: 0 }}>{h}</h3>
               <p style={{ color: C.inkSoft, fontSize: "1.02rem", margin: 0, maxWidth: "58ch", lineHeight: 1.55 }}>{p}</p>
             </div>
           ))}
         </div>
-        <div style={{ marginTop: "2.8rem", borderLeft: `3px solid ${C.gold}`, paddingLeft: "1.6rem", maxWidth: "72ch" }}>
+        <div style={{ marginTop: "2.8rem", borderLeft: `3px solid ${C.olive}`, paddingLeft: "1.6rem", maxWidth: "72ch" }}>
           <p style={{ fontFamily: mono, fontSize: "0.7rem", letterSpacing: "0.12em", textTransform: "uppercase", color: C.oliveLite, margin: "0 0 0.6rem" }}>And the person who carries it</p>
-          <h3 style={{ fontFamily: serif, fontWeight: 500, fontSize: "1.7rem", margin: "0 0 0.7rem" }}>Built for the partner who carries the firm.</h3>
+          <h3 style={{ fontFamily: serif, fontWeight: 600, fontSize: "1.7rem", margin: "0 0 0.7rem" }}>Built for the partner who carries the firm.</h3>
           <p style={{ color: C.inkSoft, fontSize: "1.04rem", margin: 0, lineHeight: 1.6 }}>
             AllianceOne is for the operating and managing partners whose margin, quality, and risk ride on judgment that today lives in scattered files and a few senior people's heads. It puts the firm's accumulated experience where the whole firm can draw on it, so the best thinking doesn't leave with the person who had it, and quality doesn't depend on who's staffed.
           </p>
@@ -575,38 +589,38 @@ function Close({ onCta }) {
 
 export function Footer({ onCta }) {
   const links = [["who", "Who it's for"], ["model", "What it is"], ["product", "The product"], ["why", "Why AllianceOne"]];
-  const linkStyle = { display: "block", fontSize: "0.92rem", color: "rgba(244,241,232,0.8)", marginBottom: "0.6rem", cursor: "pointer", textDecoration: "none" };
+  const linkStyle = { display: "block", fontSize: "0.92rem", color: "rgba(255,255,255,0.8)", marginBottom: "0.6rem", cursor: "pointer", textDecoration: "none" };
   return (
-    <footer style={{ background: C.ink, color: C.bone, padding: "4rem 0 2.5rem", borderTop: "1px solid rgba(244,241,232,0.1)" }}>
+    <footer style={{ background: C.ink, color: C.bone, padding: "4rem 0 2.5rem", borderTop: "1px solid rgba(255,255,255,0.1)" }}>
       <Wrap>
         <div style={{ display: "flex", justifyContent: "space-between", gap: "3rem", flexWrap: "wrap" }}>
           <div style={{ maxWidth: "38ch" }}>
             <Logo light />
-            <p style={{ color: "rgba(244,241,232,0.6)", fontSize: "0.92rem", marginTop: "1rem" }}>
+            <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.92rem", marginTop: "1rem" }}>
               Your firm's own experience, assembled into usable expertise, in the hands of the people who built it.
             </p>
           </div>
           <div style={{ display: "flex", gap: "4rem", flexWrap: "wrap" }}>
             <div>
-              <h5 style={{ fontFamily: sans, fontSize: "0.72rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(244,241,232,0.5)", marginBottom: "1rem" }}>Explore</h5>
+              <h5 style={{ fontFamily: sans, fontSize: "0.72rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)", marginBottom: "1rem" }}>Explore</h5>
               {links.map(([id, label]) => (
                 <AnchorLink key={id} id={id} style={linkStyle}>{label}</AnchorLink>
               ))}
               <a href="/security/" style={linkStyle}>Security &amp; data ownership</a>
             </div>
             <div>
-              <h5 style={{ fontFamily: sans, fontSize: "0.72rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(244,241,232,0.5)", marginBottom: "1rem" }}>Connect</h5>
+              <h5 style={{ fontFamily: sans, fontSize: "0.72rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)", marginBottom: "1rem" }}>Connect</h5>
               <button onClick={onCta} style={{ ...linkStyle, background: "none", border: 0, padding: 0, fontFamily: "inherit", textAlign: "left" }}>Request a demo</button>
               <a href="mailto:hello@myalliance.ai" style={{ ...linkStyle, marginBottom: 0 }}>hello@myalliance.ai</a>
             </div>
           </div>
         </div>
-        <div style={{ marginTop: "3rem", paddingTop: "1.6rem", borderTop: "1px solid rgba(244,241,232,0.1)", display: "flex", justifyContent: "space-between", gap: "1rem", flexWrap: "wrap", alignItems: "center" }}>
-          <span style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.82rem", color: "rgba(244,241,232,0.55)" }}>
+        <div style={{ marginTop: "3rem", paddingTop: "1.6rem", borderTop: "1px solid rgba(255,255,255,0.1)", display: "flex", justifyContent: "space-between", gap: "1rem", flexWrap: "wrap", alignItems: "center" }}>
+          <span style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.82rem", color: "rgba(255,255,255,0.55)" }}>
             <svg viewBox="0 0 32 32" width="16" height="16"><path d="M16 4 L29 28 H21.5 L16 15 L10.5 28 H3 Z" fill={C.gold} /><path d="M16 4 L29 28 H21.5 L16 15 Z" fill={C.oliveLite} /></svg>
             A product of Alliance Systems Group
           </span>
-          <span style={{ fontSize: "0.82rem", color: "rgba(244,241,232,0.45)" }}>© 2026 Alliance Systems Group. All rights reserved.</span>
+          <span style={{ fontSize: "0.82rem", color: "rgba(255,255,255,0.45)" }}>© 2026 Alliance Systems Group. All rights reserved.</span>
         </div>
       </Wrap>
     </footer>
@@ -646,22 +660,22 @@ export function Modal({ open, onClose }) {
       setStatus("error");
     }
   };
-  const field = { fontFamily: sans, fontSize: "0.95rem", padding: "0.75rem 0.9rem", borderRadius: 4, border: `1px solid ${C.line}`, background: C.bone, color: C.ink, width: "100%", boxSizing: "border-box" };
+  const field = { fontFamily: sans, fontSize: "0.95rem", padding: "0.75rem 0.9rem", borderRadius: 0, border: `1px solid ${C.line}`, background: C.bone, color: C.ink, width: "100%", boxSizing: "border-box" };
   return (
     <div onClick={onClose} style={{ position: "fixed", inset: 0, zIndex: 100, background: "rgba(20,22,15,0.55)", backdropFilter: "blur(4px)", display: "grid", placeItems: "center", padding: "1.5rem" }}>
-      <div role="dialog" aria-modal="true" aria-label="Request a demo" onClick={(e) => e.stopPropagation()} style={{ background: C.paper, borderRadius: 10, maxWidth: 460, width: "100%", padding: "2.5rem", position: "relative", boxShadow: "0 40px 80px -30px rgba(20,22,15,0.5)" }}>
+      <div role="dialog" aria-modal="true" aria-label="Request a demo" onClick={(e) => e.stopPropagation()} style={{ background: C.paper, borderRadius: 0, maxWidth: 460, width: "100%", padding: "2.5rem", position: "relative", boxShadow: "0 24px 64px rgba(11,13,18,0.22)" }}>
         <button onClick={onClose} aria-label="Close" style={{ position: "absolute", top: 18, right: 18, background: "none", border: 0, fontSize: "1.4rem", lineHeight: 1, cursor: "pointer", color: C.inkSoft }}>×</button>
         <Eyebrow>Request a demo</Eyebrow>
         {status === "sent" ? (
           <>
-            <h3 style={{ fontFamily: serif, fontWeight: 500, fontSize: "1.9rem", margin: "0.8rem 0 0.6rem", lineHeight: 1.1 }}>Thank you. We'll be in touch.</h3>
+            <h3 style={{ fontFamily: serif, fontWeight: 600, fontSize: "1.9rem", margin: "0.8rem 0 0.6rem", lineHeight: 1.1 }}>Thank you. We'll be in touch.</h3>
             <p style={{ color: C.inkSoft, fontSize: "0.97rem", marginBottom: 0 }}>
               We'll reach out at {form.email} to set up a 30-minute walkthrough on engagements like yours.
             </p>
           </>
         ) : (
           <>
-            <h3 style={{ fontFamily: serif, fontWeight: 500, fontSize: "1.9rem", margin: "0.8rem 0 0.6rem", lineHeight: 1.1 }}>See it on your firm's own work.</h3>
+            <h3 style={{ fontFamily: serif, fontWeight: 600, fontSize: "1.9rem", margin: "0.8rem 0 0.6rem", lineHeight: 1.1 }}>See it on your firm's own work.</h3>
             <p style={{ color: C.inkSoft, fontSize: "0.97rem", marginBottom: "1.6rem" }}>
               A 30-minute walkthrough on engagements like yours. Tell us where to reach you and we'll set it up.
             </p>
@@ -669,7 +683,7 @@ export function Modal({ open, onClose }) {
               <input style={field} type="text" required placeholder="Name" aria-label="Name" value={form.name} onChange={set("name")} />
               <input style={field} type="text" required placeholder="Firm" aria-label="Firm" value={form.firm} onChange={set("firm")} />
               <input style={field} type="email" required placeholder="Work email" aria-label="Work email" value={form.email} onChange={set("email")} />
-              <button type="submit" disabled={status === "sending"} style={{ marginTop: "0.4rem", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", background: C.gold, color: C.ink, fontFamily: sans, fontWeight: 600, fontSize: "0.95rem", padding: "0.95rem 1.7rem", borderRadius: 2, border: 0, cursor: "pointer", opacity: status === "sending" ? 0.7 : 1 }}>
+              <button type="submit" disabled={status === "sending"} style={{ marginTop: "0.4rem", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", background: C.olive, color: "#fff", fontFamily: sans, fontWeight: 600, fontSize: "0.95rem", padding: "0.95rem 1.7rem", borderRadius: 0, border: 0, cursor: "pointer", opacity: status === "sending" ? 0.7 : 1 }}>
                 {status === "sending" ? "Sending…" : "Request a demo →"}
               </button>
             </form>
