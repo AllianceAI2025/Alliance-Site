@@ -2,36 +2,42 @@
 
 ## The mark
 
-The A1: a slanted A (diagonal left leg, vertical right stem, low crossbar)
-beside a notched-bar 1. It reads "A1" (AllianceOne) and "AI" at the same
-time; the notch whispers the 1, the bar reads the I. Flat uniform strokes,
-sharp corners, no curves. The construction is deliberately unlike
-Anthropic's A (pointed apex, high slanted crossbar, flared strokes).
+The A_ : an upright, truncated-apex A with a low crossbar, beside a thin
+green underscore cursor. It is the terminal prompt: something is about to be
+typed. Flat uniform strokes, sharp corners, no curves. On the web, the
+underscore blinks twice on load like a real caret, then holds steady
+(static under prefers-reduced-motion, and in all print/static uses).
+
+Why it is not Deloitte's dot: theirs is a round period that ends the
+wordmark ("Deloitte."), a finished sentence. Ours is a rectangular cursor
+beside a monogram, an unfinished one. Structural rules that keep the
+distance: the underscore is thin and wide (cursor proportions, never a
+square or circle), it appears only in the standalone mark, and it never
+trails the wordmark ("AllianceOne_" is forbidden).
+
+Why it is not Anthropic's A: theirs has a pointed apex, high slanted
+crossbar, and flared strokes; ours is truncated-flat, low-crossbar,
+uniform-weight.
 
 ## The green
 
-The identity has ONE green: **#86C43D**. It is identical on light and dark,
-and it always carries the "1" while the A carries ink (`#0B0D12`) on light
-and white on dark. The deep forest **#0E6B3E** exists for two purposes only:
-
-1. Site text accents on white, where accessibility requires a darker green.
-2. The far end of the brand gradient (below).
-
-The deep green never appears in the flat mark.
+The identity has ONE green: **#86C43D**. It always carries the underscore,
+identically on light and dark; the A carries ink (`#0B0D12`) on light and
+white on dark. The deep forest **#0E6B3E** exists only as a site text color
+on white (accessibility) and as the far stop of large surface gradients. It
+never appears in the mark.
 
 ## Treatments
 
-- **Primary (T1): flat.** Nav, favicon, footer, anything functional, and
-  everything below ~64px. This is the mark.
-- **Expressive (T2/T3): the brand gradient.** A two-stop vertical fade,
-  `#86C43D 0%` to `#0E6B3E 100%`, applied to the 1 only. For og-images, app
-  tiles, deck covers, and large hero moments. Two stops only; never at small
-  sizes.
-- **Dark-surface field (T6):** a faint radial green glow (`#86C43D` at
-  ~20% fading to 0) behind the flat mark on ink backgrounds. Atmosphere for
-  covers and social cards; the mark itself stays flat.
-- Rejected: fade-out strokes and stripe textures (they erode the mark and
-  fail small-size reproduction).
+- **Primary: flat.** Everywhere, at every size. This is the mark.
+- **Dark-surface field:** a faint radial green glow (`#86C43D` at ~20%
+  fading to 0) behind the flat mark on ink backgrounds, for covers, social
+  cards, and the og-image. The mark itself stays flat.
+- **Motion:** the caret blink (twice on mount, `step-end`, then solid) is
+  the mark's only animation. Never loop it continuously.
+- Rejected after exploration: slanted construction (reads motorsport),
+  gradient inside the underscore (illegible at that scale), fade-out and
+  stripe textures (erode the mark), continuous blinking (annoying).
 
 ## The quality bar (what the research says a good logo is)
 
@@ -42,29 +48,30 @@ plus current favicon/scalability guidance:
 - "A good logo is not about what one likes or dislikes, it's about what
   works" (Haviv). Appropriate for the business, not decorative.
 - **Must survive**: one color, black-only, inverted, and **16px**. Flat
-  colors at small sizes; gradients are expressive-only, max two stops.
+  colors at small sizes; gradients are large-surface-only, max two stops.
 - Timeless over trendy: the mark should not date with this year's styling.
 
-The A1 passes: two glyphs, two colors, flat strokes, legible at 20px,
-works one-color (all-ink or all-white), and the AI double-read is the
-distinctive idea rather than a style effect.
+The A_ passes: two glyphs, two colors, flat strokes, legible at 20px, works
+one-color (all-ink or all-white), and its distinctive idea (the cursor:
+expertise about to be applied) is a meaning, not a style effect.
 
 ## Files
 
-- `public/favicon.svg` — flat mark on the ink tile.
+- `public/favicon.svg` — flat mark on the ink tile (static).
 - `public/brand/logo-mark.svg` — flat, light backgrounds.
 - `public/brand/logo-mark-dark.svg` — flat, dark backgrounds.
-- `public/brand/logo-mark-gradient-dark.svg` — gradient 1, dark surfaces.
-- In-app: `LogoMark` / `Logo` components in `src/App.jsx`.
+- In-app: `LogoMark` / `Logo` components in `src/App.jsx` (blink lives
+  only here).
 
 ## Rules
 
-- Minimum size 20px; below that use the flat mark only, never gradient.
-- Clear space around the mark: at least the width of the 1's bar.
-- Don't recolor (the 1 is #86C43D, period), stretch, rotate, outline, add
-  shadows, or place on the old warm palette.
+- Minimum size 20px.
+- Clear space around the mark: at least the height of the A's crossbar.
+- Don't recolor (the underscore is #86C43D, period), stretch, rotate,
+  outline, add shadows, slant, or place on the old warm palette.
 - The wordmark lockup is mark + "AllianceOne" in IBM Plex Sans 700; the
   "One" may use deep green on white for contrast, bright green on dark.
+  Never append the underscore to the wordmark.
 
 Sources: Paul Rand's seven-step logo test (brandsthatpunch.com), Sagi Haviv
 on simplicity (teorise.com), favicon scalability guidance (unwrite.co,
