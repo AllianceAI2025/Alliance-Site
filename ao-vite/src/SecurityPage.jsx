@@ -26,7 +26,7 @@ function Pillars() {
       <Wrap>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: "1.4rem" }}>
           {pillars.map(([h, body], i) => (
-            <div key={i} style={{ background: C.paper, border: `1px solid ${C.line}`, borderTop: `2px solid ${C.olive}`, borderRadius: 8, padding: "2rem 1.9rem" }}>
+            <div key={i} style={{ background: C.paper, border: `1px solid ${C.line}`, borderTop: `2px solid ${C.olive}`, borderRadius: 0, padding: "2rem 1.9rem" }}>
               <h3 style={{ fontFamily: serif, fontWeight: 600, fontSize: "1.4rem", margin: "0 0 0.7rem", lineHeight: 1.15 }}>{h}.</h3>
               <p style={{ fontSize: "0.97rem", color: C.inkSoft, margin: 0 }}>{body}</p>
             </div>
@@ -57,9 +57,9 @@ function StraightAnswers() {
         </Head>
         <div style={{ maxWidth: "72ch" }}>
           {qas.map(([q, a], i) => (
-            <div key={i} style={{ padding: "1.6rem 0", borderTop: i === 0 ? "none" : "1px solid rgba(244,241,232,0.12)" }}>
+            <div key={i} style={{ padding: "1.6rem 0", borderTop: i === 0 ? "none" : "1px solid rgba(255,255,255,0.12)" }}>
               <h3 style={{ fontFamily: serif, fontWeight: 500, fontSize: "1.45rem", margin: "0 0 0.6rem", color: C.goldSoft, lineHeight: 1.2 }}>&ldquo;{q}&rdquo;</h3>
-              <p style={{ fontSize: "1rem", color: "rgba(244,241,232,0.82)", margin: 0 }}>{a}</p>
+              <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.82)", margin: 0 }}>{a}</p>
             </div>
           ))}
         </div>
@@ -80,7 +80,7 @@ export default function SecurityPage() {
         <Wrap>
           <Eyebrow style={{ marginBottom: "1.4rem" }}>Security &amp; data ownership</Eyebrow>
           <h1 style={{ fontFamily: serif, fontWeight: 500, fontSize: "clamp(2.1rem,4.6vw,3.5rem)", lineHeight: 1.06, letterSpacing: "-0.025em", maxWidth: "22ch", margin: 0 }}>
-            Your firm's history stays <em style={{ fontStyle: "italic", color: C.olive }}>your firm's.</em>
+            Your firm's history stays <em style={{ fontStyle: "normal", color: C.olive }}>your firm's.</em>
           </h1>
           <p style={{ fontSize: "clamp(1.05rem,1.6vw,1.25rem)", maxWidth: "62ch", marginTop: "1.6rem", color: C.ink, fontWeight: 500 }}>
             Engagement files are the most sensitive thing a professional-services firm holds, and much of what's in them belongs to your clients under obligations you've signed. Here is how AllianceOne handles them, each claim next to the mechanism behind it.
