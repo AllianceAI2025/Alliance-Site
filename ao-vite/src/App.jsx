@@ -3,44 +3,40 @@ import React, { useEffect, useState } from "react";
 export const DEMO_FORM_ENDPOINT = "";
 
 export const C = {
-  ink: "#111318",
-  inkSoft: "#525965",
-  bone: "#F5F3ED",
-  boneDim: "#ECEBE5",
-  paper: "#FFFFFF",
+  ink: "#07100E",
+  inkSoft: "#3F4B47",
+  bone: "#F2F3EE",
+  boneDim: "#E7EAE3",
+  paper: "#FAFBF7",
   olive: "#86C43D",
-  oliveDeep: "#24301D",
-  oliveLite: "#6C7467",
+  oliveDeep: "#17351F",
+  oliveLite: "#66736A",
   gold: "#86C43D",
-  goldSoft: "#BCE780",
-  line: "rgba(17,19,24,.18)",
-  lineSoft: "rgba(17,19,24,.09)",
+  goldSoft: "#B8E67F",
+  line: "rgba(7,16,14,.20)",
+  lineSoft: "rgba(7,16,14,.10)",
 };
 
-export const serif = "'Newsreader', Georgia, serif";
-export const sans = "'Manrope', 'Helvetica Neue', Arial, sans-serif";
+export const serif = "'Inter Tight', 'Arial Narrow', Arial, sans-serif";
+export const sans = "'Inter', 'Helvetica Neue', Arial, sans-serif";
 
 export function useFonts() {
   useEffect(() => {
     if (document.getElementById("ao-fonts")) return;
-    const preconnect = document.createElement("link");
-    preconnect.rel = "preconnect";
-    preconnect.href = "https://fonts.googleapis.com";
-    document.head.appendChild(preconnect);
     const link = document.createElement("link");
     link.id = "ao-fonts";
     link.rel = "stylesheet";
-    link.href = "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap";
+    link.href = "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@400;500;600&display=swap";
     document.head.appendChild(link);
   }, []);
 }
 
-export function Wrap({ children, style }) {
-  return <div className="wrap" style={style}>{children}</div>;
+export function Wrap({ children, className = "", style }) {
+  return <div className={`wrap ${className}`} style={style}>{children}</div>;
 }
 
-export function Section({ children, style, className = "" }) {
-  return <section className={`section ${className}`} style={style}>{children}</section>;
+export function Section({ children, className = "", style, id }) {
+  return <section id={id} className={`section ${className}`} style={style}>{children}</section>;
 }
 
 export function Eyebrow({ children, color, style }) {
@@ -48,356 +44,233 @@ export function Eyebrow({ children, color, style }) {
 }
 
 export function Head({ children, light = false, size = "section", style }) {
-  return <h2 className={`section-title section-title--${size}${light ? " is-light" : ""}`} style={style}>{children}</h2>;
+  return <h2 className={`headline headline--${size}${light ? " headline--light" : ""}`} style={style}>{children}</h2>;
 }
 
 export function LogoMark({ size = 30, light = false, tile = false }) {
-  const stroke = tile || light ? "#fff" : C.ink;
-  return (
-    <svg viewBox="0 0 48 48" width={size} height={size} aria-hidden="true" className="logo-mark">
-      {tile && <rect width="48" height="48" fill={C.ink} />}
-      <path fill={stroke} d="M15 8h6L12 40H5.5z" />
-      <path fill={stroke} d="M16 8h6l9.5 32H25z" />
-      <rect fill={stroke} x="13" y="27.5" width="11" height="5.5" />
-      <rect className="logo-cursor" fill={C.olive} x="34.5" y="36" width="11" height="4" />
-    </svg>
-  );
+  const fill = tile || light ? "#FFFFFF" : C.ink;
+  return <svg viewBox="0 0 48 48" width={size} height={size} aria-hidden="true" className="logo-mark">
+    {tile && <rect width="48" height="48" fill={C.ink} />}
+    <path fill={fill} d="M15 8h6L12 40H5.5z" />
+    <path fill={fill} d="M16 8h6l9.5 32H25z" />
+    <rect fill={fill} x="13" y="27.5" width="11" height="5.5" />
+    <rect className="logo-cursor" fill={C.olive} x="34.5" y="36" width="11" height="4" />
+  </svg>;
 }
 
-export function Logo({ light = false, size = 1 }) {
-  return (
-    <span className={`logo${light ? " is-light" : ""}`} style={{ fontSize: `${1.04 * size}rem` }}>
-      <LogoMark size={30 * size} tile light={light} />
-      <span>AllianceOne</span>
-    </span>
-  );
+export function Logo({ light = false }) {
+  return <span className={`logo-lockup${light ? " logo-lockup--light" : ""}`}><LogoMark size={30} tile light={light} /><span>AllianceOne</span></span>;
 }
 
 export function Btn({ children, onClick, variant = "primary", href }) {
   const Tag = href ? "a" : "button";
-  return (
-    <Tag href={href} onClick={onClick} className={`button button--${variant}`}>
-      <span>{children}</span><span aria-hidden="true">↗</span>
-    </Tag>
-  );
+  return <Tag href={href} onClick={onClick} className={`button button--${variant}`}><span>{children}</span><span aria-hidden="true">↗</span></Tag>;
 }
 
-export function AnchorLink({ id, children, onNavigate, ...rest }) {
-  const go = (event) => {
-    const target = document.getElementById(id);
-    if (target) {
-      event.preventDefault();
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+export function AnchorLink({ id, children, onNavigate, ...props }) {
+  const click = (event) => {
+    const el = document.getElementById(id);
+    if (el) { event.preventDefault(); el.scrollIntoView({ behavior: "smooth", block: "start" }); }
     onNavigate?.();
   };
-  return <a href={`/#${id}`} onClick={go} {...rest}>{children}</a>;
+  return <a href={`/#${id}`} onClick={click} {...props}>{children}</a>;
 }
-
-const navItems = [["record", "The record"], ["product", "How it works"], ["outcomes", "What compounds"], ["difference", "The difference"]];
 
 export function Nav({ onCta }) {
   const [open, setOpen] = useState(false);
-  return (
-    <header className="site-nav">
-      <Wrap style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <a className="brand-link" href="/" aria-label="AllianceOne home"><Logo /></a>
-        <nav className="nav-links" aria-label="Main navigation">
-          {navItems.map(([id, label]) => <AnchorLink key={id} id={id}>{label}</AnchorLink>)}
-        </nav>
-        <button className="nav-cta" onClick={onCta}>Request a conversation</button>
-        <button className="menu-button" onClick={() => setOpen(!open)} aria-label="Toggle navigation" aria-expanded={open}>
-          <span /><span />
-        </button>
-      </Wrap>
-      {open && <div className="mobile-nav">
-        {navItems.map(([id, label]) => <AnchorLink key={id} id={id} onNavigate={() => setOpen(false)}>{label}</AnchorLink>)}
-        <button onClick={() => { setOpen(false); onCta(); }}>Request a conversation</button>
-      </div>}
-    </header>
-  );
+  return <header className="site-nav">
+    <Wrap className="nav-inner">
+      <a href="/" className="brand-link" aria-label="AllianceOne home"><Logo /></a>
+      <nav className="desktop-nav" aria-label="Main navigation">
+        <a href="/platform/">Platform</a>
+        <AnchorLink id="loop">How it works</AnchorLink>
+        <AnchorLink id="firms">For firms</AnchorLink>
+        <a href="/security/">Security</a>
+      </nav>
+      <button className="nav-cta" onClick={onCta}>Become a design partner <span>↗</span></button>
+      <button className="nav-menu" onClick={() => setOpen(!open)} aria-expanded={open} aria-label="Toggle menu"><span /><span /></button>
+    </Wrap>
+    {open && <div className="mobile-nav">
+      <a href="/platform/">Platform</a><AnchorLink id="loop" onNavigate={() => setOpen(false)}>How it works</AnchorLink><AnchorLink id="firms" onNavigate={() => setOpen(false)}>For firms</AnchorLink><a href="/security/">Security</a>
+      <button onClick={() => { setOpen(false); onCta(); }}>Become a design partner ↗</button>
+    </div>}
+  </header>;
 }
 
-function RecordPanel() {
-  const fields = [
-    ["Context", "What the client needed and what constrained the work"],
-    ["Decision", "The approach chosen—and the alternatives declined"],
-    ["Delivery", "The sequence, staffing, and changes made in flight"],
-    ["Outcome", "What worked, what did not, and the actual result"],
+function PlanCanvas() {
+  const workstreams = [
+    ["01", "Decision frame & diagnostic", "3 weeks", "420h"],
+    ["02", "Operating model design", "7 weeks", "980h"],
+    ["03", "Transition roadmap", "4 weeks", "440h"],
   ];
-  return (
-    <aside className="record-panel" aria-label="An example engagement record">
-      <div className="record-panel__head">
-        <span>ENG–0247</span><span>VERIFIED RECORD</span>
-      </div>
-      <div className="record-panel__title">
-        <p>Engagement</p>
-        <strong>Operating model redesign</strong>
-      </div>
-      <div className="record-fields">
-        {fields.map(([label, value], index) => <div className="record-field" key={label}>
-          <span>0{index + 1}</span><b>{label}</b><p>{value}</p>
-        </div>)}
-      </div>
-      <div className="record-panel__foot">
-        <span>12 sources connected</span><span>Evidence retained</span>
-      </div>
-    </aside>
-  );
+  return <div className="plan-canvas" aria-label="Synthetic AllianceOne engagement plan">
+    <div className="plan-topline"><span>ENGAGEMENT INTENT / 04</span><span className="live-dot">ACTIVE PLAN</span></div>
+    <div className="plan-title"><div><small>Northstar Foods</small><strong>Operating model redesign</strong></div><span>14 WEEKS</span></div>
+    <div className="plan-basis"><span>PRECEDENT BASIS</span><div className="basis-bar"><i style={{ width: "78%" }} /></div><b>7 engagements · mature</b></div>
+    <div className="plan-table">
+      <div className="plan-table-head"><span>#</span><span>WORKSTREAM</span><span>DURATION</span><span>EFFORT</span></div>
+      {workstreams.map((row) => <div className="plan-table-row" key={row[0]}>{row.map((cell) => <span key={cell}>{cell}</span>)}</div>)}
+    </div>
+    <div className="plan-team"><span>TEAM SHAPE</span><div className="team-dots"><i /><i /><i /><i /><i /><i /></div><b>Partner · EM · 4 delivery</b></div>
+    <div className="plan-stack"><span>PLAN DESTINATIONS</span><div><b>CRM</b><b>PM</b><b>M365</b><b>BILLING</b></div><em>Materialize ↗</em></div>
+  </div>;
 }
 
 function Hero({ onCta }) {
-  return (
-    <main>
-      <section className="hero">
-        <Wrap>
-          <div className="hero-grid">
-            <div className="hero-copy">
-              <Eyebrow>For consulting, advisory &amp; professional-services firms</Eyebrow>
-              <h1>Your firm has already paid to learn this.</h1>
-              <p className="hero-deck">Every engagement leaves behind decisions, delivery patterns, and outcomes. AllianceOne connects them into a working record the next team can use.</p>
-              <div className="hero-actions">
-                <Btn variant="gold" onClick={onCta}>See it on your firm’s work</Btn>
-                <AnchorLink id="record" className="text-link">Explore the record <span>↓</span></AnchorLink>
-              </div>
-            </div>
-            <RecordPanel />
-          </div>
-          <div className="hero-footnote">
-            <span>AllianceOne</span>
-            <p>The system of record for the engagement—from first context to final outcome.</p>
-          </div>
-        </Wrap>
-      </section>
-
-      <TheRecord />
-      <Product />
-      <Outcomes />
-      <ForFirms />
-      <Difference />
-      <Close onCta={onCta} />
-    </main>
-  );
+  return <section className="home-hero">
+    <Wrap>
+      <div className="hero-grid">
+        <div className="hero-copy">
+          <Eyebrow color={C.goldSoft}>Engagement intelligence for professional services</Eyebrow>
+          <h1>Plan the next engagement with the full weight of the firm behind it.</h1>
+          <p>AllianceOne turns delivery history into the workstreams, staffing, effort, and deliverables for new client work. The plan moves into the firm’s operating stack. Actual delivery flows back against it.</p>
+          <div className="hero-actions"><Btn variant="green" onClick={onCta}>Become a design partner</Btn><a className="quiet-link" href="/platform/">Explore the platform <span>→</span></a></div>
+        </div>
+        <PlanCanvas />
+      </div>
+      <div className="hero-proof"><span>ONE ENGAGEMENT STATE</span><p>From first pursuit through final outcome, with every commitment, decision, and change intact.</p><i /></div>
+    </Wrap>
+  </section>;
 }
 
-function TheRecord() {
-  const stack = [
-    ["Project tools", "Tasks, status, hours"],
-    ["Email & meetings", "Correspondence"],
-    ["Document stores", "Final deliverables"],
-    ["Finance systems", "Fees and actuals"],
+function IntentStatement() {
+  return <Section className="intent-statement">
+    <Wrap>
+      <div className="intent-kicker"><span>THE OPERATING GAP</span><i /></div>
+      <div className="intent-copy"><h2>The stack records activity.<br />AllianceOne carries intent.</h2><p>CRM knows the opportunity. Project management knows the task status. Billing knows the actuals. Documents and conversations hold the reasoning. AllianceOne maintains the plan that connects them—and the story of how that plan changed.</p></div>
+    </Wrap>
+  </Section>;
+}
+
+function PrecedentVisual() {
+  const analogs = [
+    ["Manufacturing operating model", "91%", "Strong", "Accepted"],
+    ["Regional service redesign", "84%", "Moderate", "Refined"],
+    ["Post-merger governance", "76%", "Weak", "Delivered"],
   ];
-  return (
-    <Section className="record-section">
-      <div id="record" className="anchor" />
-      <Wrap>
-        <div className="section-intro">
-          <Eyebrow>01 / The missing record</Eyebrow>
-          <Head size="display">Your systems keep the pieces. The engagement disappears between them.</Head>
-        </div>
-        <div className="gap-layout">
-          <div className="system-ledger">
-            {stack.map(([name, holds], i) => <div className="system-row" key={name}>
-              <span>0{i + 1}</span><strong>{name}</strong><p>{holds}</p><i>Fragment</i>
-            </div>)}
-            <div className="system-row system-row--missing">
-              <span>05</span><strong>The engagement</strong><p>Context, reasoning, delivery, outcome</p><i>AllianceOne</i>
-            </div>
-          </div>
-          <div className="gap-copy">
-            <p className="lead">No existing system holds the thread: how the problem arrived, why one approach won, what changed during delivery, and how the work turned out.</p>
-            <p>AllianceOne builds that record from the work already happening across your firm. It connects the evidence without asking teams to write a second account of the engagement.</p>
-            <div className="note-rule">
-              <span>NO NEW REPORTING LAYER</span>
-              <p>Meeting transcripts, correspondence, task history, drafts, and actuals become one governed engagement record.</p>
-            </div>
-          </div>
-        </div>
-      </Wrap>
-    </Section>
-  );
+  return <div className="product-window precedent-window">
+    <div className="window-bar"><span>PRECEDENT BASIS</span><span>Evidence: mature</span></div>
+    <div className="window-lead"><strong>Seven past engagements inform this plan.</strong><p>Ranked for scope and delivery shape, not surface-level similarity.</p></div>
+    <div className="analog-head"><span>ENGAGEMENT</span><span>MATCH</span><span>DECISION DYNAMICS</span><span>ENDGAME</span></div>
+    {analogs.map((a, i) => <div className={`analog-row${i === 0 ? " analog-row--active" : ""}`} key={a[0]}><span>{a[0]}</span><b>{a[1]}</b><span>{a[2]}</span><span>{a[3]}</span></div>)}
+    <div className="window-note"><span>PINNED BY EM</span><p>“Same sponsor tension and decision path. Use this as the anchor.”</p></div>
+  </div>;
 }
 
-function Product() {
-  const stages = [
-    ["Discover", "A new pursuit is read against the firm’s history. Relevant engagements surface with their approach, result, and watch-outs intact."],
-    ["Scope", "Precedent becomes a grounded first plan: the workstreams, constraints, and estimates your firm has actually used."],
-    ["Propose", "The proposal draws from deliverables your firm shipped—not a generic template—and carries the reasoning behind the structure."],
-    ["Deliver", "The team works with precedent at hand. Decisions and actuals return to the record, ready for the next engagement."],
+function StackVisual() {
+  const systems = [["Salesforce", "Commercial context"], ["ClickUp", "Execution plan"], ["Microsoft 365", "Documents & decisions"], ["NetSuite", "Financial actuals"]];
+  return <div className="stack-visual">
+    <div className="intent-core"><span>ALLIANCEONE</span><strong>Engagement intent</strong><p>Scope · roadmap · staffing · effort · deliverables</p></div>
+    <div className="stack-lines" />
+    <div className="stack-systems">{systems.map(([name, role], i) => <div key={name}><span>0{i + 1}</span><strong>{name}</strong><p>{role}</p><em>{i === 0 ? "Read / write" : "Synchronized"}</em></div>)}</div>
+  </div>;
+}
+
+function VarianceVisual() {
+  const rows = [["Discovery complete", "MAR 14", "MAR 14", "ON PLAN"], ["Design decision", "APR 04", "APR 11", "+7 DAYS"], ["Transition roadmap", "MAY 23", "MAY 30", "+7 DAYS"]];
+  return <div className="product-window variance-window">
+    <div className="window-bar"><span>COMMITMENT / PLAN / ACTUAL</span><span>Updated 14:32</span></div>
+    <div className="variance-summary"><div><span>COMMITTED FEE</span><b>$420K</b></div><div><span>BILLED</span><b>$287K</b></div><div><span>EFFORT VARIANCE</span><b className="warn">+6.4%</b></div></div>
+    <div className="variance-head"><span>MILESTONE</span><span>COMMITTED</span><span>CURRENT</span><span>DELTA</span></div>
+    {rows.map((r) => <div className="variance-row" key={r[0]}>{r.map((cell, i) => <span className={i === 3 && cell !== "ON PLAN" ? "warn" : ""} key={cell}>{cell}</span>)}</div>)}
+    <div className="decision-trace"><span>DECISION / APR 02</span><strong>Extend design validation by one week.</strong><p>Client data owners requested an additional regional review before sign-off. Confirmed by Maya Chen, Engagement Manager.</p></div>
+  </div>;
+}
+
+function PracticeVisual() {
+  return <div className="practice-visual">
+    <div className="practice-head"><span>PRACTICE PROFILE</span><b>Generated from 36 engagements</b></div>
+    <div className="practice-ceiling"><span>DEMONSTRATED CEILING</span><strong>Complex / High-stakes</strong><p>Proven across 8 completed engagements</p></div>
+    <div className="method-list"><div className="method-head"><span>SIGNATURE METHOD</span><span>VERDICT</span><span>EVIDENCE</span></div>
+      <div><strong>Decision-led operating model design</strong><b>Validated</b><span>11 engagements</span></div>
+      <div><strong>Phased governance transition</strong><b>Refined</b><span>7 engagements</span></div>
+      <div><strong>Centralize before standardizing</strong><b className="blocked">Contradicted</b><span>4 engagements</span></div>
+    </div>
+    <div className="evidence-health"><span>EVIDENCE HEALTH</span><div><i style={{ width: "82%" }} /></div><b>82% admitted</b></div>
+  </div>;
+}
+
+const loopSteps = [
+  { n: "01", label: "Plan", title: "Precedent becomes a working plan.", body: "AllianceOne reads the pursuit against how the firm delivered comparable work. It proposes the engagement shape, workstreams, staffing, effort, risks, and deliverables with the precedent basis visible.", visual: <PrecedentVisual /> },
+  { n: "02", label: "Materialize", title: "Intent moves into the operating stack.", body: "The engagement can be planned directly in AllianceOne. From there, the plan is carried into the firm’s CRM, project, document, and financial systems through writeback or guided entry. Those systems continue to own execution state.", visual: <StackVisual /> },
+  { n: "03", label: "Reconcile", title: "Delivery is measured against what the firm meant to do.", body: "AllianceOne preserves the original commitment while the working plan evolves. New actuals, scope changes, milestone slips, and decisions are compared continuously—without rewriting the baseline.", visual: <VarianceVisual /> },
+  { n: "04", label: "Learn", title: "The engagement leaves the practice smarter.", body: "At close-out, outcomes meet the decisions and conditions that produced them. Methods are validated, contradicted, or refined. The next engagement starts from a more accurate model of the firm.", visual: <PracticeVisual /> },
+];
+
+function Loop() {
+  return <Section id="loop" className="loop-section">
+    <Wrap>
+      <div className="loop-intro"><Eyebrow>How AllianceOne works</Eyebrow><Head size="display">One loop, from intent to institutional learning.</Head></div>
+      <div className="loop-steps">{loopSteps.map((step, i) => <article className={`loop-step loop-step--${i + 1}`} key={step.n}>
+        <div className="loop-step-copy"><span className="step-number">{step.n} / {step.label}</span><h3>{step.title}</h3><p>{step.body}</p>{i === 0 && <a href="/platform/">See the full platform <span>→</span></a>}</div>
+        <div className="loop-step-visual">{step.visual}</div>
+      </article>)}</div>
+    </Wrap>
+  </Section>;
+}
+
+function StateModel() {
+  const states = [
+    ["Intent", "What the firm plans and why"], ["Commitment", "What the client accepted"], ["Execution", "What the operating stack reports"],
+    ["Decision", "What changed, who changed it, and why"], ["Outcome", "What was delivered and achieved"], ["Practice", "What the firm carries forward"],
   ];
-  return (
-    <Section className="product-section">
-      <div id="product" className="anchor" />
-      <Wrap>
-        <div className="product-head">
-          <div><Eyebrow color={C.goldSoft}>02 / In the work</Eyebrow><Head light>From first read to final delivery.</Head></div>
-          <p>AllianceOne follows the engagement rather than sitting beside it as another chat window.</p>
-        </div>
-        <div className="stage-list">
-          {stages.map(([name, text], i) => <article className="stage" key={name}>
-            <span className="stage-number">0{i + 1}</span>
-            <h3>{name}</h3>
-            <p>{text}</p>
-            <span className="stage-state">{i === 3 ? "Returns to record" : "Draws from record"}</span>
-          </article>)}
-        </div>
-        <div className="product-footer"><span>ONE CONTINUOUS RECORD</span><div /><span>Practice intelligence, applied</span></div>
-      </Wrap>
-    </Section>
-  );
+  return <Section className="state-section">
+    <Wrap>
+      <div className="state-heading"><Eyebrow color={C.goldSoft}>State, defined</Eyebrow><Head light>A conversation history is not engagement state.</Head><p>AllianceOne maintains six connected forms of state across the lifecycle. Each one has an owner, a source, and a place in the engagement story.</p></div>
+      <div className="state-table">{states.map(([name, desc], i) => <div key={name}><span>0{i + 1}</span><strong>{name}</strong><p>{desc}</p><i /></div>)}</div>
+    </Wrap>
+  </Section>;
 }
 
-function Outcomes() {
-  const items = [
-    ["Traceable", "A recommendation can be followed back to the engagements, decisions, and outcomes behind it."],
-    ["Repeatable", "A method carries the conditions that made it work, so another team can apply it with judgment intact."],
-    ["Compounding", "Each completed engagement updates what the firm knows. The next one begins with a better starting point."],
-  ];
-  return (
-    <Section className="outcomes-section">
-      <div id="outcomes" className="anchor" />
-      <Wrap>
-        <div className="outcomes-grid">
-          <div className="outcomes-sticky">
-            <Eyebrow>03 / What compounds</Eyebrow>
-            <Head>Expertise that behaves like a firm asset.</Head>
-            <p>Not a case library. A body of evidence that stays current because the work itself keeps teaching it.</p>
-          </div>
-          <div className="outcome-list">
-            {items.map(([name, text], i) => <div className="outcome" key={name}>
-              <span>0{i + 1}</span><h3>{name}</h3><p>{text}</p>
-            </div>)}
-          </div>
-        </div>
-      </Wrap>
-    </Section>
-  );
+function CoverageVisual() {
+  const rows = [["CRM / pipeline", "Salesforce", "Covered"], ["Documents", "SharePoint", "Covered"], ["Meeting transcripts", "Teams", "Covered"], ["Financials", "NetSuite", "Declared / no flow"], ["Internal chat", "—", "Known gap"]];
+  return <div className="coverage-visual"><div className="coverage-head"><span>FIRM COVERAGE MAP</span><b>8 of 10 data classes mapped</b></div>{rows.map(([d, s, st]) => <div className="coverage-row" key={d}><strong>{d}</strong><span>{s}</span><em className={st === "Covered" ? "covered" : st === "Known gap" ? "gap" : "attention"}>{st}</em></div>)}<p>Absence is never treated as evidence until coverage is established.</p></div>;
 }
 
-function ForFirms() {
-  const firms = [
-    ["Management consulting", "Where the differentiator is not the framework, but the judgment used to apply it."],
-    ["Advisory", "Where precedent, risk, and the outcome of the last decision shape the next one."],
-    ["Accounting & tax", "Where positions taken and engagement history influence quality across recurring work."],
-  ];
-  return (
-    <Section className="firms-section">
-      <Wrap>
-        <div className="firms-head">
-          <Eyebrow>Built for professional judgment</Eyebrow>
-          <Head size="quiet">For firms whose product walks out the door as advice, analysis, and decisions.</Head>
-        </div>
-        <div className="firm-table">
-          {firms.map(([name, text]) => <div className="firm-row" key={name}><h3>{name}</h3><p>{text}</p><span>→</span></div>)}
-        </div>
-        <div className="partner-note"><strong>For the partner accountable for the whole firm.</strong><p>Quality should not depend on who happens to be staffed. AllianceOne gives operating and managing partners a durable view of how engagements actually run.</p></div>
-      </Wrap>
-    </Section>
-  );
+function Integrity() {
+  return <Section className="integrity-section">
+    <Wrap>
+      <div className="integrity-grid">
+        <div className="integrity-copy"><Eyebrow>Built to know its limits</Eyebrow><Head size="quiet">A credible system must distinguish what happened from what it inferred.</Head><p>AllianceOne records where each fact came from, whether the source is authoritative, and whether a human has confirmed it. Unknown remains unknown. Contradicted methods do not quietly return as recommendations.</p><a href="/security/">Security and data governance <span>→</span></a></div>
+        <CoverageVisual />
+      </div>
+      <div className="integrity-principles"><div><span>01</span><strong>Evidence travels with the claim.</strong></div><div><span>02</span><strong>Human judgment binds the system.</strong></div><div><span>03</span><strong>Each firm remains isolated.</strong></div></div>
+    </Wrap>
+  </Section>;
 }
 
-function Difference() {
-  const rows = [
-    ["Starting point", "The prompt and whatever is attached", "The firm’s connected engagement history"],
-    ["Unit of knowledge", "A passage or retrieved document", "The engagement, including decisions and outcomes"],
-    ["Evidence", "Available when supplied", "Retained with every method and claim"],
-    ["What improves", "The model", "Your firm’s own body of evidence"],
-  ];
-  return (
-    <Section className="difference-section">
-      <div id="difference" className="anchor" />
-      <Wrap>
-        <div className="difference-head">
-          <div><Eyebrow>04 / The difference</Eyebrow><Head>Use the models. Own the record.</Head></div>
-          <p>AllianceOne does not compete with general AI on intelligence. It supplies what a general model cannot arrive with: your firm’s evidence, structured around the work that produced it.</p>
-        </div>
-        <div className="comparison" role="table" aria-label="General AI and AllianceOne comparison">
-          <div className="comparison-row comparison-row--head" role="row"><span /><b>GENERAL AI</b><b>ALLIANCEONE</b></div>
-          {rows.map(([label, general, ours]) => <div className="comparison-row" role="row" key={label}><strong>{label}</strong><p>{general}</p><p>{ours}</p></div>)}
-        </div>
-        <p className="difference-close">A competitor can license the same model tomorrow. It cannot license your history.</p>
-      </Wrap>
-    </Section>
-  );
+function Firms() {
+  const firms = [["Management consulting", "Complex work where engagement shape, decision quality, and delivery approach are the product."], ["Advisory", "High-stakes, precedent-driven engagements shaped by risk, context, and previous outcomes."], ["Accounting & tax", "Recurring work where positions, client history, and delivery economics determine quality and margin."]];
+  return <Section id="firms" className="firms-section">
+    <Wrap>
+      <div className="firms-head"><div><Eyebrow>Built for firms whose product is judgment</Eyebrow><Head>Professional services, planned as a discipline.</Head></div><p>AllianceOne is designed for operating partners, engagement leaders, and teams who need the firm’s best judgment available before work begins—not during the postmortem.</p></div>
+      <div className="firms-list">{firms.map(([name, body], i) => <div key={name}><span>0{i + 1}</span><h3>{name}</h3><p>{body}</p><i>→</i></div>)}</div>
+    </Wrap>
+  </Section>;
 }
 
-function Close({ onCta }) {
-  return (
-    <section className="close-section">
-      <Wrap>
-        <div><Eyebrow>AllianceOne</Eyebrow><h2>Make the next engagement better before it begins.</h2></div>
-        <Btn variant="primary" onClick={onCta}>Request a conversation</Btn>
-      </Wrap>
-    </section>
-  );
+function DesignPartner({ onCta }) {
+  return <section className="partner-section"><Wrap><div><Eyebrow>Initial design partner program</Eyebrow><h2>Bring us one real engagement. We’ll show you what the firm already knows.</h2></div><div><p>We are working with a small group of professional-services firms to shape the production rollout around their operating stack and delivery model.</p><Btn variant="dark" onClick={onCta}>Discuss a design partnership</Btn></div></Wrap></section>;
 }
 
 export function Footer({ onCta }) {
-  return (
-    <footer className="site-footer">
-      <Wrap>
-        <div className="footer-main">
-          <div><Logo light /><p>The system of record for professional-services engagements.</p></div>
-          <div className="footer-links">
-            <div><span>Explore</span>{navItems.map(([id, label]) => <AnchorLink id={id} key={id}>{label}</AnchorLink>)}<a href="/security/">Security &amp; data ownership</a></div>
-            <div><span>Connect</span><button onClick={onCta}>Request a conversation</button><a href="mailto:hello@myalliance.ai">hello@myalliance.ai</a></div>
-          </div>
-        </div>
-        <div className="footer-base"><span>A product of Alliance Systems Group</span><span>© 2026 Alliance Systems Group</span></div>
-      </Wrap>
-    </footer>
-  );
+  return <footer className="site-footer"><Wrap><div className="footer-main"><div><Logo light /><p>Engagement intelligence for professional-services firms.</p></div><div className="footer-nav"><div><span>Platform</span><a href="/platform/">How it works</a><AnchorLink id="loop">The engagement loop</AnchorLink><AnchorLink id="firms">For firms</AnchorLink></div><div><span>Company</span><a href="/security/">Security &amp; governance</a><button onClick={onCta}>Design partner program</button><a href="mailto:hello@myalliance.ai">hello@myalliance.ai</a></div></div></div><div className="footer-base"><span>A product of Alliance Systems Group</span><span>© 2026 Alliance Systems Group. All rights reserved.</span></div></Wrap></footer>;
 }
 
 export function Modal({ open, onClose }) {
-  const [form, setForm] = useState({ name: "", firm: "", email: "" });
+  const [form, setForm] = useState({ name: "", firm: "", email: "", role: "" });
   const [status, setStatus] = useState("idle");
-  useEffect(() => {
-    if (!open) return undefined;
-    const close = (event) => event.key === "Escape" && onClose();
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", close);
-    return () => { document.body.style.overflow = ""; window.removeEventListener("keydown", close); };
-  }, [open, onClose]);
+  useEffect(() => { if (!open) return undefined; const key = (e) => e.key === "Escape" && onClose(); document.body.style.overflow = "hidden"; window.addEventListener("keydown", key); return () => { document.body.style.overflow = ""; window.removeEventListener("keydown", key); }; }, [open, onClose]);
   if (!open) return null;
-  const update = (key) => (event) => setForm((current) => ({ ...current, [key]: event.target.value }));
-  const mail = () => {
-    const subject = encodeURIComponent("AllianceOne conversation request");
-    const body = encodeURIComponent(`Name: ${form.name}\nFirm: ${form.firm}\nWork email: ${form.email}`);
-    window.location.href = `mailto:hello@myalliance.ai?subject=${subject}&body=${body}`;
-  };
-  const submit = async (event) => {
-    event.preventDefault();
-    if (!DEMO_FORM_ENDPOINT) return mail();
-    setStatus("sending");
-    try {
-      const response = await fetch(DEMO_FORM_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(form) });
-      setStatus(response.ok ? "sent" : "error");
-    } catch { setStatus("error"); }
-  };
-  return (
-    <div className="modal-backdrop" onMouseDown={onClose}>
-      <div className="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" onMouseDown={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose} aria-label="Close">×</button>
-        <Eyebrow>Private working session</Eyebrow>
-        {status === "sent" ? <><h2 id="modal-title">Thank you.</h2><p>We’ll be in touch at {form.email}.</p></> : <>
-          <h2 id="modal-title">See AllianceOne against the work your firm already knows.</h2>
-          <p>A focused 30-minute conversation. No generic product tour.</p>
-          <form onSubmit={submit}>
-            <label>Name<input required value={form.name} onChange={update("name")} autoFocus /></label>
-            <label>Firm<input required value={form.firm} onChange={update("firm")} /></label>
-            <label>Work email<input required type="email" value={form.email} onChange={update("email")} /></label>
-            <button type="submit" disabled={status === "sending"}>{status === "sending" ? "Sending…" : "Request a conversation ↗"}</button>
-          </form>
-          {status === "error" && <p className="form-error">That did not go through. <button onClick={mail}>Email us instead.</button></p>}
-        </>}
-      </div>
-    </div>
-  );
+  const update = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
+  const fallback = () => { const subject = encodeURIComponent("AllianceOne design partner conversation"); const body = encodeURIComponent(`Name: ${form.name}\nFirm: ${form.firm}\nRole: ${form.role}\nWork email: ${form.email}`); window.location.href = `mailto:hello@myalliance.ai?subject=${subject}&body=${body}`; };
+  const submit = async (e) => { e.preventDefault(); if (!DEMO_FORM_ENDPOINT) return fallback(); setStatus("sending"); try { const r = await fetch(DEMO_FORM_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(form) }); setStatus(r.ok ? "sent" : "error"); } catch { setStatus("error"); } };
+  return <div className="modal-backdrop" onMouseDown={onClose}><div className="modal" onMouseDown={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby="partner-title"><button className="modal-close" onClick={onClose} aria-label="Close">×</button><Eyebrow>Design partner program</Eyebrow>{status === "sent" ? <><h2 id="partner-title">Thank you.</h2><p>We’ll contact you at {form.email}.</p></> : <><h2 id="partner-title">Start with the way your firm actually delivers.</h2><p>Tell us where to reach you. We’ll set up a working session around your engagements and operating stack.</p><form onSubmit={submit}><label>Name<input autoFocus required value={form.name} onChange={update("name")} /></label><label>Firm<input required value={form.firm} onChange={update("firm")} /></label><label>Role<input value={form.role} onChange={update("role")} /></label><label>Work email<input type="email" required value={form.email} onChange={update("email")} /></label><button type="submit" disabled={status === "sending"}>{status === "sending" ? "Sending…" : "Request a working session ↗"}</button></form>{status === "error" && <p className="form-error">That did not go through. <button onClick={fallback}>Email us directly.</button></p>}</>}</div></div>;
 }
 
 export default function App() {
   const [modal, setModal] = useState(false);
   useFonts();
-  return <div className="site-shell"><Nav onCta={() => setModal(true)} /><Hero onCta={() => setModal(true)} /><Footer onCta={() => setModal(true)} /><Modal open={modal} onClose={() => setModal(false)} /></div>;
+  const open = () => setModal(true);
+  return <div className="site-shell"><Nav onCta={open} /><main><Hero onCta={open} /><IntentStatement /><Loop /><StateModel /><Integrity /><Firms /><DesignPartner onCta={open} /></main><Footer onCta={open} /><Modal open={modal} onClose={() => setModal(false)} /></div>;
 }

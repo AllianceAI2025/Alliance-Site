@@ -1,0 +1,26 @@
+import React, { useState } from "react";
+import { C, useFonts, Eyebrow, Head, Btn, Wrap, Section, Nav, Footer, Modal } from "./App.jsx";
+
+const details = [
+  { n: "01", title: "Plan from precedent", body: "A pursuit is compared with the firm’s completed work across problem, delivery shape, deal context, decision dynamics, and economics. AllianceOne turns that evidence into candidate engagement shapes, then into a working scope and plan.", points: ["Workstreams and deliverables", "Staffing shape and role requirements", "Effort, duration, and commercial assumptions", "Risks, dependencies, and decision points"] },
+  { n: "02", title: "Establish intent", body: "The accepted proposal becomes the commitment baseline. The working roadmap carries the firm’s delivery intent: what should happen, in what sequence, with which people, and under which assumptions.", points: ["Original commitment remains immutable", "Plan revisions form an audit trail", "Human confirmation governs material changes", "Precedent basis is retained with the estimate"] },
+  { n: "03", title: "Operate across the stack", body: "AllianceOne can hold the engagement plan directly while carrying it into the systems the firm already uses through writeback or guided entry. Those systems remain authoritative for execution state.", points: ["CRM commercial context", "PM tasks, owners, and status", "Document and deliverable production", "Billing, effort, and financial actuals"] },
+  { n: "04", title: "Reconcile delivery", body: "Actual work is read against both the commitment and the current plan. Scope changes, schedule movement, effort variance, and delivery decisions remain connected to their source and rationale.", points: ["Committed versus planned versus actual", "Append-only rebaselines", "Decision and conversation attribution", "Delivery drift and emerging risk"] },
+  { n: "05", title: "Update the practice", body: "Close-out turns the engagement into usable precedent. The firm’s methods, archetypes, staffing patterns, and delivery assumptions are updated only when the evidence supports the change.", points: ["Methods validated, contradicted, or refined", "Outcome-aware precedent matching", "Firm Practice Profile", "Evidence health and known gaps"] },
+];
+
+function Architecture() {
+  const layers = [["06", "Practice", "Methods, archetypes, capabilities, evidence health"], ["05", "Learning", "Outcomes, variances, endgames, calibration"], ["04", "Engagement state", "Intent, commitment, execution, decisions"], ["03", "Evidence", "Documents, conversations, actuals, attribution"], ["02", "Identity", "Engagements, people, clients across systems"], ["01", "Source systems", "CRM, PM, M365, billing, HRIS"]];
+  return <Section className="architecture-section"><Wrap><div className="architecture-grid"><div className="architecture-copy"><Eyebrow color={C.goldSoft}>A governed intelligence architecture</Eyebrow><Head light size="quiet">The model is built upward from evidence.</Head><p>Source systems retain authority over the records they own. AllianceOne resolves identity across them, assembles engagement state, and distills practice knowledge without laundering inference into fact.</p></div><div className="architecture-rail">{layers.map(([n, name, body]) => <div key={n}><span>{n}</span><strong>{name}</strong><p>{body}</p></div>)}</div></div></Wrap></Section>;
+}
+
+export default function PlatformPage() {
+  const [modal, setModal] = useState(false); useFonts(); const open = () => setModal(true);
+  return <div className="site-shell"><Nav onCta={open} /><main>
+    <section className="inner-hero"><Wrap><div className="inner-hero-grid"><div><Eyebrow color={C.goldSoft}>The AllianceOne platform</Eyebrow><h1>The engagement plan becomes institutional state.</h1></div><p>AllianceOne connects what the firm intended, what the client accepted, what delivery systems observed, and what the outcome proved. That state remains available to the next team.</p></div><div className="page-index"><strong>THE ENGAGEMENT LOOP</strong><span>01 / Plan</span><span>02 / Materialize</span><span>03 / Reconcile</span><span>04 / Learn</span></div></Wrap></section>
+    <Section className="platform-principle"><Wrap><Eyebrow>Operating principle</Eyebrow><Head size="display">AllianceOne owns intent. The operating stack owns execution.</Head></Wrap></Section>
+    <Section className="platform-detail"><Wrap>{details.map((d) => <article className="detail-row" key={d.n}><span>{d.n}</span><h3>{d.title}</h3><div className="detail-row-body"><p>{d.body}</p><div className="detail-points">{d.points.map((p, i) => <div key={p}><span>0{i + 1}</span><strong>{p}</strong></div>)}</div></div></article>)}</Wrap></Section>
+    <Architecture />
+    <section className="partner-section"><Wrap><div><Eyebrow>Initial design partner program</Eyebrow><h2>Build the engagement loop around your firm.</h2></div><div><p>We are partnering with a small number of professional-services firms to shape integrations, operating workflows, and production rollout.</p><Btn variant="dark" onClick={open}>Discuss a design partnership</Btn></div></Wrap></section>
+  </main><Footer onCta={open} /><Modal open={modal} onClose={() => setModal(false)} /></div>;
+}
