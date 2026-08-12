@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ChatScene, MaterializeScene, PlanScene, PracticeScene, ReconcileScene } from "./ProductScenes";
+import { MaterializeScene, PlanScene, PracticeScene, ReconcileScene, ScopeScene } from "./ProductScenes";
 
 export const DEMO_FORM_ENDPOINT = "";
 
@@ -220,7 +220,7 @@ function PracticeVisual() {
 }
 
 const loopSteps = [
-  { n: "01", label: "Ask", title: "Chat turns the firm’s record into engagement judgment.", body: "Teams can question the pursuit, test scope, compare precedent, find missing inputs, and promote grounded findings directly into the plan. Every answer shows what it relied on and what remains unknown.", visual: <ChatScene /> },
+  { n: "01", label: "Scope", title: "The engagement takes shape before formal scoping begins.", body: "AllianceOne carries early conversations into the opportunity, assembles an initial narrative, and gives the consultant a populated pursuit workspace. With that context in place, Chat becomes the working surface for testing assumptions, comparing precedent, and shaping the scope.", visual: <ScopeScene /> },
   { n: "02", label: "Plan", title: "Precedent becomes a working engagement plan.", body: "Workstreams, deliverables, staffing, effort, commercials, and decision gates are designed as one system—grounded in how the firm delivered comparable work.", visual: <PlanScene /> },
   { n: "03", label: "Materialize", title: "The committed plan becomes execution state.", body: "Once approved, AllianceOne carries the plan into the firm’s CRM, project, document, and ERP systems. Each destination receives the fields it owns while AllianceOne preserves the canonical intent and commitment.", visual: <MaterializeScene /> },
   { n: "04", label: "Reconcile", title: "Delivery is measured against what was committed.", body: "Milestones and effort return from project systems. Billing actuals return from ERP. Scope, approvals, and evidence return from the systems that own them. AllianceOne reconciles the whole engagement without rewriting the baseline.", visual: <ReconcileScene /> },

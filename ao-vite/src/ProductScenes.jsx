@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Chip = ({ children, tone = "neutral" }) => <span className={`ps-chip ps-chip--${tone}`}>{children}</span>;
 
@@ -19,28 +19,77 @@ function ProductFrame({ section, title, status, children, className = "" }) {
   </div>;
 }
 
-export function ChatScene() {
-  return <ProductFrame section="Engagement chat" title="Scope the engagement" status="Grounded" className="ps-chat">
-    <div className="ps-chat-thread">
-      <div className="ps-user-turn">
-        <span>YOU</span>
-        <p>What should we carry forward from similar operating-model engagements before we lock the scope?</p>
-        <i>MC</i>
-      </div>
-      <div className="ps-assistant-turn">
-        <div className="ps-assistant-id"><span className="ps-ai-mark">A.</span><b>AllianceOne</b><Chip tone="success">Grounded in 59 items across 7 engagements</Chip></div>
-        <h5>Three decisions should shape the scope now.</h5>
-        <p>The strongest precedents point to the same delivery pattern: protect the fixed governance date, make regional validation explicit, and settle decision rights before detailed role design begins.</p>
-        <div className="ps-chat-findings">
-          <div><b>01</b><span><strong>Protect the board decision date.</strong><small>Add regional validation as a defined workstream rather than absorbing it into design.</small></span><em>7 engagements</em></div>
-          <div><b>02</b><span><strong>Sequence governance before role design.</strong><small>Past teams reduced rework when decision rights were approved first.</small></span><em>5 engagements</em></div>
-          <div><b>03</b><span><strong>Price the transition contingency.</strong><small>Three comparable engagements required a scoped extension near implementation.</small></span><em>3 engagements</em></div>
-        </div>
-        <div className="ps-chat-gap"><span>STILL NEEDS CONFIRMATION</span><p>Peak-season freeze dates · regional sponsor availability · financial-system owner</p></div>
-        <div className="ps-chat-actions"><div><Chip>Harbor Grain · close-out</Chip><Chip>Meridian · plan v3</Chip><Chip>5 more sources</Chip></div><button>Promote findings to plan <span>→</span></button></div>
-      </div>
+const scopeStages = [
+  ["01", "Listen", "Early conversations"],
+  ["02", "Synthesize", "Opportunity workspace"],
+  ["03", "Scope", "Consultant chat"],
+];
+
+export function ScopeScene() {
+  const [stage, setStage] = useState(0);
+  const [playing, setPlaying] = useState(true);
+
+  useEffect(() => {
+    if (!playing) return undefined;
+    const timer = window.setInterval(() => setStage((current) => (current + 1) % scopeStages.length), 5600);
+    return () => window.clearInterval(timer);
+  }, [playing]);
+
+  const stageStatus = stage === 0 ? "Pre-CRM signals" : stage === 1 ? "Workspace populated" : "Scoping in progress";
+
+  return <ProductFrame section="Scope" title="Operating model redesign" status={stageStatus} className={`ps-scope ps-scope--stage-${stage}`}>
+    <div className="ps-scope-sequence" role="tablist" aria-label="Scope workflow demonstration">
+      {scopeStages.map(([n, label, detail], index) => <button key={n} role="tab" aria-selected={stage === index} className={stage === index ? "is-active" : index < stage ? "is-complete" : ""} onClick={() => { setStage(index); setPlaying(false); }}><i>{index < stage ? "✓" : n}</i><span><b>{label}</b><small>{detail}</small></span></button>)}
+      <button className="ps-scope-play" aria-label={playing ? "Pause demonstration" : "Play demonstration"} onClick={() => setPlaying((value) => !value)}>{playing ? "Ⅱ Pause" : "▶ Play"}</button>
     </div>
-    <div className="ps-composer"><span>Ask about the engagement, compare precedent, or update the plan…</span><div><b>＋</b><b>#</b><button>Send ↑</button></div></div>
+
+    <div className="ps-scope-stage" aria-live="polite">
+      {stage === 0 && <div className="ps-intake-view ps-scope-shot">
+        <div className="ps-intake-head"><div><span>EARLY SIGNALS / NORTHSTAR FOODS</span><h5>The opportunity is taking shape before a CRM record exists.</h5></div><Chip>Pre-CRM</Chip></div>
+        <div className="ps-intake-grid">
+          <section className="ps-signal-stream">
+            <div><i>EM</i><span><b>Partner email</b><small>“Northstar is considering a redesign across eight regions.”</small></span><em>09:14</em></div>
+            <div><i>MT</i><span><b>Introductory meeting</b><small>Board decision expected before peak-season planning.</small></span><em>11:30</em></div>
+            <div><i>PN</i><span><b>Partner note</b><small>Regional autonomy and service continuity appear to be the tensions.</small></span><em>13:42</em></div>
+          </section>
+          <aside className="ps-emerging-context"><span>EMERGING CONTEXT</span><h5>Potential operating-model redesign</h5><p>Eight-region food business · fixed governance date · adoption risk · transformation mandate</p><div><span>3 conversations captured</span><span>4 stakeholders recognized</span></div></aside>
+        </div>
+        <div className="ps-intake-foot"><span>Signals remain provisional until the opportunity is created.</span><b>CRM opportunity detected <i>→</i></b></div>
+      </div>}
+
+      {stage === 1 && <div className="ps-pursuit-view ps-scope-shot">
+        <div className="ps-pursuit-overview">
+          <section><span>SITUATION</span><h5>Northstar is preparing to redesign its operating model across eight regions.</h5><p>Initial discussions point to inconsistent decision rights, duplicated shared-services work, and a fixed board decision before peak-season planning.</p></section>
+          <aside><span>INITIAL NARRATIVE</span><b>Service continuity—not organization design—is the binding constraint.</b><small>Confidence 78% · 6 supporting signals</small></aside>
+        </div>
+        <div className="ps-pursuit-columns">
+          <section><span>WHAT HURTS</span><p>Regional decisions vary</p><p>Shared-services overlap</p><p>Two earlier changes stalled</p></section>
+          <section><span>WHY NOW</span><p>Board decision in 14 weeks</p><p>Peak-season freeze follows</p><p>Leadership transition underway</p></section>
+          <section><span>WHAT THEY WANT</span><p>Clear decision rights</p><p>Lower operating friction</p><p>Transition-ready roadmap</p></section>
+        </div>
+        <div className="ps-pursuit-evidence"><div><span>STAKEHOLDERS</span><b>CEO · COO · 3 regional presidents · CHRO</b></div><div><span>SOURCES</span><b>4 emails · 2 meetings · CRM opportunity</b></div><div><span>SIMILAR WORK</span><b>7 possible analogs surfaced</b></div></div>
+        <div className="ps-pursuit-ready"><span>WORKSPACE POPULATED</span><b>The consultant now has enough context to begin scoping.</b><em>Open in Chat →</em></div>
+      </div>}
+
+      {stage === 2 && <div className="ps-chat-view ps-scope-shot">
+        <div className="ps-chat-thread">
+          <div className="ps-user-turn"><span>YOU</span><p>What should we carry forward from similar operating-model engagements before we lock the scope?</p><i>MC</i></div>
+          <div className="ps-assistant-turn">
+            <div className="ps-assistant-id"><span className="ps-ai-mark">A.</span><b>AllianceOne</b><Chip tone="success">Grounded in 59 items across 7 engagements</Chip></div>
+            <h5>Three decisions should shape the scope now.</h5>
+            <p>The strongest precedents point to the same delivery pattern: protect the fixed governance date, make regional validation explicit, and settle decision rights before detailed role design begins.</p>
+            <div className="ps-chat-findings">
+              <div><b>01</b><span><strong>Protect the board decision date.</strong><small>Add regional validation as a defined workstream.</small></span><em>7 engagements</em></div>
+              <div><b>02</b><span><strong>Sequence governance before role design.</strong><small>Comparable teams reduced rework by approving decision rights first.</small></span><em>5 engagements</em></div>
+              <div><b>03</b><span><strong>Price the transition contingency.</strong><small>Three analogs required a controlled implementation extension.</small></span><em>3 engagements</em></div>
+            </div>
+            <div className="ps-chat-gap"><span>STILL NEEDS CONFIRMATION</span><p>Peak-season freeze dates · regional sponsor availability · financial-system owner</p></div>
+            <div className="ps-chat-actions"><div><Chip>Harbor Grain · close-out</Chip><Chip>Meridian · plan v3</Chip></div><button>Promote findings to plan <span>→</span></button></div>
+          </div>
+        </div>
+        <div className="ps-composer"><span>Ask about the engagement, compare precedent, or update the plan…</span><div><b>＋</b><b>#</b><button>Send ↑</button></div></div>
+      </div>}
+    </div>
   </ProductFrame>;
 }
 
