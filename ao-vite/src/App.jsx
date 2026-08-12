@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { ChatScene, MaterializeScene, PlanScene, PracticeScene, ReconcileScene } from "./ProductScenes";
 
 export const DEMO_FORM_ENDPOINT = "";
 
@@ -191,16 +192,17 @@ function PracticeVisual() {
 }
 
 const loopSteps = [
-  { n: "01", label: "Plan", title: "Precedent becomes a working plan.", body: "AllianceOne reads the pursuit against how the firm delivered comparable work. It proposes the engagement shape, workstreams, staffing, effort, risks, and deliverables with the precedent basis visible.", visual: <PrecedentVisual /> },
-  { n: "02", label: "Materialize", title: "Intent moves into the operating stack.", body: "The engagement can be planned directly in AllianceOne. From there, the plan is carried into the firm’s CRM, project, document, and financial systems through writeback or guided entry. Those systems continue to own execution state.", visual: <StackVisual /> },
-  { n: "03", label: "Reconcile", title: "Delivery is measured against what the firm meant to do.", body: "AllianceOne preserves the original commitment while the working plan evolves. New actuals, scope changes, milestone slips, and decisions are compared continuously—without rewriting the baseline.", visual: <VarianceVisual /> },
-  { n: "04", label: "Learn", title: "The engagement leaves the practice smarter.", body: "At close-out, outcomes meet the decisions and conditions that produced them. Methods are validated, contradicted, or refined. The next engagement starts from a more accurate model of the firm.", visual: <PracticeVisual /> },
+  { n: "01", label: "Ask", title: "Chat turns the firm’s record into engagement judgment.", body: "Teams can question the pursuit, test scope, compare precedent, find missing inputs, and promote grounded findings directly into the plan. Every answer shows what it relied on and what remains unknown.", visual: <ChatScene /> },
+  { n: "02", label: "Plan", title: "Precedent becomes a working engagement plan.", body: "Workstreams, deliverables, staffing, effort, commercials, and decision gates are designed as one system—grounded in how the firm delivered comparable work.", visual: <PlanScene /> },
+  { n: "03", label: "Materialize", title: "The committed plan becomes execution state.", body: "Once approved, AllianceOne carries the plan into the firm’s CRM, project, document, and ERP systems. Each destination receives the fields it owns while AllianceOne preserves the canonical intent and commitment.", visual: <MaterializeScene /> },
+  { n: "04", label: "Reconcile", title: "Delivery is measured against what was committed.", body: "Milestones and effort return from project systems. Billing actuals return from ERP. Scope, approvals, and evidence return from the systems that own them. AllianceOne reconciles the whole engagement without rewriting the baseline.", visual: <ReconcileScene /> },
+  { n: "05", label: "Learn", title: "The engagement leaves the practice smarter.", body: "At close-out, outcomes meet the conditions and decisions that produced them. Methods are validated, refined, or contradicted, and the next pursuit begins with a more accurate model of how the firm delivers.", visual: <PracticeScene /> },
 ];
 
 function Loop() {
   return <Section id="loop" className="loop-section">
     <Wrap>
-      <div className="loop-intro"><Eyebrow>How AllianceOne works</Eyebrow><Head size="display">One loop, from intent to institutional learning.</Head></div>
+      <div className="loop-intro"><Eyebrow>How AllianceOne works</Eyebrow><Head size="display">One operating loop, from question to institutional learning.</Head></div>
       <div className="loop-steps">{loopSteps.map((step, i) => <article className={`loop-step loop-step--${i + 1}`} key={step.n}>
         <div className="loop-step-copy"><span className="step-number">{step.n} / {step.label}</span><h3>{step.title}</h3><p>{step.body}</p>{i === 0 && <a href="/platform/">See the full platform <span>→</span></a>}</div>
         <div className="loop-step-visual">{step.visual}</div>
