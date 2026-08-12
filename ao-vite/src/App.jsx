@@ -100,20 +100,48 @@ export function Nav({ onCta }) {
 
 function PlanCanvas() {
   const workstreams = [
-    ["01", "Decision frame & diagnostic", "3 weeks", "420h"],
-    ["02", "Operating model design", "7 weeks", "980h"],
-    ["03", "Transition roadmap", "4 weeks", "440h"],
+    ["01", "Decision frame & diagnostic", "MC", "0%", "29%", "420h"],
+    ["02", "Operating model design", "SP", "18%", "52%", "760h"],
+    ["03", "Regional validation", "DO", "51%", "33%", "360h"],
+    ["04", "Transition roadmap", "JH", "72%", "26%", "300h"],
+  ];
+  const team = [
+    ["MC", "Maya Chen", "Partner", "35%"],
+    ["SP", "Sofia Patel", "Design lead", "100%"],
+    ["DO", "Daniel Okafor", "Regional lead", "80%"],
+    ["JH", "Jordan Hale", "Transition lead", "80%"],
+    ["AR", "Avery Ross", "Senior consultant", "100%"],
+    ["LT", "Lena Torres", "Consultant", "100%"],
+  ];
+  const precedents = [
+    ["91%", "Harbor Grain Co.", "Protect the fixed decision gate"],
+    ["84%", "Meridian Components", "Fund regional validation explicitly"],
+    ["76%", "Redwood Consumer Group", "Price a controlled extension option"],
   ];
   return <div className="plan-canvas" aria-label="Synthetic AllianceOne engagement plan">
-    <div className="plan-topline"><span>ENGAGEMENT INTENT / 04</span><span className="live-dot">ACTIVE PLAN</span></div>
-    <div className="plan-title"><div><small>Northstar Foods</small><strong>Operating model redesign</strong></div><span>14 WEEKS</span></div>
-    <div className="plan-basis"><span>PRECEDENT BASIS</span><div className="basis-bar"><i style={{ width: "78%" }} /></div><b>7 engagements · mature</b></div>
-    <div className="plan-table">
-      <div className="plan-table-head"><span>#</span><span>WORKSTREAM</span><span>DURATION</span><span>EFFORT</span></div>
-      {workstreams.map((row) => <div className="plan-table-row" key={row[0]}>{row.map((cell) => <span key={cell}>{cell}</span>)}</div>)}
+    <div className="plan-topline"><span>ENGAGEMENT INTENT / 04</span><span className="live-dot">APPROVED BASELINE</span></div>
+    <div className="hero-plan-title"><div><small>NORTHSTAR FOODS</small><strong>Operating model redesign</strong><p>Redesign governance across eight regions without disrupting peak-season service.</p></div><em>V4</em></div>
+    <div className="hero-plan-metrics">
+      <div><span>DURATION</span><b>14 weeks</b></div><div><span>EFFORT</span><b>1,840h</b></div><div><span>COMMERCIALS</span><b>$420K</b></div><div><span>DECISION GATE</span><b>Nov 20</b></div>
     </div>
-    <div className="plan-team"><span>TEAM SHAPE</span><div className="team-dots"><i /><i /><i /><i /><i /><i /></div><b>Partner · EM · 4 delivery</b></div>
-    <div className="plan-stack"><span>PLAN DESTINATIONS</span><div><b>CRM</b><b>PM</b><b>M365</b><b>BILLING</b></div><em>Materialize ↗</em></div>
+    <section className="hero-plan-schedule">
+      <div className="hero-plan-sectionhead"><div><span>CONTRACT SCHEDULE</span><b>Four committed workstreams</b></div><small>W1&nbsp;&nbsp;&nbsp; W4&nbsp;&nbsp;&nbsp; W8&nbsp;&nbsp;&nbsp; W12&nbsp;&nbsp; W14</small></div>
+      <div className="hero-plan-rows">
+        {workstreams.map(([n, name, owner, left, width, effort]) => <div key={n}><span>{n}</span><p><b>{name}</b><small>{owner} · {effort}</small></p><i><em style={{ left, width }} /></i></div>)}
+      </div>
+      <div className="hero-plan-gate"><span>BOARD APPROVAL</span><b>Operating-model decision</b><em>NOV 20</em></div>
+    </section>
+    <div className="hero-plan-grounding">
+      <section className="hero-plan-team">
+        <div className="hero-plan-sectionhead"><div><span>COMMITTED TEAM</span><b>Six-person core</b></div><small>Precedent fit</small></div>
+        <div>{team.map(([initials, name, role, loading]) => <p key={name}><i>{initials}</i><span><b>{name}</b><small>{role}</small></span><em>{loading}</em></p>)}</div>
+      </section>
+      <section className="hero-plan-precedents">
+        <div className="hero-plan-sectionhead"><div><span>SIMILAR ENGAGEMENTS</span><b>7 compared · 3 pinned</b></div></div>
+        <div>{precedents.map(([fit, name, lesson]) => <p key={name}><b>{fit}</b><span><strong>{name}</strong><small>{lesson}</small></span></p>)}</div>
+      </section>
+    </div>
+    <div className="hero-plan-approval"><div><span>CANONICAL INTENT</span><b>Scope · workstreams · team · effort · commercials · decision gates</b></div><em>Materialize approved plan →</em></div>
   </div>;
 }
 
