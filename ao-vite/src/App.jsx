@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { MaterializeScene, PlanScene, PracticeScene, ReconcileScene, ScopeScene } from "./ProductScenes";
+import { ExecuteScene, MaterializeScene, PlanScene, PracticeScene, ReconcileScene, ScopeScene } from "./ProductScenes";
 
 export const DEMO_FORM_ENDPOINT = "";
 
@@ -98,64 +98,16 @@ export function Nav({ onCta }) {
   </header>;
 }
 
-function PlanCanvas() {
-  const workstreams = [
-    ["01", "Decision frame & diagnostic", "MC", "0%", "29%", "420h"],
-    ["02", "Operating model design", "SP", "18%", "52%", "760h"],
-    ["03", "Regional validation", "DO", "51%", "33%", "360h"],
-    ["04", "Transition roadmap", "JH", "72%", "26%", "300h"],
-  ];
-  const team = [
-    ["MC", "Maya Chen", "Partner", "35%"],
-    ["SP", "Sofia Patel", "Design lead", "100%"],
-    ["DO", "Daniel Okafor", "Regional lead", "80%"],
-    ["JH", "Jordan Hale", "Transition lead", "80%"],
-    ["AR", "Avery Ross", "Senior consultant", "100%"],
-    ["LT", "Lena Torres", "Consultant", "100%"],
-  ];
-  const precedents = [
-    ["91%", "Harbor Grain Co.", "Protect the fixed decision gate"],
-    ["84%", "Meridian Components", "Fund regional validation explicitly"],
-    ["76%", "Redwood Consumer Group", "Price a controlled extension option"],
-  ];
-  return <div className="plan-canvas" aria-label="Synthetic AllianceOne engagement plan">
-    <div className="plan-topline"><span>ENGAGEMENT INTENT / 04</span><span className="live-dot">APPROVED BASELINE</span></div>
-    <div className="hero-plan-title"><div><small>NORTHSTAR FOODS</small><strong>Operating model redesign</strong><p>Redesign governance across eight regions without disrupting peak-season service.</p></div><em>V4</em></div>
-    <div className="hero-plan-metrics">
-      <div><span>DURATION</span><b>14 weeks</b></div><div><span>EFFORT</span><b>1,840h</b></div><div><span>COMMERCIALS</span><b>$420K</b></div><div><span>DECISION GATE</span><b>Nov 20</b></div>
-    </div>
-    <section className="hero-plan-schedule">
-      <div className="hero-plan-sectionhead"><div><span>CONTRACT SCHEDULE</span><b>Four committed workstreams</b></div><small>W1&nbsp;&nbsp;&nbsp; W4&nbsp;&nbsp;&nbsp; W8&nbsp;&nbsp;&nbsp; W12&nbsp;&nbsp; W14</small></div>
-      <div className="hero-plan-rows">
-        {workstreams.map(([n, name, owner, left, width, effort]) => <div key={n}><span>{n}</span><p><b>{name}</b><small>{owner} · {effort}</small></p><i><em style={{ left, width }} /></i></div>)}
-      </div>
-      <div className="hero-plan-gate"><span>BOARD APPROVAL</span><b>Operating-model decision</b><em>NOV 20</em></div>
-    </section>
-    <div className="hero-plan-grounding">
-      <section className="hero-plan-team">
-        <div className="hero-plan-sectionhead"><div><span>COMMITTED TEAM</span><b>Six-person core</b></div><small>Precedent fit</small></div>
-        <div>{team.map(([initials, name, role, loading]) => <p key={name}><i>{initials}</i><span><b>{name}</b><small>{role}</small></span><em>{loading}</em></p>)}</div>
-      </section>
-      <section className="hero-plan-precedents">
-        <div className="hero-plan-sectionhead"><div><span>SIMILAR ENGAGEMENTS</span><b>7 compared · 3 pinned</b></div></div>
-        <div>{precedents.map(([fit, name, lesson]) => <p key={name}><b>{fit}</b><span><strong>{name}</strong><small>{lesson}</small></span></p>)}</div>
-      </section>
-    </div>
-    <div className="hero-plan-approval"><div><span>CANONICAL INTENT</span><b>Scope · workstreams · team · effort · commercials · decision gates</b></div><em>Materialize approved plan →</em></div>
-  </div>;
-}
-
 function Hero({ onCta }) {
   return <section className="home-hero">
     <Wrap>
-      <div className="hero-grid">
+      <div className="hero-grid hero-grid--copy">
         <div className="hero-copy">
           <Eyebrow color={C.goldSoft}>Engagement intelligence for professional services</Eyebrow>
           <h1>Plan the next engagement with the full weight of the firm behind it.</h1>
           <p>AllianceOne turns delivery history into the workstreams, staffing, effort, and deliverables for new client work. The plan moves into the firm’s operating stack. Actual delivery flows back against it.</p>
           <div className="hero-actions"><Btn variant="green" onClick={onCta}>Become a design partner</Btn><a className="quiet-link" href="/platform/">Explore the platform <span>→</span></a></div>
         </div>
-        <PlanCanvas />
       </div>
       <div className="hero-proof"><span>ONE ENGAGEMENT STATE</span><p>From first pursuit through final outcome, with every commitment, decision, and change intact.</p><i /></div>
     </Wrap>
@@ -220,11 +172,12 @@ function PracticeVisual() {
 }
 
 const loopSteps = [
-  { n: "01", label: "Scope", title: "The engagement takes shape before formal scoping begins.", body: "AllianceOne carries early conversations into the opportunity, assembles an initial narrative, and gives the consultant a populated pursuit workspace. With that context in place, Chat becomes the working surface for testing assumptions, comparing precedent, and shaping the scope.", visual: <ScopeScene /> },
-  { n: "02", label: "Plan", title: "Precedent becomes a working engagement plan.", body: "Workstreams, deliverables, staffing, effort, commercials, and decision gates are designed as one system—grounded in how the firm delivered comparable work.", visual: <PlanScene /> },
-  { n: "03", label: "Materialize", title: "The committed plan becomes execution state.", body: "Once approved, AllianceOne carries the plan into the firm’s CRM, project, document, and ERP systems. Each destination receives the fields it owns while AllianceOne preserves the canonical intent and commitment.", visual: <MaterializeScene /> },
-  { n: "04", label: "Reconcile", title: "Delivery is measured against what was committed.", body: "Milestones and effort return from project systems. Billing actuals return from ERP. Scope, approvals, and evidence return from the systems that own them. AllianceOne reconciles the whole engagement without rewriting the baseline.", visual: <ReconcileScene /> },
-  { n: "05", label: "Learn", title: "The engagement leaves the practice smarter.", body: "At close-out, outcomes meet the conditions and decisions that produced them. Methods are validated, refined, or contradicted, and the next pursuit begins with a more accurate model of how the firm delivers.", visual: <PracticeScene /> },
+  { n: "01", label: "Scope", title: "Context becomes an approved commercial scope.", body: "AllianceOne carries early conversations into the opportunity, assembles the Pursuit Brief, and gives the consultant a grounded working surface in Chat. The resulting internal scope is reviewed by the engagement lead; only that approved scope can unlock and ground the client proposal.", visual: <ScopeScene /> },
+  { n: "02", label: "Plan", title: "What was sold becomes an approved delivery baseline.", body: "When CRM marks the engagement Won, AllianceOne locks the accepted proposal facts and opens planning mode. The engagement manager builds deliverables, assignments, dependencies, effort, and the roadmap in Chat; approval creates the authoritative plan that can be written into the firm’s PM or PSA system.", visual: <PlanScene /> },
+  { n: "03", label: "Materialize", title: "The approved plan becomes PSA execution state.", body: "AllianceOne validates the destination mapping, then creates the project, phases, deliverables, assignments, and milestones in the firm’s PSA or project-management system. The destination owns execution; AllianceOne retains the approved baseline and the receipt linking every created record to it.", visual: <MaterializeScene /> },
+  { n: "04", label: "Execute", title: "Every consultant works with the full engagement context.", body: "Each person receives a workspace shaped by the approved plan: assigned deliverables, workstream context, review expectations, and the engagement brief. In Chat, they can research the firm record, apply proven methods and templates, surface missing evidence, and develop the work without losing its connection to what the firm committed.", visual: <ExecuteScene /> },
+  { n: "05", label: "Reconcile", title: "Delivery is measured against what was committed.", body: "Milestones and effort return from project systems. Billing actuals return from ERP. Scope, approvals, and evidence return from the systems that own them. AllianceOne reconciles the whole engagement without rewriting the baseline.", visual: <ReconcileScene /> },
+  { n: "06", label: "Learn", title: "The engagement leaves the practice smarter.", body: "At close-out, outcomes meet the conditions and decisions that produced them. Methods are validated, refined, or contradicted, and the next pursuit begins with a more accurate model of how the firm delivers.", visual: <PracticeScene /> },
 ];
 
 function Loop() {
