@@ -83,32 +83,28 @@ export function Nav({ onCta }) {
     <Wrap className="nav-inner">
       <a href="/" className="brand-link" aria-label="AllianceOne home"><Logo /></a>
       <nav className="desktop-nav" aria-label="Main navigation">
-        <a href="/platform/">Platform</a>
-        <AnchorLink id="loop">How it works</AnchorLink>
-        <a href="/platform/#firms">For firms</a>
-        <a href="/security/">Security</a>
+        <a href="/">What it is</a>
+        <a href="/how-it-works/">How it works</a>
+        <button onClick={onCta}>Become a design partner</button>
       </nav>
-      <button className="nav-cta" onClick={onCta}>Become a design partner <span>↗</span></button>
       <button className="nav-menu" onClick={() => setOpen(!open)} aria-expanded={open} aria-label="Toggle menu"><span /><span /></button>
     </Wrap>
     {open && <div className="mobile-nav">
-      <a href="/platform/">Platform</a><AnchorLink id="loop" onNavigate={() => setOpen(false)}>How it works</AnchorLink><a href="/platform/#firms" onClick={() => setOpen(false)}>For firms</a><a href="/security/">Security</a>
-      <button onClick={() => { setOpen(false); onCta(); }}>Become a design partner ↗</button>
+      <a href="/" onClick={() => setOpen(false)}>What it is</a><a href="/how-it-works/" onClick={() => setOpen(false)}>How it works</a>
+      <button onClick={() => { setOpen(false); onCta(); }}>Become a design partner</button>
     </div>}
   </header>;
 }
 
-function Hero({ onCta }) {
+function Hero() {
   return <section className="home-hero">
     <Wrap>
       <div className="hero-grid hero-grid--copy">
         <div className="hero-copy">
           <h1>Plan the next engagement with the full weight of the firm behind it.</h1>
           <p>AllianceOne turns delivery history into the workstreams, staffing, effort, and deliverables for new client work. The plan moves into the firm’s operating stack. Actual delivery flows back against it.</p>
-          <div className="hero-actions"><Btn variant="green" onClick={onCta}>Become a design partner</Btn><a className="quiet-link" href="/platform/">Explore the platform <span>→</span></a></div>
         </div>
       </div>
-      <div className="hero-proof"><span>ONE ENGAGEMENT STATE</span><p>From first pursuit through final outcome, with every commitment, decision, and change intact.</p><i /></div>
     </Wrap>
   </section>;
 }
@@ -183,7 +179,7 @@ function Loop() {
     <Wrap>
       <div className="loop-intro"><Head size="display">One operating loop, from question to institutional learning.</Head></div>
       <div className="loop-steps">{loopSteps.map((step, i) => <article id={`phase-${step.label.toLowerCase()}`} className={`loop-step loop-step--${i + 1}`} key={step.n}>
-        <div className="loop-step-copy"><span className="step-number">{step.label}</span><h3>{step.title}</h3><p>{step.body}</p>{i === 0 && <a href="/platform/">See the full platform <span>→</span></a>}</div>
+        <div className="loop-step-copy"><span className="step-number">{step.label}</span><h3>{step.title}</h3><p>{step.body}</p></div>
         <div className="loop-step-visual">{step.visual}</div>
       </article>)}</div>
     </Wrap>
@@ -203,12 +199,8 @@ function StateModel() {
   </Section>;
 }
 
-function DesignPartner({ onCta }) {
-  return <section className="partner-section"><Wrap><div><h2>Bring us one real engagement. We’ll show you what the firm already knows.</h2></div><div><p>We are working with a small group of professional-services firms to shape the production rollout around their operating stack and delivery model.</p><Btn variant="dark" onClick={onCta}>Discuss a design partnership</Btn></div></Wrap></section>;
-}
-
 export function Footer({ onCta }) {
-  return <footer className="site-footer"><Wrap><div className="footer-main"><div><Logo light /><p>Engagement intelligence for professional-services firms.</p></div><div className="footer-nav"><div><span>Platform</span><a href="/platform/">How it works</a><AnchorLink id="loop">The engagement loop</AnchorLink><a href="/platform/#firms">For firms</a></div><div><span>Company</span><a href="/security/">Security &amp; governance</a><button onClick={onCta}>Design partner program</button><a href="mailto:hello@myalliance.ai">hello@myalliance.ai</a></div></div></div><div className="footer-base"><span>A product of Alliance Systems Group</span><span>© 2026 Alliance Systems Group. All rights reserved.</span></div></Wrap></footer>;
+  return <footer className="site-footer"><Wrap><div className="footer-main"><div><Logo light /><p>Engagement intelligence for professional-services firms.</p></div><div className="footer-nav"><div><span>Platform</span><a href="/">Platform</a><a href="/how-it-works/">How it works</a><a href="/#firms">For firms</a></div><div><span>Company</span><a href="/security/">Security &amp; governance</a><button onClick={onCta}>Design partner program</button><a href="mailto:hello@myalliance.ai">hello@myalliance.ai</a></div></div></div><div className="footer-base"><span>A product of Alliance Systems Group</span><span>© 2026 Alliance Systems Group. All rights reserved.</span></div></Wrap></footer>;
 }
 
 export function Modal({ open, onClose }) {
@@ -226,5 +218,5 @@ export default function App() {
   const [modal, setModal] = useState(false);
   useFonts();
   const open = () => setModal(true);
-  return <div className="site-shell"><Nav onCta={open} /><main><Hero onCta={open} /><IntentStatement /><Loop /><StateModel /><DesignPartner onCta={open} /></main><Footer onCta={open} /><Modal open={modal} onClose={() => setModal(false)} /></div>;
+  return <div className="site-shell"><Nav onCta={open} /><main><Hero /><IntentStatement /><Loop /><StateModel /></main><Footer onCta={open} /><Modal open={modal} onClose={() => setModal(false)} /></div>;
 }
