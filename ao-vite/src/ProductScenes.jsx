@@ -807,7 +807,7 @@ export function ExecuteScene() {
           <div className={`ps-execute-sources${step >= 5 ? " is-visible" : ""}`}><span className={step >= 5 ? "is-resolved" : ""}>APPROVED PLAN / V1</span><span className={step >= 6 ? "is-resolved" : ""}>DECISION RIGHTS DIAGNOSTIC / V6</span><span className={step >= 7 ? "is-resolved" : ""}>HARBOR GRAIN / 91% FIT</span></div>
           <div className={`ps-execute-turn ps-execute-agent ps-execute-result${step >= 8 ? " is-visible" : ""}`}><i>A.</i><p><b>Here is the load-bearing work</b><small>{typedResponse}{step === 8 && <i className="ps-execute-stream-cursor" />}</small><em className={`ps-execute-grounding-note${step >= 9 ? " is-visible" : ""}`}>Grounded in 7 engagement and firm sources · 3 evidence gaps flagged</em></p></div>
         </div>
-        <div className={`ps-execute-composer${step === 2 ? " is-typing" : ""}`}><span>{step === 2 ? typedPrompt : "Ask about the deliverable, research your firm record, or draft from a template…"}{step === 2 && <i />}</span><button type="button">{step === 2 ? "Typing…" : step >= 3 && step < 9 ? "Sent ✓" : "Send ↑"}</button></div>
+        <div className={`ps-execute-composer${step === 2 ? " is-typing" : ""}`}><span>{step === 2 ? typedPrompt : "Ask about the deliverable, research your firm’s record, or draft from a template…"}{step === 2 && <i />}</span><button type="button">{step === 2 ? "Typing…" : step >= 3 && step < 9 ? "Sent ✓" : "Send ↑"}</button></div>
         <button className="ps-execute-replay" type="button" onClick={() => setRun((value) => value + 1)}>Replay consultant flow</button>
       </section>
       <aside className={`ps-execute-brief${step >= 9 ? " is-grounded" : ""}`}>
