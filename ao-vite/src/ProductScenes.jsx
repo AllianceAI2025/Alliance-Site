@@ -184,7 +184,7 @@ export function ScopeScene() {
       {stage === 1 && <div className="ps-pursuit-view ps-scope-shot">
         <div className="ps-pursuit-overview">
           <section><span>SITUATION</span><h5>Northstar is preparing to redesign its operating model across eight regions.</h5><p>Initial discussions point to inconsistent decision rights, duplicated shared-services work, and a fixed board decision before peak-season planning. Leadership wants a model that reduces operating friction without forcing a disruptive, one-size-fits-all structure.</p></section>
-          <aside><span>INITIAL NARRATIVE / IN EVIDENCE</span><b>Service continuity—not organization design—is the binding constraint.</b><p>Regional autonomy is materially different across the network. Two earlier transformation efforts lost momentum during local adoption.</p><small>Confidence 78% · 6 supporting signals</small></aside>
+          <aside><span>INITIAL NARRATIVE / IN EVIDENCE</span><b>Service continuity, not organization design, is the binding constraint.</b><p>Regional autonomy is materially different across the network. Two earlier transformation efforts lost momentum during local adoption.</p><small>Confidence 78% · 6 supporting signals</small></aside>
         </div>
         <div className="ps-pursuit-questions">
           <section><span>WHAT THE ENGAGEMENT MUST ANSWER</span><div><b>01</b><p>Which decisions and activities should centralize, federate, or remain local?</p></div><div><b>02</b><p>What transition sequence protects service continuity through peak season?</p></div></section>
@@ -252,7 +252,7 @@ function WorkingArtifactScene({ mode, chatPhase, typedQuestion, progress, replay
       <button className="ps-replay-chat" onClick={replay}>Replay generation</button>
     </section>
     <aside className="ps-generating-artifact" aria-hidden={!paneOpen}>
-      <div className="ps-generation-toolbar"><div><span>ARTIFACT</span><b>{proposal ? "Proposal — Northstar operating-model redesign" : "Internal Scope — Northstar operating-model redesign"}</b></div><em>{progress < 100 ? `Generating ${progress}%` : proposal ? "Draft ready" : "Ready for partner review"}</em></div>
+      <div className="ps-generation-toolbar"><div><span>ARTIFACT</span><b>{proposal ? "Proposal: Northstar operating-model redesign" : "Internal Scope: Northstar operating-model redesign"}</b></div><em>{progress < 100 ? `Generating ${progress}%` : proposal ? "Draft ready" : "Ready for partner review"}</em></div>
       <div className="ps-generation-progress"><i style={{ width: `${progress}%` }} /></div>
       <div className="ps-generation-lineage"><span>GROUNDED IN</span><b>{proposal ? "Approved scope v3 · partner review · 2 client updates · Pursuit Brief" : "Pursuit Brief · 6 working conversations · 7 comparable engagements"}</b></div>
       {proposal ? <div className="ps-live-document ps-live-proposal">
@@ -676,7 +676,7 @@ export function MaterializeScene() {
         return <div className={`ps-writeback-row${created ? " is-created" : ""}${writing ? " is-writing" : ""}`} key={object}>
           <div className="ps-writeback-object"><strong>{object}</strong></div>
           <span className="ps-writeback-fields"><b>{fields}</b><small>{details}</small></span>
-          <div className="ps-writeback-record"><b>{created ? record : "—"}</b><small>{created ? count : "Not created"}</small></div>
+          <div className="ps-writeback-record"><b>{created ? record : "Not assigned"}</b><small>{created ? count : "Not created"}</small></div>
           <em className={created ? "ps-writeback-done" : writing ? "ps-writeback-active" : "ps-writeback-waiting"}>{created ? "Created ✓" : writing ? "Writing…" : "Queued"}</em>
         </div>;
       })}
@@ -691,7 +691,7 @@ export function MaterializeScene() {
 }
 
 const executePrompt = "Give me the context I need to build the decision-rights baseline. Pull the relevant firm methods, comparable work, and the evidence gaps I still need to close.";
-const executeResponse = "The load-bearing question is which decisions Northstar should centralize, federate, or leave local—and what evidence each region will accept. Classify the 26 priority decisions, test the proposed owners across all eight regions, and flag service-continuity conflicts explicitly. Start with the firm’s Decision Rights Diagnostic, then adapt the Harbor Grain validation matrix. I found three evidence gaps to close before partner review.";
+const executeResponse = "The load-bearing question is which decisions Northstar should centralize, federate, or leave local, and what evidence each region will accept. Classify the 26 priority decisions, test the proposed owners across all eight regions, and flag service-continuity conflicts explicitly. Start with the firm’s Decision Rights Diagnostic, then adapt the Harbor Grain validation matrix. I found three evidence gaps to close before partner review.";
 
 const executeAssignments = [
   ["DL-4401", "Decision-rights baseline", "In progress", "W4"],
@@ -800,7 +800,7 @@ export function ExecuteScene() {
           <div className="ps-execute-system"><i>PM</i><p><b>Avery Ross assignment AS-905 admitted from Dynamics 365</b><small>WS01 · 100% W1–4 · 420h workstream budget · Sofia Patel reviewer · three assigned deliverables.</small></p></div>
           <div className={`ps-execute-turn ps-execute-agent${step >= 1 ? " is-visible" : ""}`}><i>A.</i><p><b>AllianceOne</b><small>Avery, you own DL-4401, DL-4402, and DL-4405 within Workstream 01. Begin with the decision-rights baseline: it must distinguish enterprise, regional, and local authority before Sofia’s future-state design can begin.</small></p></div>
           <div className={`ps-execute-turn ps-execute-user ps-execute-history${step >= 1 ? " is-visible" : ""}`}><p><b>Avery Ross</b><small>Before I start, where have similar operating-model engagements run into trouble during regional decision-rights work?</small></p><i>AR</i></div>
-          <div className={`ps-execute-turn ps-execute-agent ps-execute-result ps-execute-history${step >= 1 ? " is-visible" : ""}`}><i>A.</i><p><b>Comparable engagement research</b><small>Across Harbor Grain and Meridian Consumer, the recurring failure was validating the model only with corporate leaders. Regional teams later challenged ownership assumptions, delaying design approval by two to three weeks. For Northstar, interview all eight regions before classifying the 26 priority decisions and record dissent as evidence—not as an exception.</small><em className="is-visible">Grounded in 2 completed engagements · 11 source documents</em></p></div>
+          <div className={`ps-execute-turn ps-execute-agent ps-execute-result ps-execute-history${step >= 1 ? " is-visible" : ""}`}><i>A.</i><p><b>Comparable engagement research</b><small>Across Harbor Grain and Meridian Consumer, the recurring failure was validating the model only with corporate leaders. Regional teams later challenged ownership assumptions, delaying design approval by two to three weeks. For Northstar, interview all eight regions before classifying the 26 priority decisions and record dissent as evidence, not as an exception.</small><em className="is-visible">Grounded in 2 completed engagements · 11 source documents</em></p></div>
           <div className={`ps-execute-turn ps-execute-user${step >= 3 ? " is-visible" : ""}`}><p><b>You</b><small>{executePrompt}</small></p><i>AR</i></div>
           <div className={`ps-execute-thinking${step === 4 || step === 5 ? " is-visible" : ""}`}><i /><i /><i /><span>Reading engagement evidence and firm methods…</span></div>
           <div className={`ps-execute-source-run${step >= 5 && step < 8 ? " is-visible" : ""}`}><i /><span>Grounding response · {sourceCount}/3 priority sources resolved</span></div>

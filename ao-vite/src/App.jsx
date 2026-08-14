@@ -85,14 +85,14 @@ export function Nav({ onCta }) {
       <nav className="desktop-nav" aria-label="Main navigation">
         <a href="/platform/">Platform</a>
         <AnchorLink id="loop">How it works</AnchorLink>
-        <AnchorLink id="firms">For firms</AnchorLink>
+        <a href="/platform/#firms">For firms</a>
         <a href="/security/">Security</a>
       </nav>
       <button className="nav-cta" onClick={onCta}>Become a design partner <span>↗</span></button>
       <button className="nav-menu" onClick={() => setOpen(!open)} aria-expanded={open} aria-label="Toggle menu"><span /><span /></button>
     </Wrap>
     {open && <div className="mobile-nav">
-      <a href="/platform/">Platform</a><AnchorLink id="loop" onNavigate={() => setOpen(false)}>How it works</AnchorLink><AnchorLink id="firms" onNavigate={() => setOpen(false)}>For firms</AnchorLink><a href="/security/">Security</a>
+      <a href="/platform/">Platform</a><AnchorLink id="loop" onNavigate={() => setOpen(false)}>How it works</AnchorLink><a href="/platform/#firms" onClick={() => setOpen(false)}>For firms</a><a href="/security/">Security</a>
       <button onClick={() => { setOpen(false); onCta(); }}>Become a design partner ↗</button>
     </div>}
   </header>;
@@ -103,7 +103,6 @@ function Hero({ onCta }) {
     <Wrap>
       <div className="hero-grid hero-grid--copy">
         <div className="hero-copy">
-          <Eyebrow color={C.goldSoft}>Engagement intelligence for professional services</Eyebrow>
           <h1>Plan the next engagement with the full weight of the firm behind it.</h1>
           <p>AllianceOne turns delivery history into the workstreams, staffing, effort, and deliverables for new client work. The plan moves into the firm’s operating stack. Actual delivery flows back against it.</p>
           <div className="hero-actions"><Btn variant="green" onClick={onCta}>Become a design partner</Btn><a className="quiet-link" href="/platform/">Explore the platform <span>→</span></a></div>
@@ -117,8 +116,7 @@ function Hero({ onCta }) {
 function IntentStatement() {
   return <Section className="intent-statement">
     <Wrap>
-      <div className="intent-kicker"><span>THE OPERATING GAP</span><i /></div>
-      <div className="intent-copy"><h2>The stack records activity.<br />AllianceOne carries intent.</h2><p>CRM knows the opportunity. Project management knows the task status. Billing knows the actuals. Documents and conversations hold the reasoning. AllianceOne maintains the plan that connects them—and the story of how that plan changed.</p></div>
+      <div className="intent-copy"><h2>The stack records activity.<br />AllianceOne carries intent.</h2><p>CRM knows the opportunity. Project management knows the task status. Billing knows the actuals. Documents and conversations hold the reasoning. AllianceOne maintains the plan that connects them and the story of how that plan changed.</p></div>
     </Wrap>
   </Section>;
 }
@@ -183,9 +181,9 @@ const loopSteps = [
 function Loop() {
   return <Section id="loop" className="loop-section">
     <Wrap>
-      <div className="loop-intro"><Eyebrow>How AllianceOne works</Eyebrow><Head size="display">One operating loop, from question to institutional learning.</Head></div>
+      <div className="loop-intro"><Head size="display">One operating loop, from question to institutional learning.</Head></div>
       <div className="loop-steps">{loopSteps.map((step, i) => <article id={`phase-${step.label.toLowerCase()}`} className={`loop-step loop-step--${i + 1}`} key={step.n}>
-        <div className="loop-step-copy"><span className="step-number">{step.n} / {step.label}</span><h3>{step.title}</h3><p>{step.body}</p>{i === 0 && <a href="/platform/">See the full platform <span>→</span></a>}</div>
+        <div className="loop-step-copy"><span className="step-number">{step.label}</span><h3>{step.title}</h3><p>{step.body}</p>{i === 0 && <a href="/platform/">See the full platform <span>→</span></a>}</div>
         <div className="loop-step-visual">{step.visual}</div>
       </article>)}</div>
     </Wrap>
@@ -199,28 +197,18 @@ function StateModel() {
   ];
   return <Section className="state-section">
     <Wrap>
-      <div className="state-heading"><Eyebrow color={C.goldSoft}>State, defined</Eyebrow><Head light>A conversation history is not engagement state.</Head><p>AllianceOne maintains six connected forms of state across the lifecycle. Each one has an owner, a source, and a place in the engagement story.</p></div>
-      <div className="state-table">{states.map(([name, desc], i) => <div key={name}><span>0{i + 1}</span><strong>{name}</strong><p>{desc}</p><i /></div>)}</div>
-    </Wrap>
-  </Section>;
-}
-
-function Firms() {
-  const firms = [["Management consulting", "Complex work where engagement shape, decision quality, and delivery approach are the product."], ["Advisory", "High-stakes, precedent-driven engagements shaped by risk, context, and previous outcomes."], ["Accounting & tax", "Recurring work where positions, client history, and delivery economics determine quality and margin."]];
-  return <Section id="firms" className="firms-section">
-    <Wrap>
-      <div className="firms-head"><div><Eyebrow>Built for firms whose product is judgment</Eyebrow><Head>Professional services, planned as a discipline.</Head></div><p>AllianceOne is designed for operating partners, engagement leaders, and teams who need the firm’s best judgment available before work begins—not during the postmortem.</p></div>
-      <div className="firms-list">{firms.map(([name, body], i) => <div key={name}><span>0{i + 1}</span><h3>{name}</h3><p>{body}</p><i>→</i></div>)}</div>
+      <div className="state-heading"><Head light>A conversation history is not engagement state.</Head><p>AllianceOne maintains six connected forms of state across the lifecycle. Each one has an owner, a source, and a place in the engagement story.</p></div>
+      <div className="state-table">{states.map(([name, desc]) => <div key={name}><strong>{name}</strong><p>{desc}</p><i /></div>)}</div>
     </Wrap>
   </Section>;
 }
 
 function DesignPartner({ onCta }) {
-  return <section className="partner-section"><Wrap><div><Eyebrow>Initial design partner program</Eyebrow><h2>Bring us one real engagement. We’ll show you what the firm already knows.</h2></div><div><p>We are working with a small group of professional-services firms to shape the production rollout around their operating stack and delivery model.</p><Btn variant="dark" onClick={onCta}>Discuss a design partnership</Btn></div></Wrap></section>;
+  return <section className="partner-section"><Wrap><div><h2>Bring us one real engagement. We’ll show you what the firm already knows.</h2></div><div><p>We are working with a small group of professional-services firms to shape the production rollout around their operating stack and delivery model.</p><Btn variant="dark" onClick={onCta}>Discuss a design partnership</Btn></div></Wrap></section>;
 }
 
 export function Footer({ onCta }) {
-  return <footer className="site-footer"><Wrap><div className="footer-main"><div><Logo light /><p>Engagement intelligence for professional-services firms.</p></div><div className="footer-nav"><div><span>Platform</span><a href="/platform/">How it works</a><AnchorLink id="loop">The engagement loop</AnchorLink><AnchorLink id="firms">For firms</AnchorLink></div><div><span>Company</span><a href="/security/">Security &amp; governance</a><button onClick={onCta}>Design partner program</button><a href="mailto:hello@myalliance.ai">hello@myalliance.ai</a></div></div></div><div className="footer-base"><span>A product of Alliance Systems Group</span><span>© 2026 Alliance Systems Group. All rights reserved.</span></div></Wrap></footer>;
+  return <footer className="site-footer"><Wrap><div className="footer-main"><div><Logo light /><p>Engagement intelligence for professional-services firms.</p></div><div className="footer-nav"><div><span>Platform</span><a href="/platform/">How it works</a><AnchorLink id="loop">The engagement loop</AnchorLink><a href="/platform/#firms">For firms</a></div><div><span>Company</span><a href="/security/">Security &amp; governance</a><button onClick={onCta}>Design partner program</button><a href="mailto:hello@myalliance.ai">hello@myalliance.ai</a></div></div></div><div className="footer-base"><span>A product of Alliance Systems Group</span><span>© 2026 Alliance Systems Group. All rights reserved.</span></div></Wrap></footer>;
 }
 
 export function Modal({ open, onClose }) {
@@ -231,12 +219,12 @@ export function Modal({ open, onClose }) {
   const update = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
   const fallback = () => { const subject = encodeURIComponent("AllianceOne design partner conversation"); const body = encodeURIComponent(`Name: ${form.name}\nFirm: ${form.firm}\nRole: ${form.role}\nWork email: ${form.email}`); window.location.href = `mailto:hello@myalliance.ai?subject=${subject}&body=${body}`; };
   const submit = async (e) => { e.preventDefault(); if (!DEMO_FORM_ENDPOINT) return fallback(); setStatus("sending"); try { const r = await fetch(DEMO_FORM_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(form) }); setStatus(r.ok ? "sent" : "error"); } catch { setStatus("error"); } };
-  return <div className="modal-backdrop" onMouseDown={onClose}><div className="modal" onMouseDown={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby="partner-title"><button className="modal-close" onClick={onClose} aria-label="Close">×</button><Eyebrow>Design partner program</Eyebrow>{status === "sent" ? <><h2 id="partner-title">Thank you.</h2><p>We’ll contact you at {form.email}.</p></> : <><h2 id="partner-title">Start with the way your firm actually delivers.</h2><p>Tell us where to reach you. We’ll set up a working session around your engagements and operating stack.</p><form onSubmit={submit}><label>Name<input autoFocus required value={form.name} onChange={update("name")} /></label><label>Firm<input required value={form.firm} onChange={update("firm")} /></label><label>Role<input value={form.role} onChange={update("role")} /></label><label>Work email<input type="email" required value={form.email} onChange={update("email")} /></label><button type="submit" disabled={status === "sending"}>{status === "sending" ? "Sending…" : "Request a working session ↗"}</button></form>{status === "error" && <p className="form-error">That did not go through. <button onClick={fallback}>Email us directly.</button></p>}</>}</div></div>;
+  return <div className="modal-backdrop" onMouseDown={onClose}><div className="modal" onMouseDown={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby="partner-title"><button className="modal-close" onClick={onClose} aria-label="Close">×</button>{status === "sent" ? <><h2 id="partner-title">Thank you.</h2><p>We’ll contact you at {form.email}.</p></> : <><h2 id="partner-title">Start with the way your firm actually delivers.</h2><p>Tell us where to reach you. We’ll set up a working session around your engagements and operating stack.</p><form onSubmit={submit}><label>Name<input autoFocus required value={form.name} onChange={update("name")} /></label><label>Firm<input required value={form.firm} onChange={update("firm")} /></label><label>Role<input value={form.role} onChange={update("role")} /></label><label>Work email<input type="email" required value={form.email} onChange={update("email")} /></label><button type="submit" disabled={status === "sending"}>{status === "sending" ? "Sending…" : "Request a working session ↗"}</button></form>{status === "error" && <p className="form-error">That did not go through. <button onClick={fallback}>Email us directly.</button></p>}</>}</div></div>;
 }
 
 export default function App() {
   const [modal, setModal] = useState(false);
   useFonts();
   const open = () => setModal(true);
-  return <div className="site-shell"><Nav onCta={open} /><main><Hero onCta={open} /><IntentStatement /><Loop /><StateModel /><Firms /><DesignPartner onCta={open} /></main><Footer onCta={open} /><Modal open={modal} onClose={() => setModal(false)} /></div>;
+  return <div className="site-shell"><Nav onCta={open} /><main><Hero onCta={open} /><IntentStatement /><Loop /><StateModel /><DesignPartner onCta={open} /></main><Footer onCta={open} /><Modal open={modal} onClose={() => setModal(false)} /></div>;
 }

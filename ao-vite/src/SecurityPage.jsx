@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { C, useFonts, Eyebrow, Head, Btn, Wrap, Section, Nav, Footer, Modal } from "./App.jsx";
+import { useFonts, Head, Btn, Wrap, Section, Nav, Footer, Modal } from "./App.jsx";
 
 const pillars = [
   ["Firm isolation", "Each firm is routed to its own graph and every operational record is scoped by firm identity. A firm’s model does not inform another firm’s system."],
@@ -21,9 +21,9 @@ const answers = [
 export default function SecurityPage() {
   const [modal, setModal] = useState(false); useFonts(); const open = () => setModal(true);
   return <div className="site-shell"><Nav onCta={open} /><main>
-    <section className="security-hero"><Wrap><div className="security-hero-grid"><div><Eyebrow>Security, ownership &amp; epistemic governance</Eyebrow><h1>Your firm’s knowledge stays attributable, governed, and yours.</h1></div><p>AllianceOne operates across client work, commercial systems, and internal judgment. The architecture treats provenance, permission, and known uncertainty as part of the product—not administrative metadata.</p></div></Wrap></section>
-    <Section className="security-pillars"><Wrap><div className="security-pillars-head"><Eyebrow>Architecture principles</Eyebrow><Head size="display">Trust is established claim by claim.</Head></div><div className="security-pillar-list">{pillars.map(([title, body], i) => <article className="security-pillar" key={title}><span>0{i + 1}</span><h3>{title}</h3><p>{body}</p></article>)}</div></Wrap></Section>
-    <Section className="straight-section"><Wrap><div className="straight-grid"><div><Eyebrow color={C.goldSoft}>Straight answers</Eyebrow><Head light size="quiet">Questions your risk leader should ask.</Head></div><div className="straight-list">{answers.map(([q, a]) => <article className="straight-item" key={q}><h3>{q}</h3><p>{a}</p></article>)}</div></div></Wrap></Section>
-    <Section className="security-close"><Wrap><Eyebrow>Design partner diligence</Eyebrow><Head>Bring the hard questions before you bring the data.</Head><p>We will walk through tenancy, coverage, access requirements, model use, and the source systems involved in your engagement lifecycle.</p><Btn variant="dark" onClick={open}>Start a security conversation</Btn></Wrap></Section>
+    <section className="security-hero"><Wrap><div className="security-hero-grid"><div><h1>Your firm’s knowledge stays attributable, governed, and yours.</h1></div><p>AllianceOne operates across client work, commercial systems, and internal judgment. The architecture treats provenance, permission, and known uncertainty as part of the product, not administrative metadata.</p></div></Wrap></section>
+    <Section className="security-pillars"><Wrap><div className="security-pillars-head"><Head size="display">Trust is established claim by claim.</Head></div><div className="security-pillar-list">{pillars.map(([title, body]) => <article className="security-pillar" key={title}><h3>{title}</h3><p>{body}</p></article>)}</div></Wrap></Section>
+    <Section className="straight-section"><Wrap><div className="straight-grid"><div><Head light size="quiet">Questions your risk leader should ask.</Head></div><div className="straight-list">{answers.map(([q, a]) => <article className="straight-item" key={q}><h3>{q}</h3><p>{a}</p></article>)}</div></div></Wrap></Section>
+    <Section className="security-close"><Wrap><Head>Bring the hard questions before you bring the data.</Head><p>We will walk through tenancy, coverage, access requirements, model use, and the source systems involved in your engagement lifecycle.</p><Btn variant="dark" onClick={open}>Start a security conversation</Btn></Wrap></Section>
   </main><Footer onCta={open} /><Modal open={modal} onClose={() => setModal(false)} /></div>;
 }
