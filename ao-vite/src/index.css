@@ -291,7 +291,7 @@
 .ps-staffing-summary small{margin-top:3px;color:#65736b;font-size:.38rem}
 .ps-staffing-main{display:grid;grid-template-columns:.82fr 1.18fr;gap:9px;margin-top:9px}
 .ps-staffing-roster,.ps-staffing-profile{min-width:0;border:1px solid #cfd6cc;background:#fff}
-.ps-staffing-list button{display:grid;width:100%;grid-template-columns:28px 1fr auto;gap:8px;align-items:center;padding:8px 9px;border:0;border-bottom:1px solid #dde2da;background:#fff;color:#07100e;text-align:left;cursor:pointer}
+.ps-staffing-list button{display:grid;width:100%;grid-template-columns:minmax(0,1fr) auto;gap:7px;align-items:center;padding:8px 9px;border:0;border-bottom:1px solid #dde2da;background:#fff;color:#07100e;text-align:left;cursor:pointer}
 .ps-staffing-list button:hover,.ps-staffing-list button.is-selected{background:#edf4e7}
 .ps-staffing-list button.is-selected{box-shadow:inset 3px 0 #86c43d}
 .ps-staffing-list button>i,.ps-staffing-profile-head>i{display:grid;place-items:center;width:25px;height:25px;border-radius:50%;background:#dfe9d3;color:#315215;font-family:'IBM Plex Mono';font-size:.36rem;font-style:normal}
@@ -301,7 +301,7 @@
 .ps-staffing-list button>em{color:#31452d;font-family:'IBM Plex Mono';font-size:.38rem;font-style:normal;text-align:right}
 .ps-staffing-list button>em small{margin-top:2px;color:#53782e;font-size:.33rem}
 .ps-staffing-profile{padding:13px}
-.ps-staffing-profile-head{display:grid;grid-template-columns:36px 1fr auto;gap:10px;align-items:center;padding-bottom:12px;border-bottom:1px solid #d8ded5}
+.ps-staffing-profile-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding-bottom:12px;border-bottom:1px solid #d8ded5}
 .ps-staffing-profile-head>i{width:33px;height:33px;background:#07100e;color:#b8e67f;font-size:.42rem}
 .ps-staffing-profile-head h5{margin:4px 0 0;font-family:'Inter Tight';font-size:1rem;font-weight:600}
 .ps-staffing-profile-head p{margin:3px 0 0;color:#56645c;font-size:.4rem}
@@ -509,3 +509,594 @@
 .ps-history-research>aside b{display:block;margin-top:4px;color:#26352d;font-size:8px!important;line-height:1.45}
 
 @media(max-width:760px){.ps-history-research>div:not(.ps-history-research-head){grid-template-columns:1fr}.ps-history-research>div:not(.ps-history-research-head)>span{border-right:0;border-bottom:1px solid #dbe0da}}
+
+/* Lean product language: structure comes from rules and spacing, not rounded card shells. */
+.ps-frame{border-radius:3px;box-shadow:0 18px 46px rgba(8,22,16,.09)}
+.ps-frame *{border-radius:1px!important}
+.ps-frame :where(
+  .ps-panel,
+  .ps-brief-panel,
+  .ps-signal-panel,
+  .ps-timeline-panel,
+  .ps-plan-aside,
+  .ps-analog-detail,
+  .ps-learning-panel,
+  .ps-planning-chat,
+  .ps-plan-draft,
+  .ps-approved-plan,
+  .ps-materialize-chat,
+  .ps-materialize-map,
+  .ps-execute-assignments,
+  .ps-execute-chat,
+  .ps-execute-brief,
+  .ps-reconcile-data,
+  .ps-reconcile-chat,
+  .ps-learning-chat,
+  .ps-new-precedent,
+  .ps-live-document,
+  .ps-artifact-pane,
+  .ps-staffing-list,
+  .ps-staffing-profile
+){box-shadow:none!important}
+
+/* Circles are reserved for people and live system state. */
+.ps-frame :where(
+  .ps-workspace-person>i,
+  .ps-staffing-list button>i,
+  .ps-staffing-profile-head>i,
+  .ps-approved-workstream>i,
+  .ps-approved-team>i,
+  .ps-execute-person>i,
+  .ps-execute-user>i,
+  .ps-live-user>i,
+  .ps-plan-thinking>i,
+  .ps-execute-thinking>i,
+  .ps-live-thinking>i,
+  .ps-plan-sync>i,
+  .ps-execute-source-run>i
+){border-radius:50%!important}
+
+/* Cursor-like workspace canvas: panes and rules replace stacked cards. */
+.ps-frame :where(
+  .ps-intake-view,
+  .ps-pursuit-view,
+  .ps-chat-view,
+  .ps-pursuit-overview,
+  .ps-pursuit-questions,
+  .ps-pursuit-columns,
+  .ps-pursuit-lower,
+  .ps-pursuit-evidence,
+  .ps-plan-won-event,
+  .ps-plan-locked,
+  .ps-staffing-summary,
+  .ps-staffing-roster,
+  .ps-staffing-profile,
+  .ps-planning-chat,
+  .ps-plan-draft,
+  .ps-plan-ready,
+  .ps-approved-plan,
+  .ps-materialize-baseline,
+  .ps-materialize-command,
+  .ps-writeback-map,
+  .ps-materialize-receipt,
+  .ps-materialize-foot,
+  .ps-execute-summary,
+  .ps-execute-assignments,
+  .ps-execute-chat,
+  .ps-execute-brief,
+  .ps-reconcile-data,
+  .ps-reconcile-chat,
+  .ps-learning-chat,
+  .ps-new-precedent,
+  .ps-learning-closeout
+){border:0!important;background-color:transparent!important;box-shadow:none!important}
+
+.ps-pursuit-view{padding:2px 0 0}
+.ps-pursuit-overview,
+.ps-pursuit-questions,
+.ps-pursuit-columns,
+.ps-pursuit-lower,
+.ps-pursuit-evidence{margin-top:0;border-top:1px solid #d5dcd4!important}
+.ps-pursuit-overview>aside,
+.ps-pursuit-questions>aside,
+.ps-pursuit-lower-head{background:transparent!important}
+.ps-pursuit-evidence{grid-template-columns:1fr 1fr}
+
+.ps-planning-workspace,
+.ps-staffing-main,
+.ps-execute-workspace,
+.ps-reconcile-live-grid,
+.ps-practice-live-grid{gap:0}
+.ps-planning-workspace>section+section,
+.ps-staffing-main>section+section,
+.ps-execute-workspace>*+*,
+.ps-reconcile-live-grid>*+*,
+.ps-practice-live-grid>*+*{border-left:1px solid #d2d9d1!important}
+
+.ps-plan-won-event,
+.ps-plan-locked,
+.ps-staffing-summary,
+.ps-execute-summary,
+.ps-learning-closeout,
+.ps-materialize-baseline,
+.ps-materialize-foot{border-top:1px solid #d4dbd3!important;border-bottom:1px solid #d4dbd3!important}
+.ps-plan-ready,
+.ps-materialize-receipt{border-top:1px solid #a9c995!important}
+
+@media(max-width:760px){
+  .ps-pursuit-evidence{grid-template-columns:1fr}
+  .ps-planning-workspace>section+section,
+  .ps-staffing-main>section+section,
+  .ps-execute-workspace>*+*,
+  .ps-reconcile-live-grid>*+*,
+  .ps-practice-live-grid>*+*{border-left:0!important;border-top:1px solid #d2d9d1!important}
+}
+
+/* Lean workspace navigation: typography and rules carry the hierarchy. */
+.ps-workspace-person{
+  grid-template-columns:minmax(0,1fr) 20px;
+  gap:6px;
+  padding:12px 13px;
+  background:transparent;
+}
+.ps-nav-project>button{
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:6px;
+  padding:7px 6px;
+  border-radius:0;
+}
+.ps-nav-project>button.is-project-active{
+  background:transparent;
+  color:#0b1611;
+}
+.ps-nav-project>button.is-project-active span{
+  border-left:1px solid #79a95a;
+  padding-left:8px;
+}
+.ps-phase-tree{
+  margin:4px 0 9px 9px;
+  padding:2px 0 2px 8px;
+  border-left:1px solid #cbd3ca;
+}
+.ps-phase-tree:before{display:none}
+.ps-phase-node>a{
+  display:block;
+  min-height:0;
+  padding:5px 7px;
+  border-radius:0;
+  color:#66736c;
+}
+.ps-phase-node>a:hover{
+  background:transparent;
+  color:#17241d;
+}
+.ps-phase-node.is-active>a{
+  background:transparent;
+  color:#15301f;
+}
+.ps-phase-node.is-active>a:before{
+  position:absolute;
+  left:-9px;
+  width:1px;
+  height:22px;
+  background:#6ea447;
+  content:"";
+}
+.ps-phase-node>a b{font-weight:500}
+.ps-phase-node.is-active>a b{font-weight:650}
+.ps-phase-node>.ps-nav-children{
+  margin:0 0 4px 7px;
+  padding-left:8px;
+}
+.ps-nav-children>button{
+  border-radius:0;
+  padding:5px 7px;
+}
+.ps-nav-children>button.is-active{
+  background:transparent;
+  color:#15301f;
+}
+.ps-nav-children>button.is-active:before{
+  left:-9px;
+  width:1px;
+  border-radius:0;
+}
+
+/* Team v1 to Team v2 decision record. */
+.ps-staffing-decision-chat{
+  position:relative;
+  margin-top:9px;
+  border-top:1px solid #ccd5cc;
+  border-bottom:1px solid #ccd5cc;
+  background:transparent;
+}
+.ps-staffing-chat-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:16px;
+  padding:9px 10px;
+  border-bottom:1px solid #d9dfd8;
+}
+.ps-staffing-chat-head span,.ps-staffing-chat-event span{
+  display:block;
+  color:#59675f;
+  font-size:7px;
+  font-weight:650;
+  letter-spacing:.08em;
+}
+.ps-staffing-chat-head b{
+  display:block;
+  margin-top:3px;
+  font-size:10px;
+}
+.ps-staffing-chat-head em{
+  color:#4e713a;
+  font-size:8px;
+  font-style:normal;
+  white-space:nowrap;
+}
+.ps-staffing-chat-thread{
+  position:relative;
+  display:grid;
+  grid-template-columns:.78fr 1.2fr 1.05fr 1.2fr;
+  min-height:94px;
+}
+.ps-staffing-chat-thread>div{
+  min-width:0;
+  padding:9px 10px;
+  border-right:1px solid #d9dfd8;
+}
+.ps-staffing-chat-thread>div:last-child{border-right:0}
+.ps-staffing-chat-event b{
+  display:block;
+  margin-top:5px;
+  color:#46534c;
+  font-size:8px;
+  line-height:1.38;
+}
+.ps-staffing-chat-turn{
+  opacity:0;
+  transform:translateY(4px);
+  transition:opacity .3s ease,transform .3s ease;
+}
+.ps-staffing-chat-turn.is-visible{
+  opacity:1;
+  transform:none;
+}
+.ps-staffing-chat-turn>b{
+  color:#19261f;
+  font-size:8px;
+}
+.ps-staffing-chat-turn>p{
+  margin:4px 0 0;
+  color:#46534c;
+  font-size:8px;
+  line-height:1.38;
+}
+.ps-staffing-chat-turn.is-user{
+  border-top:2px solid #8bb967;
+  background:#f2f6ee;
+}
+.ps-staffing-chat-turn.is-result{
+  border-left:2px solid #7fb252;
+}
+.ps-staffing-chat-turn>em{
+  display:block;
+  margin-top:6px;
+  color:#4b7134;
+  font-size:7px;
+  font-style:normal;
+}
+.ps-staffing-chat-thinking{
+  position:absolute;
+  top:38px;
+  right:12%;
+  display:none;
+  align-items:center;
+  gap:4px;
+}
+.ps-staffing-chat-thinking.is-visible{display:flex}
+.ps-staffing-chat-thinking>i{
+  width:4px;
+  height:4px;
+  border-radius:50%!important;
+  background:#729e4b;
+  animation:ps-plan-pulse .9s infinite alternate;
+}
+.ps-staffing-chat-thinking>i:nth-child(2){animation-delay:.18s}
+.ps-staffing-chat-thinking>i:nth-child(3){animation-delay:.36s}
+.ps-staffing-chat-thinking>span{
+  color:#66736c;
+  font-size:7px;
+}
+.ps-staffing-chat-composer{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin:0 10px 7px;
+  padding:7px 0 6px;
+  border-top:1px solid #d9dfd8;
+  color:#7b867f;
+  font-size:8px;
+}
+.ps-staffing-chat-composer.is-typing{color:#26332c}
+.ps-staffing-chat-composer>span>i{
+  display:inline-block;
+  width:1px;
+  height:.8em;
+  margin-left:2px;
+  background:#52752e;
+  animation:ps-plan-cursor .7s steps(1) infinite;
+}
+.ps-staffing-chat-composer button{
+  padding:0;
+  border:0;
+  background:transparent;
+  color:#4d7139;
+  font-size:8px;
+}
+.ps-staffing-chat-replay{
+  position:absolute;
+  right:10px;
+  bottom:-18px;
+  padding:0;
+  border:0;
+  background:transparent;
+  color:#66736c;
+  font-size:7px;
+  text-decoration:underline;
+  text-underline-offset:2px;
+  cursor:pointer;
+}
+.ps-staffing-decision-chat+.ps-staffing-main{margin-top:24px}
+
+@media(max-width:900px){
+  .ps-staffing-chat-thread{grid-template-columns:1fr 1fr}
+  .ps-staffing-chat-thread>div:nth-child(2){border-right:0}
+  .ps-staffing-chat-thread>div:nth-child(n+3){border-top:1px solid #d9dfd8}
+}
+@media(max-width:760px){
+  .ps-staffing-chat-thread{grid-template-columns:1fr}
+  .ps-staffing-chat-thread>div{border-right:0;border-top:1px solid #d9dfd8}
+  .ps-staffing-chat-thread>div:first-child{border-top:0}
+}
+
+/* Staffing layout: recommendation above, vertical decision chat beside Team v2. */
+.ps-staffing-profile--wide{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  grid-template-areas:
+    "profile profile profile"
+    "fit fit assignment"
+    "capacity evidence evidence";
+  margin-top:9px;
+  padding:0;
+  border-top:1px solid #ccd5cc!important;
+  border-bottom:1px solid #ccd5cc!important;
+}
+.ps-staffing-profile--wide .ps-staffing-profile-head{
+  grid-area:profile;
+  padding:11px;
+  border-right:0;
+  border-bottom:1px solid #d9dfd8;
+}
+.ps-staffing-profile--wide .ps-staffing-fit{
+  grid-area:fit;
+  border-right:1px solid #d9dfd8;
+  border-bottom:1px solid #d9dfd8;
+}
+.ps-staffing-profile--wide .ps-staffing-assignment{
+  grid-area:assignment;
+  padding:11px;
+  border-bottom:1px solid #d9dfd8;
+}
+.ps-staffing-profile--wide .ps-staffing-capacity{
+  grid-area:capacity;
+  padding:9px 11px;
+  border-top:1px solid #d9dfd8;
+  border-right:1px solid #d9dfd8;
+  border-bottom:0;
+}
+.ps-staffing-profile--wide .ps-staffing-evidence{
+  grid-area:evidence;
+  padding:9px 11px;
+  border-top:1px solid #d9dfd8;
+}
+.ps-staffing-main--decision{
+  grid-template-columns:.92fr 1.08fr;
+  gap:0;
+  align-items:stretch;
+  margin-top:9px;
+}
+.ps-staffing-main--decision .ps-staffing-decision-chat{
+  display:flex;
+  min-height:360px;
+  flex-direction:column;
+  margin-top:0;
+  border-top:0;
+  border-bottom:0;
+}
+.ps-staffing-main--decision .ps-staffing-decision-chat .ps-plan-thread{
+  height:250px;
+  min-height:250px;
+  padding:8px 10px;
+  overflow-y:scroll;
+  scrollbar-gutter:stable;
+  scrollbar-color:#aab5a8 transparent;
+  scrollbar-width:thin;
+}
+.ps-staffing-main--decision .ps-staffing-decision-chat .ps-plan-system,
+.ps-staffing-main--decision .ps-staffing-decision-chat .ps-plan-agent,
+.ps-staffing-main--decision .ps-staffing-decision-chat .ps-plan-user{
+  margin:8px 0;
+}
+.ps-staffing-main--decision .ps-staffing-decision-chat :is(.ps-plan-system,.ps-plan-agent,.ps-plan-user) b{
+  font-size:.47rem;
+}
+.ps-staffing-main--decision .ps-staffing-decision-chat :is(.ps-plan-system,.ps-plan-agent,.ps-plan-user) small{
+  color:#425049;
+  font-size:.46rem;
+  line-height:1.45;
+}
+.ps-staffing-main--decision .ps-staffing-chat-thread{
+  display:flex;
+  min-height:0;
+  flex:1;
+  flex-direction:column;
+}
+.ps-staffing-main--decision .ps-staffing-chat-thread>div{
+  padding:9px 10px;
+  border-right:0;
+  border-bottom:1px solid #d9dfd8;
+}
+.ps-staffing-main--decision .ps-staffing-chat-thread>div:last-child{border-bottom:0}
+.ps-staffing-main--decision .ps-staffing-chat-thinking{
+  position:static;
+  min-height:33px;
+}
+.ps-staffing-main--decision .ps-staffing-chat-turn.is-user{
+  margin-left:12%;
+  border-top:0;
+  border-left:1px solid #8bb967;
+}
+.ps-staffing-main--decision .ps-staffing-chat-turn.is-result{
+  margin-right:7%;
+}
+.ps-staffing-main--decision .ps-staffing-chat-composer{
+  margin-top:auto;
+}
+.ps-staffing-main--decision .ps-staffing-decision-chat .ps-plan-composer{
+  margin:0 13px 7px;
+  padding:10px 12px;
+  font-size:.43rem;
+}
+.ps-staffing-main--decision .ps-staffing-decision-chat .ps-plan-composer button{
+  padding:5px 8px;
+  font-size:.38rem;
+}
+.ps-staffing-main--decision .ps-staffing-chat-replay{
+  position:static;
+  align-self:flex-end;
+  margin:0 10px 8px;
+}
+.ps-staffing-main--decision .ps-staffing-roster{
+  border-left:1px solid #d2d9d1!important;
+}
+.ps-staffing-decision-chat+.ps-staffing-main{margin-top:9px}
+
+@media(max-width:900px){
+  .ps-staffing-profile--wide{
+    grid-template-columns:1fr 1fr;
+    grid-template-areas:
+      "profile profile"
+      "fit assignment"
+      "capacity evidence";
+  }
+  .ps-staffing-profile--wide .ps-staffing-profile-head{border-bottom:1px solid #d9dfd8}
+  .ps-staffing-profile--wide .ps-staffing-assignment{border-bottom:1px solid #d9dfd8}
+}
+@media(max-width:760px){
+  .ps-staffing-profile--wide{
+    display:block;
+  }
+  .ps-staffing-profile--wide>*{border-right:0!important;border-bottom:1px solid #d9dfd8!important}
+  .ps-staffing-main--decision{grid-template-columns:1fr}
+  .ps-staffing-main--decision .ps-staffing-roster{border-top:1px solid #d2d9d1!important;border-left:0!important}
+}
+
+/* Materialization is a governed conversation followed by an explicit PSA mapping. */
+.ps-materialize-dialogue{
+  display:flex;
+  min-height:310px;
+  flex-direction:column;
+  margin-top:8px;
+  border-top:1px solid #d2d9d1!important;
+  border-bottom:1px solid #d2d9d1!important;
+  background:#f4f5f1!important;
+}
+.ps-materialize-dialogue .ps-plan-thread{
+  height:196px;
+  min-height:196px;
+  padding:8px 13px;
+  overflow-y:scroll;
+  overscroll-behavior:contain;
+  scrollbar-gutter:stable;
+  scrollbar-color:#aeb9b0 #e8ece7;
+  scrollbar-width:thin;
+}
+.ps-materialize-dialogue .ps-plan-thread::-webkit-scrollbar{width:9px}
+.ps-materialize-dialogue .ps-plan-thread::-webkit-scrollbar-track{background:#e8ece7}
+.ps-materialize-dialogue .ps-plan-thread::-webkit-scrollbar-thumb{border:2px solid #e8ece7;border-radius:8px;background:#aeb9b0}
+.ps-materialize-dialogue .ps-plan-user{grid-template-columns:1fr;margin-left:12%}
+.ps-materialize-dialogue :is(.ps-plan-system,.ps-plan-agent,.ps-plan-user) b{font-size:.47rem}
+.ps-materialize-dialogue :is(.ps-plan-system,.ps-plan-agent,.ps-plan-user) small{color:#425049;font-size:.46rem;line-height:1.45}
+.ps-materialize-dialogue .ps-plan-composer{
+  margin:0 13px 7px;
+  padding:10px 12px;
+  font-size:.43rem;
+}
+.ps-materialize-dialogue .ps-plan-composer button{padding:5px 8px;font-size:.38rem}
+.ps-materialize-dialogue .ps-materialize-runstate{border-top:1px solid #d6ddd5}
+.ps-writeback-map--live .ps-writeback-head,
+.ps-writeback-map--live .ps-writeback-row{grid-template-columns:.75fr 1.6fr 1.1fr .6fr}
+.ps-writeback-map--live .ps-writeback-head{
+  min-height:36px;
+  background:#e8ede7!important;
+  color:#2f3d35;
+  font-family:"Segoe UI",Inter,"Helvetica Neue",Arial,sans-serif;
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:.045em;
+}
+.ps-writeback-map--live .ps-writeback-head span:nth-child(3){white-space:nowrap}
+.ps-writeback-map--live .ps-writeback-object{
+  display:block;
+  min-width:0;
+}
+.ps-writeback-map--live .ps-writeback-row>.ps-writeback-object>strong{
+  display:block;
+  color:#17251e;
+  font-family:"Segoe UI Variable Text","Segoe UI",Inter,"Helvetica Neue",Arial,sans-serif!important;
+  font-size:11px!important;
+  font-weight:600;
+  line-height:1.35;
+  letter-spacing:0;
+  text-rendering:auto;
+  -webkit-font-smoothing:auto;
+}
+.ps-writeback-fields b,.ps-writeback-fields small{display:block}
+.ps-writeback-fields b{color:#25342c;font-size:9px;line-height:1.35}
+.ps-writeback-fields small{margin-top:3px;color:#526059!important;font-size:8px!important;line-height:1.45}
+.ps-writeback-map--live .ps-writeback-record{
+  display:block!important;
+  min-width:0;
+  padding:7px 8px;
+  border-left:2px solid #9fbc87;
+  background:#f1f5ef;
+}
+.ps-writeback-map--live .ps-writeback-record b{
+  display:block;
+  width:auto;
+  height:auto;
+  padding:0;
+  background:transparent;
+  color:#24352b;
+  grid-row:auto;
+  place-items:initial;
+  font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;
+  font-size:9px;
+  font-weight:650;
+  line-height:1.35;
+  white-space:nowrap;
+}
+.ps-writeback-map--live .ps-writeback-record small{display:block;margin-top:3px;color:#536159!important;font-size:8px!important}
+.ps-writeback-map--live .ps-writeback-row>em{white-space:nowrap}
+
+@media(max-width:760px){
+  .ps-materialize-dialogue .ps-plan-thread{height:230px;min-height:230px}
+  .ps-writeback-map--live .ps-writeback-head{display:none}
+  .ps-writeback-map--live .ps-writeback-row{grid-template-columns:1fr 1fr;padding:12px}
+  .ps-writeback-map--live .ps-writeback-row>.ps-writeback-fields{grid-column:1/-1}
+}
