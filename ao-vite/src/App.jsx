@@ -154,7 +154,7 @@ function VarianceVisual() {
     <div className="variance-summary"><div><span>COMMITTED FEE</span><b>$420K</b></div><div><span>BILLED</span><b>$287K</b></div><div><span>EFFORT VARIANCE</span><b className="warn">+6.4%</b></div></div>
     <div className="variance-head"><span>MILESTONE</span><span>COMMITTED</span><span>CURRENT</span><span>DELTA</span></div>
     {rows.map((r) => <div className="variance-row" key={r[0]}>{r.map((cell, i) => <span className={i === 3 && cell !== "ON PLAN" ? "warn" : ""} key={cell}>{cell}</span>)}</div>)}
-    <div className="decision-trace"><span>DECISION / APR 02</span><strong>Extend design validation by one week.</strong><p>Client data owners requested an additional regional review before sign-off. Confirmed by Maya Chen, Engagement Manager.</p></div>
+    <div className="decision-trace"><span>DECISION / APR 02</span><strong>Extend design validation by one week.</strong><p>Client data owners requested an additional regional review before sign-off. Confirmed by Maya Chen, Managing Director.</p></div>
   </div>;
 }
 
@@ -184,7 +184,7 @@ function Loop() {
   return <Section id="loop" className="loop-section">
     <Wrap>
       <div className="loop-intro"><Eyebrow>How AllianceOne works</Eyebrow><Head size="display">One operating loop, from question to institutional learning.</Head></div>
-      <div className="loop-steps">{loopSteps.map((step, i) => <article className={`loop-step loop-step--${i + 1}`} key={step.n}>
+      <div className="loop-steps">{loopSteps.map((step, i) => <article id={`phase-${step.label.toLowerCase()}`} className={`loop-step loop-step--${i + 1}`} key={step.n}>
         <div className="loop-step-copy"><span className="step-number">{step.n} / {step.label}</span><h3>{step.title}</h3><p>{step.body}</p>{i === 0 && <a href="/platform/">See the full platform <span>→</span></a>}</div>
         <div className="loop-step-visual">{step.visual}</div>
       </article>)}</div>
