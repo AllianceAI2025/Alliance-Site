@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 const Chip = ({ children, tone = "neutral" }) => <span className={`ps-chip ps-chip--${tone}`}>{children}</span>;
 
-function ProductFrame({ section, title, status, children, className = "" }) {
+function ProductFrame({ section, title, status, children, className = "", tabs = [], activeTab, onTabChange }) {
   return <div className={`ps-frame ${className}`} aria-label={`Illustrative AllianceOne ${section} view`}>
     <div className="ps-appbar">
       <div className="ps-brand"><span className="ps-brand-mark">A.</span><span>AllianceOne</span></div>
@@ -12,7 +12,12 @@ function ProductFrame({ section, title, status, children, className = "" }) {
     <div className="ps-body">
       <aside className="ps-rail" aria-hidden="true"><b>01</b><span /><span /><span /><i /></aside>
       <div className="ps-content">
-        <div className="ps-viewhead"><div><span>{section}</span><h4>{title}</h4></div><div className="ps-viewtabs"><b>Overview</b><span>Plan</span><span>Team</span><span>Evidence</span></div></div>
+        <div className="ps-viewhead">
+          <div><span>{section}</span><h4>{title}</h4></div>
+          {tabs.length > 0 && <div className="ps-viewtabs" role="tablist" aria-label={`${section} views`}>
+            {tabs.map((tab) => <button key={tab} type="button" role="tab" aria-selected={activeTab === tab} className={activeTab === tab ? "is-active" : ""} onClick={() => onTabChange?.(tab)}>{tab}</button>)}
+          </div>}
+        </div>
         {children}
       </div>
     </div>
@@ -333,16 +338,27 @@ function LegacyPlanScene() {
 }
 
 const planningRows = [
-  ["01", "Decision frame & diagnostic", "S. Patel", "W1-4", "420h", "3 deliverables"],
+  ["01", "Decision frame & diagnostic", "S. Patel / A. Ross", "W1-4", "420h", "3 deliverables"],
   ["02", "Operating model design", "S. Patel", "W3-9", "760h", "5 deliverables"],
   ["03", "Regional validation", "D. Okafor", "W8-12", "360h", "3 deliverables"],
   ["04", "Transition roadmap", "J. Hale", "W11-14", "300h", "3 deliverables"],
+];
+
+const planningTeam = [
+  { initials: "MC", name: "Maya Chen", role: "Engagement partner", loading: "35%", window: "All phases", availability: "Confirmed", fit: "Executive sponsorship · board governance", precedent: "7 analogous engagements", assignment: "Approval gates · board working session" },
+  { initials: "SP", name: "Sofia Patel", role: "Operating-model lead", loading: "100%", window: "W1-10", availability: "Confirmed", fit: "Operating-model design · decision rights", precedent: "91% precedent fit", assignment: "WS01-02 · 8 deliverables" },
+  { initials: "DO", name: "Daniel Okafor", role: "Regional validation lead", loading: "80%", window: "W5-12", availability: "Confirmed W5", fit: "Regional governance · validation", precedent: "5 analogous engagements", assignment: "WS03 · 3 deliverables" },
+  { initials: "JH", name: "Jordan Hale", role: "Transition lead", loading: "80%", window: "W8-14", availability: "Available W8", fit: "Mobilization · adoption planning", precedent: "84% precedent fit", assignment: "WS04 · 3 deliverables" },
+  { initials: "AR", name: "Avery Ross", role: "Senior consultant", loading: "100%", window: "W1-14", availability: "Confirmed", fit: "Decision diagnostics · synthesis", precedent: "3 analogous engagements", assignment: "WS01 · DL-4401 / 4402 / 4405" },
+  { initials: "LT", name: "Lena Torres", role: "Consultant", loading: "100%", window: "W1-12", availability: "Confirmed", fit: "Research · regional analysis", precedent: "2 analogous engagements", assignment: "WS01-03 · 6 deliverables" },
 ];
 
 const planningPrompt = "Build the 14 deliverables under the four committed workstreams. Use the proposed team, check availability, and protect the fee and board date.";
 
 export function PlanScene() {
   const [approved, setApproved] = useState(false);
+  const [workspaceView, setWorkspaceView] = useState("Plan");
+  const [selectedMember, setSelectedMember] = useState(4);
   const [chatRun, setChatRun] = useState(0);
   const [chatStep, setChatStep] = useState(0);
   const [typedPlanPrompt, setTypedPlanPrompt] = useState("");
@@ -396,9 +412,12 @@ export function PlanScene() {
     setChatRun((value) => value + 1);
   };
 
-  return <div ref={sceneRef}><ProductFrame section="Engagement planning" title="Operating model redesign" status={approved ? "Plan approved" : "Planning mode"} className="ps-plan ps-plan-workbench">
+  const selected = planningTeam[selectedMember];
+
+  return <div ref={sceneRef}><ProductFrame section="Engagement planning" title={workspaceView === "Plan" ? "Operating model redesign" : "Team & staffing"} status={approved ? "Plan approved" : "Planning mode"} className="ps-plan ps-plan-workbench" tabs={["Plan", "Team"]} activeTab={workspaceView} onTabChange={setWorkspaceView}>
     <div className="ps-plan-won-event"><i>✓</i><div><span>CRM EVENT / OPPORTUNITY WON</span><b>Northstar Foods · Operating model redesign</b><small>Salesforce · Aug 12, 2026 · Proposal v4 accepted</small></div><Chip tone="success">Engagement opened</Chip></div>
     <div className="ps-plan-locked"><div><span>LOCKED FROM ACCEPTED PROPOSAL</span><b>These commitments constrain the delivery plan.</b></div><p><span>14 weeks</span><span>4 workstreams</span><span>14 deliverables</span><span>1,840h</span><span>$420K cap</span><span>Nov 20 gate</span></p></div>
+    {workspaceView === "Plan" ? <>
     <div className="ps-planning-workspace">
       <section className="ps-planning-chat">
         <div className="ps-planning-panel-head"><div><span>PLANNING CHAT</span><b>Build the engagement from what was sold</b></div><em>6 sources live</em></div>
@@ -419,20 +438,49 @@ export function PlanScene() {
         <div className="ps-plan-draft-meta"><div><span>PLAN HEALTH</span><b>Aligned</b><small>0 commitment variances</small></div><div><span>STAFFING</span><b>6 / 6</b><small>Availability checked</small></div><div><span>EFFORT</span><b>1,840h</b><small>Within sold envelope</small></div></div>
         <div className="ps-plan-deliverables-head"><span>WORKSTREAM / DELIVERABLE PLAN</span><span>OWNER</span><span>WINDOW</span><span>EFFORT</span></div>
         <div className="ps-plan-deliverables">{planningRows.map(([n, name, owner, timing, effort, deliverables]) => <div key={n}><i>{n}</i><p><b>{name}</b><small>{deliverables}</small></p><span>{owner}</span><span>{timing}</span><strong>{effort}</strong></div>)}</div>
-        <div className="ps-plan-assignments"><div><span>NAMED TEAM</span><b>Maya Chen · Sofia Patel · Daniel Okafor · Jordan Hale</b><small>Avery Ross · Lena Torres</small></div><div><span>DEPENDENCIES</span><b>Data W2 · regions W8-11</b><small>Board working session · W13</small></div></div>
+        <div className="ps-plan-assignments"><div><span>DELIVERY ASSIGNMENT / AVERY ROSS</span><b>WS01 · Decision frame &amp; diagnostic · 100% W1–4</b><small>DL-4401 Decision-rights baseline · DL-4402 Evidence pack · DL-4405 Design principles</small></div><div><span>LEAD &amp; DEPENDENCIES</span><b>Sofia Patel · Operating-model lead</b><small>Data W2 · regional interviews W2–3 · design begins W3</small></div></div>
         <div className="ps-plan-draft-gate"><div><span>FIXED DECISION GATE</span><b>Board operating-model approval</b></div><em>NOV 20</em></div>
         <div className="ps-plan-review"><div><span>{approved ? "BASELINE LOCKED" : "REVIEW REQUIRED"}</span><b>{approved ? "Intent v1 is ready for system writeback." : "Approval makes this the authoritative delivery intent."}</b></div><button type="button" onClick={() => setApproved(true)} disabled={approved}>{approved ? "Approved ✓" : "Approve delivery baseline →"}</button></div>
       </section>
     </div>
     <div className={`ps-plan-ready${approved ? " is-visible" : ""}`}><div><span>NEXT / MATERIALIZE</span><b>PM/PSA project · 4 phases · 14 deliverables · 6 assignments · milestones</b></div><em>{approved ? "Ready for writeback →" : "Awaiting plan approval"}</em></div>
+    </> : <div className="ps-staffing-workspace">
+      <div className="ps-staffing-summary">
+        <div><span>TEAM SHAPE</span><b>6 / 6 roles</b><small>Named against the draft plan</small></div>
+        <div><span>AVAILABILITY</span><b>6 confirmed</b><small>Resource calendars checked</small></div>
+        <div><span>EFFORT</span><b>1,840h</b><small>Within sold envelope</small></div>
+        <div><span>KNOWLEDGE FIT</span><b>Strong</b><small>7 precedents compared</small></div>
+      </div>
+      <div className="ps-staffing-main">
+        <section className="ps-staffing-roster">
+          <div className="ps-planning-panel-head"><div><span>PROPOSED TEAM</span><b>Fit, availability, and plan coverage</b></div><em>Resource data live</em></div>
+          <div className="ps-staffing-list">
+            {planningTeam.map((member, index) => <button key={member.name} type="button" className={selectedMember === index ? "is-selected" : ""} onClick={() => setSelectedMember(index)}>
+              <i>{member.initials}</i><span><b>{member.name}</b><small>{member.role}</small></span><em>{member.loading}<small>{member.availability}</small></em>
+            </button>)}
+          </div>
+        </section>
+        <section className="ps-staffing-profile">
+          <div className="ps-staffing-profile-head"><i>{selected.initials}</i><div><span>STAFFING RECOMMENDATION</span><h5>{selected.name}</h5><p>{selected.role} · {selected.loading} · {selected.window}</p></div><Chip tone="success">{selected.availability}</Chip></div>
+          <div className="ps-staffing-fit">
+            <div><span>WHY THIS PERSON</span><b>{selected.fit}</b><small>Role requirements inferred from the approved workstream and deliverable design.</small></div>
+            <div><span>FIRM EXPERIENCE</span><b>{selected.precedent}</b><small>Prior delivery evidence, methods used, and outcome quality inform the recommendation.</small></div>
+          </div>
+          <div className="ps-staffing-assignment"><span>PLAN COVERAGE</span><b>{selected.assignment}</b><small>Assignment is tentative until the delivery baseline is approved.</small></div>
+          <div className="ps-staffing-capacity"><div><span>W1</span><span>W4</span><span>W8</span><span>W12</span><span>W14</span></div><i><em /></i><small>Resource calendar · current client load · planned Northstar allocation</small></div>
+          <div className="ps-staffing-evidence"><span>GROUNDED IN</span><p><b>Resource calendar</b><small>Availability and existing commitments</small></p><p><b>Delivery history</b><small>Comparable roles, work, and outcomes</small></p><p><b>Engagement plan</b><small>Required expertise, timing, and effort</small></p></div>
+        </section>
+      </div>
+      <div className="ps-plan-ready"><div><span>STAFFING DECISION</span><b>Named team covers every workstream and all 14 planned deliverables.</b></div><em>Returns to Plan for approval</em></div>
+    </div>}
   </ProductFrame></div>;
 }
 
 const writebackRows = [
-  ["01", "Project", "Northstar Foods / Operating model redesign", "1 record", "WF-2048"],
+  ["01", "Project", "Northstar Foods / Operating model redesign", "1 record", "D365-2048"],
   ["02", "Phases", "4 approved workstreams · dates · effort budgets", "4 records", "PH-781–784"],
   ["03", "Deliverables", "14 outputs · owners · dependencies · review dates", "14 records", "DL-4401–4414"],
-  ["04", "Assignments", "6 named resources · loadings · workstream access", "6 records", "AS-901–906"],
+  ["04", "Assignments", "Avery Ross → WS01 / DL-4401, DL-4402, DL-4405 · 5 additional resources", "6 records", "AS-901–906"],
   ["05", "Milestones", "Kickoff · board working session · Nov 20 gate", "3 records", "MS-120–122"],
 ];
 
@@ -475,21 +523,21 @@ export function MaterializeScene() {
   const replayWriteback = () => setRun((value) => value + 1);
   const progress = step === 0 ? 0 : step === 1 ? 12 : step === 2 ? 26 : Math.min(100, 26 + (step - 2) * 15);
 
-  return <div ref={sceneRef}><ProductFrame section="Plan materialization" title="Writeback run AO-2048" status={step >= 8 ? "Published" : "Writing to PSA"} className="ps-materialize ps-materialize-live">
+  return <div ref={sceneRef}><ProductFrame section="Plan materialization" title="Writeback run AO-2048" status={step >= 8 ? "Published" : "Writing to Dynamics 365"} className="ps-materialize ps-materialize-live">
     <div className="ps-materialize-baseline">
       <div><span>APPROVED DELIVERY INTENT</span><strong>Engagement plan · baseline v1</strong><small>Approved by Maya Chen · Aug 12, 2026 · immutable source</small></div>
       <i>→</i>
-      <div><span>DESTINATION</span><strong>Workfront · Professional Services</strong><small>Northstar Foods account · production workspace</small></div>
+      <div><span>DESTINATION / PSA &amp; PROJECT MANAGEMENT</span><strong>Microsoft Dynamics 365 Project Operations</strong><small>Northstar Foods account · production workspace</small></div>
       <Chip tone="success">Authorized</Chip>
     </div>
     <div className="ps-materialize-command">
-      <div className={`ps-materialize-chat-turn${step >= 1 ? " is-visible" : ""}`}><i>MC</i><p><b>Maya Chen</b><small>Materialize approved baseline v1 into Workfront. Create the project, phases, deliverables, named assignments, and decision milestones.</small></p></div>
-      <div className={`ps-materialize-chat-turn ps-materialize-chat-turn--agent${step >= 2 ? " is-visible" : ""}`}><i>A.</i><p><b>AllianceOne</b><small>Destination access confirmed. I’ll preserve baseline v1, validate the Workfront mapping, and return the created record IDs without changing the approved plan.</small></p></div>
+      <div className={`ps-materialize-chat-turn${step >= 1 ? " is-visible" : ""}`}><i>MC</i><p><b>Maya Chen</b><small>Materialize approved baseline v1 into Dynamics 365 Project Operations. Create the project, phases, deliverables, named assignments, and decision milestones.</small></p></div>
+      <div className={`ps-materialize-chat-turn ps-materialize-chat-turn--agent${step >= 2 ? " is-visible" : ""}`}><i>A.</i><p><b>AllianceOne</b><small>Destination access confirmed. I’ll preserve baseline v1, validate the Dynamics 365 mapping, and return every created record ID without changing the approved plan.</small></p></div>
       <div className="ps-materialize-runstate"><div><span>{step < 2 ? "WAITING" : step < 8 ? "WRITEBACK IN PROGRESS" : "TRANSACTION COMPLETE"}</span><b>{step < 2 ? "Awaiting instruction" : step < 3 ? "Validating schema and permissions" : step < 8 ? `Creating records · ${progress}%` : "28 records created · 0 exceptions"}</b></div><button type="button" onClick={replayWriteback}>{step >= 8 ? "Replay writeback" : "Running…"}</button></div>
       <div className="ps-materialize-progress"><i style={{ width: `${progress}%` }} /></div>
     </div>
     <div className="ps-writeback-map ps-writeback-map--live">
-      <div className="ps-writeback-head"><span>PSA OBJECT</span><span>APPROVED PLAN INPUT</span><span>DESTINATION RECORD</span><span>STATUS</span></div>
+      <div className="ps-writeback-head"><span>PSA OBJECT</span><span>APPROVED PLAN INPUT</span><span>DYNAMICS 365 RECORD</span><span>STATUS</span></div>
       {writebackRows.map(([n, object, fields, count, record], i) => {
         const rowStep = i + 3;
         const created = step >= rowStep;
@@ -503,14 +551,14 @@ export function MaterializeScene() {
       })}
     </div>
     <div className={`ps-materialize-receipt${step >= 8 ? " is-visible" : ""}`}>
-      <div><span>WRITEBACK RECEIPT / AO-2048</span><b>28 PSA records created from approved baseline v1</b><small>Workfront transaction WF-TX-88421 · completed Aug 12, 2026 10:42 AM</small></div>
+      <div><span>WRITEBACK RECEIPT / AO-2048</span><b>28 Dynamics 365 records created from approved baseline v1</b><small>Dynamics 365 transaction D365-TX-88421 · completed Aug 12, 2026 10:42 AM</small></div>
       <div><span>BASELINE PROTECTION</span><b>0 changes · 0 exceptions · full lineage retained</b><small>Execution updates now flow back against this commitment.</small></div>
-      <em>Open in Workfront ↗</em>
+      <em>Open in Dynamics 365 ↗</em>
     </div>
     <div className="ps-materialize-foot">
       <div><span>ALLIANCEONE OWNS INTENT</span><b>Approved scope · plan · staffing · effort · decision gates</b></div>
       <i>↔</i>
-      <div><span>WORKFRONT OWNS EXECUTION</span><b>Tasks · assignments · milestones · time · delivery status</b></div>
+      <div><span>DYNAMICS 365 OWNS EXECUTION</span><b>Tasks · assignments · milestones · time · delivery status</b></div>
     </div>
   </ProductFrame></div>;
 }
@@ -598,7 +646,7 @@ export function ExecuteScene() {
 
   return <div ref={sceneRef}><ProductFrame section="Consultant workspace" title="Decision-rights baseline" status={step >= 10 ? "Work packet ready" : "In delivery"} className="ps-execute">
     <div className="ps-execute-summary">
-      <div className="ps-execute-person"><i>AR</i><p><span>MY WORK / AVERY ROSS</span><b>Operating model redesign</b><small>Senior Consultant · Decision frame & diagnostic</small></p></div>
+      <div className="ps-execute-person"><i>AR</i><p><span>MY WORK / AVERY ROSS</span><b>Operating model redesign</b><small>Senior Consultant · WS01 Decision frame &amp; diagnostic · 100% W1–4</small></p></div>
       <div><span>ASSIGNED</span><b>3 deliverables</b><small>1 needs attention</small></div>
       <div><span>THIS WORKSTREAM</span><b>420h committed</b><small>Week 1–4</small></div>
       <div><span>CLIENT GATE</span><b>Nov 20</b><small>Board approval</small></div>
@@ -614,8 +662,8 @@ export function ExecuteScene() {
       <section className="ps-execute-chat">
         <div className="ps-execute-panelhead"><div><span>DELIVERABLE CHAT</span><b>Decision-rights baseline</b></div><em className={step > 0 && step < 10 ? "is-live" : ""}>{step > 0 && step < 10 ? "● LIVE" : "7 sources connected"}</em></div>
         <div className="ps-execute-thread">
-          <div className="ps-execute-system"><i>PM</i><p><b>Assignment admitted from Workfront</b><small>Owner, effort budget, dependencies, review date, and approved commitment are attached.</small></p></div>
-          <div className={`ps-execute-turn ps-execute-agent${step >= 1 ? " is-visible" : ""}`}><i>A.</i><p><b>AllianceOne</b><small>You own the decision-rights baseline for Workstream 01. It must distinguish enterprise, regional, and local authority before the future-state model can begin.</small></p></div>
+          <div className="ps-execute-system"><i>PM</i><p><b>Avery Ross assignment AS-905 admitted from Dynamics 365</b><small>WS01 · 100% W1–4 · 420h workstream budget · Sofia Patel reviewer · three assigned deliverables.</small></p></div>
+          <div className={`ps-execute-turn ps-execute-agent${step >= 1 ? " is-visible" : ""}`}><i>A.</i><p><b>AllianceOne</b><small>Avery, you own DL-4401, DL-4402, and DL-4405 within Workstream 01. Begin with the decision-rights baseline: it must distinguish enterprise, regional, and local authority before Sofia’s future-state design can begin.</small></p></div>
           <div className={`ps-execute-turn ps-execute-user${step >= 3 ? " is-visible" : ""}`}><p><b>You</b><small>{executePrompt}</small></p><i>AR</i></div>
           <div className={`ps-execute-thinking${step === 4 || step === 5 ? " is-visible" : ""}`}><i /><i /><i /><span>Reading engagement evidence and firm methods…</span></div>
           <div className={`ps-execute-source-run${step >= 5 && step < 8 ? " is-visible" : ""}`}><i /><span>Grounding response · {sourceCount}/3 priority sources resolved</span></div>
@@ -627,14 +675,14 @@ export function ExecuteScene() {
       </section>
       <aside className={`ps-execute-brief${step >= 9 ? " is-grounded" : ""}`}>
         <div className="ps-execute-panelhead"><div><span>DELIVERABLE BRIEF / DL-4401</span><b>Decision-rights baseline</b></div><Chip tone={step >= 9 ? "success" : "neutral"}>{step >= 9 ? "Grounded" : "Committed"}</Chip></div>
-        <div className="ps-execute-briefmeta"><div><span>OWNER</span><b>Avery Ross</b></div><div><span>REVIEWER</span><b>Sofia Patel</b></div><div><span>EFFORT</span><b>96h</b></div><div><span>DUE</span><b>Week 4</b></div></div>
+        <div className="ps-execute-briefmeta"><div><span>OWNER / PLAN</span><b>Avery Ross · AS-905</b></div><div><span>REVIEWER</span><b>Sofia Patel</b></div><div><span>EFFORT</span><b>96h of 420h</b></div><div><span>DUE</span><b>Week 4</b></div></div>
         <section><span>WHAT THIS MUST ACCOMPLISH</span><p>Establish the current decision baseline and the evidence needed to recommend which decisions centralize, federate, or remain local.</p></section>
         <section><span>ACCEPTANCE CONDITIONS</span><ul><li>26 priority decisions classified</li><li>All eight regions represented</li><li>Owners and escalation paths named</li><li>Contradictions and evidence gaps explicit</li></ul></section>
         <section className="ps-execute-methods"><span>FIRM METHODS & TEMPLATES</span><div><b>Decision Rights Diagnostic</b><small>Firm method · v6</small></div><div><b>Regional validation matrix</b><small>Adapted from Harbor Grain</small></div></section>
         <div className={`ps-execute-packet${step >= 10 ? " is-visible" : ""}`}><div><span>GROUNDED WORK PACKET</span><b>7 sources · 2 methods · 3 open evidence gaps</b></div><button type="button">Draft from template →</button></div>
       </aside>
     </div>
-    <div className="ps-execute-lineage"><span>APPROVED INTENT</span><i>→</i><span>STAFF ASSIGNMENT</span><i>→</i><span>CONTEXT + FIRM IP</span><i>→</i><b>DELIVERABLE EVIDENCE</b><em>Execution returns to the engagement record</em></div>
+    <div className="ps-execute-lineage"><span>APPROVED PLAN / AVERY · WS01</span><i>→</i><span>DYNAMICS 365 / AS-905</span><i>→</i><span>DL-4401 + FIRM IP</span><i>→</i><b>DELIVERABLE EVIDENCE</b><em>Execution returns to the engagement record</em></div>
   </ProductFrame></div>;
 }
 
@@ -699,7 +747,7 @@ export function ReconcileScene() {
           <div className={`ps-vrow${step >= 7 ? " is-resolved" : ""}`}><b>Board decision</b><span>NOV 20</span><span>NOV 20</span><em className="ps-good">CRM · PROTECTED</em></div>
         </div>
         <div className="ps-source-feeds ps-source-feeds--live">
-          {[['PM','Workfront','Tasks · milestones · effort'],['TIME','Replicon','Submitted hours · roles'],['ERP','NetSuite','Invoices · actuals · cap'],['DMS','Microsoft 365','CO-01 · approvals · rationale']].map(([code,name,detail], index) => <div className={step >= index + 4 ? "is-resolved" : ""} key={code}><b>{code}</b><span>{name}</span><em>{detail}</em><small>{step >= index + 4 ? "Resolved ✓" : "Waiting"}</small></div>)}
+          {[['PM','Dynamics 365','Tasks · milestones · effort'],['TIME','Replicon','Submitted hours · roles'],['ERP','NetSuite','Invoices · actuals · cap'],['DMS','Microsoft 365','CO-01 · approvals · rationale']].map(([code,name,detail], index) => <div className={step >= index + 4 ? "is-resolved" : ""} key={code}><b>{code}</b><span>{name}</span><em>{detail}</em><small>{step >= index + 4 ? "Resolved ✓" : "Waiting"}</small></div>)}
         </div>
       </section>
       <section className="ps-reconcile-chat">
@@ -708,7 +756,7 @@ export function ReconcileScene() {
           <div className={`ps-live-turn ps-live-agent${step >= 1 ? " is-visible" : ""}`}><i>A.</i><p><b>AllianceOne</b><small>I found a one-week duration variance, 75 additional hours, and a $14K favorable fee variance against the revised cap.</small></p></div>
           <div className={`ps-live-turn ps-live-user${step >= 3 ? " is-visible" : ""}`}><p><b>You</b><small>{reconcilePrompt}</small></p><i>MC</i></div>
           <div className={`ps-live-thinking${step >= 4 && step < 8 ? " is-visible" : ""}`}><i /><i /><i /><span>Joining commitments, actuals, and decision evidence…</span></div>
-          <div className={`ps-live-turn ps-live-agent ps-live-result${step >= 8 ? " is-visible" : ""}`}><i>A.</i><p><b>Variance resolved</b><small>{typedResponse}{step === 8 && <i className="ps-execute-stream-cursor" />}</small><em className={step >= 9 ? "is-visible" : ""}>Grounded in CO-01, Workfront, Replicon, and NetSuite</em></p></div>
+          <div className={`ps-live-turn ps-live-agent ps-live-result${step >= 8 ? " is-visible" : ""}`}><i>A.</i><p><b>Variance resolved</b><small>{typedResponse}{step === 8 && <i className="ps-execute-stream-cursor" />}</small><em className={step >= 9 ? "is-visible" : ""}>Grounded in CO-01, Dynamics 365, Replicon, and NetSuite</em></p></div>
         </div>
         <div className={`ps-live-composer-row${step === 2 ? " is-typing" : ""}`}><span>{step === 2 ? typedPrompt : "Ask why delivery diverged from the commitment…"}{step === 2 && <i />}</span><button type="button">{step === 2 ? "Typing…" : step >= 3 && step < 9 ? "Sent ✓" : "Send ↑"}</button></div>
         <button className="ps-live-replay" type="button" onClick={() => setRun((value) => value + 1)}>Replay reconciliation</button>

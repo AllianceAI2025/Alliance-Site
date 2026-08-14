@@ -27,7 +27,7 @@ export function useFonts() {
     const link = document.createElement("link");
     link.id = "ao-fonts";
     link.rel = "stylesheet";
-    link.href = "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@400;500;600&display=swap";
+    link.href = "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@400;500;600&display=swap";
     document.head.appendChild(link);
   }, []);
 }

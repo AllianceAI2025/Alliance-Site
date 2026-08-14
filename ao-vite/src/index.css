@@ -123,3 +123,203 @@
 .ps-live-panelhead span,.ps-reconcile-decision span,.ps-learning-closeout span,.ps-precedent-outcome span,.ps-precedent-admission span{color:#4d5d55;font-size:.34rem}.ps-live-panelhead b{font-size:.42rem}.ps-live-panelhead em{font-size:.32rem}.ps-source-feeds--live span{font-size:.4rem}.ps-source-feeds--live em,.ps-source-feeds--live small{color:#536159;font-size:.33rem}.ps-live-turn b{font-size:.38rem}.ps-live-turn small{color:#405049;font-size:.34rem}.ps-live-result p>em{font-size:.29rem}.ps-live-thinking>span{font-size:.3rem}.ps-live-composer-row{font-size:.34rem}.ps-live-composer-row button{font-size:.32rem}.ps-live-replay{font-size:.31rem}.ps-reconcile-decision b{font-size:.39rem}.ps-learning-closeout b{font-size:.46rem}.ps-learning-closeout small{color:#56645c;font-size:.33rem}.ps-learning-source-events>span{font-size:.28rem}.ps-precedent-outcome b{font-size:.37rem}.ps-new-precedent>section>b{font-size:.36rem}.ps-new-precedent>section strong{font-size:.38rem}.ps-new-precedent>section small{color:#4e5c54;font-size:.32rem}.ps-precedent-admission b{color:rgba(255,255,255,.82);font-size:.34rem}
 
 @media(max-width:760px){.ps-appbar{grid-template-columns:1fr auto}.ps-breadcrumb{display:none}.ps-appbar-meta{font-size:.43rem}.ps-scope-sequence>button span small{font-size:.41rem}.ps-plan-system small,.ps-plan-agent small,.ps-plan-user small,.ps-execute-system small,.ps-execute-agent small,.ps-execute-user small,.ps-live-turn small{font-size:.4rem}}
+
+/* Corrective scene sizing: every lifecycle stage receives the same visual priority. */
+@media(min-width:1061px){
+  .loop-step:not(.loop-step--1){grid-template-columns:1fr;gap:48px;padding-top:82px}
+  .loop-step:not(.loop-step--1) .loop-step-copy{position:static;display:grid;grid-template-columns:120px minmax(400px,620px) minmax(260px,1fr);gap:30px;align-items:start}
+  .loop-step:not(.loop-step--1) .loop-step-copy .step-number{grid-column:1}
+  .loop-step:not(.loop-step--1) .loop-step-copy h3{grid-column:2;margin:0}
+  .loop-step:not(.loop-step--1) .loop-step-copy p,.loop-step:not(.loop-step--1) .loop-step-copy a{grid-column:3;margin-top:0}
+  .loop-step:not(.loop-step--1) .loop-step-visual{width:100%;margin:0}
+}
+
+/* Scope tabs share one bounded viewport; detailed artifacts scroll inside the drawer. */
+@media(min-width:761px){
+  .ps-scope-stage{height:516px;min-height:516px}
+  .ps-scope-stage>.ps-scope-shot,.ps-intake-view,.ps-pursuit-view,.ps-chat-view,.ps-working-scene{height:516px;min-height:0;max-height:516px}
+  .ps-intake-view,.ps-pursuit-view,.ps-chat-view{overflow:auto}
+  .ps-working-chat,.ps-generating-artifact{height:100%;min-height:0}
+  .ps-generating-artifact{overflow:hidden}
+  .ps-live-document{min-height:0;overflow:auto;scrollbar-color:#aeb9ac #eef1eb;scrollbar-width:thin}
+}
+
+/* A consistent text floor for supporting product copy. */
+.ps-frame small{color:#4d5b54;font-size:.44rem;line-height:1.42}
+.ps-frame .ps-appbar small,.ps-frame [class*="success"] small{color:inherit}
+.ps-plan-deliverables>div,.ps-writeback-map--live .ps-writeback-row,.ps-execute-assignments>button,.ps-new-precedent>section{padding-top:8px;padding-bottom:8px}
+
+/* Crisp product typography: native screen rendering, whole-pixel copy, mono only for metadata. */
+.ps-frame{
+  font-family:"Segoe UI",Inter,"Helvetica Neue",Arial,sans-serif;
+  -webkit-font-smoothing:auto;
+  text-rendering:auto;
+}
+.ps-frame :is(p,small,li){
+  font-family:"Segoe UI",Inter,"Helvetica Neue",Arial,sans-serif!important;
+  font-synthesis:none;
+}
+.ps-frame small{
+  font-size:8px!important;
+  font-weight:400;
+  line-height:1.5;
+}
+.ps-frame :is(
+  .ps-history-turn>span>small,
+  .ps-plan-system small,.ps-plan-agent small,.ps-plan-user small,
+  .ps-materialize-chat-turn small,
+  .ps-execute-system small,.ps-execute-agent small,.ps-execute-user small,
+  .ps-live-turn small
+){
+  font-size:9px!important;
+  line-height:1.5;
+}
+.ps-frame :is(
+  .ps-emerging-context>p,
+  .ps-pursuit-overview p,.ps-pursuit-questions p,.ps-pursuit-columns p,.ps-pursuit-lower>section>p,
+  .ps-live-document>p,.ps-live-document>section>p,.ps-live-scope-block>p,.ps-live-scope-columns p,
+  .ps-live-proposal>section p,.ps-proposal-summary p,.ps-proposal-columns p,
+  .ps-execute-engagement>p,.ps-execute-brief section>p,.ps-execute-brief li
+){
+  font-size:9px!important;
+  line-height:1.55;
+}
+.ps-frame :is(
+  .ps-breadcrumb,.ps-brand,.ps-viewtabs,
+  .ps-signal-stream b,.ps-generation-toolbar>div b,.ps-generation-lineage b,
+  .ps-plan-won-event b,.ps-planning-panel-head>div b,.ps-plan-draft-meta b,
+  .ps-materialize-baseline strong,.ps-materialize-runstate b,.ps-materialize-receipt b,
+  .ps-execute-summary b,.ps-execute-panelhead b,.ps-execute-engagement>b,
+  .ps-live-panelhead b,.ps-learning-closeout b
+){
+  font-size:9px;
+}
+.ps-frame :is(
+  .ps-appbar-meta,.ps-chip,.ps-viewhead>div:first-child>span,.ps-section-label,
+  .ps-intake-head span,.ps-emerging-context>span,.ps-pursuit-overview span,.ps-pursuit-columns span,
+  .ps-pursuit-evidence span,.ps-pursuit-ready span,.ps-pursuit-questions span,.ps-pursuit-lower-head span,
+  .ps-generation-toolbar>div span,.ps-generation-lineage span,.ps-live-document>span,.ps-live-metrics span,
+  .ps-live-document>section>i,.ps-live-terms span,.ps-live-change span,
+  .ps-plan-won-event span,.ps-plan-locked span,.ps-planning-panel-head span,.ps-plan-draft-meta span,
+  .ps-plan-assignments span,.ps-plan-draft-gate span,.ps-plan-review span,.ps-plan-ready span,
+  .ps-materialize-baseline>div>span,.ps-materialize-runstate span,.ps-materialize-receipt span,
+  .ps-execute-summary span,.ps-execute-panelhead span,.ps-execute-briefmeta span,
+  .ps-execute-brief section>span,.ps-execute-engagement>span,.ps-execute-packet span,.ps-execute-lineage span,
+  .ps-live-panelhead span,.ps-reconcile-decision span,.ps-learning-closeout span,
+  .ps-precedent-outcome span,.ps-precedent-admission span
+){
+  font-family:"Segoe UI",Inter,"Helvetica Neue",Arial,sans-serif;
+  font-size:9px;
+  font-weight:600;
+  letter-spacing:.055em;
+}
+
+/* Titles and emphasis use true screen weights instead of miniature synthetic bold. */
+.ps-frame :is(h4,h5,h6,b,strong,button){
+  font-family:"Segoe UI Variable Display","Segoe UI",Inter,"Helvetica Neue",Arial,sans-serif!important;
+  font-synthesis:none;
+  text-rendering:auto;
+}
+.ps-frame b{
+  font-size:9px!important;
+  font-weight:600;
+  line-height:1.35;
+}
+.ps-frame strong{font-weight:600}
+.ps-frame button{
+  font-size:9px!important;
+  font-weight:600;
+}
+.ps-frame .ps-viewhead h4{
+  margin-top:6px;
+  font-size:20px!important;
+  font-weight:600;
+  letter-spacing:-.025em;
+  line-height:1.08;
+}
+.ps-frame :is(
+  .ps-panel h5,.ps-decision-card h5,.ps-analog-detail h5,
+  .ps-intake-head h5,.ps-emerging-context h5,.ps-pursuit-overview h5,
+  .ps-assistant-turn>h5,.ps-intake-interpretation>h5,.ps-intent-brief h5
+){
+  font-size:16px!important;
+  font-weight:600;
+  letter-spacing:-.018em;
+  line-height:1.18;
+}
+.ps-frame :is(.ps-scope-document>h5,.ps-proposal-document>h5,.ps-live-document>h5){
+  font-size:18px!important;
+  font-weight:600;
+  letter-spacing:-.022em;
+  line-height:1.12;
+}
+.ps-frame :is(.ps-document-section h6,.ps-proposal-document h6,.ps-live-document h6){
+  font-size:11px!important;
+  font-weight:600;
+  letter-spacing:-.01em;
+  line-height:1.25;
+}
+.ps-frame :is(
+  .ps-precedent b,.ps-plan-precedent-grid>div>b,
+  .ps-metrics strong,.ps-plan-summary strong,.ps-reconcile-top strong,
+  .ps-carry strong
+){
+  font-size:13px!important;
+}
+.ps-frame :is(
+  .ps-appbar-meta,.ps-rail b,.ps-scope-sequence>button>i,
+  .ps-writeback-row>div>b,.ps-source-feeds b,.ps-live-turn>i,
+  .ps-plan-system>i,.ps-plan-agent>i,.ps-plan-user>i,
+  .ps-execute-system>i,.ps-execute-agent>i,.ps-execute-user>i
+){
+  font-family:ui-monospace,"Cascadia Mono",Consolas,monospace!important;
+  font-size:9px!important;
+  font-weight:600;
+}
+/* Planning is the only lifecycle workspace with internal views. */
+.ps-viewtabs{gap:5px}
+.ps-viewtabs button{padding:6px 10px;border:1px solid transparent;background:transparent;color:#68746e;font-size:inherit;cursor:pointer}
+.ps-viewtabs button:hover{background:#eef1eb;color:#07100e}
+.ps-viewtabs button.is-active{border-color:#cbd4c7;background:#fff;color:#07100e;font-weight:700;box-shadow:inset 0 -2px #86c43d}
+.ps-staffing-workspace{margin-top:9px}
+.ps-staffing-summary{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid #cfd6cc;background:#fff}
+.ps-staffing-summary>div{padding:10px 11px;border-right:1px solid #d8ded5}
+.ps-staffing-summary>div:last-child{border-right:0}
+.ps-staffing-summary span,.ps-staffing-profile span,.ps-staffing-evidence>span{display:block;color:#53645b;font-family:'IBM Plex Mono';font-size:.39rem;letter-spacing:.08em}
+.ps-staffing-summary b,.ps-staffing-summary small{display:block}
+.ps-staffing-summary b{margin-top:4px;font-size:.54rem}
+.ps-staffing-summary small{margin-top:3px;color:#65736b;font-size:.38rem}
+.ps-staffing-main{display:grid;grid-template-columns:.82fr 1.18fr;gap:9px;margin-top:9px}
+.ps-staffing-roster,.ps-staffing-profile{min-width:0;border:1px solid #cfd6cc;background:#fff}
+.ps-staffing-list button{display:grid;width:100%;grid-template-columns:28px 1fr auto;gap:8px;align-items:center;padding:8px 9px;border:0;border-bottom:1px solid #dde2da;background:#fff;color:#07100e;text-align:left;cursor:pointer}
+.ps-staffing-list button:hover,.ps-staffing-list button.is-selected{background:#edf4e7}
+.ps-staffing-list button.is-selected{box-shadow:inset 3px 0 #86c43d}
+.ps-staffing-list button>i,.ps-staffing-profile-head>i{display:grid;place-items:center;width:25px;height:25px;border-radius:50%;background:#dfe9d3;color:#315215;font-family:'IBM Plex Mono';font-size:.36rem;font-style:normal}
+.ps-staffing-list button span b,.ps-staffing-list button span small,.ps-staffing-list button>em small{display:block}
+.ps-staffing-list button span b{font-size:.45rem}
+.ps-staffing-list button span small{margin-top:2px;color:#637069;font-size:.37rem}
+.ps-staffing-list button>em{color:#31452d;font-family:'IBM Plex Mono';font-size:.38rem;font-style:normal;text-align:right}
+.ps-staffing-list button>em small{margin-top:2px;color:#53782e;font-size:.33rem}
+.ps-staffing-profile{padding:13px}
+.ps-staffing-profile-head{display:grid;grid-template-columns:36px 1fr auto;gap:10px;align-items:center;padding-bottom:12px;border-bottom:1px solid #d8ded5}
+.ps-staffing-profile-head>i{width:33px;height:33px;background:#07100e;color:#b8e67f;font-size:.42rem}
+.ps-staffing-profile-head h5{margin:4px 0 0;font-family:'Inter Tight';font-size:1rem;font-weight:600}
+.ps-staffing-profile-head p{margin:3px 0 0;color:#56645c;font-size:.4rem}
+.ps-staffing-fit{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #d8ded5}
+.ps-staffing-fit>div{padding:11px 10px 11px 0}
+.ps-staffing-fit>div+div{padding-left:10px;border-left:1px solid #d8ded5}
+.ps-staffing-fit b,.ps-staffing-fit small,.ps-staffing-assignment b,.ps-staffing-assignment small{display:block}
+.ps-staffing-fit b,.ps-staffing-assignment b{margin-top:4px;font-size:.47rem}
+.ps-staffing-fit small,.ps-staffing-assignment small{margin-top:4px;color:#5b6961;font-size:.37rem;line-height:1.4}
+.ps-staffing-assignment{padding:11px 0;border-bottom:1px solid #d8ded5}
+.ps-staffing-capacity{padding:11px 0;border-bottom:1px solid #d8ded5}
+.ps-staffing-capacity>div{display:flex;justify-content:space-between;color:#5d6962;font-family:'IBM Plex Mono';font-size:.33rem}
+.ps-staffing-capacity>i{display:block;height:12px;margin-top:5px;background:repeating-linear-gradient(90deg,#e8ece6 0,#e8ece6 calc(25% - 1px),#cbd3c8 25%)}
+.ps-staffing-capacity>i>em{display:block;width:82%;height:6px;margin-top:3px;background:#86c43d}
+.ps-staffing-capacity>small{display:block;margin-top:5px;color:#647169;font-size:.34rem}
+.ps-staffing-evidence{display:grid;grid-template-columns:70px repeat(3,1fr);gap:8px;align-items:center;padding-top:10px}
+.ps-staffing-evidence p{margin:0;padding-left:8px;border-left:1px solid #d8ded5}
+.ps-staffing-evidence p b,.ps-staffing-evidence p small{display:block}
+.ps-staffing-evidence p b{font-size:.39rem}
+.ps-staffing-evidence p small{margin-top:2px;color:#637069;font-size:.32rem;line-height:1.3}
+@media(max-width:760px){.ps-staffing-summary{grid-template-columns:1fr 1fr}.ps-staffing-summary>div:nth-child(2){border-right:0}.ps-staffing-summary>div:nth-child(-n+2){border-bottom:1px solid #d8ded5}.ps-staffing-main{grid-template-columns:1fr}.ps-staffing-evidence{grid-template-columns:1fr 1fr}.ps-staffing-evidence>span{grid-column:1/-1}}
