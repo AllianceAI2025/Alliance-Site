@@ -246,7 +246,7 @@ function WorkingArtifactScene({ mode, chatPhase, typedQuestion, progress, replay
         </>}
         {(chatPhase === "thinking" || chatPhase === "response") && <div className="ps-history-turn is-user is-final ps-chat-enter"><span><b>Maya Chen</b><small>{question}</small></span></div>}
         {chatPhase === "thinking" && <div className="ps-chat-thinking"><span className="ps-ai-mark">A.</span><div><b>AllianceOne</b><p><i /><i /><i /> {proposal ? "Reconciling approved scope with new client context" : "Assembling the first scope draft"}</p></div></div>}
-        {chatPhase === "response" && <div className="ps-history-turn is-agent ps-chat-response"><i className="ps-ai-mark">A.</i><span><b>AllianceOne</b><small>{proposal ? "Building the proposal now. Approved intent is preserved; the partner and client changes are reflected in the narrative and delivery sequence." : "Building the internal scope now. I’m grounding each section in the Pursuit Brief, this conversation, and the firm’s comparable engagements."}</small></span></div>}
+        {chatPhase === "response" && <div className="ps-history-turn is-agent ps-chat-response"><i className="ps-ai-mark">A.</i><span><b>AllianceOne</b><small>{proposal ? "Building the proposal now. Approved intent is preserved; the partner and client changes are reflected in the narrative and delivery sequence." : "Building the internal scope now. I’m grounding each section in the Pursuit Brief, this conversation, and your firm’s comparable engagements."}</small></span></div>}
       </div>
       <div className={`ps-composer ps-live-composer${chatPhase === "typing" ? " is-typing" : ""}`}><span>{chatPhase === "typing" ? typedQuestion : paneOpen ? "Continue working alongside the draft…" : "Ask about team, timing, roadmap, or precedent…"}{chatPhase === "typing" && <i />}</span><div><b>＋</b><b>#</b><button>{chatPhase === "typing" ? "Typing" : "Send ↑"}</button></div></div>
       <button className="ps-replay-chat" onClick={replay}>Replay generation</button>
@@ -382,7 +382,7 @@ function LegacyPlanScene() {
       </aside>
     </div>
     <section className="ps-plan-precedents">
-      <div className="ps-plan-precedent-head"><div><span>SIMILAR ENGAGEMENTS</span><strong>What this plan carries forward from the firm’s delivery record</strong></div><Chip>7 compared · 3 pinned</Chip></div>
+      <div className="ps-plan-precedent-head"><div><span>SIMILAR ENGAGEMENTS</span><strong>What this plan carries forward from your firm’s delivery record</strong></div><Chip>7 compared · 3 pinned</Chip></div>
       <div className="ps-plan-precedent-grid">
         {planPrecedents.map(([fit, name, outcome, lesson]) => <div key={name}><b>{fit}</b><span><strong>{name}</strong><small>{outcome}</small></span><p>{lesson}</p></div>)}
       </div>
@@ -691,7 +691,7 @@ export function MaterializeScene() {
 }
 
 const executePrompt = "Give me the context I need to build the decision-rights baseline. Pull the relevant firm methods, comparable work, and the evidence gaps I still need to close.";
-const executeResponse = "The load-bearing question is which decisions Northstar should centralize, federate, or leave local, and what evidence each region will accept. Classify the 26 priority decisions, test the proposed owners across all eight regions, and flag service-continuity conflicts explicitly. Start with the firm’s Decision Rights Diagnostic, then adapt the Harbor Grain validation matrix. I found three evidence gaps to close before partner review.";
+const executeResponse = "The load-bearing question is which decisions Northstar should centralize, federate, or leave local, and what evidence each region will accept. Classify the 26 priority decisions, test the proposed owners across all eight regions, and flag service-continuity conflicts explicitly. Start with your firm’s Decision Rights Diagnostic, then adapt the Harbor Grain validation matrix. I found three evidence gaps to close before partner review.";
 
 const executeAssignments = [
   ["DL-4401", "Decision-rights baseline", "In progress", "W4"],
@@ -807,7 +807,7 @@ export function ExecuteScene() {
           <div className={`ps-execute-sources${step >= 5 ? " is-visible" : ""}`}><span className={step >= 5 ? "is-resolved" : ""}>APPROVED PLAN / V1</span><span className={step >= 6 ? "is-resolved" : ""}>DECISION RIGHTS DIAGNOSTIC / V6</span><span className={step >= 7 ? "is-resolved" : ""}>HARBOR GRAIN / 91% FIT</span></div>
           <div className={`ps-execute-turn ps-execute-agent ps-execute-result${step >= 8 ? " is-visible" : ""}`}><i>A.</i><p><b>Here is the load-bearing work</b><small>{typedResponse}{step === 8 && <i className="ps-execute-stream-cursor" />}</small><em className={`ps-execute-grounding-note${step >= 9 ? " is-visible" : ""}`}>Grounded in 7 engagement and firm sources · 3 evidence gaps flagged</em></p></div>
         </div>
-        <div className={`ps-execute-composer${step === 2 ? " is-typing" : ""}`}><span>{step === 2 ? typedPrompt : "Ask about the deliverable, research the firm record, or draft from a template…"}{step === 2 && <i />}</span><button type="button">{step === 2 ? "Typing…" : step >= 3 && step < 9 ? "Sent ✓" : "Send ↑"}</button></div>
+        <div className={`ps-execute-composer${step === 2 ? " is-typing" : ""}`}><span>{step === 2 ? typedPrompt : "Ask about the deliverable, research your firm record, or draft from a template…"}{step === 2 && <i />}</span><button type="button">{step === 2 ? "Typing…" : step >= 3 && step < 9 ? "Sent ✓" : "Send ↑"}</button></div>
         <button className="ps-execute-replay" type="button" onClick={() => setRun((value) => value + 1)}>Replay consultant flow</button>
       </section>
       <aside className={`ps-execute-brief${step >= 9 ? " is-grounded" : ""}`}>

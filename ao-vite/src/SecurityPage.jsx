@@ -2,20 +2,20 @@ import React, { useState } from "react";
 import { useFonts, Head, Btn, Wrap, Section, Nav, Footer, Modal } from "./App.jsx";
 
 const pillars = [
-  ["Firm isolation", "Each firm is routed to its own graph and every operational record is scoped by firm identity. A firm’s model does not inform another firm’s system."],
+  ["Firm isolation", "Your firm is routed to your own graph, and every operational record is scoped by firm identity. Your model does not inform another firm’s system."],
   ["Source ownership", "CRM, project, document, and financial systems remain authoritative for the facts they own. AllianceOne records where each fact came from and reconciles copies against the proper source."],
   ["Evidence before inference", "Every practice claim carries a truth class, provenance, and review state. Stronger evidence can replace a weaker inference; the reverse is blocked."],
   ["Known gaps stay visible", "The coverage map records which data classes are flowing, which are intentionally excluded, and which remain unmapped. Missing data is not silently converted into a conclusion."],
-  ["Human authority", "Models may propose engagement shapes, precedents, methods, and changes. Consultants confirm the actions that alter plans or the firm’s practice model."],
+  ["Human authority", "Models may propose engagement shapes, precedents, methods, and changes. Consultants confirm the actions that alter plans or your firm’s practice model."],
   ["Permission-aware retrieval", "Raw conversations are reached through participation and authorship rules. Other people’s communications contribute attributed signals without becoming broadly searchable raw text."],
 ];
 
 const answers = [
-  ["Do you train foundation models on our engagement data?", "No. Models reason over the firm’s records at answer time. The firm’s engagement state and practice model remain in its own data boundary rather than being absorbed into shared model weights."],
+  ["Do you train foundation models on our engagement data?", "No. Models reason over your firm’s records at answer time. Your firm’s engagement state and practice model remain within your data boundary rather than being absorbed into shared model weights."],
   ["What happens when systems disagree?", "AllianceOne uses source authority and truth ranking. A billing record can outrank a number extracted from a proposal, while the discrepancy itself becomes a delivery-variance signal."],
   ["Can the system distinguish missing data from a negative result?", "Yes. Coverage is declared and observed by data class. A known gap means absence carries no evidentiary weight; an unmapped class becomes an onboarding question rather than a hidden assumption."],
-  ["Can the model silently change the firm’s methods?", "No. Machines propose and humans confirm. Confirmed archetypes and methods are not silently re-clustered, and contradicted or poorly founded claims can be downgraded or blocked from use."],
-  ["What should a design partner expect today?", "We will map the firm’s source systems and permission requirements before making coverage claims. If a required control or connector is not ready, we will identify it explicitly during the design-partner process."],
+  ["Can the model silently change your firm’s methods?", "No. Machines propose and humans confirm. Confirmed archetypes and methods are not silently re-clustered, and contradicted or poorly founded claims can be downgraded or blocked from use."],
+  ["What should a design partner expect today?", "We will map your firm’s source systems and permission requirements before making coverage claims. If a required control or connector is not ready, we will identify it explicitly during the design-partner process."],
 ];
 
 export default function SecurityPage() {

@@ -15,7 +15,7 @@ const firms = [
 ];
 
 const waysOfWorking = [
-  ["Approach", "How the firm frames the problem, the questions it asks first, the evidence it trusts, and the precedent it brings forward."],
+  ["Approach", "How your firm frames the problem, the questions it asks first, the evidence it trusts, and the precedent it brings forward."],
   ["Think", "The options considered, the tradeoffs made, the assumptions carried, and the reasoning behind the recommendation."],
   ["Deliver", "How scope, staffing, sequence, governance, decisions, changes, and outcomes fit together in practice."],
 ];
@@ -23,23 +23,23 @@ const waysOfWorking = [
 const assets = [
   ["Traceable", "Every commitment, change, and conclusion remains connected to its source, owner, approval, and outcome."],
   ["Repeatable", "Teams begin with the methods, delivery shapes, and lessons that proved relevant in comparable work."],
-  ["Compounding", "Each completed engagement improves how the firm scopes, staffs, governs, and delivers the next one."],
+  ["Compounding", "Each completed engagement improves how your firm scopes, staffs, governs, and delivers the next one."],
 ];
 
 const lifecycle = [
   ["Scope", "Turn fragmented pursuit context into a grounded scope and proposal."],
   ["Plan", "Translate the accepted commitment into workstreams, deliverables, staffing, and effort."],
-  ["Materialize", "Write the approved plan into the firm's PSA or project system."],
+  ["Materialize", "Write the approved plan into your firm's PSA or project system."],
   ["Execute", "Give every team member the context, evidence, methods, and guidance to deliver."],
   ["Reconcile", "Compare actual delivery with what was committed and preserve why it changed."],
-  ["Learn", "Admit proven outcomes and lessons into the firm's body of precedent."],
+  ["Learn", "Admit proven outcomes and lessons into your firm's body of precedent."],
 ];
 
 const comparison = [
   ["Context", "Assembled for the current request", "Maintained across the engagement lifecycle"],
   ["Authority", "Can interpret records", "Knows which approved record governs"],
   ["Memory", "Retrieved from available material", "Resolved around clients, people, decisions, and outcomes"],
-  ["Learning", "Improves the general capability", "Improves the firm's own way of working"],
+  ["Learning", "Improves the general capability", "Improves your firm's own way of working"],
 ];
 
 const architecture = [
@@ -63,7 +63,7 @@ export default function PlatformPage() {
         <div className="pf-hero-grid">
           <h1>One system for the entire engagement.</h1>
           <div className="pf-hero-copy">
-            <p>From the first client signal through scope, planning, delivery, and close-out, AllianceOne keeps the firm's intent, decisions, work, and outcomes connected.</p>
+            <p>From the first client signal through scope, planning, delivery, and close-out, AllianceOne keeps your firm's intent, decisions, work, and outcomes connected.</p>
             <strong>The system of record for professional-services engagements.</strong>
           </div>
         </div>
@@ -103,7 +103,7 @@ export default function PlatformPage() {
             <p>CRM, PSA, project, document, time, and billing systems remain authoritative for the activities and actuals they are built to manage.</p>
           </div>
         </div>
-        <p className="pf-principle-result">The firm can see what happened against what was intended, without replacing the systems its teams already use.</p>
+        <p className="pf-principle-result">Your firm can see what happened against what was intended, without replacing the systems your teams already use.</p>
       </Wrap>
     </section>
 
@@ -122,7 +122,7 @@ export default function PlatformPage() {
       <Wrap>
         <div className="pf-section-head">
           <h2>How your firm works becomes part of the record.</h2>
-          <p>AllianceOne captures more than final documents. It preserves how the firm approaches a problem, thinks through possible solutions, and turns judgment into delivery.</p>
+          <p>AllianceOne captures more than final documents. It preserves how your firm approaches a problem, thinks through possible solutions, and turns judgment into delivery.</p>
         </div>
         <div className="pf-method-grid">
           {waysOfWorking.map(([name, body]) => <article key={name}><h3>{name}</h3><p>{body}</p></article>)}
@@ -160,7 +160,7 @@ export default function PlatformPage() {
       <Wrap>
         <div className="pf-section-head">
           <h2>A powerful model is not an operating system.</h2>
-          <p>Capable models provide reasoning. Retrieval provides material. AllianceOne provides the firm-specific state, authority, identity, and lifecycle governance that make both dependable in delivery.</p>
+          <p>Capable models provide reasoning. Retrieval provides material. AllianceOne provides your firm's state, authority, identity, and lifecycle governance that make both dependable in delivery.</p>
         </div>
         <div className="pf-comparison">
           <div className="pf-comparison-head"><span /><strong>General model</strong><strong>AllianceOne</strong></div>
@@ -187,7 +187,7 @@ export default function PlatformPage() {
       <Wrap>
         <div>
           <h2>Every engagement widens the advantage.</h2>
-          <p>A competitor can license the same model. It cannot license your firm's history of decisions, delivery patterns, outcomes, and proven judgment. That advantage is private to the firm and grows with every completed engagement.</p>
+          <p>A competitor can license the same model. It cannot license your firm's history of decisions, delivery patterns, outcomes, and proven judgment. That advantage is private to your firm and grows with every completed engagement.</p>
         </div>
       </Wrap>
     </section>
