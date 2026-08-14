@@ -174,7 +174,7 @@ function PracticeVisual() {
 const loopSteps = [
   { n: "01", label: "Scope", title: "Context becomes an approved commercial scope.", body: "AllianceOne carries early conversations into the opportunity, assembles the Pursuit Brief, and gives the consultant a grounded working surface in Chat. The resulting internal scope is reviewed by the engagement lead; only that approved scope can unlock and ground the client proposal.", visual: <ScopeScene /> },
   { n: "02", label: "Plan", title: "What was sold becomes an approved delivery baseline.", body: "When CRM marks the engagement Won, AllianceOne locks the accepted proposal facts and opens planning mode. The engagement manager builds deliverables, assignments, dependencies, effort, and the roadmap in Chat; approval creates the authoritative plan that can be written into the firm’s PM or PSA system.", visual: <PlanScene /> },
-  { n: "03", label: "Materialize", title: "The approved plan becomes PSA execution state.", body: "AllianceOne validates the destination mapping, then creates the project, phases, deliverables, assignments, and milestones in the firm’s PSA or project-management system. The destination owns execution; AllianceOne retains the approved baseline and the receipt linking every created record to it.", visual: <MaterializeScene /> },
+  { n: "03", label: "Materialize", title: "The approved plan becomes the execution state.", body: "AllianceOne validates the destination mapping, then creates the project, phases, deliverables, assignments, and milestones in the firm’s PSA or project-management system. The destination owns execution; AllianceOne retains the approved baseline and the receipt linking every created record to it.", visual: <MaterializeScene /> },
   { n: "04", label: "Execute", title: "Every consultant works with the full engagement context.", body: "Each person receives a workspace shaped by the approved plan: assigned deliverables, workstream context, review expectations, and the engagement brief. In Chat, they can research the firm record, apply proven methods and templates, surface missing evidence, and develop the work without losing its connection to what the firm committed.", visual: <ExecuteScene /> },
   { n: "05", label: "Reconcile", title: "Delivery is measured against what was committed.", body: "Milestones and effort return from project systems. Billing actuals return from ERP. Scope, approvals, and evidence return from the systems that own them. AllianceOne reconciles the whole engagement without rewriting the baseline.", visual: <ReconcileScene /> },
   { n: "06", label: "Learn", title: "The engagement leaves the practice smarter.", body: "At close-out, outcomes meet the conditions and decisions that produced them. Methods are validated, refined, or contradicted, and the next pursuit begins with a more accurate model of how the firm delivers.", visual: <PracticeScene /> },
@@ -201,23 +201,6 @@ function StateModel() {
     <Wrap>
       <div className="state-heading"><Eyebrow color={C.goldSoft}>State, defined</Eyebrow><Head light>A conversation history is not engagement state.</Head><p>AllianceOne maintains six connected forms of state across the lifecycle. Each one has an owner, a source, and a place in the engagement story.</p></div>
       <div className="state-table">{states.map(([name, desc], i) => <div key={name}><span>0{i + 1}</span><strong>{name}</strong><p>{desc}</p><i /></div>)}</div>
-    </Wrap>
-  </Section>;
-}
-
-function CoverageVisual() {
-  const rows = [["CRM / pipeline", "Salesforce", "Covered"], ["Documents", "SharePoint", "Covered"], ["Meeting transcripts", "Teams", "Covered"], ["Financials", "NetSuite", "Declared / no flow"], ["Internal chat", "—", "Known gap"]];
-  return <div className="coverage-visual"><div className="coverage-head"><span>FIRM COVERAGE MAP</span><b>8 of 10 data classes mapped</b></div>{rows.map(([d, s, st]) => <div className="coverage-row" key={d}><strong>{d}</strong><span>{s}</span><em className={st === "Covered" ? "covered" : st === "Known gap" ? "gap" : "attention"}>{st}</em></div>)}<p>Absence is never treated as evidence until coverage is established.</p></div>;
-}
-
-function Integrity() {
-  return <Section className="integrity-section">
-    <Wrap>
-      <div className="integrity-grid">
-        <div className="integrity-copy"><Eyebrow>Built to know its limits</Eyebrow><Head size="quiet">A credible system must distinguish what happened from what it inferred.</Head><p>AllianceOne records where each fact came from, whether the source is authoritative, and whether a human has confirmed it. Unknown remains unknown. Contradicted methods do not quietly return as recommendations.</p><a href="/security/">Security and data governance <span>→</span></a></div>
-        <CoverageVisual />
-      </div>
-      <div className="integrity-principles"><div><span>01</span><strong>Evidence travels with the claim.</strong></div><div><span>02</span><strong>Human judgment binds the system.</strong></div><div><span>03</span><strong>Each firm remains isolated.</strong></div></div>
     </Wrap>
   </Section>;
 }
@@ -255,5 +238,5 @@ export default function App() {
   const [modal, setModal] = useState(false);
   useFonts();
   const open = () => setModal(true);
-  return <div className="site-shell"><Nav onCta={open} /><main><Hero onCta={open} /><IntentStatement /><Loop /><StateModel /><Integrity /><Firms /><DesignPartner onCta={open} /></main><Footer onCta={open} /><Modal open={modal} onClose={() => setModal(false)} /></div>;
+  return <div className="site-shell"><Nav onCta={open} /><main><Hero onCta={open} /><IntentStatement /><Loop /><StateModel /><Firms /><DesignPartner onCta={open} /></main><Footer onCta={open} /><Modal open={modal} onClose={() => setModal(false)} /></div>;
 }

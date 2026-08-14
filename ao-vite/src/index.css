@@ -1100,3 +1100,237 @@
   .ps-writeback-map--live .ps-writeback-row{grid-template-columns:1fr 1fr;padding:12px}
   .ps-writeback-map--live .ps-writeback-row>.ps-writeback-fields{grid-column:1/-1}
 }
+
+/* Execute is a working research thread, with the same live-context language as planning. */
+.ps-execute-chat{min-height:410px}
+.ps-execute-chat>.ps-live-feed{flex:none}
+.ps-execute-thread{
+  flex:1;
+  min-height:0;
+  max-height:304px;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  scrollbar-color:#9aa69f #e6ebe4;
+  scrollbar-width:thin;
+}
+.ps-execute-thread::-webkit-scrollbar{width:7px}
+.ps-execute-thread::-webkit-scrollbar-track{background:#e6ebe4}
+.ps-execute-thread::-webkit-scrollbar-thumb{border:2px solid #e6ebe4;background:#9aa69f}
+.ps-execute-history{opacity:1;transform:none}
+
+@media(max-width:760px){
+  .ps-execute-thread{max-height:330px}
+}
+
+/* All animated conversations live in a fixed viewport. New turns scroll; they never resize the scene. */
+.ps-planning-chat,
+.ps-staffing-decision-chat,
+.ps-execute-chat,
+.ps-reconcile-chat,
+.ps-learning-chat{
+  min-height:360px;
+  height:360px;
+  max-height:360px;
+  overflow:hidden;
+}
+
+.ps-execute-chat{
+  min-height:410px;
+  height:410px;
+  max-height:410px;
+}
+
+.ps-plan-thread,
+.ps-execute-thread,
+.ps-reconcile-thread,
+.ps-learning-thread{
+  flex:1 1 auto;
+  min-height:0;
+  overflow-y:scroll;
+  overscroll-behavior:contain;
+  scrollbar-gutter:stable;
+  scrollbar-color:#aeb9b0 #e8ece7;
+  scrollbar-width:thin;
+}
+
+.ps-plan-thread::-webkit-scrollbar,
+.ps-execute-thread::-webkit-scrollbar,
+.ps-reconcile-thread::-webkit-scrollbar,
+.ps-learning-thread::-webkit-scrollbar{width:9px}
+
+.ps-plan-thread::-webkit-scrollbar-track,
+.ps-execute-thread::-webkit-scrollbar-track,
+.ps-reconcile-thread::-webkit-scrollbar-track,
+.ps-learning-thread::-webkit-scrollbar-track{background:#e8ece7}
+
+.ps-plan-thread::-webkit-scrollbar-thumb,
+.ps-execute-thread::-webkit-scrollbar-thumb,
+.ps-reconcile-thread::-webkit-scrollbar-thumb,
+.ps-learning-thread::-webkit-scrollbar-thumb{
+  border:2px solid #e8ece7;
+  background:#aeb9b0;
+}
+
+@media(min-width:761px){
+  .ps-working-chat{
+    min-height:516px;
+    height:516px;
+    max-height:516px;
+    overflow:hidden;
+  }
+  .ps-conversation-history{
+    flex:1 1 auto;
+    min-height:0;
+    overflow-y:scroll;
+  }
+}
+
+@media(max-width:760px){
+  .ps-planning-chat,
+  .ps-staffing-decision-chat,
+  .ps-reconcile-chat,
+  .ps-learning-chat{
+    min-height:390px;
+    height:390px;
+    max-height:390px;
+  }
+  .ps-execute-chat{
+    min-height:430px;
+    height:430px;
+    max-height:430px;
+  }
+}
+
+/* Reconcile decision record: the engagement story, preserved as governed metadata. */
+.ps-decision-record{margin-top:9px}
+.ps-decision-summary{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  border-top:1px solid #cfd7cf;
+  border-bottom:1px solid #cfd7cf;
+}
+.ps-decision-summary>div{padding:9px 11px;border-right:1px solid #d8ded7}
+.ps-decision-summary>div:last-child{border-right:0}
+.ps-decision-summary span,
+.ps-decision-head span,
+.ps-decision-detail section>span,
+.ps-decision-impact span,
+.ps-decision-evidence>span{
+  color:#516159;
+  font-family:"Segoe UI Variable Text","Segoe UI",Inter,"Helvetica Neue",Arial,sans-serif;
+  font-size:8px;
+  font-weight:650;
+  letter-spacing:.08em;
+}
+.ps-decision-summary b,.ps-decision-summary small{display:block}
+.ps-decision-summary b{margin-top:4px;color:#17251e;font-size:15px;font-weight:600}
+.ps-decision-summary small{margin-top:2px;color:#58675f;font-size:9px}
+.ps-decision-grid{display:grid;grid-template-columns:1.05fr .95fr;border-bottom:1px solid #cfd7cf}
+.ps-decision-log{min-width:0;border-right:1px solid #cfd7cf}
+.ps-decision-head{padding:10px 11px;border-bottom:1px solid #d8ded7;background:#eef2ed}
+.ps-decision-head b{display:block;margin-top:4px;color:#17251e;font-size:11px;font-weight:600}
+.ps-decision-log article{
+  display:grid;
+  grid-template-columns:48px 1fr;
+  gap:8px;
+  padding:9px 11px;
+  border-bottom:1px solid #dde2dc;
+}
+.ps-decision-log article:last-child{border-bottom:0}
+.ps-decision-log article.is-selected{border-left:2px solid #79ad4b;background:#eef4e9;padding-left:9px}
+.ps-decision-log time{color:#66746c;font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-size:8px}
+.ps-decision-log article span,.ps-decision-log article b,.ps-decision-log article small{display:block}
+.ps-decision-log article span{color:#55723b;font-size:8px;font-weight:650;letter-spacing:.04em}
+.ps-decision-log article b{margin-top:3px;color:#17251e;font-size:10px;font-weight:600}
+.ps-decision-log article small{margin-top:3px;color:#4a5951;font-size:9px;line-height:1.4}
+.ps-decision-detail{min-width:0}
+.ps-decision-detail section{padding:8px 11px;border-bottom:1px solid #dde2dc}
+.ps-decision-detail section>p{margin:4px 0 0;color:#3f4e46;font-size:9px;line-height:1.45}
+.ps-decision-detail section>p>b{font-size:9px;font-weight:650}
+.ps-decision-impact{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid #d8ded7;background:#f4f7f2}
+.ps-decision-impact>div{padding:8px;border-right:1px solid #d8ded7}
+.ps-decision-impact>div:last-child{border-right:0}
+.ps-decision-impact b{display:block;margin-top:3px;color:#203129;font-size:10px;font-weight:650}
+.ps-decision-evidence{display:flex;gap:8px;align-items:center;padding:9px 11px;color:#526159;overflow-x:auto;white-space:nowrap}
+.ps-decision-evidence>b{color:#26362e;font-size:8px;font-weight:600}
+.ps-decision-evidence>i{color:#7aa34f;font-size:9px;font-style:normal}
+
+@media(max-width:900px){
+  .ps-decision-grid{grid-template-columns:1fr}
+  .ps-decision-log{border-right:0;border-bottom:1px solid #cfd7cf}
+}
+@media(max-width:760px){
+  .ps-decision-summary{grid-template-columns:repeat(2,1fr)}
+  .ps-decision-summary>div:nth-child(2){border-right:0}
+  .ps-decision-summary>div:nth-child(-n+2){border-bottom:1px solid #d8ded7}
+}
+
+/* Final product typography audit: crisp system faces, stable whole-pixel sizes, and a 9px reading floor. */
+.ps-frame,
+.ps-frame :is(button,input,textarea,select){
+  font-family:"Segoe UI Variable Text","Segoe UI",Inter,"Helvetica Neue",Arial,sans-serif!important;
+  font-synthesis:none;
+  text-rendering:optimizeLegibility;
+  -webkit-font-smoothing:antialiased;
+}
+.ps-frame :is(h4,h5,h6,b,strong){
+  font-family:"Segoe UI Variable Display","Segoe UI Variable Text","Segoe UI",Inter,"Helvetica Neue",Arial,sans-serif!important;
+  font-synthesis:none;
+}
+.ps-frame :is(span,small,em,time,label,button,p,li,th,td){
+  font-family:"Segoe UI Variable Text","Segoe UI",Inter,"Helvetica Neue",Arial,sans-serif!important;
+  font-size:9px!important;
+  font-synthesis:none;
+}
+.ps-frame :is(b,strong){font-size:10px!important}
+.ps-frame p{line-height:1.48}
+.ps-frame small{line-height:1.45}
+.ps-frame button{line-height:1.25}
+.ps-frame .ps-chip{font-size:8px!important;line-height:1.2;letter-spacing:.015em}
+
+/* Workspace navigation and lifecycle labels. */
+.ps-frame :is(.ps-workspace-person b,.ps-nav-project>button b,.ps-nav-footer b,.ps-phase-node>a b,.ps-nav-children>button span){font-size:10px!important;line-height:1.3}
+.ps-frame :is(.ps-workspace-person small,.ps-nav-project>button small,.ps-nav-footer small,.ps-phase-node>a small){font-size:9px!important;line-height:1.35}
+.ps-frame :is(.ps-nav-group>span,.ps-nav-footer>span,.ps-viewhead>div:first-child>span,.ps-section-label,.ps-appbar-meta){font-size:8px!important;font-weight:650;letter-spacing:.075em}
+.ps-frame .ps-phase-node>a>em,.ps-frame .ps-nav-children>button em{font-size:7px!important;letter-spacing:.04em}
+.ps-frame .ps-viewhead h4{font-size:21px!important;font-weight:650;line-height:1.1}
+
+/* Conversation surfaces use one readable scale in every phase. */
+.ps-frame :is(.ps-live-feed,.ps-live-feed b,.ps-planning-panel-head span,.ps-execute-panelhead span,.ps-live-panelhead span){font-size:9px!important;line-height:1.35}
+.ps-frame :is(.ps-history-turn>span>b,.ps-plan-system b,.ps-plan-agent b,.ps-plan-user b,.ps-materialize-chat-turn b,.ps-execute-system b,.ps-execute-agent b,.ps-execute-user b,.ps-live-turn b){font-size:10px!important;line-height:1.35}
+.ps-frame :is(.ps-history-turn>span>small,.ps-plan-system small,.ps-plan-agent small,.ps-plan-user small,.ps-materialize-chat-turn small,.ps-execute-system small,.ps-execute-agent small,.ps-execute-user small,.ps-live-turn small){font-size:9px!important;line-height:1.5}
+.ps-frame :is(.ps-plan-composer,.ps-execute-composer,.ps-live-composer-row,.ps-materialize-dialogue .ps-plan-composer){font-size:9px!important;line-height:1.4}
+.ps-frame :is(.ps-plan-thinking>span,.ps-execute-thinking>span,.ps-execute-source-run,.ps-live-thinking>span,.ps-plan-replay,.ps-execute-replay,.ps-live-replay){font-size:8px!important}
+
+/* Dense records, artifacts, and execution views. */
+.ps-frame :is(.ps-intake-head span,.ps-emerging-context>span,.ps-pursuit-overview span,.ps-pursuit-columns span,.ps-pursuit-evidence span,.ps-pursuit-ready span,.ps-pursuit-questions span,.ps-pursuit-lower-head span,.ps-generation-toolbar span,.ps-generation-lineage span,.ps-live-document>span,.ps-live-metrics span,.ps-live-terms span,.ps-plan-won-event span,.ps-plan-locked span,.ps-plan-draft-meta span,.ps-plan-assignments span,.ps-plan-draft-gate span,.ps-plan-review span,.ps-plan-ready span,.ps-materialize-baseline span,.ps-materialize-runstate span,.ps-materialize-receipt span,.ps-execute-summary span,.ps-execute-briefmeta span,.ps-execute-brief section>span,.ps-execute-engagement>span,.ps-execute-packet span,.ps-learning-closeout span,.ps-precedent-outcome span,.ps-precedent-admission span){font-size:8px!important;font-weight:650;letter-spacing:.065em}
+.ps-frame :is(.ps-signal-stream b,.ps-generation-toolbar b,.ps-generation-lineage b,.ps-plan-won-event b,.ps-plan-locked b,.ps-plan-draft-meta b,.ps-plan-deliverables b,.ps-plan-assignments b,.ps-materialize-baseline strong,.ps-materialize-runstate b,.ps-materialize-receipt b,.ps-execute-summary b,.ps-execute-panelhead b,.ps-execute-assignments b,.ps-execute-engagement>b,.ps-execute-briefmeta b,.ps-execute-methods b,.ps-execute-packet b,.ps-learning-closeout b,.ps-precedent-outcome b){font-size:10px!important;line-height:1.35}
+.ps-frame :is(.ps-plan-deliverables-head,.ps-writeback-head){font-size:9px!important;line-height:1.3}
+.ps-frame :is(.ps-plan-source span,.ps-execute-sources>span,.ps-learning-source-events>span){font-size:8px!important;line-height:1.25}
+.ps-frame .ps-writeback-map--live .ps-writeback-object>strong{font-size:10px!important;line-height:1.35}
+.ps-frame .ps-writeback-fields b,.ps-frame .ps-writeback-record b{font-size:9px!important;line-height:1.4}
+
+/* Learn / New Precedent: the four lessons are primary content, not micro-metadata. */
+.ps-new-precedent .ps-live-panelhead span{font-size:9px!important;color:#405048;font-weight:700;letter-spacing:.07em}
+.ps-new-precedent .ps-live-panelhead b{margin-top:4px;font-size:12px!important;line-height:1.25}
+.ps-new-precedent>section{grid-template-columns:24px minmax(0,1fr) auto;gap:9px;padding:10px 9px}
+.ps-new-precedent>section>b{font-size:10px!important;font-weight:700;line-height:1.2}
+.ps-new-precedent>section strong{font-size:10px!important;font-weight:650;line-height:1.35}
+.ps-new-precedent>section small{margin-top:4px;font-size:9px!important;line-height:1.45}
+
+/* A governed final action closes Learn without adding another sub-phase. */
+.ps-closeout-submit{display:flex;justify-content:space-between;gap:18px;align-items:center;margin-top:9px;padding:11px 12px;border-top:1px solid #bdc8bc;border-bottom:1px solid #bdc8bc;background:#f8faf6}
+.ps-closeout-submit>div{min-width:0}
+.ps-closeout-submit span,.ps-closeout-submit b,.ps-closeout-submit small{display:block}
+.ps-closeout-submit span{color:#53635b;font-size:8px!important;font-weight:700;letter-spacing:.075em}
+.ps-closeout-submit b{margin-top:3px;color:#17251e;font-size:11px!important;font-weight:650}
+.ps-closeout-submit small{margin-top:2px;color:#55645c;font-size:9px!important}
+.ps-closeout-submit button{flex:none;min-width:128px;padding:9px 12px;border:1px solid #17331f;background:#17331f;color:#fff;cursor:pointer}
+.ps-closeout-submit button:disabled{border-color:#c8d0c7;background:#e2e7e0;color:#7a857e;cursor:default}
+.ps-closeout-submit.is-submitted{border-color:#a9c891;background:#edf5e8}
+.ps-closeout-submit.is-submitted button{border-color:#66963f;background:#66963f;color:#07100e}
+
+@media(max-width:760px){
+  .ps-closeout-submit{align-items:stretch;flex-direction:column}
+  .ps-closeout-submit button{width:100%}
+}

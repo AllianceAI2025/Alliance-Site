@@ -6,8 +6,8 @@ const leaderItems = {
   scope: [["Opportunity intake", "Signals"], ["Pursuit brief", "Pursuit brief"], ["Scoping", "Scoping"], ["Proposal", "Proposal"]],
   plan: [["Team & staffing", "Team"], ["Engagement plan", "Plan"]],
   materialize: [["Approved plan", "Approved plan"], ["System writeback", "System writeback"]],
-  reconcile: [["Delivery health", "Delivery health"], ["Commitment reconciliation", "Commitment reconciliation"], ["Decision record", "Decision record"]],
-  learn: [["Close-out", "Close-out"], ["Precedent admission", "Precedent admission"]],
+  reconcile: [["Commitment reconciliation", "Commitment reconciliation"], ["Decision record", "Decision record"]],
+  learn: [["Close-out", "Close-out"]],
 };
 
 const phaseMeta = {
@@ -39,7 +39,7 @@ function WorkspaceNav({ stageKey, activeItem, onNavigate, role = "leader" }) {
       <div className="ps-nav-project is-open"><button type="button" className="is-project-active"><span><b>Northstar Foods</b><small>{stageKey === "scope" ? "Qualified opportunity" : "Operating model redesign"}</small></span></button>
         <div className="ps-phase-tree" aria-label="Northstar engagement phases">
           {Object.entries(phaseMeta).map(([key, meta]) => <div className={`ps-phase-node${stageKey === key ? " is-active" : ""}`} key={key}>
-            <a href={`#phase-${key}`} aria-current={stageKey === key ? "step" : undefined}><span><b>{meta[0]}</b>{stageKey === key && <small>{meta[1]}</small>}</span></a>
+            <a href={`#phase-${key}`} aria-current={stageKey === key ? "step" : undefined}><span><b>{meta[0]}</b></span></a>
             {stageKey === key && items.length > 0 && <div className="ps-nav-children">{items.map(([label, itemKey]) => <button key={itemKey} type="button" disabled={!onNavigate} className={activeItem === itemKey ? "is-active" : ""} onClick={() => onNavigate?.(itemKey)}><span>{label}</span>{activeItem === itemKey && <em>Open</em>}</button>)}</div>}
           </div>)}
         </div>
@@ -705,6 +705,7 @@ export function ExecuteScene() {
   const [typedPrompt, setTypedPrompt] = useState("");
   const [typedResponse, setTypedResponse] = useState("");
   const sceneRef = useRef(null);
+  const threadRef = useRef(null);
 
   useEffect(() => {
     const scene = sceneRef.current;
@@ -769,6 +770,12 @@ export function ExecuteScene() {
     };
   }, [run]);
 
+  useEffect(() => {
+    const thread = threadRef.current;
+    if (!thread) return;
+    thread.scrollTo({ top: thread.scrollHeight, behavior: step > 1 ? "smooth" : "auto" });
+  }, [step, typedResponse]);
+
   const sourceCount = step < 5 ? 0 : step < 6 ? 1 : step < 7 ? 2 : 3;
 
   return <div ref={sceneRef}><ProductFrame section="Consultant workspace" title="Decision-rights baseline" status={step >= 10 ? "Work packet ready" : "In delivery"} className="ps-execute" stageKey="execute" role="consultant">
@@ -787,10 +794,13 @@ export function ExecuteScene() {
         <div className="ps-execute-engagement"><span>ENGAGEMENT BRIEF</span><b>Northstar Foods</b><p>Redesign decision rights and shared services across eight regions without disrupting service continuity.</p><em>Approved plan v1 ↗</em></div>
       </aside>
       <section className="ps-execute-chat">
-        <div className="ps-execute-panelhead"><div><span>DELIVERABLE CHAT</span><b>Decision-rights baseline</b></div><em className={step > 0 && step < 10 ? "is-live" : ""}>{step > 0 && step < 10 ? "● LIVE" : "7 sources connected"}</em></div>
-        <div className="ps-execute-thread">
+        <div className="ps-live-feed"><i /> <b>LIVE CONTEXT</b><span>Engagement evidence, firm research, and delivery activity current</span></div>
+        <div className="ps-execute-panelhead"><div><span>DELIVERABLE / DL-4401</span><b>Decision-rights baseline</b></div><em className={step > 0 && step < 10 ? "is-live" : ""}>{step > 0 && step < 10 ? "● RESEARCHING" : "7 sources connected"}</em></div>
+        <div className="ps-execute-thread" ref={threadRef}>
           <div className="ps-execute-system"><i>PM</i><p><b>Avery Ross assignment AS-905 admitted from Dynamics 365</b><small>WS01 · 100% W1–4 · 420h workstream budget · Sofia Patel reviewer · three assigned deliverables.</small></p></div>
           <div className={`ps-execute-turn ps-execute-agent${step >= 1 ? " is-visible" : ""}`}><i>A.</i><p><b>AllianceOne</b><small>Avery, you own DL-4401, DL-4402, and DL-4405 within Workstream 01. Begin with the decision-rights baseline: it must distinguish enterprise, regional, and local authority before Sofia’s future-state design can begin.</small></p></div>
+          <div className={`ps-execute-turn ps-execute-user ps-execute-history${step >= 1 ? " is-visible" : ""}`}><p><b>Avery Ross</b><small>Before I start, where have similar operating-model engagements run into trouble during regional decision-rights work?</small></p><i>AR</i></div>
+          <div className={`ps-execute-turn ps-execute-agent ps-execute-result ps-execute-history${step >= 1 ? " is-visible" : ""}`}><i>A.</i><p><b>Comparable engagement research</b><small>Across Harbor Grain and Meridian Consumer, the recurring failure was validating the model only with corporate leaders. Regional teams later challenged ownership assumptions, delaying design approval by two to three weeks. For Northstar, interview all eight regions before classifying the 26 priority decisions and record dissent as evidence—not as an exception.</small><em className="is-visible">Grounded in 2 completed engagements · 11 source documents</em></p></div>
           <div className={`ps-execute-turn ps-execute-user${step >= 3 ? " is-visible" : ""}`}><p><b>You</b><small>{executePrompt}</small></p><i>AR</i></div>
           <div className={`ps-execute-thinking${step === 4 || step === 5 ? " is-visible" : ""}`}><i /><i /><i /><span>Reading engagement evidence and firm methods…</span></div>
           <div className={`ps-execute-source-run${step >= 5 && step < 8 ? " is-visible" : ""}`}><i /><span>Grounding response · {sourceCount}/3 priority sources resolved</span></div>
@@ -809,16 +819,52 @@ export function ExecuteScene() {
         <div className={`ps-execute-packet${step >= 10 ? " is-visible" : ""}`}><div><span>GROUNDED WORK PACKET</span><b>7 sources · 2 methods · 3 open evidence gaps</b></div><button type="button">Draft from template →</button></div>
       </aside>
     </div>
-    <div className="ps-execute-lineage"><span>APPROVED PLAN / AVERY · WS01</span><i>→</i><span>DYNAMICS 365 / AS-905</span><i>→</i><span>DL-4401 + FIRM IP</span><i>→</i><b>DELIVERABLE EVIDENCE</b><em>Execution returns to the engagement record</em></div>
   </ProductFrame></div>;
 }
 
 const reconcilePrompt = "Why did effort run 4.1% over plan if we still finished under the revised fee cap? Tell me whether this was scope drift or an approved delivery decision.";
 const reconcileResponse = "This was an approved delivery decision, not unmanaged scope drift. CO-01 funded one additional week of regional validation after three regions raised service-continuity concerns. That decision accounts for 64 of the 75 incremental hours; the remaining 11 hours were partner re-review. The team still finished $14K under the revised cap because unused transition contingency and a lower senior-staffing mix offset the added effort. The Nov 20 board commitment did not move.";
 
+const decisionRecords = [
+  ["AUG 12", "PLAN-01", "Commitment", "Delivery baseline approved", "Four workstreams, 14 deliverables, 1,840 hours, and the Nov 20 board gate became the governed commitment."],
+  ["SEP 08", "CH-03", "Challenge", "Regional service-continuity risk raised", "West, Central, and Northeast leaders challenged the corporate-only validation approach and requested local operating evidence."],
+  ["SEP 12", "TEAM-02", "Team change", "Regional lead reassigned", "Daniel Okafor replaced Elena Marquez for WS03 after a resource-calendar conflict. Loading, fees, and milestones remained unchanged."],
+  ["OCT 02", "CO-01", "Scope decision", "Regional validation extended", "Maya Chen and Evan Brooks approved one additional week, 64 incremental hours, and a $42K cap increase while protecting the board date."],
+  ["NOV 20", "OUT-01", "Outcome", "Board gate delivered", "The target operating model was approved on the committed date. Actual fees closed $14K below the revised cap."],
+];
+
+function DecisionRecord() {
+  return <div className="ps-decision-record">
+    <div className="ps-decision-summary">
+      <div><span>DECISIONS</span><b>3</b><small>Plan, team, and scope</small></div>
+      <div><span>CHALLENGES</span><b>1</b><small>Resolved with evidence</small></div>
+      <div><span>COMMERCIAL CHANGES</span><b>1</b><small>CO-01 · +$42K</small></div>
+      <div><span>OPEN ITEMS</span><b>0</b><small>Record complete</small></div>
+    </div>
+    <div className="ps-decision-grid">
+      <section className="ps-decision-log">
+        <div className="ps-decision-head"><span>ENGAGEMENT RECORD</span><b>What changed, why, and what followed</b></div>
+        {decisionRecords.map(([date, id, type, title, detail]) => <article className={id === "CO-01" ? "is-selected" : ""} key={id}>
+          <time>{date}</time><div><span>{type} · {id}</span><b>{title}</b><small>{detail}</small></div>
+        </article>)}
+      </section>
+      <aside className="ps-decision-detail">
+        <div className="ps-decision-head"><span>SELECTED RECORD / CO-01</span><b>Regional validation extension</b></div>
+        <section><span>CHALLENGE RAISED</span><p>Three regions would not accept the future-state decision model without testing service-continuity implications against local workflows.</p></section>
+        <section><span>ORIGINAL COMMITMENT</span><p>Complete regional validation in two weeks within 1,840 planned hours and a $420K fee cap.</p></section>
+        <section><span>DECISION &amp; RATIONALE</span><p>Extend validation by one week and add 64 hours. The added work was narrower and less risky than proceeding with unresolved regional objections.</p></section>
+        <div className="ps-decision-impact"><div><span>SCHEDULE</span><b>+1 week</b></div><div><span>EFFORT</span><b>+64h</b></div><div><span>CAP</span><b>+$42K</b></div><div><span>BOARD GATE</span><b>Protected</b></div></div>
+        <section><span>DECISION METADATA</span><p><b>Raised by</b> Evan Brooks, Regional Operations Lead<br/><b>Approved by</b> Maya Chen and Evan Brooks<br/><b>Recorded</b> October 2, 2026 · 3:14 PM<br/><b>Confidence</b> High · corroborated across eight sources</p></section>
+        <section><span>DELIVERED OUTCOME</span><p>All eight regions completed validation. The board approved the model on Nov 20, and the engagement closed $14K below the revised cap.</p></section>
+      </aside>
+    </div>
+  </div>;
+}
+
 export function ReconcileScene() {
   const [run, setRun] = useState(0);
   const [step, setStep] = useState(0);
+  const [reconcileView, setReconcileView] = useState("Commitment reconciliation");
   const [typedPrompt, setTypedPrompt] = useState("");
   const [typedResponse, setTypedResponse] = useState("");
   const sceneRef = useRef(null);
@@ -856,7 +902,8 @@ export function ReconcileScene() {
   }, [run]);
 
   const sourceCount = Math.max(0, Math.min(4, step - 3));
-  return <div ref={sceneRef}><ProductFrame section="Commitment reconciliation" title="Operating model redesign" status={step >= 10 ? "Variance explained" : "In delivery"} className="ps-reconcile ps-reconcile-live" stageKey="reconcile" activeItem="Commitment reconciliation">
+  return <div ref={sceneRef}><ProductFrame section={reconcileView} title={reconcileView === "Decision record" ? "Northstar engagement record" : "Operating model redesign"} status={reconcileView === "Decision record" ? "Record complete" : step >= 10 ? "Variance explained" : "In delivery"} className="ps-reconcile ps-reconcile-live" stageKey="reconcile" activeItem={reconcileView} onNavigate={setReconcileView}>
+    {reconcileView === "Commitment reconciliation" ? <>
     <div className="ps-reconcile-top">
       <div><span>ORIGINAL COMMITMENT</span><strong>$420K</strong><small>Approved Aug 08</small></div><i>→</i>
       <div><span>APPROVED CHANGE</span><strong>+$42K</strong><small>CO-01 · Oct 02</small></div><i>→</i>
@@ -878,7 +925,7 @@ export function ReconcileScene() {
         </div>
       </section>
       <section className="ps-reconcile-chat">
-        <div className="ps-live-panelhead"><div><span>VARIANCE CHAT</span><b>Ask against the full engagement record</b></div><em className={step > 0 && step < 10 ? "is-live" : ""}>{step > 0 && step < 10 ? "● LIVE" : "Reconciled"}</em></div>
+        <div className="ps-live-feed"><i /> <b>LIVE CONTEXT</b><span>Commitments, actuals, and decision records current</span></div>
         <div className="ps-reconcile-thread">
           <div className={`ps-live-turn ps-live-agent${step >= 1 ? " is-visible" : ""}`}><i>A.</i><p><b>AllianceOne</b><small>I found a one-week duration variance, 75 additional hours, and a $14K favorable fee variance against the revised cap.</small></p></div>
           <div className={`ps-live-turn ps-live-user${step >= 3 ? " is-visible" : ""}`}><p><b>You</b><small>{reconcilePrompt}</small></p><i>MC</i></div>
@@ -889,16 +936,17 @@ export function ReconcileScene() {
         <button className="ps-live-replay" type="button" onClick={() => setRun((value) => value + 1)}>Replay reconciliation</button>
       </section>
     </div>
-    <div className={`ps-reconcile-decision${step >= 9 ? " is-visible" : ""}`}><div><span>DECISION TRACE / CO-01</span><b>Extend regional validation by one week; protect the Nov 20 board gate.</b></div><div><span>DECIDED BY</span><b>Maya Chen · Evan Brooks</b></div><Chip tone="success">Approved variance</Chip></div>
+    </> : <DecisionRecord />}
   </ProductFrame></div>;
 }
 
 const learningPrompt = "Close out Northstar. Which delivery lessons have enough evidence to carry into the next operating-model pursuit, and what should remain only an observation?";
-const learningResponse = "Two lessons are ready for practice use. First, regional validation must be explicit in the sold effort whenever local service continuity constrains the target model. Second, decision rights should be resolved before role design begins. The fixed-board-date pattern remains an observation: Northstar protected the gate, but only three comparable engagements support that claim. I have prepared Northstar as a new precedent with the evidence strength attached to each lesson.";
+const learningResponse = "The reconciled record supports three practice lessons. CH-03 and CO-01 show that regional validation must be explicit in sold effort when local service continuity constrains the model. The delivery sequence confirms that decision rights should be resolved before role design begins. TEAM-02 shows that a resource substitution can preserve economics and milestones when experience, loading, and decision rationale are recorded together. The fixed-board-date pattern remains an observation because only three comparable engagements support it.";
 
 export function PracticeScene() {
   const [run, setRun] = useState(0);
   const [step, setStep] = useState(0);
+  const [submitted, setSubmitted] = useState(false);
   const [typedPrompt, setTypedPrompt] = useState("");
   const [typedResponse, setTypedResponse] = useState("");
   const sceneRef = useRef(null);
@@ -929,29 +977,34 @@ export function PracticeScene() {
     return () => { timers.forEach(window.clearTimeout); window.clearInterval(promptTimer); window.clearInterval(responseTimer); };
   }, [run]);
 
-  return <div ref={sceneRef}><ProductFrame section="Institutional learning" title="Northstar close-out" status={step >= 9 ? "Precedent admitted" : "Learning review"} className="ps-practice ps-practice-live" stageKey="learn" activeItem="Precedent admission">
-    <div className="ps-learning-closeout"><div><span>ENGAGEMENT OUTCOME</span><b>14 / 14 deliverables accepted</b><small>Board gate protected · $14K under revised cap</small></div><div><span>EVIDENCE AVAILABLE</span><b>47 admitted sources</b><small>Plan · decisions · actuals · acceptance</small></div><div><span>CLOSE-OUT STATE</span><b>{step >= 9 ? "Admitted to practice" : "Under review"}</b><small>Human approval retained</small></div></div>
+  return <div ref={sceneRef}><ProductFrame section="Institutional learning" title="Northstar close-out" status={submitted ? "Close-out submitted" : step >= 9 ? "Ready to submit" : "Learning review"} className="ps-practice ps-practice-live" stageKey="learn" activeItem="Close-out">
+    <div className="ps-learning-closeout"><div><span>RECONCILED OUTCOME</span><b>14 / 14 deliverables accepted</b><small>Board gate protected · $14K under revised cap</small></div><div><span>DECISION RECORD</span><b>5 governed events</b><small>PLAN-01 · CH-03 · TEAM-02 · CO-01 · OUT-01</small></div><div><span>CLOSE-OUT STATE</span><b>{submitted ? "Submitted to practice" : step >= 9 ? "Ready to submit" : "Under review"}</b></div></div>
     <div className="ps-practice-live-grid">
       <section className="ps-learning-chat">
-        <div className="ps-live-panelhead"><div><span>CLOSE-OUT CHAT</span><b>Decide what the firm should carry forward</b></div><em className={step > 0 && step < 9 ? "is-live" : ""}>{step > 0 && step < 9 ? "● LIVE" : "47 sources"}</em></div>
+        <div className="ps-live-feed"><i /> <b>LIVE CONTEXT</b><span>Reconciled outcome, decisions, challenges, and evidence current</span></div>
         <div className="ps-learning-thread">
-          <div className={`ps-live-turn ps-live-agent${step >= 1 ? " is-visible" : ""}`}><i>A.</i><p><b>AllianceOne</b><small>Northstar is complete. I have the approved baseline, CO-01, delivery actuals, client acceptance, and the methods used by the team.</small></p></div>
+          <div className={`ps-live-turn ps-live-agent${step >= 1 ? " is-visible" : ""}`}><i>A.</i><p><b>AllianceOne</b><small>Northstar is complete. Reconcile passed forward the approved baseline, CH-03 regional challenge, TEAM-02 staffing change, CO-01 scope decision, delivery actuals, and board acceptance.</small></p></div>
           <div className={`ps-live-turn ps-live-user${step >= 3 ? " is-visible" : ""}`}><p><b>You</b><small>{learningPrompt}</small></p><i>MC</i></div>
           <div className={`ps-live-thinking${step === 4 || step === 5 ? " is-visible" : ""}`}><i /><i /><i /><span>Comparing outcome, decisions, and 36 prior engagements…</span></div>
-          <div className={`ps-learning-source-events${step >= 5 ? " is-visible" : ""}`}><span>OUTCOME CONFIRMED</span><span>METHODS COMPARED</span><span>CONFIDENCE TESTED</span></div>
+          <div className={`ps-learning-source-events${step >= 5 ? " is-visible" : ""}`}><span>CO-01 RECONCILED</span><span>TEAM-02 ADMITTED</span><span>CH-03 RESOLVED</span></div>
           <div className={`ps-live-turn ps-live-agent ps-live-result${step >= 6 ? " is-visible" : ""}`}><i>A.</i><p><b>Practice recommendation</b><small>{typedResponse}{step === 6 && <i className="ps-execute-stream-cursor" />}</small><em className={step >= 7 ? "is-visible" : ""}>2 lessons ready · 1 observation retained with limits</em></p></div>
         </div>
         <div className={`ps-live-composer-row${step === 2 ? " is-typing" : ""}`}><span>{step === 2 ? typedPrompt : "Ask what this engagement changes for the next one…"}{step === 2 && <i />}</span><button type="button">{step === 2 ? "Typing…" : step >= 3 && step < 7 ? "Sent ✓" : "Send ↑"}</button></div>
         <button className="ps-live-replay" type="button" onClick={() => setRun((value) => value + 1)}>Replay learning review</button>
       </section>
-      <aside className={`ps-new-precedent${step >= 7 ? " is-building" : ""}${step >= 9 ? " is-admitted" : ""}`}>
-        <div className="ps-live-panelhead"><div><span>NEW PRECEDENT / NORTHSTAR FOODS</span><b>Operating model redesign</b></div><Chip tone={step >= 9 ? "success" : "neutral"}>{step >= 9 ? "Admitted" : "Draft"}</Chip></div>
-        <div className="ps-precedent-outcome"><div><span>OUTCOME</span><b>Board-approved model</b></div><div><span>DELIVERY</span><b>15 weeks · $448K</b></div><div><span>EVIDENCE</span><b>47 sources</b></div></div>
-        <section className={step >= 7 ? "is-visible" : ""}><b>01</b><p><strong>Fund regional validation explicitly.</strong><small>Validated by Northstar and 8 comparable engagements.</small></p><Chip tone="success">Validated</Chip></section>
+      <aside className={`ps-new-precedent${step >= 7 ? " is-building" : ""}${submitted ? " is-admitted" : ""}`}>
+        <div className="ps-live-panelhead"><div><span>NEW PRECEDENT / NORTHSTAR FOODS</span><b>Operating model redesign</b></div><Chip tone={submitted ? "success" : "neutral"}>{submitted ? "Admitted" : step >= 9 ? "Ready" : "Draft"}</Chip></div>
+        <div className="ps-precedent-outcome"><div><span>OUTCOME</span><b>Board-approved model</b></div><div><span>DELIVERY</span><b>15 weeks · $448K</b></div><div><span>LINEAGE</span><b>5 governed events</b></div></div>
+        <section className={step >= 7 ? "is-visible" : ""}><b>01</b><p><strong>Fund regional validation explicitly.</strong><small>CH-03 and CO-01 connect the challenge, decision, added effort, and delivered outcome.</small></p><Chip tone="success">Validated</Chip></section>
         <section className={step >= 8 ? "is-visible" : ""}><b>02</b><p><strong>Resolve decision rights before role design.</strong><small>Northstar strengthens an existing five-engagement pattern.</small></p><Chip tone="success">Refined</Chip></section>
-        <section className={step >= 8 ? "is-visible" : ""}><b>03</b><p><strong>A fixed board gate can survive validation extension.</strong><small>Useful signal, but only three comparable outcomes.</small></p><Chip>Observed</Chip></section>
-        <div className={`ps-precedent-admission${step >= 9 ? " is-visible" : ""}`}><span>ADMITTED TO PRACTICE RECORD</span><b>Future pursuits can now retrieve Northstar with each claim’s evidence strength and decision context intact.</b></div>
+        <section className={step >= 8 ? "is-visible" : ""}><b>03</b><p><strong>Record resource substitutions as delivery decisions.</strong><small>TEAM-02 preserved loading, fees, milestones, and experience fit.</small></p><Chip tone="success">Validated</Chip></section>
+        <section className={step >= 8 ? "is-visible" : ""}><b>04</b><p><strong>A fixed board gate can survive validation extension.</strong><small>Useful signal, but only three comparable outcomes.</small></p><Chip>Observed</Chip></section>
+        <div className={`ps-precedent-admission${submitted ? " is-visible" : ""}`}><span>ADMITTED TO PRACTICE RECORD</span><b>Future pursuits can now retrieve Northstar with each claim’s evidence strength and decision context intact.</b></div>
       </aside>
     </div>
+    <footer className={`ps-closeout-submit${submitted ? " is-submitted" : ""}`}>
+      <div><span>CLOSE-OUT APPROVAL</span><b>{submitted ? "Close-out submitted and locked" : "Northstar is ready for final submission"}</b><small>{submitted ? "The precedent and its governed evidence are now available to future pursuits." : "Submit the reconciled outcome, decision record, and approved precedent to close the engagement."}</small></div>
+      <button type="button" disabled={step < 9 || submitted} onClick={() => setSubmitted(true)}>{submitted ? "Submitted ✓" : step < 9 ? "Preparing…" : "Submit close-out"}</button>
+    </footer>
   </ProductFrame></div>;
 }
