@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { capture } from "./analytics";
 
 const Chip = ({ children, tone = "neutral" }) => <span className={`ps-chip ps-chip--${tone}`}>{children}</span>;
 
@@ -72,7 +73,7 @@ function WorkspaceNav({ stageKey, activeItem, onNavigate, role = "leader" }) {
         <div className="ps-phase-tree" aria-label="Northstar engagement phases">
           {Object.entries(phaseMeta).map(([key, meta]) => <div className={`ps-phase-node${stageKey === key ? " is-active" : ""}`} key={key}>
             <a href={`#phase-${key}`} aria-current={stageKey === key ? "step" : undefined}><span><b>{meta[0]}</b></span></a>
-            {stageKey === key && items.length > 0 && <div className="ps-nav-children">{items.map(([label, itemKey]) => <button key={itemKey} type="button" disabled={!onNavigate} className={activeItem === itemKey ? "is-active" : ""} onClick={() => onNavigate?.(itemKey)}><span>{label}</span>{activeItem === itemKey && <em>Open</em>}</button>)}</div>}
+            {stageKey === key && items.length > 0 && <div className="ps-nav-children">{items.map(([label, itemKey]) => <button key={itemKey} type="button" disabled={!onNavigate} className={activeItem === itemKey ? "is-active" : ""} onClick={() => { capture("product_visual_view", { scene: stageKey, view: label }); onNavigate?.(itemKey); }}><span>{label}</span>{activeItem === itemKey && <em>Open</em>}</button>)}</div>}
           </div>)}
         </div>
       </div>

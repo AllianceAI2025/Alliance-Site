@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { capture, useVisualDwell } from "./analytics";
 import { ExecuteScene, MaterializeScene, PlanScene, PracticeScene, ReconcileScene, ScopeScene } from "./ProductScenes";
 
 export const DESIGN_PARTNER_EMAIL = "cole.miska@myalliance.ai";
@@ -175,13 +176,18 @@ const loopSteps = [
   { n: "06", label: "Learn", title: "The engagement leaves the practice smarter.", body: "At close-out, outcomes meet the conditions and decisions that produced them. Methods are validated, refined, or contradicted, and the next pursuit begins with a more accurate model of how your firm delivers.", visual: <PracticeScene /> },
 ];
 
+function TrackedVisual({ scene, children }) {
+  const ref = useVisualDwell(scene);
+  return <div className="loop-step-visual" ref={ref}>{children}</div>;
+}
+
 function Loop() {
   return <Section id="loop" className="loop-section">
     <Wrap>
       <div className="loop-intro"><Head size="display">One operating loop, from question to institutional learning.</Head></div>
       <div className="loop-steps">{loopSteps.map((step, i) => <article id={`phase-${step.label.toLowerCase()}`} className={`loop-step loop-step--${i + 1}`} key={step.n}>
         <div className="loop-step-copy"><span className="step-number">{step.label}</span><h3>{step.title}</h3><p>{step.body}</p></div>
-        <div className="loop-step-visual">{step.visual}</div>
+        <TrackedVisual scene={step.label}>{step.visual}</TrackedVisual>
       </article>)}</div>
     </Wrap>
   </Section>;
@@ -207,14 +213,21 @@ export function Footer({ onCta }) {
 export function Modal({ open, onClose }) {
   const [form, setForm] = useState({ name: "", firm: "", email: "", role: "", note: "", botcheck: "" });
   const [status, setStatus] = useState("idle");
+  const statusRef = useRef(status);
+  statusRef.current = status;
   useEffect(() => {
     if (!open) return undefined;
     setStatus("idle");
-    const key = (e) => e.key === "Escape" && onClose();
+    capture("partner_form_opened");
+    const key = (e) => e.key === "Escape" && close();
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", key);
     return () => { document.body.style.overflow = ""; window.removeEventListener("keydown", key); };
-  }, [open, onClose]);
+  }, [open]);
+  const close = () => {
+    if (statusRef.current !== "sent") capture("partner_form_dismissed");
+    onClose();
+  };
   if (!open) return null;
   const update = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
   const fallback = () => {
@@ -248,7 +261,10 @@ export function Modal({ open, onClose }) {
       const data = await r.json().catch(() => ({}));
       const ok = data.success === true || data.success === "true";
       const message = String(data.message || "");
-      if (ok) setStatus("sent");
+      if (ok) {
+        capture("partner_form_submitted");
+        setStatus("sent");
+      }
       else if (/activat/i.test(message)) setStatus("activate");
       else setStatus("error");
     } catch {
@@ -256,9 +272,9 @@ export function Modal({ open, onClose }) {
     }
   };
   return (
-    <div className="modal-backdrop" onMouseDown={onClose}>
+    <div className="modal-backdrop" onMouseDown={close}>
       <div className="modal" onMouseDown={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby="partner-title">
-        <button className="modal-close" onClick={onClose} aria-label="Close">×</button>
+        <button className="modal-close" onClick={close} aria-label="Close">×</button>
         {status === "sent" ? (
           <><h2 id="partner-title">Got it.</h2><p>We’ll reply at {form.email}.</p></>
         ) : (
