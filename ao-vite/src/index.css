@@ -1664,3 +1664,12 @@
 }
 
 .honeypot{position:absolute;left:-9999px;height:0;overflow:hidden}
+.form-note{margin:16px 0 0;color:#56625d!important;font-size:.78rem;line-height:1.6}
+.form-note button{padding:0;border:0;background:none;color:inherit;text-decoration:underline;cursor:pointer}
+.modal input,.modal textarea{font-family:'Inter Tight','Arial Narrow',Arial,sans-serif;font-size:1.05rem;font-weight:400;letter-spacing:-.02em;line-height:1.4;color:#07100e}
+.modal textarea{width:100%;min-height:92px;padding:10px 1px 12px;border:0;border-bottom:1px solid #07100e;outline:none;background:transparent;resize:vertical}
+.modal textarea:focus{border-color:#659b2f}
+.modal .form-span{grid-column:1/-1}
+.modal .form-span>span{display:flex;align-items:baseline;gap:8px}
+.modal .form-span em{color:#8a938e;font-style:normal;letter-spacing:.06em}
+.modal .form-fineprint{grid-column:1/-1;margin:2px 0 0;color:#6a7570;font-family:'Inter','Helvetica Neue',Arial,sans-serif;font-size:.68rem;font-weight:400;letter-spacing:0;line-height:1.5;text-transform:none}

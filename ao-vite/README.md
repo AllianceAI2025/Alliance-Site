@@ -102,17 +102,10 @@ propagates, enable **Enforce HTTPS** in Settings → Pages.
 
 ---
 
-## Demo form: go-live checklist
+## Design partner form
 
-The "Request a demo" modal POSTs to a form endpoint when one is configured, and
-falls back to a pre-filled `mailto:` when it isn't. A `mailto:` silently does
-nothing on machines without a configured mail client — exactly the corporate
-desktops partners use — so wiring the endpoint is strongly recommended before
-driving any traffic:
-
-1. Create a form at [formspree.io](https://formspree.io) (or any service that
-   accepts a JSON POST and returns 2xx).
-2. Paste its URL into `DEMO_FORM_ENDPOINT` at the top of `src/App.jsx`
-   (e.g. `"https://formspree.io/f/XXXXXXXX"`).
-3. Rebuild and deploy. Submissions then show an in-modal confirmation; network
-   failures offer the mailto fallback.
+The "Become a design partner" modal posts to [FormSubmit](https://formsubmit.co)
+and delivers submissions to `cole.miska@myalliance.ai`. The first successful
+browser submit only sends FormSubmit's activation email. Click **Activate Form**
+in that message (check spam), then submit again. After activation, inquiries
+arrive as normal emails. If the post fails, the modal offers a `mailto:` fallback.

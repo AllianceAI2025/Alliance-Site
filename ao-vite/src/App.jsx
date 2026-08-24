@@ -205,7 +205,7 @@ export function Footer({ onCta }) {
 }
 
 export function Modal({ open, onClose }) {
-  const [form, setForm] = useState({ name: "", firm: "", email: "", role: "", company: "" });
+  const [form, setForm] = useState({ name: "", firm: "", email: "", role: "", note: "", botcheck: "" });
   const [status, setStatus] = useState("idle");
   useEffect(() => {
     if (!open) return undefined;
@@ -219,12 +219,12 @@ export function Modal({ open, onClose }) {
   const update = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
   const fallback = () => {
     const subject = encodeURIComponent("AllianceOne design partner conversation");
-    const body = encodeURIComponent(`Name: ${form.name}\nFirm: ${form.firm}\nRole: ${form.role}\nWork email: ${form.email}`);
+    const body = encodeURIComponent(`Name: ${form.name}\nFirm: ${form.firm}\nRole: ${form.role}\nWork email: ${form.email}${form.note ? `\nNote: ${form.note}` : ""}`);
     window.location.href = `mailto:${DESIGN_PARTNER_EMAIL}?subject=${subject}&body=${body}`;
   };
   const submit = async (e) => {
     e.preventDefault();
-    if (form.company) return setStatus("sent");
+    if (form.botcheck) return;
     if (!DEMO_FORM_ENDPOINT) return fallback();
     setStatus("sending");
     try {
@@ -236,14 +236,21 @@ export function Modal({ open, onClose }) {
           firm: form.firm,
           role: form.role,
           email: form.email,
+          note: form.note,
           _replyto: form.email,
           _subject: "AllianceOne design partner inquiry",
           _template: "table",
           _captcha: "false",
+          _honey: "",
+          _url: typeof window !== "undefined" ? window.location.href : "https://myalliance.ai/",
         }),
       });
       const data = await r.json().catch(() => ({}));
-      setStatus(r.ok && (data.success === true || data.success === "true") ? "sent" : "error");
+      const ok = data.success === true || data.success === "true";
+      const message = String(data.message || "");
+      if (ok) setStatus("sent");
+      else if (/activat/i.test(message)) setStatus("activate");
+      else setStatus("error");
     } catch {
       setStatus("error");
     }
@@ -259,14 +266,19 @@ export function Modal({ open, onClose }) {
             <h2 id="partner-title">Become a design partner</h2>
             <p>Leave your details and we’ll follow up to schedule a conversation.</p>
             <form onSubmit={submit}>
-              <label className="honeypot" aria-hidden="true">Company<input tabIndex={-1} autoComplete="off" value={form.company} onChange={update("company")} /></label>
-              <label>Name<input autoFocus required value={form.name} onChange={update("name")} /></label>
-              <label>Firm<input required value={form.firm} onChange={update("firm")} /></label>
-              <label>Role<input value={form.role} onChange={update("role")} /></label>
-              <label>Work email<input type="email" required value={form.email} onChange={update("email")} /></label>
+              <label className="honeypot" aria-hidden="true">Website<input tabIndex={-1} autoComplete="off" value={form.botcheck} onChange={update("botcheck")} /></label>
+              <label>Name<input autoFocus required autoComplete="name" value={form.name} onChange={update("name")} /></label>
+              <label>Firm<input required autoComplete="organization" value={form.firm} onChange={update("firm")} /></label>
+              <label>Role<input autoComplete="organization-title" value={form.role} onChange={update("role")} /></label>
+              <label>Work email<input type="email" required autoComplete="email" value={form.email} onChange={update("email")} /></label>
+              <label className="form-span"><span>Note<em>Optional</em></span><textarea rows={3} value={form.note} onChange={update("note")} /></label>
+              <p className="form-fineprint">We’ll only use this to follow up.</p>
               <button type="submit" disabled={status === "sending"}>{status === "sending" ? "Sending…" : "Send"}</button>
             </form>
-            {status === "error" && <p className="form-error">Couldn’t send. <button onClick={fallback}>Email us directly.</button></p>}
+            {status === "activate" && (
+              <p className="form-note">This form still needs a one-time email confirmation. Check {DESIGN_PARTNER_EMAIL} (including spam), then send again. Or <button type="button" onClick={fallback}>open it in email</button>.</p>
+            )}
+            {status === "error" && <p className="form-error">Couldn’t send. <button type="button" onClick={fallback}>Email us directly.</button></p>}
           </>
         )}
       </div>
