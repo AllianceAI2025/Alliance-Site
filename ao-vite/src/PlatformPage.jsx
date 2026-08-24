@@ -9,9 +9,9 @@ const systems = [
 ];
 
 const firms = [
-  ["Management consulting", "Where the deliverable is judgment itself: which approach, why, and whether it worked. The reasoning behind every recommendation becomes reusable, instead of leaving with the partner who made it."],
-  ["Advisory", "Deals, risk, restructuring. High-stakes, precedent-driven work where what you did last time, and how it turned out, is the most valuable thing in the room."],
-  ["Accounting & tax", "Where engagement history, positions taken, and institutional knowledge shape quality, risk, and margin across hundreds of recurring engagements."],
+  ["Management consulting", "These firms advise clients on strategy, operations, organization, growth, and performance. Similar problem types recur, but the recommended approach must still reflect each client's facts and constraints. AllianceOne helps engagement leaders use comparable work to shape the current approach, preserve the reasoning behind material choices, and understand whether the plan held during delivery. The economic pressure is concentrated in scoping, staffing, and margin, where decisions are often rebuilt from partner memory."],
+  ["Specialist advisory", "These firms handle transactions, restructuring, risk, investigations, regulatory response, and other high-stakes matters. Time is constrained, information is incomplete, and prior positions or analogous matters can materially affect the response. AllianceOne makes precedent usable in the moment and preserves how the firm adapted it, which reduces dependence on the few people who remember the matter."],
+  ["Technology and transformation consulting", "These firms lead system implementations, operating-model redesigns, process transformation, data migration, and adoption programs. Delivery is distributed across workstreams, vendors, client teams, and execution systems. AllianceOne maintains the connection between the commercial commitment, the approved engagement plan, the decisions made during delivery, and the work recorded across the stack."],
 ];
 
 const waysOfWorking = [
@@ -74,7 +74,7 @@ export default function PlatformPage() {
       <Wrap>
         <div className="pf-section-head">
           <h2>Every system records part of the work.</h2>
-          <p>The operating stack is rich in evidence and poor in continuity. Each system sees a different part of the engagement. None can tell the full story or establish which commitment governs when the records diverge.</p>
+          <p>CRM, project tools, documents, and billing are rich in evidence and poor in continuity. Each system sees a different part of the engagement. None can tell the full story or establish which commitment governs when the records diverge.</p>
         </div>
         <div className="pf-system-map">
           <div className="pf-system-list">
@@ -91,7 +91,7 @@ export default function PlatformPage() {
 
     <section className="pf-principle">
       <Wrap>
-        <h2>AllianceOne owns intent. The operating stack owns execution.</h2>
+        <h2>AllianceOne owns intent. Your existing tools own execution.</h2>
         <div className="pf-principle-grid">
           <div>
             <h3>Intent</h3>
@@ -127,14 +127,13 @@ export default function PlatformPage() {
         <div className="pf-method-grid">
           {waysOfWorking.map(([name, body]) => <article key={name}><h3>{name}</h3><p>{body}</p></article>)}
         </div>
-        <div className="pf-method-line" aria-hidden="true"><span>Problem</span><i /><span>Judgment</span><i /><span>Commitment</span><i /><span>Outcome</span></div>
       </Wrap>
     </section>
 
     <section className="pf-section pf-assets">
       <Wrap>
         <div className="pf-section-head">
-          <h2>Expertise that behaves like an asset.</h2>
+          <h2>The next engagement can start from the last one.</h2>
           <p>The work no longer disappears into folders, disconnected systems, or personal memory. The record remains usable by the next team facing a similar decision.</p>
         </div>
         <div className="pf-asset-grid">

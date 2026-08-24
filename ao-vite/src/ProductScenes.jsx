@@ -2,6 +2,38 @@ import React, { useEffect, useRef, useState } from "react";
 
 const Chip = ({ children, tone = "neutral" }) => <span className={`ps-chip ps-chip--${tone}`}>{children}</span>;
 
+const playWhenVisibleOptions = { threshold: 0.06, rootMargin: "80px 0px -8% 0px" };
+
+function usePlayWhenVisible(enabled = true, replayKey) {
+  const ref = useRef(null);
+  const [run, setRun] = useState(0);
+
+  useEffect(() => {
+    if (!enabled) return undefined;
+    const node = ref.current;
+    if (!node) return undefined;
+
+    const play = () => setRun((value) => value + 1);
+    const rect = node.getBoundingClientRect();
+    const viewport = window.innerHeight || 0;
+    if (rect.bottom > 80 && rect.top < viewport - 40) {
+      play();
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      play();
+      observer.disconnect();
+    }, playWhenVisibleOptions);
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [enabled, replayKey]);
+
+  return [ref, run, setRun];
+}
+
 const leaderItems = {
   scope: [["Opportunity intake", "Signals"], ["Pursuit brief", "Pursuit brief"], ["Scoping", "Scoping"], ["Proposal", "Proposal"]],
   plan: [["Team & staffing", "Team"], ["Engagement plan", "Plan"]],
@@ -82,14 +114,15 @@ const engagementWorkstreams = [
 ];
 
 export function ScopeScene() {
-  const [stage, setStage] = useState(1);
-  const [chatRun, setChatRun] = useState(0);
+  const [stage, setStage] = useState(0);
   const [typedQuestion, setTypedQuestion] = useState("");
   const [chatPhase, setChatPhase] = useState("idle");
   const [documentProgress, setDocumentProgress] = useState(0);
+  const chatEnabled = stage === 2 || stage === 3;
+  const [sceneRef, chatRun, setChatRun] = usePlayWhenVisible(chatEnabled, stage);
 
   useEffect(() => {
-    if (stage !== 2 && stage !== 3) return undefined;
+    if (!chatRun || !chatEnabled) return undefined;
     const activeQuestion = stage === 2 ? scopeQuestion : proposalQuestion;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduceMotion) {
@@ -131,19 +164,16 @@ export function ScopeScene() {
       window.clearTimeout(thinkingTimer);
       window.clearTimeout(responseTimer);
     };
-  }, [stage, chatRun]);
+  }, [stage, chatRun, chatEnabled]);
 
   const stageStatus = ["Context assembling", "Workspace populated", "Scoping in progress", "Proposal drafting"][stage];
 
-  const selectStage = (index) => {
-    setStage(index);
-    if (index === 2 || index === 3) setChatRun((run) => run + 1);
-  };
+  const selectStage = (index) => setStage(index);
 
   const scopeNavItems = ["Signals", "Pursuit brief", "Scoping", "Proposal"];
   const navigateScope = (key) => selectStage(scopeNavItems.indexOf(key));
 
-  return <ProductFrame section="Scope" title="Operating model redesign" status={stageStatus} className={`ps-scope ps-scope--stage-${stage}`} stageKey="scope" activeItem={scopeNavItems[stage]} onNavigate={navigateScope}>
+  return <div ref={sceneRef}><ProductFrame section="Scope" title="Operating model redesign" status={stageStatus} className={`ps-scope ps-scope--stage-${stage}`} stageKey="scope" activeItem={scopeNavItems[stage]} onNavigate={navigateScope}>
     <div className="ps-scope-stage" aria-live="polite">
       {stage === 0 && <div className="ps-intake-view ps-scope-shot">
         <div className="ps-intake-head"><div><span>OPPORTUNITY INTAKE / NORTHSTAR FOODS</span><h5>The CRM opportunity gives earlier conversations a place to land.</h5></div><Chip>Pre-qualified</Chip></div>
@@ -205,7 +235,7 @@ export function ScopeScene() {
       {stage === 2 && <WorkingArtifactScene mode="scope" chatPhase={chatPhase} typedQuestion={typedQuestion} progress={documentProgress} replay={() => setChatRun((run) => run + 1)} />}
       {stage === 3 && <WorkingArtifactScene mode="proposal" chatPhase={chatPhase} typedQuestion={typedQuestion} progress={documentProgress} replay={() => setChatRun((run) => run + 1)} />}
     </div>
-  </ProductFrame>;
+  </ProductFrame></div>;
 }
 
 function WorkingArtifactScene({ mode, chatPhase, typedQuestion, progress, replay }) {
@@ -410,12 +440,13 @@ const planningTeam = [
 const planningPrompt = "Build the 14 deliverables under the four committed workstreams. Use the proposed team, check availability, and protect the fee and board date.";
 const staffingDecisionPrompt = "Replace Elena with Daniel for regional validation. Keep the 80% loading and update the proposed team.";
 
-function StaffingDecisionChat() {
-  const [run, setRun] = useState(1);
+function StaffingDecisionChat({ active }) {
+  const [sceneRef, run, setRun] = usePlayWhenVisible(active);
   const [step, setStep] = useState(0);
   const [typedPrompt, setTypedPrompt] = useState("");
 
   useEffect(() => {
+    if (!run) return undefined;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     setStep(reduceMotion ? 5 : 0);
     setTypedPrompt(reduceMotion ? staffingDecisionPrompt : "");
@@ -443,7 +474,7 @@ function StaffingDecisionChat() {
     };
   }, [run]);
 
-  return <section className="ps-planning-chat ps-staffing-decision-chat">
+  return <section className="ps-planning-chat ps-staffing-decision-chat" ref={sceneRef}>
     <div className="ps-live-feed"><i /> <b>LIVE CONTEXT</b><span>Resource calendar and delivery history current</span></div>
     <div className="ps-plan-thread">
       <div className="ps-plan-system"><i>CAL</i><p><b>Resource calendar changed</b><small>Elena Marquez is no longer available during W8–12 regional validation.</small></p></div>
@@ -462,23 +493,9 @@ export function PlanScene() {
   const [approved, setApproved] = useState(false);
   const [workspaceView, setWorkspaceView] = useState("Team");
   const [selectedMember, setSelectedMember] = useState(4);
-  const [chatRun, setChatRun] = useState(0);
-  const [chatStep, setChatStep] = useState(0);
   const [typedPlanPrompt, setTypedPlanPrompt] = useState("");
-  const sceneRef = useRef(null);
-
-  useEffect(() => {
-    const scene = sceneRef.current;
-    if (!scene) return undefined;
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setChatRun((value) => value || 1);
-        observer.disconnect();
-      }
-    }, { threshold: 0.28 });
-    observer.observe(scene);
-    return () => observer.disconnect();
-  }, []);
+  const [chatStep, setChatStep] = useState(0);
+  const [sceneRef, chatRun, setChatRun] = usePlayWhenVisible(workspaceView === "Plan", workspaceView);
 
   useEffect(() => {
     if (!chatRun) return undefined;
@@ -564,7 +581,7 @@ export function PlanScene() {
         <div className="ps-staffing-evidence"><span>GROUNDED IN</span><p><b>Resource calendar</b><small>Availability and existing commitments</small></p><p><b>Delivery history</b><small>Comparable roles, work, and outcomes</small></p><p><b>Engagement plan</b><small>Required expertise, timing, and effort</small></p></div>
       </section>
       <div className="ps-staffing-main ps-staffing-main--decision">
-        <StaffingDecisionChat />
+        <StaffingDecisionChat active={workspaceView === "Team"} />
         <section className="ps-staffing-roster">
           <div className="ps-planning-panel-head"><div><span>PROPOSED TEAM</span><b>Fit, availability, and plan coverage</b></div><em>Resource data live</em></div>
           <div className="ps-staffing-list">
@@ -590,14 +607,9 @@ const writebackRows = [
 
 export function MaterializeScene() {
   const [materializeView, setMaterializeView] = useState("Approved plan");
-  const [run, setRun] = useState(0);
   const [step, setStep] = useState(0);
   const [typedWritebackPrompt, setTypedWritebackPrompt] = useState("");
-  const sceneRef = useRef(null);
-
-  useEffect(() => {
-    if (materializeView === "System writeback") setRun((value) => value || 1);
-  }, [materializeView]);
+  const [sceneRef, run, setRun] = usePlayWhenVisible(materializeView === "System writeback", materializeView);
 
   useEffect(() => {
     if (!run) return undefined;
@@ -700,25 +712,11 @@ const executeAssignments = [
 ];
 
 export function ExecuteScene() {
-  const [run, setRun] = useState(0);
   const [step, setStep] = useState(0);
   const [typedPrompt, setTypedPrompt] = useState("");
   const [typedResponse, setTypedResponse] = useState("");
-  const sceneRef = useRef(null);
+  const [sceneRef, run, setRun] = usePlayWhenVisible(true);
   const threadRef = useRef(null);
-
-  useEffect(() => {
-    const scene = sceneRef.current;
-    if (!scene) return undefined;
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setRun((value) => value || 1);
-        observer.disconnect();
-      }
-    }, { threshold: 0.24 });
-    observer.observe(scene);
-    return () => observer.disconnect();
-  }, []);
 
   useEffect(() => {
     if (!run) return undefined;
@@ -862,22 +860,11 @@ function DecisionRecord() {
 }
 
 export function ReconcileScene() {
-  const [run, setRun] = useState(0);
   const [step, setStep] = useState(0);
   const [reconcileView, setReconcileView] = useState("Commitment reconciliation");
   const [typedPrompt, setTypedPrompt] = useState("");
   const [typedResponse, setTypedResponse] = useState("");
-  const sceneRef = useRef(null);
-
-  useEffect(() => {
-    const scene = sceneRef.current;
-    if (!scene) return undefined;
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) { setRun((value) => value || 1); observer.disconnect(); }
-    }, { threshold: 0.24 });
-    observer.observe(scene);
-    return () => observer.disconnect();
-  }, []);
+  const [sceneRef, run, setRun] = usePlayWhenVisible(reconcileView === "Commitment reconciliation", reconcileView);
 
   useEffect(() => {
     if (!run) return undefined;
@@ -944,19 +931,11 @@ const learningPrompt = "Close out Northstar. Which delivery lessons have enough 
 const learningResponse = "The reconciled record supports three practice lessons. CH-03 and CO-01 show that regional validation must be explicit in sold effort when local service continuity constrains the model. The delivery sequence confirms that decision rights should be resolved before role design begins. TEAM-02 shows that a resource substitution can preserve economics and milestones when experience, loading, and decision rationale are recorded together. The fixed-board-date pattern remains an observation because only three comparable engagements support it.";
 
 export function PracticeScene() {
-  const [run, setRun] = useState(0);
   const [step, setStep] = useState(0);
   const [submitted, setSubmitted] = useState(false);
   const [typedPrompt, setTypedPrompt] = useState("");
   const [typedResponse, setTypedResponse] = useState("");
-  const sceneRef = useRef(null);
-
-  useEffect(() => {
-    const scene = sceneRef.current;
-    if (!scene) return undefined;
-    const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) { setRun((value) => value || 1); observer.disconnect(); } }, { threshold: 0.24 });
-    observer.observe(scene); return () => observer.disconnect();
-  }, []);
+  const [sceneRef, run, setRun] = usePlayWhenVisible(true);
 
   useEffect(() => {
     if (!run) return undefined;
