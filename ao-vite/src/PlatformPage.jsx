@@ -125,15 +125,18 @@ export default function PlatformPage() {
         <div className="pf-principle-grid">
           <div>
             <h3>Intent</h3>
-            <p>The accepted scope, approved plan, staffing model, assumptions, decision gates, and the rationale behind them remain durable in AllianceOne.</p>
+            <p>AllianceOne maintains the accepted scope, approved plan, staffing and effort model, deliverable commitments, assumptions, decision gates, and the rationale for every approved change. That record remains intact from pursuit through close-out.</p>
           </div>
           <div className="pf-principle-link" aria-hidden="true"><span /><i /><span /></div>
           <div>
             <h3>Execution</h3>
-            <p>CRM, PSA, project, document, time, and billing systems remain authoritative for the activities and actuals they are built to manage.</p>
+            <p>CRM, PSA, project, document, time, and billing systems continue to manage opportunities, tasks, assignments, files, hours, invoices, and delivery status. AllianceOne writes approved intent into those systems and reads delivery evidence back.</p>
           </div>
         </div>
-        <p className="pf-principle-result">The firm can see what happened against what was intended, without replacing the systems its teams already use.</p>
+        <div className="pf-principle-result">
+          <h3>What was promised and what was delivered stay connected.</h3>
+          <p>Leaders can see the original commitment, every approved change, and how delivery compared with the plan. Teams keep working in the systems they already use while AllianceOne preserves the meaning across them.</p>
+        </div>
       </Wrap>
     </section>
 
