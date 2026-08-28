@@ -87,6 +87,7 @@ export function Nav({ onCta, dark = false }) {
         <img src={dark ? "/brand/asg/alliance-systems-group-horizontal-white.png" : "/brand/asg/alliance-systems-group-horizontal-ink.png"} alt="Alliance Systems Group" />
       </a>
       <nav className="desktop-nav" aria-label="Main navigation">
+        <a href="/">Home</a>
         <a href="/allianceone/">AllianceOne</a>
         <a href="/how-it-works/">How it works</a>
         <button onClick={onCta}>Become a design partner</button>
@@ -94,7 +95,7 @@ export function Nav({ onCta, dark = false }) {
       <button className="nav-menu" onClick={() => setOpen(!open)} aria-expanded={open} aria-label="Toggle menu"><span /><span /></button>
     </Wrap>
     {open && <div className="mobile-nav">
-      <a href="/allianceone/" onClick={() => setOpen(false)}>AllianceOne</a><a href="/how-it-works/" onClick={() => setOpen(false)}>How it works</a>
+      <a href="/" onClick={() => setOpen(false)}>Home</a><a href="/allianceone/" onClick={() => setOpen(false)}>AllianceOne</a><a href="/how-it-works/" onClick={() => setOpen(false)}>How it works</a>
       <button onClick={() => { setOpen(false); onCta(); }}>Become a design partner</button>
     </div>}
   </header>;
