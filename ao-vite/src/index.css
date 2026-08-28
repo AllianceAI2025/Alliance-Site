@@ -1777,7 +1777,7 @@
 
 /* Shared corporate navigation and product identity. */
 .brand-link{display:flex;align-items:center;flex:none}
-.brand-link img{display:block;width:224px;height:auto}
+.brand-link img{display:block;width:auto;height:52px;max-width:100%;object-fit:contain}
 .site-nav--dark{border-top-color:#82c94b;border-bottom-color:rgba(255,255,255,.14);background:rgba(5,11,9,.94)}
 .site-nav--dark .desktop-nav a,.site-nav--dark .desktop-nav button{color:rgba(255,255,255,.72)}
 .site-nav--dark .desktop-nav a:hover,.site-nav--dark .desktop-nav button:hover{color:#fff;border-bottom-color:#fff}
@@ -1798,7 +1798,7 @@
 .pf-application{background:#fafbf7}
 
 @media(max-width:760px){
-  .brand-link img{width:176px}
+  .brand-link img{width:auto;height:46px}
   .footer-brand{width:220px}
   .pf-product-kicker{margin-bottom:30px}
   .pf-product-kicker .logo-lockup{font-size:1.02rem}
