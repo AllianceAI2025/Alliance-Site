@@ -20,28 +20,14 @@ const waysOfWorking = [
   ["Deliver", "How scope, staffing, sequence, governance, decisions, changes, and outcomes fit together in practice."],
 ];
 
-const firmIntelligence = [
-  ["Methods and frameworks", "The questions your firm asks, the evidence it trusts, and the way it structures a problem."],
-  ["Deliverable types and templates", "The proven shapes, required sections, source expectations, and review gates behind client work."],
-  ["Prior work and precedent", "Comparable scopes, staffing patterns, decisions, changes, outcomes, and lessons from delivery."],
-  ["Review and quality standards", "The criteria partners and engagement leaders use to determine whether work is ready to advance."],
-];
-
 const assets = [
   ["Traceable", "Every commitment, change, and conclusion remains connected to its source, owner, approval, and outcome."],
   ["Repeatable", "Teams begin with the methods, delivery shapes, and lessons that proved relevant in comparable work."],
   ["Compounding", "Each completed engagement improves how your firm scopes, staffs, governs, and delivers the next one."],
 ];
 
-const applications = [
-  ["Scope and price", "Bring forward comparable scopes, assumptions, team shapes, pricing logic, and change-order patterns before the commitment is made."],
-  ["Plan and staff", "Use proven workstreams, deliverable types, effort ranges, role shapes, and sequencing to turn the accepted proposal into a delivery plan."],
-  ["Deliver and review", "Give each team member the right methods, templates, precedent, evidence, and review standards for the work in front of them."],
-  ["Learn and refine", "Connect what your firm intended with what was delivered, then admit the useful outcome back into firm practice."],
-];
-
 const lifecycle = [
-  ["Scope", "Turn fragmented pursuit context into a grounded scope and proposal."],
+  ["Scope", "Turn fragmented pursuit context into a grounded scope, price, and proposal."],
   ["Plan", "Translate the accepted commitment into workstreams, deliverables, staffing, and effort."],
   ["Materialize", "Write the approved plan into your firm's PSA or project system."],
   ["Execute", "Give every team member the context, evidence, methods, and guidance to deliver."],
@@ -119,6 +105,10 @@ export default function PlatformPage() {
           <div className="pf-comparison-head"><span /><strong>AI assistant</strong><strong>AllianceOne</strong></div>
           {comparison.map(([dimension, model, alliance]) => <div className="pf-comparison-row" key={dimension}><strong>{dimension}</strong><p>{model}</p><p>{alliance}</p></div>)}
         </div>
+        <div className="pf-model-moat">
+          <h3>Every engagement widens the advantage.</h3>
+          <p>A competitor can license the same model. It cannot license your firm's history of decisions, delivery patterns, outcomes, and proven judgment. That advantage is private to your firm and grows with every completed engagement.</p>
+        </div>
       </Wrap>
     </section>
 
@@ -149,18 +139,7 @@ export default function PlatformPage() {
         <div className="pf-method-grid pf-grid--three">
           {waysOfWorking.map(([name, body]) => <article key={name}><h3>{name}</h3><p>{body}</p></article>)}
         </div>
-      </Wrap>
-    </section>
-
-    <section className="pf-section pf-intelligence">
-      <Wrap>
-        <div className="pf-section-head">
-          <h2>Your firm's intellectual property stays active in the work.</h2>
-          <p>Methods, templates, precedent, and review standards should not sit dormant in a repository. AllianceOne brings the right firm knowledge into the engagement while teams are still making decisions.</p>
-        </div>
-        <div className="pf-asset-grid">
-          {firmIntelligence.map(([name, body]) => <article key={name}><h3>{name}</h3><p>{body}</p></article>)}
-        </div>
+        <p className="pf-method-note">Methods, frameworks, deliverable templates, precedent, and review standards stay active in the work while teams are still making decisions, not dormant in a repository.</p>
       </Wrap>
     </section>
 
@@ -172,18 +151,6 @@ export default function PlatformPage() {
         </div>
         <div className="pf-asset-grid pf-grid--three">
           {assets.map(([name, body]) => <article key={name}><h3>{name}</h3><p>{body}</p></article>)}
-        </div>
-      </Wrap>
-    </section>
-
-    <section className="pf-section pf-application">
-      <Wrap>
-        <div className="pf-section-head">
-          <h2>The record changes how the work gets done.</h2>
-          <p>The same governed context shapes commercial commitments, delivery plans, day-to-day work, and what your firm carries forward after the engagement closes.</p>
-        </div>
-        <div className="pf-asset-grid">
-          {applications.map(([name, body]) => <article key={name}><h3>{name}</h3><p>{body}</p></article>)}
         </div>
       </Wrap>
     </section>
@@ -222,15 +189,6 @@ export default function PlatformPage() {
         </div>
         <div className="pf-firm-list">
           {firms.map(([name, body]) => <article key={name}><h3>{name}</h3><p>{body}</p></article>)}
-        </div>
-      </Wrap>
-    </section>
-
-    <section className="pf-moat">
-      <Wrap>
-        <div>
-          <h2>Every engagement widens the advantage.</h2>
-          <p>A competitor can license the same model. It cannot license your firm's history of decisions, delivery patterns, outcomes, and proven judgment. That advantage is private to your firm and grows with every completed engagement.</p>
         </div>
       </Wrap>
     </section>
