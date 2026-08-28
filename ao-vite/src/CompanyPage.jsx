@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Btn, Footer, Logo, Modal, Nav, Wrap, useFonts } from "./App.jsx";
+import { capture, Track } from "./analytics";
 
 const services = [
   ["Systems integration", "Connect AllianceOne to CRM, PSA, project, document, communication, and finance systems. Define which records each system owns and how approved plans and delivery actuals move between them."],
@@ -20,7 +21,7 @@ export default function CompanyPage() {
   return <div className="asg-page">
     <Nav dark onCta={() => setModal(true)} />
     <main>
-      <section className="asg-hero">
+      <Track name="hero" className="asg-hero">
         <div className="asg-hero-grid" aria-hidden="true"><span /><span /><span /><span /></div>
         <img className="asg-hero-mark" src="/brand/asg/alliance-systems-group-mark-white.png" alt="" aria-hidden="true" />
         <Wrap>
@@ -29,7 +30,7 @@ export default function CompanyPage() {
             <p>Alliance Systems Group Inc. develops AllianceOne and works with consulting and advisory firms to put it into practice. We connect the product to the systems your firm already uses, configure it around your methods, and help your teams adopt it in live engagements.</p>
             <div className="asg-hero-actions">
               <a href="/allianceone/">View AllianceOne <span aria-hidden="true">↗</span></a>
-              <button onClick={() => setModal(true)}>Talk with us <span aria-hidden="true">↗</span></button>
+              <button onClick={() => { capture("cta_clicked", { location: "hero" }); setModal(true); }}>Talk with us <span aria-hidden="true">↗</span></button>
             </div>
           </div>
           <div className="asg-hero-statement">
@@ -38,9 +39,9 @@ export default function CompanyPage() {
             <p>Our software for scoping, planning, delivering, and learning from client engagements.</p>
           </div>
         </Wrap>
-      </section>
+      </Track>
 
-      <section id="thesis" className="asg-section asg-thesis">
+      <Track name="thesis" id="thesis" className="asg-section asg-thesis">
         <Wrap>
           <div className="asg-section-head">
             <h2>A firm should be able to use what it has already learned.</h2>
@@ -50,9 +51,9 @@ export default function CompanyPage() {
             </div>
           </div>
         </Wrap>
-      </section>
+      </Track>
 
-      <section id="platform" className="asg-section asg-product">
+      <Track name="product" id="platform" className="asg-section asg-product">
         <Wrap>
           <div className="asg-product-head">
             <div><Logo /><h2>AllianceOne keeps the engagement connected from pursuit through close-out.</h2></div>
@@ -60,9 +61,9 @@ export default function CompanyPage() {
           </div>
           <a className="asg-product-link" href="/allianceone/">See the AllianceOne product <span aria-hidden="true">↗</span></a>
         </Wrap>
-      </section>
+      </Track>
 
-      <section id="services" className="asg-section asg-services">
+      <Track name="services" id="services" className="asg-section asg-services">
         <Wrap>
           <div className="asg-section-head">
             <h2>We help firms put AllianceOne into production.</h2>
@@ -72,14 +73,14 @@ export default function CompanyPage() {
             {services.map(([name, body]) => <article key={name}><h3>{name}</h3><p>{body}</p></article>)}
           </div>
         </Wrap>
-      </section>
+      </Track>
 
-      <section className="asg-cta">
+      <Track name="cta" className="asg-cta">
         <Wrap>
           <h2>Talk with us about your firm.</h2>
-          <div><p>We are working with a small number of professional-services firms on design partnerships, implementation planning, and early production use.</p><Btn variant="dark" onClick={() => setModal(true)}>Discuss a partnership</Btn></div>
+          <div><p>We are working with a small number of professional-services firms on design partnerships, implementation planning, and early production use.</p><Btn variant="dark" onClick={() => { capture("cta_clicked", { location: "page_cta" }); setModal(true); }}>Discuss a partnership</Btn></div>
         </Wrap>
-      </section>
+      </Track>
     </main>
     <Footer onCta={() => setModal(true)} />
     <Modal open={modal} onClose={() => setModal(false)} />

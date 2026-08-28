@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useFonts, Btn, Logo, Wrap, Nav, Footer, Modal } from "./App.jsx";
+import { capture, Track } from "./analytics";
 
 const systems = [
   ["CRM", "Opportunity, client, commercials"],
@@ -66,7 +67,7 @@ export default function PlatformPage() {
   const open = () => setModal(true);
 
   return <div className="site-shell platform-page"><Nav onCta={open} /><main>
-    <section id="platform" className="pf-hero">
+    <Track name="hero" id="platform" className="pf-hero">
       <div className="pf-hero-field" aria-hidden="true"><span /><span /><span /><span /></div>
       <Wrap>
         <div className="pf-hero-grid">
@@ -80,9 +81,9 @@ export default function PlatformPage() {
           </div>
         </div>
       </Wrap>
-    </section>
+    </Track>
 
-    <section className="pf-section pf-gap">
+    <Track name="systems" className="pf-section pf-gap">
       <Wrap>
         <div className="pf-section-head">
           <h2>Every system records part of the work.</h2>
@@ -99,9 +100,9 @@ export default function PlatformPage() {
           </div>
         </div>
       </Wrap>
-    </section>
+    </Track>
 
-    <section className="pf-section pf-model">
+    <Track name="model" className="pf-section pf-model">
       <Wrap>
         <div className="pf-section-head">
           <h2>A powerful model is not an operating system.</h2>
@@ -117,9 +118,9 @@ export default function PlatformPage() {
           <p>A competitor can license the same model. It cannot license the firm's history of decisions, delivery patterns, outcomes, and proven judgment. That advantage is private to the firm and grows with every completed engagement.</p>
         </div>
       </Wrap>
-    </section>
+    </Track>
 
-    <section className="pf-principle">
+    <Track name="principle" className="pf-principle">
       <Wrap>
         <h2>AllianceOne owns intent. Your existing tools own execution.</h2>
         <div className="pf-principle-grid">
@@ -138,9 +139,9 @@ export default function PlatformPage() {
           <p>Leaders can see the original commitment, every approved change, and how delivery compared with the plan. Teams keep working in the systems they already use while AllianceOne preserves the meaning across them.</p>
         </div>
       </Wrap>
-    </section>
+    </Track>
 
-    <section className="pf-section pf-method">
+    <Track name="method" className="pf-section pf-method">
       <Wrap>
         <div className="pf-section-head">
           <h2>How the firm works becomes part of the record.</h2>
@@ -154,9 +155,9 @@ export default function PlatformPage() {
           {firmIP.map(([name, body]) => <div key={name}><h4>{name}</h4><p>{body}</p></div>)}
         </div>
       </Wrap>
-    </section>
+    </Track>
 
-    <section className="pf-section pf-assets">
+    <Track name="assets" className="pf-section pf-assets">
       <Wrap>
         <div className="pf-section-head">
           <h2>The next engagement can start from the last one.</h2>
@@ -166,9 +167,9 @@ export default function PlatformPage() {
           {assets.map(([name, body]) => <article key={name}><h3>{name}</h3><p>{body}</p></article>)}
         </div>
       </Wrap>
-    </section>
+    </Track>
 
-    <section className="pf-section pf-lifecycle">
+    <Track name="lifecycle" className="pf-section pf-lifecycle">
       <Wrap>
         <div className="pf-section-head">
           <h2>One engagement state, from pursuit through close-out.</h2>
@@ -179,9 +180,9 @@ export default function PlatformPage() {
         </div>
         <a className="pf-text-link" href="/how-it-works/#loop">See the engagement lifecycle <span aria-hidden="true">↗</span></a>
       </Wrap>
-    </section>
+    </Track>
 
-    <section className="pf-section pf-architecture">
+    <Track name="architecture" className="pf-section pf-architecture">
       <Wrap>
         <div className="pf-architecture-grid">
           <div className="pf-section-head pf-section-head--stacked">
@@ -193,9 +194,9 @@ export default function PlatformPage() {
           </div>
         </div>
       </Wrap>
-    </section>
+    </Track>
 
-    <section id="firms" className="pf-section pf-firms">
+    <Track name="firms" id="firms" className="pf-section pf-firms">
       <Wrap>
         <div className="pf-section-head pf-section-head--compact">
           <h2>For project-based professional services.</h2>
@@ -204,13 +205,13 @@ export default function PlatformPage() {
           {firms.map(([name, body]) => <article key={name}><h3>{name}</h3><p>{body}</p></article>)}
         </div>
       </Wrap>
-    </section>
+    </Track>
 
-    <section className="pf-cta">
+    <Track name="cta" className="pf-cta">
       <Wrap>
         <div><h2>Build the engagement record around your firm.</h2></div>
-        <div><p>We are working with a small number of professional-services firms to shape integrations, operating workflows, and production rollout.</p><Btn variant="dark" onClick={open}>Discuss a design partnership</Btn></div>
+        <div><p>We are working with a small number of professional-services firms to shape integrations, operating workflows, and production rollout.</p><Btn variant="dark" onClick={() => { capture("cta_clicked", { location: "page_cta" }); open(); }}>Discuss a design partnership</Btn></div>
       </Wrap>
-    </section>
+    </Track>
   </main><Footer onCta={open} /><Modal open={modal} onClose={() => setModal(false)} /></div>;
 }

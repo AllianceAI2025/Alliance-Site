@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { capture, useVisualDwell } from "./analytics";
+import { capture, identifyVisitor, Track, useVisualDwell } from "./analytics";
 import { ExecuteScene, MaterializeScene, PlanScene, PracticeScene, ReconcileScene, ScopeScene } from "./ProductScenes";
 
 export const DESIGN_PARTNER_EMAIL = "cole.miska@myalliance.ai";
@@ -91,19 +91,19 @@ export function Nav({ onCta, dark = false }) {
         <a href="/">Home</a>
         <a href="/allianceone/">AllianceOne</a>
         <a href="/how-it-works/">How it works</a>
-        <button onClick={onCta}>Become a design partner</button>
+        <button onClick={() => { capture("cta_clicked", { location: "nav" }); onCta(); }}>Become a design partner</button>
       </nav>
       <button className="nav-menu" onClick={() => setOpen(!open)} aria-expanded={open} aria-label="Toggle menu"><span /><span /></button>
     </Wrap>
     {open && <div className="mobile-nav">
       <a href="/" onClick={() => setOpen(false)}>Home</a><a href="/allianceone/" onClick={() => setOpen(false)}>AllianceOne</a><a href="/how-it-works/" onClick={() => setOpen(false)}>How it works</a>
-      <button onClick={() => { setOpen(false); onCta(); }}>Become a design partner</button>
+      <button onClick={() => { setOpen(false); capture("cta_clicked", { location: "nav_mobile" }); onCta(); }}>Become a design partner</button>
     </div>}
   </header>;
 }
 
 function Hero() {
-  return <section className="home-hero">
+  return <Track name="hero" className="home-hero">
     <Wrap>
       <div className="hero-grid hero-grid--copy">
         <div className="hero-copy">
@@ -113,15 +113,15 @@ function Hero() {
         </div>
       </div>
     </Wrap>
-  </section>;
+  </Track>;
 }
 
 function IntentStatement() {
-  return <Section className="intent-statement">
+  return <Track name="intent" className="section intent-statement">
     <Wrap>
       <div className="intent-copy"><h2>Your tools record activity.<br />AllianceOne carries intent.</h2><p>CRM knows the opportunity. Project management knows the task status. Billing knows the actuals. Documents and conversations hold the reasoning. AllianceOne maintains the plan that connects them and the story of how that plan changed.</p></div>
     </Wrap>
-  </Section>;
+  </Track>;
 }
 
 const loopSteps = [
@@ -139,7 +139,7 @@ function TrackedVisual({ scene, children }) {
 }
 
 function Loop() {
-  return <Section id="loop" className="loop-section">
+  return <Track name="lifecycle" id="loop" className="section loop-section">
     <Wrap>
       <div className="loop-intro"><Head size="display">One operating loop, from question to institutional learning.</Head></div>
       <div className="loop-steps">{loopSteps.map((step, i) => <article id={`phase-${step.label.toLowerCase()}`} className={`loop-step loop-step--${i + 1}`} key={step.n}>
@@ -147,7 +147,7 @@ function Loop() {
         <TrackedVisual scene={step.label}>{step.visual}</TrackedVisual>
       </article>)}</div>
     </Wrap>
-  </Section>;
+  </Track>;
 }
 
 function StateModel() {
@@ -155,16 +155,16 @@ function StateModel() {
     ["Intent", "What the firm plans and why"], ["Commitment", "What the client accepted"], ["Execution", "What the systems report"],
     ["Decision", "What changed, who changed it, and why"], ["Outcome", "What was delivered and achieved"], ["Practice", "What the firm carries forward"],
   ];
-  return <Section className="state-section">
+  return <Track name="state_model" className="section state-section">
     <Wrap>
       <div className="state-heading"><Head light>A conversation history is not engagement state.</Head><p>AllianceOne maintains six connected forms of state across the lifecycle. Each one has an owner, a source, and a place in the engagement story.</p></div>
       <div className="state-table">{states.map(([name, desc]) => <div key={name}><strong>{name}</strong><p>{desc}</p><i /></div>)}</div>
     </Wrap>
-  </Section>;
+  </Track>;
 }
 
 export function Footer({ onCta }) {
-  return <footer className="site-footer"><Wrap><div className="footer-main"><div><a href="/" className="footer-brand"><img src="/brand/asg/alliance-systems-group-horizontal-white.png" alt="Alliance Systems Group" /></a><p>Operating infrastructure for expert work.</p></div><div className="footer-nav"><div><span>Product</span><a href="/allianceone/">AllianceOne</a><a href="/how-it-works/">How it works</a><a href="/security/">Security &amp; governance</a></div><div><span>Company</span><a href="/">Alliance Systems Group</a><button onClick={onCta}>Design partner program</button><a href="mailto:hello@myalliance.ai">hello@myalliance.ai</a></div></div></div><div className="footer-base"><span>AllianceOne is a product of Alliance Systems Group Inc.</span><span>© 2026 Alliance Systems Group Inc. All rights reserved.</span></div></Wrap></footer>;
+  return <footer className="site-footer"><Wrap><div className="footer-main"><div><a href="/" className="footer-brand"><img src="/brand/asg/alliance-systems-group-horizontal-white.png" alt="Alliance Systems Group" /></a><p>Operating infrastructure for expert work.</p></div><div className="footer-nav"><div><span>Product</span><a href="/allianceone/">AllianceOne</a><a href="/how-it-works/">How it works</a><a href="/security/">Security &amp; governance</a></div><div><span>Company</span><a href="/">Alliance Systems Group</a><button onClick={() => { capture("cta_clicked", { location: "footer" }); onCta(); }}>Design partner program</button><a href="mailto:hello@myalliance.ai">hello@myalliance.ai</a></div></div></div><div className="footer-base"><span>AllianceOne is a product of Alliance Systems Group Inc.</span><span>© 2026 Alliance Systems Group Inc. All rights reserved.</span></div></Wrap></footer>;
 }
 
 export function Modal({ open, onClose }) {
@@ -219,7 +219,8 @@ export function Modal({ open, onClose }) {
       const ok = data.success === true || data.success === "true";
       const message = String(data.message || "");
       if (ok) {
-        capture("partner_form_submitted");
+        identifyVisitor(form.email, { name: form.name, firm: form.firm, role: form.role });
+        capture("partner_form_submitted", { firm: form.firm, role: form.role });
         setStatus("sent");
       }
       else if (/activat/i.test(message)) setStatus("activate");
