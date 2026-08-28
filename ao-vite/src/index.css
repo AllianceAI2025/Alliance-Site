@@ -1776,9 +1776,13 @@
 }
 
 /* Shared corporate navigation and product identity. */
-.brand-link{display:flex;align-items:center;flex:none}
-.brand-link img{display:block;width:auto;height:52px;max-width:100%;object-fit:contain}
+.brand-link{display:inline-flex;align-items:center;flex:none;gap:8px;color:#07100e;text-decoration:none}
+.brand-link .brand-mark{display:block;width:52px;height:52px;object-fit:contain}
+.brand-wordmark{display:inline-flex;flex-direction:column;align-items:center;line-height:1;text-transform:uppercase}
+.brand-wordmark strong{font-family:'Bodoni MT',Didot,'Times New Roman',serif;font-size:1.48rem;font-weight:400;letter-spacing:.018em;line-height:.82}
+.brand-wordmark small{margin-top:6px;padding-left:.28em;font-family:'Inter','Helvetica Neue',Arial,sans-serif;font-size:.52rem;font-weight:600;letter-spacing:.28em;line-height:1}
 .site-nav--dark{border-top-color:#82c94b;border-bottom-color:rgba(255,255,255,.14);background:rgba(5,11,9,.94)}
+.site-nav--dark .brand-link{color:#fff}
 .site-nav--dark .desktop-nav a,.site-nav--dark .desktop-nav button{color:rgba(255,255,255,.72)}
 .site-nav--dark .desktop-nav a:hover,.site-nav--dark .desktop-nav button:hover{color:#fff;border-bottom-color:#fff}
 .site-nav--dark .nav-menu span{background:#fff}
@@ -1798,7 +1802,7 @@
 .pf-application{background:#fafbf7}
 
 @media(max-width:760px){
-  .brand-link img{width:auto;height:46px}
+  .brand-link{gap:7px}.brand-link .brand-mark{width:46px;height:46px}.brand-wordmark strong{font-size:1.32rem}.brand-wordmark small{margin-top:5px;font-size:.47rem}
   .footer-brand{width:220px}
   .pf-product-kicker{margin-bottom:30px}
   .pf-product-kicker .logo-lockup{font-size:1.02rem}

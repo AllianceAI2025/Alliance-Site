@@ -84,7 +84,8 @@ export function Nav({ onCta, dark = false }) {
   return <header className={`site-nav${dark ? " site-nav--dark" : ""}`}>
     <Wrap className="nav-inner">
       <a href="/" className="brand-link" aria-label="Alliance Systems Group home">
-        <img src={dark ? "/brand/asg/alliance-systems-group-horizontal-white.png" : "/brand/asg/alliance-systems-group-horizontal-ink.png"} alt="Alliance Systems Group" />
+        <img className="brand-mark" src={dark ? "/brand/asg/alliance-systems-group-mark-white.png" : "/brand/asg/alliance-systems-group-mark-ink.png"} alt="" aria-hidden="true" />
+        <span className="brand-wordmark"><strong>Alliance</strong><small>Systems Group</small></span>
       </a>
       <nav className="desktop-nav" aria-label="Main navigation">
         <a href="/">Home</a>
