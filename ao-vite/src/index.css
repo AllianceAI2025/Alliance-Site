@@ -1774,3 +1774,34 @@
 @media(max-width:760px){
   .asg-brand{width:190px}.asg-nav-inner{min-height:76px}.asg-hero{min-height:0;padding:142px 0 90px}.asg-hero .wrap{min-height:0}.asg-hero-copy h1{font-size:clamp(3.9rem,19vw,6.4rem);line-height:.86}.asg-hero-copy>p{margin-top:36px}.asg-hero-actions{align-items:flex-start;flex-direction:column;gap:24px}.asg-section{padding:84px 0}.asg-section-head h2,.asg-company h2{font-size:clamp(2.8rem,14vw,4.6rem)}.asg-services-list article{grid-template-columns:1fr;gap:22px;padding:30px 0}.asg-footer-main{grid-template-columns:1fr;gap:36px}.asg-footer-main nav{grid-column:auto;grid-template-columns:1fr}.asg-footer-base{align-items:flex-start;flex-direction:column;gap:12px}
 }
+
+/* Shared corporate navigation and product identity. */
+.brand-link{display:flex;align-items:center;flex:none}
+.brand-link img{display:block;width:224px;height:auto}
+.site-nav--dark{border-top-color:#82c94b;border-bottom-color:rgba(255,255,255,.14);background:rgba(5,11,9,.94)}
+.site-nav--dark .desktop-nav a,.site-nav--dark .desktop-nav button{color:rgba(255,255,255,.72)}
+.site-nav--dark .desktop-nav a:hover,.site-nav--dark .desktop-nav button:hover{color:#fff;border-bottom-color:#fff}
+.site-nav--dark .nav-menu span{background:#fff}
+.site-nav--dark .mobile-nav{border-bottom-color:rgba(255,255,255,.14);background:#07100e}
+.site-nav--dark .mobile-nav a,.site-nav--dark .mobile-nav button{color:#fff}
+.footer-brand{display:block;width:256px;text-decoration:none}
+.footer-brand img{display:block;width:100%;height:auto}
+.product-kicker{margin-bottom:30px}
+.product-kicker .logo-lockup{font-size:1.08rem}
+
+/* AllianceOne narrative layers. */
+.pf-product-kicker{margin-bottom:42px}
+.pf-product-kicker .logo-lockup{font-size:1.18rem}
+.pf-grid--three{grid-template-columns:repeat(3,1fr)}
+.pf-intelligence{background:#f4f5f0}
+.pf-assets{background:#dfe9d8}
+.pf-application{background:#fafbf7}
+
+@media(max-width:760px){
+  .brand-link img{width:176px}
+  .footer-brand{width:220px}
+  .pf-product-kicker{margin-bottom:30px}
+  .pf-product-kicker .logo-lockup{font-size:1.02rem}
+  .pf-hero h1{font-size:clamp(3.45rem,15.4vw,5.35rem);letter-spacing:-.058em;line-height:.88}
+  .pf-grid--three{grid-template-columns:1fr}
+}

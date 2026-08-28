@@ -76,23 +76,25 @@ export function AnchorLink({ id, children, onNavigate, ...props }) {
     if (el) { event.preventDefault(); el.scrollIntoView({ behavior: "smooth", block: "start" }); }
     onNavigate?.();
   };
-  return <a href={`/#${id}`} onClick={click} {...props}>{children}</a>;
+  return <a href={`/allianceone/#${id}`} onClick={click} {...props}>{children}</a>;
 }
 
-export function Nav({ onCta }) {
+export function Nav({ onCta, dark = false }) {
   const [open, setOpen] = useState(false);
-  return <header className="site-nav">
+  return <header className={`site-nav${dark ? " site-nav--dark" : ""}`}>
     <Wrap className="nav-inner">
-      <a href="/" className="brand-link" aria-label="AllianceOne home"><Logo /></a>
+      <a href="/" className="brand-link" aria-label="Alliance Systems Group home">
+        <img src={dark ? "/brand/asg/alliance-systems-group-horizontal-white.png" : "/brand/asg/alliance-systems-group-horizontal-ink.png"} alt="Alliance Systems Group" />
+      </a>
       <nav className="desktop-nav" aria-label="Main navigation">
-        <a href="/">What we do</a>
-        <a href="/how-it-works/">How we do it</a>
+        <a href="/allianceone/">AllianceOne</a>
+        <a href="/how-it-works/">How it works</a>
         <button onClick={onCta}>Become a design partner</button>
       </nav>
       <button className="nav-menu" onClick={() => setOpen(!open)} aria-expanded={open} aria-label="Toggle menu"><span /><span /></button>
     </Wrap>
     {open && <div className="mobile-nav">
-      <a href="/" onClick={() => setOpen(false)}>What we do</a><a href="/how-it-works/" onClick={() => setOpen(false)}>How we do it</a>
+      <a href="/allianceone/" onClick={() => setOpen(false)}>AllianceOne</a><a href="/how-it-works/" onClick={() => setOpen(false)}>How it works</a>
       <button onClick={() => { setOpen(false); onCta(); }}>Become a design partner</button>
     </div>}
   </header>;
@@ -103,6 +105,7 @@ function Hero() {
     <Wrap>
       <div className="hero-grid hero-grid--copy">
         <div className="hero-copy">
+          <div className="product-kicker"><Logo light /></div>
           <h1>Plan the next engagement with the full weight of your firm behind it.</h1>
           <p>AllianceOne turns delivery history into the workstreams, staffing, effort, and deliverables for new client work. The plan moves into the systems your firm already uses. Actual delivery flows back against it.</p>
         </div>
@@ -207,7 +210,7 @@ function StateModel() {
 }
 
 export function Footer({ onCta }) {
-  return <footer className="site-footer"><Wrap><div className="footer-main"><div><Logo light /><p>Engagement intelligence for professional-services firms.</p></div><div className="footer-nav"><div><span>Platform</span><a href="/">What we do</a><a href="/how-it-works/">How we do it</a><a href="/#firms">For firms</a></div><div><span>Company</span><a href="/company/">Alliance Systems Group</a><a href="/security/">Security &amp; governance</a><button onClick={onCta}>Design partner program</button><a href="mailto:hello@myalliance.ai">hello@myalliance.ai</a></div></div></div><div className="footer-base"><span>AllianceOne is a product of Alliance Systems Group Inc.</span><span>© 2026 Alliance Systems Group Inc. All rights reserved.</span></div></Wrap></footer>;
+  return <footer className="site-footer"><Wrap><div className="footer-main"><div><a href="/" className="footer-brand"><img src="/brand/asg/alliance-systems-group-horizontal-white.png" alt="Alliance Systems Group" /></a><p>Operating infrastructure for expert work.</p></div><div className="footer-nav"><div><span>Product</span><a href="/allianceone/">AllianceOne</a><a href="/how-it-works/">How it works</a><a href="/security/">Security &amp; governance</a></div><div><span>Company</span><a href="/">Alliance Systems Group</a><button onClick={onCta}>Design partner program</button><a href="mailto:hello@myalliance.ai">hello@myalliance.ai</a></div></div></div><div className="footer-base"><span>AllianceOne is a product of Alliance Systems Group Inc.</span><span>© 2026 Alliance Systems Group Inc. All rights reserved.</span></div></Wrap></footer>;
 }
 
 export function Modal({ open, onClose }) {
