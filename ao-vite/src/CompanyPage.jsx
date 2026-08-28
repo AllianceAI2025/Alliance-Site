@@ -100,7 +100,7 @@ export default function CompanyPage() {
         <Wrap>
           <div className="asg-product-head">
             <div><Logo /><h2>The engagement operating system for professional services.</h2></div>
-            <div className="asg-product-summary"><p>AllianceOne is the flagship product of Alliance Systems Group Inc. It creates a governed engagement state across the systems, conversations, methods, decisions, and outcomes that shape client work.</p><p>The product page carries the complete story of how AllianceOne works.</p></div>
+            <div className="asg-product-summary"><p>AllianceOne is the flagship product of Alliance Systems Group Inc. It creates a governed engagement state across the systems, conversations, methods, decisions, and outcomes that shape client work.</p></div>
           </div>
           <a className="asg-product-link" href="/">Explore the AllianceOne platform <span aria-hidden="true">↗</span></a>
         </Wrap>
