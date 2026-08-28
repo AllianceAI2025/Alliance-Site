@@ -20,6 +20,13 @@ const waysOfWorking = [
   ["Deliver", "How scope, staffing, sequence, governance, decisions, changes, and outcomes fit together in practice."],
 ];
 
+const firmIP = [
+  ["Methods and frameworks", "The questions your firm asks, the evidence it trusts, and the way it structures a problem."],
+  ["Deliverable types and templates", "The proven shapes, required sections, source expectations, and review gates behind client work."],
+  ["Prior work and precedent", "Comparable scopes, staffing patterns, decisions, changes, outcomes, and lessons from delivery."],
+  ["Review and quality standards", "The criteria partners and engagement leaders use to determine whether work is ready to advance."],
+];
+
 const assets = [
   ["Traceable", "Every commitment, change, and conclusion remains connected to its source, owner, approval, and outcome."],
   ["Repeatable", "Teams begin with the methods, delivery shapes, and lessons that proved relevant in comparable work."],
@@ -139,7 +146,10 @@ export default function PlatformPage() {
         <div className="pf-method-grid pf-grid--three">
           {waysOfWorking.map(([name, body]) => <article key={name}><h3>{name}</h3><p>{body}</p></article>)}
         </div>
-        <p className="pf-method-note">Methods, frameworks, deliverable templates, precedent, and review standards stay active in the work while teams are still making decisions, not dormant in a repository.</p>
+        <p className="pf-method-note">The firm's intellectual property stays active in the work while teams are still making decisions, not dormant in a repository.</p>
+        <div className="pf-ip-row">
+          {firmIP.map(([name, body]) => <div key={name}><h4>{name}</h4><p>{body}</p></div>)}
+        </div>
       </Wrap>
     </section>
 
