@@ -207,7 +207,7 @@ function StateModel() {
 }
 
 export function Footer({ onCta }) {
-  return <footer className="site-footer"><Wrap><div className="footer-main"><div><Logo light /><p>Engagement intelligence for professional-services firms.</p></div><div className="footer-nav"><div><span>Platform</span><a href="/">What we do</a><a href="/how-it-works/">How we do it</a><a href="/#firms">For firms</a></div><div><span>Company</span><a href="/security/">Security &amp; governance</a><button onClick={onCta}>Design partner program</button><a href="mailto:hello@myalliance.ai">hello@myalliance.ai</a></div></div></div><div className="footer-base"><span>A product of Alliance Systems Group</span><span>© 2026 Alliance Systems Group. All rights reserved.</span></div></Wrap></footer>;
+  return <footer className="site-footer"><Wrap><div className="footer-main"><div><Logo light /><p>Engagement intelligence for professional-services firms.</p></div><div className="footer-nav"><div><span>Platform</span><a href="/">What we do</a><a href="/how-it-works/">How we do it</a><a href="/#firms">For firms</a></div><div><span>Company</span><a href="/company/">Alliance Systems Group</a><a href="/security/">Security &amp; governance</a><button onClick={onCta}>Design partner program</button><a href="mailto:hello@myalliance.ai">hello@myalliance.ai</a></div></div></div><div className="footer-base"><span>AllianceOne is a product of Alliance Systems Group Inc.</span><span>© 2026 Alliance Systems Group Inc. All rights reserved.</span></div></Wrap></footer>;
 }
 
 export function Modal({ open, onClose }) {

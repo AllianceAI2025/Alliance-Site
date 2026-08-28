@@ -10,20 +10,22 @@ const systems = [
 
 const firms = [
   ["Management consulting", "These firms advise clients on strategy, operations, organization, growth, and performance. Similar problem types recur, but the recommended approach must still reflect each client's facts and constraints. AllianceOne helps engagement leaders use comparable work to shape the current approach, preserve the reasoning behind material choices, and understand whether the plan held during delivery. The economic pressure is concentrated in scoping, staffing, and margin, where decisions are often rebuilt from partner memory."],
-  ["Specialist advisory", "These firms handle transactions, restructuring, risk, investigations, regulatory response, and other high-stakes matters. Time is constrained, information is incomplete, and prior positions or analogous matters can materially affect the response. AllianceOne makes precedent usable in the moment and preserves how the firm adapted it, which reduces dependence on the few people who remember the matter."],
+  ["Specialist advisory", "These firms handle transactions, restructuring, risk, investigations, regulatory response, and other high-stakes matters. Time is constrained, information is incomplete, and prior positions or analogous matters can materially affect the response. AllianceOne makes precedent usable in the moment and preserves how your firm adapted it, which reduces dependence on the few people who remember the matter."],
   ["Technology and transformation consulting", "These firms lead system implementations, operating-model redesigns, process transformation, data migration, and adoption programs. Delivery is distributed across workstreams, vendors, client teams, and execution systems. AllianceOne maintains the connection between the commercial commitment, the approved engagement plan, the decisions made during delivery, and the work recorded across the stack."],
 ];
 
 const waysOfWorking = [
-  ["Approach", "How your firm frames the problem, the questions it asks first, the evidence it trusts, and the precedent it brings forward."],
-  ["Think", "The options considered, the tradeoffs made, the assumptions carried, and the reasoning behind the recommendation."],
-  ["Deliver", "How scope, staffing, sequence, governance, decisions, changes, and outcomes fit together in practice."],
+  ["Methods and frameworks", "The questions your firm asks, the evidence it trusts, and the way it structures a problem."],
+  ["Deliverable types and templates", "The proven shapes, required sections, source expectations, and review gates behind client work."],
+  ["Prior work and precedent", "Comparable scopes, staffing patterns, decisions, changes, outcomes, and lessons from delivery."],
+  ["Review and quality standards", "The criteria partners and engagement leaders use to determine whether work is ready to advance."],
 ];
 
 const assets = [
-  ["Traceable", "Every commitment, change, and conclusion remains connected to its source, owner, approval, and outcome."],
-  ["Repeatable", "Teams begin with the methods, delivery shapes, and lessons that proved relevant in comparable work."],
-  ["Compounding", "Each completed engagement improves how your firm scopes, staffs, governs, and delivers the next one."],
+  ["Scope and price", "Bring forward comparable scopes, assumptions, team shapes, pricing logic, and change-order patterns before the commitment is made."],
+  ["Plan and staff", "Use proven workstreams, deliverable types, effort ranges, role shapes, and sequencing to turn the accepted proposal into a delivery plan."],
+  ["Deliver and review", "Give each team member the right methods, templates, precedent, evidence, and review standards for the work in front of them."],
+  ["Learn and refine", "Connect what your firm intended with what was delivered, then admit the useful outcome back into firm practice."],
 ];
 
 const lifecycle = [
@@ -36,10 +38,12 @@ const lifecycle = [
 ];
 
 const comparison = [
-  ["Context", "Assembled for the current request", "Maintained across the engagement lifecycle"],
-  ["Authority", "Can interpret records", "Knows which approved record governs"],
-  ["Memory", "Retrieved from available material", "Resolved around clients, people, decisions, and outcomes"],
-  ["Learning", "Improves the general capability", "Improves your firm's own way of working"],
+  ["Unit of work", "A conversation, request, or task", "The engagement, from opportunity through outcome"],
+  ["Memory", "Retains or retrieves available context", "Maintains governed engagement state"],
+  ["Access", "Searches records and calls connected tools", "Resolves authority, versions, owners, and approvals"],
+  ["Generation", "Produces an answer, plan, or artifact", "Moves approved work through a governed workflow"],
+  ["Action", "Writes to a connected application", "Materializes approved intent and retains the receipt"],
+  ["Learning", "Carries forward available context", "Connects decisions and methods to delivery outcomes"],
 ];
 
 const architecture = [
@@ -57,7 +61,7 @@ export default function PlatformPage() {
   const open = () => setModal(true);
 
   return <div className="site-shell platform-page"><Nav onCta={open} /><main>
-    <section className="pf-hero">
+    <section id="platform" className="pf-hero">
       <div className="pf-hero-field" aria-hidden="true"><span /><span /><span /><span /></div>
       <Wrap>
         <div className="pf-hero-grid">
@@ -121,8 +125,8 @@ export default function PlatformPage() {
     <section className="pf-section pf-method">
       <Wrap>
         <div className="pf-section-head">
-          <h2>How your firm works becomes part of the record.</h2>
-          <p>AllianceOne captures more than final documents. It preserves how your firm approaches a problem, thinks through possible solutions, and turns judgment into delivery.</p>
+          <h2>Your firm's intellectual property becomes active in the engagement.</h2>
+          <p>Your firm's IP is more than a library. It is the accumulated logic behind how your people frame problems, shape work, make decisions, and determine whether a deliverable is ready.</p>
         </div>
         <div className="pf-method-grid">
           {waysOfWorking.map(([name, body]) => <article key={name}><h3>{name}</h3><p>{body}</p></article>)}
@@ -133,8 +137,8 @@ export default function PlatformPage() {
     <section className="pf-section pf-assets">
       <Wrap>
         <div className="pf-section-head">
-          <h2>The next engagement can start from the last one.</h2>
-          <p>The work no longer disappears into folders, disconnected systems, or personal memory. The record remains usable by the next team facing a similar decision.</p>
+          <h2>The same body of knowledge moves with the engagement.</h2>
+          <p>AllianceOne brings the right frameworks, deliverable types, templates, precedent, and quality standards into the work when they are useful, not after the engagement is over.</p>
         </div>
         <div className="pf-asset-grid">
           {assets.map(([name, body]) => <article key={name}><h3>{name}</h3><p>{body}</p></article>)}
@@ -159,10 +163,11 @@ export default function PlatformPage() {
       <Wrap>
         <div className="pf-section-head">
           <h2>A powerful model is not an operating system.</h2>
-          <p>Capable models provide reasoning. Retrieval provides material. AllianceOne provides your firm's state, authority, identity, and lifecycle governance that make both dependable in delivery.</p>
+          <p>Frontier models can reason across large bodies of information, retain project context, search connected systems, and take action. Those capabilities are essential. They do not, by themselves, establish the authoritative state of an engagement.</p>
         </div>
         <div className="pf-comparison">
-          <div className="pf-comparison-head"><span /><strong>General model</strong><strong>AllianceOne</strong></div>
+          <p className="pf-model-declaration">A model answers a request. AllianceOne maintains the engagement the request belongs to.</p>
+          <div className="pf-comparison-head"><span /><strong>AI assistant</strong><strong>AllianceOne</strong></div>
           {comparison.map(([dimension, model, alliance]) => <div className="pf-comparison-row" key={dimension}><strong>{dimension}</strong><p>{model}</p><p>{alliance}</p></div>)}
         </div>
       </Wrap>
