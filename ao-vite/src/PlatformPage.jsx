@@ -125,8 +125,8 @@ export default function PlatformPage() {
     <section className="pf-section pf-method">
       <Wrap>
         <div className="pf-section-head">
-          <h2>Your firm's intellectual property becomes active in the engagement.</h2>
-          <p>Your firm's IP is more than a library. It is the accumulated logic behind how your people frame problems, shape work, make decisions, and determine whether a deliverable is ready.</p>
+          <h2>How your firm works becomes part of the record.</h2>
+          <p>AllianceOne captures more than final documents. It brings your firm's methods, deliverable types, templates, precedent, and review standards into the engagement while the work is being shaped and delivered.</p>
         </div>
         <div className="pf-method-grid">
           {waysOfWorking.map(([name, body]) => <article key={name}><h3>{name}</h3><p>{body}</p></article>)}
@@ -137,8 +137,8 @@ export default function PlatformPage() {
     <section className="pf-section pf-assets">
       <Wrap>
         <div className="pf-section-head">
-          <h2>The same body of knowledge moves with the engagement.</h2>
-          <p>AllianceOne brings the right frameworks, deliverable types, templates, precedent, and quality standards into the work when they are useful, not after the engagement is over.</p>
+          <h2>The next engagement can start from the last one.</h2>
+          <p>The record remains usable by the next team facing a similar decision. What your firm learned becomes practical guidance for scoping, planning, delivery, and review.</p>
         </div>
         <div className="pf-asset-grid">
           {assets.map(([name, body]) => <article key={name}><h3>{name}</h3><p>{body}</p></article>)}
