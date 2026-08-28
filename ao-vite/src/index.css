@@ -1678,6 +1678,7 @@
 .modal .form-fineprint{grid-column:1/-1;margin:2px 0 0;color:#6a7570;font-family:'Inter','Helvetica Neue',Arial,sans-serif;font-size:.68rem;font-weight:400;letter-spacing:0;line-height:1.5;text-transform:none}
 
 /* Alliance Systems Group corporate page. */
+html,body,.asg-page{overflow-anchor:none}
 .asg-document{background:#07100e}
 .asg-page{
   --asg-ink:#07100e;
@@ -1718,7 +1719,7 @@
 .asg-hero-grid span:nth-child(3){right:18%;bottom:23%;width:28%;height:17%;border-width:0 0 1px 1px}.asg-hero-grid span:nth-child(3):after{right:-3px;bottom:-3px}
 .asg-hero-grid span:nth-child(4){top:16%;right:31%;width:1px;height:63%;border-width:0 0 0 1px;opacity:.6}.asg-hero-grid span:nth-child(4):after{left:-3px;bottom:16%}
 .asg-hero-mark{position:absolute;right:4%;top:12%;width:min(42vw,600px);opacity:.025;pointer-events:none}
-.asg-hero .wrap{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.38fr) minmax(270px,.48fr);gap:clamp(70px,10vw,170px);align-items:end;min-height:590px}
+.asg-hero .wrap{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.38fr) minmax(270px,.48fr);gap:clamp(70px,10vw,170px);align-items:start;min-height:0}
 .asg-hero-copy h1{max-width:980px;margin:0;font-size:clamp(4.4rem,8.5vw,9.5rem);font-weight:470;letter-spacing:-.068em;line-height:.84}
 .asg-hero-copy>p{max-width:730px;margin:52px 0 0;color:rgba(245,247,241,.7);font-size:clamp(1.05rem,1.25vw,1.24rem);line-height:1.72}
 .asg-hero-actions{display:flex;align-items:center;gap:34px;margin-top:46px}

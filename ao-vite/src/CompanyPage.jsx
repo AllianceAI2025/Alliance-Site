@@ -15,6 +15,14 @@ export default function CompanyPage() {
 
   useEffect(() => {
     document.documentElement.classList.add("asg-document");
+    if (!window.location.hash) {
+      const html = document.documentElement;
+      const previous = html.style.scrollBehavior;
+      html.style.scrollBehavior = "auto";
+      window.scrollTo(0, 0);
+      requestAnimationFrame(() => window.scrollTo(0, 0));
+      html.style.scrollBehavior = previous;
+    }
     return () => document.documentElement.classList.remove("asg-document");
   }, []);
 
