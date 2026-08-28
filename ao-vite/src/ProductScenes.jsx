@@ -67,7 +67,7 @@ function WorkspaceNav({ stageKey, activeItem, onNavigate, role = "leader" }) {
 
   const items = leaderItems[stageKey] || [];
   return <aside className="ps-workspace-nav" aria-label="Engagement workspaces">
-    <div className="ps-workspace-person"><span><b>Maya Chen</b><small>Managing Director · Operating Model</small></span><button type="button" aria-label="Switch workspace">⌄</button></div>
+    <div className="ps-workspace-person"><span><b>Margaret Whitfield</b><small>Managing Director · Operating Model</small></span><button type="button" aria-label="Switch workspace">⌄</button></div>
     <div className="ps-nav-group"><span>{stageKey === "scope" ? "PURSUIT WORKSPACES" : "ACTIVE ENGAGEMENTS"}</span>
       <div className="ps-nav-project is-open"><button type="button" className="is-project-active"><span><b>Northstar Foods</b><small>{stageKey === "scope" ? "Qualified opportunity" : "Operating model redesign"}</small></span></button>
         <div className="ps-phase-tree" aria-label="Northstar engagement phases">
@@ -256,18 +256,18 @@ function WorkingArtifactScene({ mode, chatPhase, typedQuestion, progress, replay
       <div className="ps-live-feed"><i /> <b>LIVE CONTEXT</b><span>{proposal ? "Client email and Teams transcript admitted 8 min ago" : "CRM, email, and Teams context current"}</span></div>
       <div className="ps-conversation-history" ref={historyRef} tabIndex="0" aria-label={`${proposal ? "Proposal" : "Scoping"} conversation history`}>
         {proposal ? <>
-          <div className="ps-history-event"><i>✓</i><span><b>Internal scope v3 approved</b><small>Maya Chen · Managing Director · yesterday 16:42</small></span></div>
-          <div className="ps-history-turn is-user"><span><b>Maya Chen</b><small>Keep partner coverage at 35% through the governance gates, and keep regional validation explicit.</small></span></div>
+          <div className="ps-history-event"><i>✓</i><span><b>Internal scope v3 approved</b><small>Margaret Whitfield · Managing Director · yesterday 16:42</small></span></div>
+          <div className="ps-history-turn is-user"><span><b>Margaret Whitfield</b><small>Keep partner coverage at 35% through the governance gates, and keep regional validation explicit.</small></span></div>
           <div className="ps-history-source"><i>EM</i><span><b>Client email admitted</b><small>Northstar asked to add a board working session and name change-readiness outputs.</small></span><em>08:51</em></div>
           <div className="ps-history-source"><i>TM</i><span><b>Teams meeting admitted</b><small>Peak-season freeze moved forward by one week; finance sponsor confirmed.</small></span><em>09:18</em></div>
           <div className="ps-history-turn is-agent"><i className="ps-ai-mark">A.</i><span><b>AllianceOne</b><small>I updated the proposal basis: confirmed 35% partner coverage, added the board session and change-readiness outputs, and resequenced validation around the new freeze.</small></span></div>
         </> : <>
-          <div className="ps-history-turn is-user"><span><b>Maya Chen</b><small>Use a small core team, but give each region a named validation lead.</small></span></div>
+          <div className="ps-history-turn is-user"><span><b>Margaret Whitfield</b><small>Use a small core team, but give each region a named validation lead.</small></span></div>
           <div className="ps-history-turn is-agent"><i className="ps-ai-mark">A.</i><span><b>AllianceOne</b><small>The closest precedents used a six-person core team with regional leads joining during validation. I’ve carried that shape forward.</small></span></div>
           <div className="ps-history-source"><i>TM</i><span><b>Teams meeting admitted</b><small>COO confirmed the board date and asked that service-continuity testing precede role design.</small></span><em>11:42</em></div>
-          <div className="ps-history-turn is-user"><span><b>Maya Chen</b><small>Protect the board date. Sequence the roadmap around governance decisions, not functions.</small></span></div>
+          <div className="ps-history-turn is-user"><span><b>Margaret Whitfield</b><small>Protect the board date. Sequence the roadmap around governance decisions, not functions.</small></span></div>
           <div className="ps-history-turn is-agent"><i className="ps-ai-mark">A.</i><span><b>AllianceOne</b><small>Updated: four workstreams over 14 weeks, with decision rights first, regional validation funded explicitly, and the transition roadmap tied to the November 20 board gate.</small></span></div>
-          <div className="ps-history-turn is-user"><span><b>Maya Chen</b><small>Where have similar operating-model engagements run into trouble, and what should we carry into Northstar?</small></span></div>
+          <div className="ps-history-turn is-user"><span><b>Margaret Whitfield</b><small>Where have similar operating-model engagements run into trouble, and what should we carry into Northstar?</small></span></div>
           <div className="ps-history-research">
             <div className="ps-history-research-head"><i className="ps-ai-mark">A.</i><p><b>AllianceOne</b><small>Seven comparable engagements reviewed · 43 admitted sources</small></p><em>Grounded answer</em></div>
             <p><strong>The recurring failure was underfunding regional validation.</strong> Five of seven comparable engagements treated adoption as a late change activity. Three then slipped when decision-rights design and role design moved in parallel before regional leaders had validated the operating constraints.</p>
@@ -275,7 +275,7 @@ function WorkingArtifactScene({ mode, chatPhase, typedQuestion, progress, replay
             <aside><span>APPLICABLE TO NORTHSTAR</span><b>Fund regional validation as its own workstream, settle decision rights before role design, and make service continuity a formal gate before the November 20 board decision.</b></aside>
           </div>
         </>}
-        {(chatPhase === "thinking" || chatPhase === "response") && <div className="ps-history-turn is-user is-final ps-chat-enter"><span><b>Maya Chen</b><small>{question}</small></span></div>}
+        {(chatPhase === "thinking" || chatPhase === "response") && <div className="ps-history-turn is-user is-final ps-chat-enter"><span><b>Margaret Whitfield</b><small>{question}</small></span></div>}
         {chatPhase === "thinking" && <div className="ps-chat-thinking"><span className="ps-ai-mark">A.</span><div><b>AllianceOne</b><p><i /><i /><i /> {proposal ? "Reconciling approved scope with new client context" : "Assembling the first scope draft"}</p></div></div>}
         {chatPhase === "response" && <div className="ps-history-turn is-agent ps-chat-response"><i className="ps-ai-mark">A.</i><span><b>AllianceOne</b><small>{proposal ? "Building the proposal now. Approved intent is preserved; the partner and client changes are reflected in the narrative and delivery sequence." : "Building the internal scope now. I’m grounding each section in the Pursuit Brief, this conversation, and your firm’s comparable engagements."}</small></span></div>}
       </div>
@@ -323,105 +323,6 @@ function WorkingArtifactScene({ mode, chatPhase, typedQuestion, progress, replay
   </div>;
 }
 
-export function PursuitScene() {
-  return <ProductFrame section="Pursuit intelligence" title="Operating model redesign" status="Qualified" className="ps-pursuit">
-    <div className="ps-pursuit-grid">
-      <section className="ps-panel ps-brief-panel">
-        <div className="ps-labelrow"><span>THE MANDATE</span><Chip>4 evidence threads</Chip></div>
-        <h5>Redesign the operating model without disrupting peak-season service.</h5>
-        <p>Northstar needs a board-ready design across field operations, shared services, and governance. The decision must be made in 14 weeks.</p>
-        <div className="ps-questions">
-          <span>THE ENGAGEMENT MUST ANSWER</span>
-          <b>01</b><p>Which activities should centralize, federate, or remain local?</p>
-          <b>02</b><p>What transition sequence protects service continuity?</p>
-        </div>
-      </section>
-      <section className="ps-panel ps-signal-panel">
-        <div className="ps-labelrow"><span>IN EVIDENCE</span><Chip tone="success">Coverage 86%</Chip></div>
-        <h5>Three operating signals materially change the shape of the work.</h5>
-        <div className="ps-metrics"><div><span>REGIONS</span><strong>8</strong></div><div><span>ROLE OVERLAP</span><strong>31%</strong></div><div><span>PEAK WINDOW</span><strong>6 wk</strong></div></div>
-        <ul><li>Decision rights differ across all eight regions.</li><li>Two previous redesigns stalled at local adoption.</li><li>Service continuity is the binding constraint.</li></ul>
-      </section>
-    </div>
-    <div className="ps-precedent-strip">
-      <div><span>PRECEDENT BASIS</span><strong>7 comparable engagements</strong></div>
-      <div className="ps-precedent"><b>91%</b><span>Harbor Grain Co.</span><em>Decision dynamics · strong</em></div>
-      <div className="ps-precedent"><b>84%</b><span>Meridian Components</span><em>Delivery shape · strong</em></div>
-      <div className="ps-precedent"><b>76%</b><span>Redwood Consumer Group</span><em>Economics · moderate</em></div>
-    </div>
-  </ProductFrame>;
-}
-
-const planRows = [
-  ["01", "Decision frame & diagnostic", "M. Chen", "0", "30", "420h"],
-  ["02", "Operating model design", "S. Patel", "18", "68", "760h"],
-  ["03", "Regional validation", "D. Okafor", "52", "84", "360h"],
-  ["04", "Transition roadmap", "J. Hale", "72", "98", "300h"],
-];
-
-const planTeam = [
-  ["MC", "Maya Chen", "Managing Director", "35%", "All phases"],
-  ["SP", "Sofia Patel", "Operating-model lead", "100%", "W1–10"],
-  ["DO", "Daniel Okafor", "Regional validation lead", "80%", "W5–12"],
-  ["JH", "Jordan Hale", "Transition lead", "80%", "W8–14"],
-  ["AR", "Avery Ross", "Senior consultant", "100%", "W1–14"],
-  ["LT", "Lena Torres", "Consultant", "100%", "W1–12"],
-];
-
-const planPrecedents = [
-  ["91%", "Harbor Grain Co.", "Board date protected", "Sequence design around governance gates"],
-  ["84%", "Meridian Components", "Regional model adopted", "Fund local validation explicitly"],
-  ["76%", "Redwood Consumer Group", "Transition extended", "Price a controlled implementation option"],
-];
-
-function LegacyPlanScene() {
-  return <ProductFrame section="Engagement intent" title="Operating model redesign" status="Baseline approved" className="ps-plan">
-    <div className="ps-intent-brief">
-      <div><span>APPROVED INTENT / V4</span><h5>Redesign the operating model without disrupting peak-season service.</h5><p>Align eight regions around a common governance model, validate the design locally, and give the board a transition-ready decision by November 20.</p></div>
-      <div><Chip tone="success">Scope approved</Chip><small>Approved Aug 08, 2026</small></div>
-    </div>
-    <div className="ps-plan-summary">
-      <div><span>COMMITMENT</span><strong>14 weeks</strong><small>Board decision · Nov 20</small></div>
-      <div><span>EFFORT</span><strong>1,840h</strong><small>6-person core team</small></div>
-      <div><span>COMMERCIALS</span><strong>$420K</strong><small>Capped T&amp;M</small></div>
-      <div><span>PRECEDENT</span><strong>7</strong><small>3 pinned by partner</small></div>
-    </div>
-    <div className="ps-plan-main">
-      <section className="ps-contract-panel">
-        <div className="ps-contract-head"><div><span>CONTRACT SCHEDULE</span><strong>Four workstreams, sequenced around one fixed decision gate.</strong></div><Chip>Approved baseline</Chip></div>
-        <div className="ps-phase-grid">
-          <div><span>PHASE 01 · W1–4</span><b>Frame</b><small>Decision rights, current-state evidence, design principles</small></div>
-          <div><span>PHASE 02 · W3–9</span><b>Design</b><small>Future-state model, governance, role implications</small></div>
-          <div><span>PHASE 03 · W8–12</span><b>Validate</b><small>Eight-region review and service-continuity testing</small></div>
-          <div><span>PHASE 04 · W11–14</span><b>Mobilize</b><small>Transition roadmap, board working session, and decision package</small></div>
-        </div>
-        <div className="ps-timeline-panel">
-        <div className="ps-timeline-head"><span>WORKSTREAM</span><div><b>W1</b><b>W4</b><b>W8</b><b>W12</b><b>W14</b></div></div>
-        {planRows.map(([n, name, owner, start, end, effort]) => <div className="ps-timeline-row" key={n}>
-          <span>{n}</span><div><strong>{name}</strong><small>{owner} · {effort}</small></div>
-          <div className="ps-track"><i style={{ left: `${start}%`, width: `${Number(end) - Number(start)}%` }} /></div>
-        </div>)}
-        <div className="ps-gate"><span>DECISION GATE</span><b>Board operating-model approval</b><em>NOV 20</em></div>
-        </div>
-      </section>
-      <aside className="ps-team-panel">
-        <div className="ps-labelrow"><span>COMMITTED TEAM</span><Chip tone="success">Precedent fit</Chip></div>
-        <p>Six roles shaped from teams that delivered comparable work.</p>
-        <div className="ps-team-full">
-          {planTeam.map(([initials, name, role, loading, phase]) => <div key={name}><i>{initials}</i><span><b>{name}</b><small>{role}</small></span><em>{loading}<small>{phase}</small></em></div>)}
-        </div>
-      </aside>
-    </div>
-    <section className="ps-plan-precedents">
-      <div className="ps-plan-precedent-head"><div><span>SIMILAR ENGAGEMENTS</span><strong>What this plan carries forward from your firm’s delivery record</strong></div><Chip>7 compared · 3 pinned</Chip></div>
-      <div className="ps-plan-precedent-grid">
-        {planPrecedents.map(([fit, name, outcome, lesson]) => <div key={name}><b>{fit}</b><span><strong>{name}</strong><small>{outcome}</small></span><p>{lesson}</p></div>)}
-      </div>
-    </section>
-    <div className="ps-plan-approval"><div><span>CANONICAL BASELINE</span><b>Scope · workstreams · team · effort · commercials · decision gates</b></div><button>Approve &amp; materialize <span>→</span></button></div>
-  </ProductFrame>;
-}
-
 const planningRows = [
   ["01", "Decision frame & diagnostic", "S. Patel / A. Ross", "W1-4", "420h", "3 deliverables"],
   ["02", "Operating model design", "S. Patel", "W3-9", "760h", "5 deliverables"],
@@ -430,7 +331,7 @@ const planningRows = [
 ];
 
 const planningTeam = [
-  { initials: "MC", name: "Maya Chen", role: "Managing Director", loading: "35%", window: "All phases", availability: "Confirmed", fit: "Executive sponsorship · board governance", precedent: "7 analogous engagements", assignment: "Approval gates · board working session" },
+  { initials: "MW", name: "Margaret Whitfield", role: "Managing Director", loading: "35%", window: "All phases", availability: "Confirmed", fit: "Executive sponsorship · board governance", precedent: "7 analogous engagements", assignment: "Approval gates · board working session" },
   { initials: "SP", name: "Sofia Patel", role: "Operating-model lead", loading: "100%", window: "W1-10", availability: "Confirmed", fit: "Operating-model design · decision rights", precedent: "91% precedent fit", assignment: "WS01-02 · 8 deliverables" },
   { initials: "DO", name: "Daniel Okafor", role: "Regional validation lead", loading: "80%", window: "W5-12", availability: "Confirmed W5", fit: "Regional governance · validation", precedent: "5 analogous engagements", assignment: "WS03 · 3 deliverables" },
   { initials: "JH", name: "Jordan Hale", role: "Transition lead", loading: "80%", window: "W8-14", availability: "Available W8", fit: "Mobilization · adoption planning", precedent: "84% precedent fit", assignment: "WS04 · 3 deliverables" },
@@ -480,7 +381,7 @@ function StaffingDecisionChat({ active }) {
     <div className="ps-plan-thread">
       <div className="ps-plan-system"><i>CAL</i><p><b>Resource calendar changed</b><small>Elena Marquez is no longer available during W8–12 regional validation.</small></p></div>
       <div className={`ps-plan-agent ps-plan-live-turn${step >= 1 ? " is-visible" : ""}`}><i>A.</i><p><b>AllianceOne</b><small>Daniel Okafor is available W5–12, has led five analogous multi-region validations, and preserves the planned 80% loading without changing the fee or November 20 gate.</small></p></div>
-      <div className={`ps-plan-user ps-plan-live-turn${step >= 3 ? " is-visible" : ""}`}><p><b>Maya Chen</b><small>{staffingDecisionPrompt}</small></p><i>MC</i></div>
+      <div className={`ps-plan-user ps-plan-live-turn${step >= 3 ? " is-visible" : ""}`}><p><b>Margaret Whitfield</b><small>{staffingDecisionPrompt}</small></p><i>MW</i></div>
       <div className={`ps-plan-thinking${step === 4 ? " is-visible" : ""}`}><i /><i /><i /><span>Updating assignments and plan coverage…</span></div>
       <div className={`ps-plan-agent ps-plan-agent--result ps-plan-live-turn${step >= 5 ? " is-visible" : ""}`}><i>A.</i><p><b>Team change recorded</b><small>Daniel now owns WS03 and its three deliverables. Coverage is restored with no commercial or timeline variance.</small></p></div>
       <div className={`ps-plan-source ps-plan-live-turn${step >= 5 ? " is-visible" : ""}`}><span>TEAM LINEAGE</span><b>Elena Marquez → Daniel Okafor</b><small>Team v1 advanced to Team v2 · just now</small></div>
@@ -545,7 +446,7 @@ export function PlanScene() {
         <div className="ps-plan-thread">
           <div className="ps-plan-system"><i>CRM</i><p><b>Opportunity marked Won</b><small>Accepted proposal and commercial facts admitted to the engagement record.</small></p></div>
           <div className={`ps-plan-agent ps-plan-live-turn${chatStep >= 1 ? " is-visible" : ""}`}><i>A.</i><p><b>AllianceOne</b><small>I carried forward the accepted scope, economics, staffing shape, and November 20 decision gate. Seven comparable engagements suggest funding regional validation explicitly and holding the board working session in week 13.</small></p></div>
-          <div className={`ps-plan-user ps-plan-live-turn${chatStep >= 3 ? " is-visible" : ""}`}><p><b>You</b><small>{planningPrompt}</small></p><i>MC</i></div>
+          <div className={`ps-plan-user ps-plan-live-turn${chatStep >= 3 ? " is-visible" : ""}`}><p><b>You</b><small>{planningPrompt}</small></p><i>MW</i></div>
           <div className={`ps-plan-thinking${chatStep === 4 || chatStep === 5 ? " is-visible" : ""}`}><i /><i /><i /><span>Structuring deliverables and checking staffing…</span></div>
           <div className={`ps-plan-source ps-plan-live-turn${chatStep >= 5 ? " is-visible" : ""}`}><span>LIVE CONTEXT</span><b>Resource calendar updated · Daniel available W5-12</b><small>Resource management · just now</small></div>
           <div className={`ps-plan-agent ps-plan-agent--result ps-plan-live-turn${chatStep >= 6 ? " is-visible" : ""}`}><i>A.</i><p><b>Draft plan updated</b><small>Four workstreams, 14 deliverables, six named staff, review cycles, dependencies, and the regional validation sequence are now planned. No variance from the accepted proposal.</small></p></div>
@@ -599,7 +500,7 @@ export function PlanScene() {
 const materializePrompt = "Publish approved plan v1 to Dynamics 365 Project Operations. Preserve the approved scope, dates, effort, team, deliverable ownership, dependencies, and November 20 decision gate.";
 
 const writebackRows = [
-  ["01", "Project contract", "Northstar Foods · Operating model redesign", "Account · Aug 17–Nov 20 · capped T&M · $420K · 1,840h · USD · Maya Chen", "1 record", "D365-2048"],
+  ["01", "Project contract", "Northstar Foods · Operating model redesign", "Account · Aug 17–Nov 20 · capped T&M · $420K · 1,840h · USD · Margaret Whitfield", "1 record", "D365-2048"],
   ["02", "Workstreams", "4 approved workstreams", "Names · W1–14 windows · workstream leads · effort budgets · delivery sequence", "4 records", "PH-781–784"],
   ["03", "Deliverables", "14 committed deliverables", "IDs · owners · reviewers · due dates · acceptance criteria · dependency links", "14 records", "DL-4401–4414"],
   ["04", "Resource assignments", "6 named staff assignments", "Role · loading · weekly hours · allocation window · workstream and deliverable ownership", "6 records", "AS-901–906"],
@@ -649,19 +550,19 @@ export function MaterializeScene() {
 
   return <div ref={sceneRef}><ProductFrame section="Plan materialization" title={materializeView === "Approved plan" ? "Approved delivery baseline" : "Writeback run AO-2048"} status={materializeView === "Approved plan" ? "Baseline v1 locked" : step >= 10 ? "Published" : "Writing to Dynamics 365"} className="ps-materialize ps-materialize-live" stageKey="materialize" activeItem={materializeView} onNavigate={navigateMaterialize}>
     {materializeView === "Approved plan" ? <div className="ps-approved-plan">
-      <div className="ps-approved-plan-head"><div><span>APPROVED PLAN / BASELINE V1</span><h5>Northstar Foods operating model redesign</h5><p>The authoritative delivery intent created from the accepted proposal and the approved staffing and engagement plan.</p></div><div><Chip tone="success">Approved</Chip><small>Maya Chen · Aug 12, 2026 · 10:18 AM</small></div></div>
+      <div className="ps-approved-plan-head"><div><span>APPROVED PLAN / BASELINE V1</span><h5>Northstar Foods operating model redesign</h5><p>The authoritative delivery intent created from the accepted proposal and the approved staffing and engagement plan.</p></div><div><Chip tone="success">Approved</Chip><small>Margaret Whitfield · Aug 12, 2026 · 10:18 AM</small></div></div>
       <div className="ps-approved-plan-metrics"><div><span>DURATION</span><b>14 weeks</b><small>Aug 17 – Nov 20</small></div><div><span>WORKSTREAMS</span><b>4</b><small>14 deliverables</small></div><div><span>EFFORT</span><b>1,840h</b><small>6 named staff</small></div><div><span>COMMERCIAL CAP</span><b>$420K</b><small>0 commitment variances</small></div><div><span>DECISION GATE</span><b>Nov 20</b><small>Board approval</small></div></div>
       <div className="ps-approved-plan-grid">
         <section className="ps-approved-plan-work"><div className="ps-approved-plan-sectionhead"><span>APPROVED WORKSTREAM &amp; DELIVERABLE PLAN</span><small>Immutable baseline</small></div>{planningRows.map(([n, name, owner, timing, effort, deliverables]) => <div className="ps-approved-workstream" key={n}><i>{n}</i><p><b>{name}</b><small>{deliverables}</small></p><span>{owner}</span><span>{timing}</span><strong>{effort}</strong></div>)}</section>
         <aside className="ps-approved-plan-side">
-          <section><span>APPROVED TEAM</span><div className="ps-approved-team"><i>MC</i><i>SP</i><i>DO</i><i>JH</i><i>AR</i><i>LT</i></div><b>Maya Chen · Managing Director</b><small>Sofia Patel leads delivery · Avery Ross owns WS01 diagnostics</small></section>
+          <section><span>APPROVED TEAM</span><div className="ps-approved-team"><i>MW</i><i>SP</i><i>DO</i><i>JH</i><i>AR</i><i>LT</i></div><b>Margaret Whitfield · Managing Director</b><small>Sofia Patel leads delivery · Avery Ross owns WS01 diagnostics</small></section>
           <section><span>PROTECTED COMMITMENTS</span><p><b>Scope</b><small>Four workstreams and 14 named outputs</small></p><p><b>Economics</b><small>1,840 planned hours within $420K cap</small></p><p><b>Governance</b><small>Partner review and fixed Nov 20 board gate</small></p></section>
           <section><span>LINEAGE</span><b>Proposal v4 → Team v2 → Plan v1</b><small>Approved facts remain traceable through execution.</small></section>
         </aside>
       </div>
     </div> : <>
     <div className="ps-materialize-baseline">
-      <div><span>APPROVED DELIVERY INTENT</span><strong>Engagement plan · baseline v1</strong><small>Approved by Maya Chen · Aug 12, 2026 · immutable source</small></div>
+      <div><span>APPROVED DELIVERY INTENT</span><strong>Engagement plan · baseline v1</strong><small>Approved by Margaret Whitfield · Aug 12, 2026 · immutable source</small></div>
       <i>→</i>
       <div><span>DESTINATION / PSA &amp; PROJECT MANAGEMENT</span><strong>Microsoft Dynamics 365 Project Operations</strong><small>Northstar Foods account · production workspace</small></div>
       <Chip tone="success">Authorized</Chip>
@@ -671,7 +572,7 @@ export function MaterializeScene() {
       <div className="ps-plan-thread">
         <div className="ps-plan-system"><i>PSA</i><p><b>Destination connected</b><small>Northstar Foods production workspace · permissions and field mapping validated.</small></p></div>
         <div className={`ps-plan-agent ps-plan-live-turn${step >= 1 ? " is-visible" : ""}`}><i>A.</i><p><b>AllianceOne</b><small>I’m ready to create 28 governed PSA records from the approved baseline: the project contract, four workstreams, 14 deliverables, six resource assignments, and three decision milestones.</small></p></div>
-        <div className={`ps-plan-user ps-plan-live-turn${step >= 3 ? " is-visible" : ""}`}><p><b>Maya Chen</b><small>{materializePrompt}</small></p></div>
+        <div className={`ps-plan-user ps-plan-live-turn${step >= 3 ? " is-visible" : ""}`}><p><b>Margaret Whitfield</b><small>{materializePrompt}</small></p></div>
         <div className={`ps-plan-thinking${step === 4 ? " is-visible" : ""}`}><i /><i /><i /><span>Validating approved fields and creating PSA records…</span></div>
         <div className={`ps-plan-source ps-plan-live-turn${step >= 4 ? " is-visible" : ""}`}><span>VALIDATED MAPPING</span><b>28 records · 0 plan changes · full lineage retained</b><small>Approved plan v1 → Dynamics 365 · just now</small></div>
         <div className={`ps-plan-agent ps-plan-agent--result ps-plan-live-turn${step >= 10 ? " is-visible" : ""}`}><i>A.</i><p><b>Writeback complete</b><small>Every project, workstream, deliverable, assignment, and milestone record was created. Execution can now begin against the approved commitment.</small></p></div>
@@ -828,7 +729,7 @@ const decisionRecords = [
   ["AUG 12", "PLAN-01", "Commitment", "Delivery baseline approved", "Four workstreams, 14 deliverables, 1,840 hours, and the Nov 20 board gate became the governed commitment."],
   ["SEP 08", "CH-03", "Challenge", "Regional service-continuity risk raised", "West, Central, and Northeast leaders challenged the corporate-only validation approach and requested local operating evidence."],
   ["SEP 12", "TEAM-02", "Team change", "Regional lead reassigned", "Daniel Okafor replaced Elena Marquez for WS03 after a resource-calendar conflict. Loading, fees, and milestones remained unchanged."],
-  ["OCT 02", "CO-01", "Scope decision", "Regional validation extended", "Maya Chen and Evan Brooks approved one additional week, 64 incremental hours, and a $42K cap increase while protecting the board date."],
+  ["OCT 02", "CO-01", "Scope decision", "Regional validation extended", "Margaret Whitfield and Evan Brooks approved one additional week, 64 incremental hours, and a $42K cap increase while protecting the board date."],
   ["NOV 20", "OUT-01", "Outcome", "Board gate delivered", "The target operating model was approved on the committed date. Actual fees closed $14K below the revised cap."],
 ];
 
@@ -853,7 +754,7 @@ function DecisionRecord() {
         <section><span>ORIGINAL COMMITMENT</span><p>Complete regional validation in two weeks within 1,840 planned hours and a $420K fee cap.</p></section>
         <section><span>DECISION &amp; RATIONALE</span><p>Extend validation by one week and add 64 hours. The added work was narrower and less risky than proceeding with unresolved regional objections.</p></section>
         <div className="ps-decision-impact"><div><span>SCHEDULE</span><b>+1 week</b></div><div><span>EFFORT</span><b>+64h</b></div><div><span>CAP</span><b>+$42K</b></div><div><span>BOARD GATE</span><b>Protected</b></div></div>
-        <section><span>DECISION METADATA</span><p><b>Raised by</b> Evan Brooks, Regional Operations Lead<br/><b>Approved by</b> Maya Chen and Evan Brooks<br/><b>Recorded</b> October 2, 2026 · 3:14 PM<br/><b>Confidence</b> High · corroborated across eight sources</p></section>
+        <section><span>DECISION METADATA</span><p><b>Raised by</b> Evan Brooks, Regional Operations Lead<br/><b>Approved by</b> Margaret Whitfield and Evan Brooks<br/><b>Recorded</b> October 2, 2026 · 3:14 PM<br/><b>Confidence</b> High · corroborated across eight sources</p></section>
         <section><span>DELIVERED OUTCOME</span><p>All eight regions completed validation. The board approved the model on Nov 20, and the engagement closed $14K below the revised cap.</p></section>
       </aside>
     </div>
@@ -916,7 +817,7 @@ export function ReconcileScene() {
         <div className="ps-live-feed"><i /> <b>LIVE CONTEXT</b><span>Commitments, actuals, and decision records current</span></div>
         <div className="ps-reconcile-thread">
           <div className={`ps-live-turn ps-live-agent${step >= 1 ? " is-visible" : ""}`}><i>A.</i><p><b>AllianceOne</b><small>I found a one-week duration variance, 75 additional hours, and a $14K favorable fee variance against the revised cap.</small></p></div>
-          <div className={`ps-live-turn ps-live-user${step >= 3 ? " is-visible" : ""}`}><p><b>You</b><small>{reconcilePrompt}</small></p><i>MC</i></div>
+          <div className={`ps-live-turn ps-live-user${step >= 3 ? " is-visible" : ""}`}><p><b>You</b><small>{reconcilePrompt}</small></p><i>MW</i></div>
           <div className={`ps-live-thinking${step >= 4 && step < 8 ? " is-visible" : ""}`}><i /><i /><i /><span>Joining commitments, actuals, and decision evidence…</span></div>
           <div className={`ps-live-turn ps-live-agent ps-live-result${step >= 8 ? " is-visible" : ""}`}><i>A.</i><p><b>Variance resolved</b><small>{typedResponse}{step === 8 && <i className="ps-execute-stream-cursor" />}</small><em className={step >= 9 ? "is-visible" : ""}>Grounded in CO-01, Dynamics 365, Replicon, and NetSuite</em></p></div>
         </div>
@@ -964,7 +865,7 @@ export function PracticeScene() {
         <div className="ps-live-feed"><i /> <b>LIVE CONTEXT</b><span>Reconciled outcome, decisions, challenges, and evidence current</span></div>
         <div className="ps-learning-thread">
           <div className={`ps-live-turn ps-live-agent${step >= 1 ? " is-visible" : ""}`}><i>A.</i><p><b>AllianceOne</b><small>Northstar is complete. Reconcile passed forward the approved baseline, CH-03 regional challenge, TEAM-02 staffing change, CO-01 scope decision, delivery actuals, and board acceptance.</small></p></div>
-          <div className={`ps-live-turn ps-live-user${step >= 3 ? " is-visible" : ""}`}><p><b>You</b><small>{learningPrompt}</small></p><i>MC</i></div>
+          <div className={`ps-live-turn ps-live-user${step >= 3 ? " is-visible" : ""}`}><p><b>You</b><small>{learningPrompt}</small></p><i>MW</i></div>
           <div className={`ps-live-thinking${step === 4 || step === 5 ? " is-visible" : ""}`}><i /><i /><i /><span>Comparing outcome, decisions, and 36 prior engagements…</span></div>
           <div className={`ps-learning-source-events${step >= 5 ? " is-visible" : ""}`}><span>CO-01 RECONCILED</span><span>TEAM-02 ADMITTED</span><span>CH-03 RESOLVED</span></div>
           <div className={`ps-live-turn ps-live-agent ps-live-result${step >= 6 ? " is-visible" : ""}`}><i>A.</i><p><b>Practice recommendation</b><small>{typedResponse}{step === 6 && <i className="ps-execute-stream-cursor" />}</small><em className={step >= 7 ? "is-visible" : ""}>2 lessons ready · 1 observation retained with limits</em></p></div>

@@ -13,7 +13,7 @@ export const C = {
   paper: "#FAFBF7",
   olive: "#86C43D",
   oliveDeep: "#17351F",
-  oliveLite: "#66736A",
+  oliveLite: "#5F6C63",
   gold: "#86C43D",
   goldSoft: "#B8E67F",
   line: "rgba(7,16,14,.20)",
@@ -122,54 +122,6 @@ function IntentStatement() {
       <div className="intent-copy"><h2>Your tools record activity.<br />AllianceOne carries intent.</h2><p>CRM knows the opportunity. Project management knows the task status. Billing knows the actuals. Documents and conversations hold the reasoning. AllianceOne maintains the plan that connects them and the story of how that plan changed.</p></div>
     </Wrap>
   </Section>;
-}
-
-function PrecedentVisual() {
-  const analogs = [
-    ["Manufacturing operating model", "91%", "Strong", "Accepted"],
-    ["Regional service redesign", "84%", "Moderate", "Refined"],
-    ["Post-merger governance", "76%", "Weak", "Delivered"],
-  ];
-  return <div className="product-window precedent-window">
-    <div className="window-bar"><span>PRECEDENT BASIS</span><span>Evidence: mature</span></div>
-    <div className="window-lead"><strong>Seven past engagements inform this plan.</strong><p>Ranked for scope and delivery shape, not surface-level similarity.</p></div>
-    <div className="analog-head"><span>ENGAGEMENT</span><span>MATCH</span><span>DECISION DYNAMICS</span><span>ENDGAME</span></div>
-    {analogs.map((a, i) => <div className={`analog-row${i === 0 ? " analog-row--active" : ""}`} key={a[0]}><span>{a[0]}</span><b>{a[1]}</b><span>{a[2]}</span><span>{a[3]}</span></div>)}
-    <div className="window-note"><span>PINNED BY EM</span><p>“Same sponsor tension and decision path. Use this as the anchor.”</p></div>
-  </div>;
-}
-
-function StackVisual() {
-  const systems = [["Salesforce", "Commercial context"], ["ClickUp", "Execution plan"], ["Microsoft 365", "Documents & decisions"], ["NetSuite", "Financial actuals"]];
-  return <div className="stack-visual">
-    <div className="intent-core"><span>ALLIANCEONE</span><strong>Engagement intent</strong><p>Scope · roadmap · staffing · effort · deliverables</p></div>
-    <div className="stack-lines" />
-    <div className="stack-systems">{systems.map(([name, role], i) => <div key={name}><span>0{i + 1}</span><strong>{name}</strong><p>{role}</p><em>{i === 0 ? "Read / write" : "Synchronized"}</em></div>)}</div>
-  </div>;
-}
-
-function VarianceVisual() {
-  const rows = [["Discovery complete", "MAR 14", "MAR 14", "ON PLAN"], ["Design decision", "APR 04", "APR 11", "+7 DAYS"], ["Transition roadmap", "MAY 23", "MAY 30", "+7 DAYS"]];
-  return <div className="product-window variance-window">
-    <div className="window-bar"><span>COMMITMENT / PLAN / ACTUAL</span><span>Updated 14:32</span></div>
-    <div className="variance-summary"><div><span>COMMITTED FEE</span><b>$420K</b></div><div><span>BILLED</span><b>$287K</b></div><div><span>EFFORT VARIANCE</span><b className="warn">+6.4%</b></div></div>
-    <div className="variance-head"><span>MILESTONE</span><span>COMMITTED</span><span>CURRENT</span><span>DELTA</span></div>
-    {rows.map((r) => <div className="variance-row" key={r[0]}>{r.map((cell, i) => <span className={i === 3 && cell !== "ON PLAN" ? "warn" : ""} key={cell}>{cell}</span>)}</div>)}
-    <div className="decision-trace"><span>DECISION / APR 02</span><strong>Extend design validation by one week.</strong><p>Client data owners requested an additional regional review before sign-off. Confirmed by Maya Chen, Managing Director.</p></div>
-  </div>;
-}
-
-function PracticeVisual() {
-  return <div className="practice-visual">
-    <div className="practice-head"><span>PRACTICE PROFILE</span><b>Generated from 36 engagements</b></div>
-    <div className="practice-ceiling"><span>DEMONSTRATED CEILING</span><strong>Complex / High-stakes</strong><p>Proven across 8 completed engagements</p></div>
-    <div className="method-list"><div className="method-head"><span>SIGNATURE METHOD</span><span>VERDICT</span><span>EVIDENCE</span></div>
-      <div><strong>Decision-led operating model design</strong><b>Validated</b><span>11 engagements</span></div>
-      <div><strong>Phased governance transition</strong><b>Refined</b><span>7 engagements</span></div>
-      <div><strong>Centralize before standardizing</strong><b className="blocked">Contradicted</b><span>4 engagements</span></div>
-    </div>
-    <div className="evidence-health"><span>EVIDENCE HEALTH</span><div><i style={{ width: "82%" }} /></div><b>82% admitted</b></div>
-  </div>;
 }
 
 const loopSteps = [
