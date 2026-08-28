@@ -13,7 +13,7 @@ export const C = {
   paper: "#FAFBF7",
   olive: "#86C43D",
   oliveDeep: "#17351F",
-  oliveLite: "#66736A",
+  oliveLite: "#5F6C63",
   gold: "#86C43D",
   goldSoft: "#B8E67F",
   line: "rgba(7,16,14,.20)",
@@ -76,23 +76,27 @@ export function AnchorLink({ id, children, onNavigate, ...props }) {
     if (el) { event.preventDefault(); el.scrollIntoView({ behavior: "smooth", block: "start" }); }
     onNavigate?.();
   };
-  return <a href={`/#${id}`} onClick={click} {...props}>{children}</a>;
+  return <a href={`/allianceone/#${id}`} onClick={click} {...props}>{children}</a>;
 }
 
-export function Nav({ onCta }) {
+export function Nav({ onCta, dark = false }) {
   const [open, setOpen] = useState(false);
-  return <header className="site-nav">
+  return <header className={`site-nav${dark ? " site-nav--dark" : ""}`}>
     <Wrap className="nav-inner">
-      <a href="/" className="brand-link" aria-label="AllianceOne home"><Logo /></a>
+      <a href="/" className="brand-link" aria-label="Alliance Systems Group home">
+        <img className="brand-mark" src={dark ? "/brand/asg/alliance-systems-group-mark-white.png" : "/brand/asg/alliance-systems-group-mark-ink.png"} alt="" aria-hidden="true" />
+        <span className="brand-wordmark"><strong>Alliance</strong><small>Systems Group</small></span>
+      </a>
       <nav className="desktop-nav" aria-label="Main navigation">
-        <a href="/">What we do</a>
-        <a href="/how-it-works/">How we do it</a>
+        <a href="/">Home</a>
+        <a href="/allianceone/">AllianceOne</a>
+        <a href="/how-it-works/">How it works</a>
         <button onClick={onCta}>Become a design partner</button>
       </nav>
       <button className="nav-menu" onClick={() => setOpen(!open)} aria-expanded={open} aria-label="Toggle menu"><span /><span /></button>
     </Wrap>
     {open && <div className="mobile-nav">
-      <a href="/" onClick={() => setOpen(false)}>What we do</a><a href="/how-it-works/" onClick={() => setOpen(false)}>How we do it</a>
+      <a href="/" onClick={() => setOpen(false)}>Home</a><a href="/allianceone/" onClick={() => setOpen(false)}>AllianceOne</a><a href="/how-it-works/" onClick={() => setOpen(false)}>How it works</a>
       <button onClick={() => { setOpen(false); onCta(); }}>Become a design partner</button>
     </div>}
   </header>;
@@ -103,6 +107,7 @@ function Hero() {
     <Wrap>
       <div className="hero-grid hero-grid--copy">
         <div className="hero-copy">
+          <div className="product-kicker"><Logo light /></div>
           <h1>Plan the next engagement with the full weight of your firm behind it.</h1>
           <p>AllianceOne turns delivery history into the workstreams, staffing, effort, and deliverables for new client work. The plan moves into the systems your firm already uses. Actual delivery flows back against it.</p>
         </div>
@@ -119,61 +124,13 @@ function IntentStatement() {
   </Section>;
 }
 
-function PrecedentVisual() {
-  const analogs = [
-    ["Manufacturing operating model", "91%", "Strong", "Accepted"],
-    ["Regional service redesign", "84%", "Moderate", "Refined"],
-    ["Post-merger governance", "76%", "Weak", "Delivered"],
-  ];
-  return <div className="product-window precedent-window">
-    <div className="window-bar"><span>PRECEDENT BASIS</span><span>Evidence: mature</span></div>
-    <div className="window-lead"><strong>Seven past engagements inform this plan.</strong><p>Ranked for scope and delivery shape, not surface-level similarity.</p></div>
-    <div className="analog-head"><span>ENGAGEMENT</span><span>MATCH</span><span>DECISION DYNAMICS</span><span>ENDGAME</span></div>
-    {analogs.map((a, i) => <div className={`analog-row${i === 0 ? " analog-row--active" : ""}`} key={a[0]}><span>{a[0]}</span><b>{a[1]}</b><span>{a[2]}</span><span>{a[3]}</span></div>)}
-    <div className="window-note"><span>PINNED BY EM</span><p>“Same sponsor tension and decision path. Use this as the anchor.”</p></div>
-  </div>;
-}
-
-function StackVisual() {
-  const systems = [["Salesforce", "Commercial context"], ["ClickUp", "Execution plan"], ["Microsoft 365", "Documents & decisions"], ["NetSuite", "Financial actuals"]];
-  return <div className="stack-visual">
-    <div className="intent-core"><span>ALLIANCEONE</span><strong>Engagement intent</strong><p>Scope · roadmap · staffing · effort · deliverables</p></div>
-    <div className="stack-lines" />
-    <div className="stack-systems">{systems.map(([name, role], i) => <div key={name}><span>0{i + 1}</span><strong>{name}</strong><p>{role}</p><em>{i === 0 ? "Read / write" : "Synchronized"}</em></div>)}</div>
-  </div>;
-}
-
-function VarianceVisual() {
-  const rows = [["Discovery complete", "MAR 14", "MAR 14", "ON PLAN"], ["Design decision", "APR 04", "APR 11", "+7 DAYS"], ["Transition roadmap", "MAY 23", "MAY 30", "+7 DAYS"]];
-  return <div className="product-window variance-window">
-    <div className="window-bar"><span>COMMITMENT / PLAN / ACTUAL</span><span>Updated 14:32</span></div>
-    <div className="variance-summary"><div><span>COMMITTED FEE</span><b>$420K</b></div><div><span>BILLED</span><b>$287K</b></div><div><span>EFFORT VARIANCE</span><b className="warn">+6.4%</b></div></div>
-    <div className="variance-head"><span>MILESTONE</span><span>COMMITTED</span><span>CURRENT</span><span>DELTA</span></div>
-    {rows.map((r) => <div className="variance-row" key={r[0]}>{r.map((cell, i) => <span className={i === 3 && cell !== "ON PLAN" ? "warn" : ""} key={cell}>{cell}</span>)}</div>)}
-    <div className="decision-trace"><span>DECISION / APR 02</span><strong>Extend design validation by one week.</strong><p>Client data owners requested an additional regional review before sign-off. Confirmed by Maya Chen, Managing Director.</p></div>
-  </div>;
-}
-
-function PracticeVisual() {
-  return <div className="practice-visual">
-    <div className="practice-head"><span>PRACTICE PROFILE</span><b>Generated from 36 engagements</b></div>
-    <div className="practice-ceiling"><span>DEMONSTRATED CEILING</span><strong>Complex / High-stakes</strong><p>Proven across 8 completed engagements</p></div>
-    <div className="method-list"><div className="method-head"><span>SIGNATURE METHOD</span><span>VERDICT</span><span>EVIDENCE</span></div>
-      <div><strong>Decision-led operating model design</strong><b>Validated</b><span>11 engagements</span></div>
-      <div><strong>Phased governance transition</strong><b>Refined</b><span>7 engagements</span></div>
-      <div><strong>Centralize before standardizing</strong><b className="blocked">Contradicted</b><span>4 engagements</span></div>
-    </div>
-    <div className="evidence-health"><span>EVIDENCE HEALTH</span><div><i style={{ width: "82%" }} /></div><b>82% admitted</b></div>
-  </div>;
-}
-
 const loopSteps = [
   { n: "01", label: "Scope", title: "Turn early context into an approved scope.", body: "AllianceOne carries early conversations into the opportunity, assembles the Pursuit Brief, and gives the consultant a grounded working surface in Chat. The resulting internal scope is reviewed by the engagement lead; only that approved scope can unlock and ground the client proposal.", visual: <ScopeScene /> },
-  { n: "02", label: "Plan", title: "Turn what was sold into a delivery plan.", body: "When CRM marks the engagement Won, AllianceOne locks the accepted proposal facts and opens planning mode. The engagement manager builds deliverables, assignments, dependencies, effort, and the roadmap in Chat; approval creates the authoritative plan that can be written into your firm’s project or PSA system.", visual: <PlanScene /> },
-  { n: "03", label: "Materialize", title: "Write the plan into your project system.", body: "AllianceOne validates the destination mapping, then creates the project, phases, deliverables, assignments, and milestones in your firm’s PSA or project-management system. That system owns execution; AllianceOne retains the approved baseline and the receipt linking every created record to it.", visual: <MaterializeScene /> },
-  { n: "04", label: "Execute", title: "Give each consultant the engagement context.", body: "Each person receives a workspace shaped by the approved plan: assigned deliverables, workstream context, review expectations, and the engagement brief. In Chat, they can research your firm’s record, apply proven methods and templates, surface missing evidence, and develop the work without losing the connection to what your firm committed.", visual: <ExecuteScene /> },
+  { n: "02", label: "Plan", title: "Turn what was sold into a delivery plan.", body: "When CRM marks the engagement Won, AllianceOne locks the accepted proposal facts and opens planning mode. The engagement manager builds deliverables, assignments, dependencies, effort, and the roadmap in Chat; approval creates the authoritative plan that can be written into the firm’s project or PSA system.", visual: <PlanScene /> },
+  { n: "03", label: "Materialize", title: "Write the plan into your project system.", body: "AllianceOne validates the destination mapping, then creates the project, phases, deliverables, assignments, and milestones in the firm’s PSA or project-management system. That system owns execution; AllianceOne retains the approved baseline and the receipt linking every created record to it.", visual: <MaterializeScene /> },
+  { n: "04", label: "Execute", title: "Give each consultant the engagement context.", body: "Each person receives a workspace shaped by the approved plan: assigned deliverables, workstream context, review expectations, and the engagement brief. In Chat, they can research the firm’s record, apply proven methods and templates, surface missing evidence, and develop the work without losing the connection to what the firm committed.", visual: <ExecuteScene /> },
   { n: "05", label: "Reconcile", title: "Delivery is measured against what was committed.", body: "Milestones and effort return from project systems. Billing actuals return from ERP. Scope, approvals, and evidence return from the systems that own them. AllianceOne reconciles the whole engagement without rewriting the baseline.", visual: <ReconcileScene /> },
-  { n: "06", label: "Learn", title: "The engagement leaves the practice smarter.", body: "At close-out, outcomes meet the conditions and decisions that produced them. Methods are validated, refined, or contradicted, and the next pursuit begins with a more accurate model of how your firm delivers.", visual: <PracticeScene /> },
+  { n: "06", label: "Learn", title: "The engagement leaves the practice smarter.", body: "At close-out, outcomes meet the conditions and decisions that produced them. Methods are validated, refined, or contradicted, and the next pursuit begins with a more accurate model of how the firm delivers.", visual: <PracticeScene /> },
 ];
 
 function TrackedVisual({ scene, children }) {
@@ -195,8 +152,8 @@ function Loop() {
 
 function StateModel() {
   const states = [
-    ["Intent", "What your firm plans and why"], ["Commitment", "What the client accepted"], ["Execution", "What your systems report"],
-    ["Decision", "What changed, who changed it, and why"], ["Outcome", "What was delivered and achieved"], ["Practice", "What your firm carries forward"],
+    ["Intent", "What the firm plans and why"], ["Commitment", "What the client accepted"], ["Execution", "What the systems report"],
+    ["Decision", "What changed, who changed it, and why"], ["Outcome", "What was delivered and achieved"], ["Practice", "What the firm carries forward"],
   ];
   return <Section className="state-section">
     <Wrap>
@@ -207,7 +164,7 @@ function StateModel() {
 }
 
 export function Footer({ onCta }) {
-  return <footer className="site-footer"><Wrap><div className="footer-main"><div><Logo light /><p>Engagement intelligence for professional-services firms.</p></div><div className="footer-nav"><div><span>Platform</span><a href="/">What we do</a><a href="/how-it-works/">How we do it</a><a href="/#firms">For firms</a></div><div><span>Company</span><a href="/security/">Security &amp; governance</a><button onClick={onCta}>Design partner program</button><a href="mailto:hello@myalliance.ai">hello@myalliance.ai</a></div></div></div><div className="footer-base"><span>A product of Alliance Systems Group</span><span>© 2026 Alliance Systems Group. All rights reserved.</span></div></Wrap></footer>;
+  return <footer className="site-footer"><Wrap><div className="footer-main"><div><a href="/" className="footer-brand"><img src="/brand/asg/alliance-systems-group-horizontal-white.png" alt="Alliance Systems Group" /></a><p>Operating infrastructure for expert work.</p></div><div className="footer-nav"><div><span>Product</span><a href="/allianceone/">AllianceOne</a><a href="/how-it-works/">How it works</a><a href="/security/">Security &amp; governance</a></div><div><span>Company</span><a href="/">Alliance Systems Group</a><button onClick={onCta}>Design partner program</button><a href="mailto:hello@myalliance.ai">hello@myalliance.ai</a></div></div></div><div className="footer-base"><span>AllianceOne is a product of Alliance Systems Group Inc.</span><span>© 2026 Alliance Systems Group Inc. All rights reserved.</span></div></Wrap></footer>;
 }
 
 export function Modal({ open, onClose }) {

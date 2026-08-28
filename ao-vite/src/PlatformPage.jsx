@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useFonts, Btn, Wrap, Nav, Footer, Modal } from "./App.jsx";
+import { useFonts, Btn, Logo, Wrap, Nav, Footer, Modal } from "./App.jsx";
 
 const systems = [
   ["CRM", "Opportunity, client, commercials"],
@@ -15,31 +15,40 @@ const firms = [
 ];
 
 const waysOfWorking = [
-  ["Approach", "How your firm frames the problem, the questions it asks first, the evidence it trusts, and the precedent it brings forward."],
+  ["Approach", "How the firm frames the problem, the questions it asks first, the evidence it trusts, and the precedent it brings forward."],
   ["Think", "The options considered, the tradeoffs made, the assumptions carried, and the reasoning behind the recommendation."],
   ["Deliver", "How scope, staffing, sequence, governance, decisions, changes, and outcomes fit together in practice."],
+];
+
+const firmIP = [
+  ["Methods and frameworks", "The questions the firm asks, the evidence it trusts, and the way it structures a problem."],
+  ["Deliverable types and templates", "The proven shapes, required sections, source expectations, and review gates behind client work."],
+  ["Prior work and precedent", "Comparable scopes, staffing patterns, decisions, changes, outcomes, and lessons from delivery."],
+  ["Review and quality standards", "The criteria partners and engagement leaders use to determine whether work is ready to advance."],
 ];
 
 const assets = [
   ["Traceable", "Every commitment, change, and conclusion remains connected to its source, owner, approval, and outcome."],
   ["Repeatable", "Teams begin with the methods, delivery shapes, and lessons that proved relevant in comparable work."],
-  ["Compounding", "Each completed engagement improves how your firm scopes, staffs, governs, and delivers the next one."],
+  ["Compounding", "Each completed engagement improves how the firm scopes, staffs, governs, and delivers the next one."],
 ];
 
 const lifecycle = [
-  ["Scope", "Turn fragmented pursuit context into a grounded scope and proposal."],
+  ["Scope", "Turn fragmented pursuit context into a grounded scope, price, and proposal."],
   ["Plan", "Translate the accepted commitment into workstreams, deliverables, staffing, and effort."],
-  ["Materialize", "Write the approved plan into your firm's PSA or project system."],
+  ["Materialize", "Write the approved plan into the firm's PSA or project system."],
   ["Execute", "Give every team member the context, evidence, methods, and guidance to deliver."],
   ["Reconcile", "Compare actual delivery with what was committed and preserve why it changed."],
-  ["Learn", "Admit proven outcomes and lessons into your firm's body of precedent."],
+  ["Learn", "Admit proven outcomes and lessons into the practice."],
 ];
 
 const comparison = [
-  ["Context", "Assembled for the current request", "Maintained across the engagement lifecycle"],
-  ["Authority", "Can interpret records", "Knows which approved record governs"],
-  ["Memory", "Retrieved from available material", "Resolved around clients, people, decisions, and outcomes"],
-  ["Learning", "Improves the general capability", "Improves your firm's own way of working"],
+  ["Unit of work", "A conversation, request, or task", "The engagement, from opportunity through outcome"],
+  ["Memory", "Retains or retrieves available context", "Maintains governed engagement state"],
+  ["Access", "Searches records and calls connected tools", "Resolves authority, versions, owners, and approvals"],
+  ["Generation", "Produces an answer, plan, or artifact", "Moves approved work through a governed workflow"],
+  ["Action", "Writes to a connected application", "Materializes approved intent and retains the receipt"],
+  ["Learning", "Carries forward available context", "Connects decisions and methods to delivery outcomes"],
 ];
 
 const architecture = [
@@ -57,14 +66,17 @@ export default function PlatformPage() {
   const open = () => setModal(true);
 
   return <div className="site-shell platform-page"><Nav onCta={open} /><main>
-    <section className="pf-hero">
+    <section id="platform" className="pf-hero">
       <div className="pf-hero-field" aria-hidden="true"><span /><span /><span /><span /></div>
       <Wrap>
         <div className="pf-hero-grid">
-          <h1>One system for the entire engagement.</h1>
+          <div className="pf-hero-title">
+            <div className="pf-product-kicker"><Logo light /></div>
+            <h1>One system for the entire engagement.</h1>
+          </div>
           <div className="pf-hero-copy">
             <p>From the first client signal through scope, planning, delivery, and close-out, AllianceOne keeps your firm's intent, decisions, work, and outcomes connected.</p>
-            <strong>The system of record for professional-services engagements.</strong>
+            <strong>The engagement operating system for professional services.</strong>
           </div>
         </div>
       </Wrap>
@@ -89,31 +101,41 @@ export default function PlatformPage() {
       </Wrap>
     </section>
 
+    <section className="pf-section pf-model">
+      <Wrap>
+        <div className="pf-section-head">
+          <h2>A powerful model is not an operating system.</h2>
+          <p>Frontier models can reason across large bodies of information, retain project context, search connected systems, and take action. Those capabilities are essential. They do not, by themselves, establish the authoritative state of an engagement.</p>
+        </div>
+        <div className="pf-comparison">
+          <p className="pf-model-declaration">A model answers a request. AllianceOne maintains the engagement the request belongs to.</p>
+          <div className="pf-comparison-head"><span /><strong>AI assistant</strong><strong>AllianceOne</strong></div>
+          {comparison.map(([dimension, model, alliance]) => <div className="pf-comparison-row" key={dimension}><strong>{dimension}</strong><p>{model}</p><p>{alliance}</p></div>)}
+        </div>
+        <div className="pf-model-moat">
+          <h3>Every engagement widens the advantage.</h3>
+          <p>A competitor can license the same model. It cannot license the firm's history of decisions, delivery patterns, outcomes, and proven judgment. That advantage is private to the firm and grows with every completed engagement.</p>
+        </div>
+      </Wrap>
+    </section>
+
     <section className="pf-principle">
       <Wrap>
         <h2>AllianceOne owns intent. Your existing tools own execution.</h2>
         <div className="pf-principle-grid">
           <div>
             <h3>Intent</h3>
-            <p>The accepted scope, approved plan, staffing model, assumptions, decision gates, and the rationale behind them remain durable in AllianceOne.</p>
+            <p>AllianceOne maintains the accepted scope, approved plan, staffing and effort model, deliverable commitments, assumptions, decision gates, and the rationale for every approved change. That record remains intact from pursuit through close-out.</p>
           </div>
           <div className="pf-principle-link" aria-hidden="true"><span /><i /><span /></div>
           <div>
             <h3>Execution</h3>
-            <p>CRM, PSA, project, document, time, and billing systems remain authoritative for the activities and actuals they are built to manage.</p>
+            <p>CRM, PSA, project, document, time, and billing systems continue to manage opportunities, tasks, assignments, files, hours, invoices, and delivery status. AllianceOne writes approved intent into those systems and reads delivery evidence back.</p>
           </div>
         </div>
-        <p className="pf-principle-result">Your firm can see what happened against what was intended, without replacing the systems your teams already use.</p>
-      </Wrap>
-    </section>
-
-    <section id="firms" className="pf-section pf-firms">
-      <Wrap>
-        <div className="pf-section-head pf-section-head--compact">
-          <h2>For project-based professional services.</h2>
-        </div>
-        <div className="pf-firm-list">
-          {firms.map(([name, body]) => <article key={name}><h3>{name}</h3><p>{body}</p></article>)}
+        <div className="pf-principle-result">
+          <h3>What was promised and what was delivered stay connected.</h3>
+          <p>Leaders can see the original commitment, every approved change, and how delivery compared with the plan. Teams keep working in the systems they already use while AllianceOne preserves the meaning across them.</p>
         </div>
       </Wrap>
     </section>
@@ -121,11 +143,15 @@ export default function PlatformPage() {
     <section className="pf-section pf-method">
       <Wrap>
         <div className="pf-section-head">
-          <h2>How your firm works becomes part of the record.</h2>
-          <p>AllianceOne captures more than final documents. It preserves how your firm approaches a problem, thinks through possible solutions, and turns judgment into delivery.</p>
+          <h2>How the firm works becomes part of the record.</h2>
+          <p>AllianceOne captures more than final documents. It preserves how the firm approaches a problem, thinks through possible solutions, and turns judgment into delivery.</p>
         </div>
-        <div className="pf-method-grid">
+        <div className="pf-method-grid pf-grid--three">
           {waysOfWorking.map(([name, body]) => <article key={name}><h3>{name}</h3><p>{body}</p></article>)}
+        </div>
+        <p className="pf-method-note">The firm's intellectual property stays active in the work while teams are still making decisions, not dormant in a repository.</p>
+        <div className="pf-ip-row">
+          {firmIP.map(([name, body]) => <div key={name}><h4>{name}</h4><p>{body}</p></div>)}
         </div>
       </Wrap>
     </section>
@@ -134,9 +160,9 @@ export default function PlatformPage() {
       <Wrap>
         <div className="pf-section-head">
           <h2>The next engagement can start from the last one.</h2>
-          <p>The work no longer disappears into folders, disconnected systems, or personal memory. The record remains usable by the next team facing a similar decision.</p>
+          <p>The record remains usable by the next team facing a similar decision. What the firm learned becomes practical guidance, with its source, context, and outcome still attached.</p>
         </div>
-        <div className="pf-asset-grid">
+        <div className="pf-asset-grid pf-grid--three">
           {assets.map(([name, body]) => <article key={name}><h3>{name}</h3><p>{body}</p></article>)}
         </div>
       </Wrap>
@@ -155,19 +181,6 @@ export default function PlatformPage() {
       </Wrap>
     </section>
 
-    <section className="pf-section pf-model">
-      <Wrap>
-        <div className="pf-section-head">
-          <h2>A powerful model is not an operating system.</h2>
-          <p>Capable models provide reasoning. Retrieval provides material. AllianceOne provides your firm's state, authority, identity, and lifecycle governance that make both dependable in delivery.</p>
-        </div>
-        <div className="pf-comparison">
-          <div className="pf-comparison-head"><span /><strong>General model</strong><strong>AllianceOne</strong></div>
-          {comparison.map(([dimension, model, alliance]) => <div className="pf-comparison-row" key={dimension}><strong>{dimension}</strong><p>{model}</p><p>{alliance}</p></div>)}
-        </div>
-      </Wrap>
-    </section>
-
     <section className="pf-section pf-architecture">
       <Wrap>
         <div className="pf-architecture-grid">
@@ -182,11 +195,13 @@ export default function PlatformPage() {
       </Wrap>
     </section>
 
-    <section className="pf-moat">
+    <section id="firms" className="pf-section pf-firms">
       <Wrap>
-        <div>
-          <h2>Every engagement widens the advantage.</h2>
-          <p>A competitor can license the same model. It cannot license your firm's history of decisions, delivery patterns, outcomes, and proven judgment. That advantage is private to your firm and grows with every completed engagement.</p>
+        <div className="pf-section-head pf-section-head--compact">
+          <h2>For project-based professional services.</h2>
+        </div>
+        <div className="pf-firm-list">
+          {firms.map(([name, body]) => <article key={name}><h3>{name}</h3><p>{body}</p></article>)}
         </div>
       </Wrap>
     </section>
