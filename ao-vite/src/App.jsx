@@ -126,11 +126,11 @@ function IntentStatement() {
 
 const loopSteps = [
   { n: "01", label: "Scope", title: "Turn early context into an approved scope.", body: "AllianceOne carries early conversations into the opportunity, assembles the Pursuit Brief, and gives the consultant a grounded working surface in Chat. The resulting internal scope is reviewed by the engagement lead; only that approved scope can unlock and ground the client proposal.", visual: <ScopeScene /> },
-  { n: "02", label: "Plan", title: "Turn what was sold into a delivery plan.", body: "When CRM marks the engagement Won, AllianceOne locks the accepted proposal facts and opens planning mode. The engagement manager builds deliverables, assignments, dependencies, effort, and the roadmap in Chat; approval creates the authoritative plan that can be written into your firm’s project or PSA system.", visual: <PlanScene /> },
-  { n: "03", label: "Materialize", title: "Write the plan into your project system.", body: "AllianceOne validates the destination mapping, then creates the project, phases, deliverables, assignments, and milestones in your firm’s PSA or project-management system. That system owns execution; AllianceOne retains the approved baseline and the receipt linking every created record to it.", visual: <MaterializeScene /> },
-  { n: "04", label: "Execute", title: "Give each consultant the engagement context.", body: "Each person receives a workspace shaped by the approved plan: assigned deliverables, workstream context, review expectations, and the engagement brief. In Chat, they can research your firm’s record, apply proven methods and templates, surface missing evidence, and develop the work without losing the connection to what your firm committed.", visual: <ExecuteScene /> },
+  { n: "02", label: "Plan", title: "Turn what was sold into a delivery plan.", body: "When CRM marks the engagement Won, AllianceOne locks the accepted proposal facts and opens planning mode. The engagement manager builds deliverables, assignments, dependencies, effort, and the roadmap in Chat; approval creates the authoritative plan that can be written into the firm’s project or PSA system.", visual: <PlanScene /> },
+  { n: "03", label: "Materialize", title: "Write the plan into your project system.", body: "AllianceOne validates the destination mapping, then creates the project, phases, deliverables, assignments, and milestones in the firm’s PSA or project-management system. That system owns execution; AllianceOne retains the approved baseline and the receipt linking every created record to it.", visual: <MaterializeScene /> },
+  { n: "04", label: "Execute", title: "Give each consultant the engagement context.", body: "Each person receives a workspace shaped by the approved plan: assigned deliverables, workstream context, review expectations, and the engagement brief. In Chat, they can research the firm’s record, apply proven methods and templates, surface missing evidence, and develop the work without losing the connection to what the firm committed.", visual: <ExecuteScene /> },
   { n: "05", label: "Reconcile", title: "Delivery is measured against what was committed.", body: "Milestones and effort return from project systems. Billing actuals return from ERP. Scope, approvals, and evidence return from the systems that own them. AllianceOne reconciles the whole engagement without rewriting the baseline.", visual: <ReconcileScene /> },
-  { n: "06", label: "Learn", title: "The engagement leaves the practice smarter.", body: "At close-out, outcomes meet the conditions and decisions that produced them. Methods are validated, refined, or contradicted, and the next pursuit begins with a more accurate model of how your firm delivers.", visual: <PracticeScene /> },
+  { n: "06", label: "Learn", title: "The engagement leaves the practice smarter.", body: "At close-out, outcomes meet the conditions and decisions that produced them. Methods are validated, refined, or contradicted, and the next pursuit begins with a more accurate model of how the firm delivers.", visual: <PracticeScene /> },
 ];
 
 function TrackedVisual({ scene, children }) {
@@ -152,8 +152,8 @@ function Loop() {
 
 function StateModel() {
   const states = [
-    ["Intent", "What your firm plans and why"], ["Commitment", "What the client accepted"], ["Execution", "What your systems report"],
-    ["Decision", "What changed, who changed it, and why"], ["Outcome", "What was delivered and achieved"], ["Practice", "What your firm carries forward"],
+    ["Intent", "What the firm plans and why"], ["Commitment", "What the client accepted"], ["Execution", "What the systems report"],
+    ["Decision", "What changed, who changed it, and why"], ["Outcome", "What was delivered and achieved"], ["Practice", "What the firm carries forward"],
   ];
   return <Section className="state-section">
     <Wrap>

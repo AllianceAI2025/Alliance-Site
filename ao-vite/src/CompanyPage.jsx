@@ -43,7 +43,7 @@ export default function CompanyPage() {
       <section id="thesis" className="asg-section asg-thesis">
         <Wrap>
           <div className="asg-section-head">
-            <h2>Your firm should be able to use what it has already learned.</h2>
+            <h2>A firm should be able to use what it has already learned.</h2>
             <div>
               <p>Most professional firms have years of useful experience spread across proposals, project plans, deliverables, email, time records, billing systems, and the people who led the work.</p>
               <p>We build software and services that make that experience available while new work is being scoped, planned, staffed, and delivered.</p>
