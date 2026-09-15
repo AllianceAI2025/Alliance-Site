@@ -29,9 +29,9 @@ const firmIP = [
 ];
 
 const assets = [
-  ["Relevant", "Precedent is matched by the problem conditions, decision dynamics, delivery shape, and outcome, not just similar words."],
-  ["Traceable", "Every material commitment and conclusion remains connected to its source, owner, approval, and supporting evidence."],
-  ["Repeatable", "Teams can apply proven methods and delivery patterns without treating them as universal answers."],
+  ["Scope with evidence", "Comparable engagements give teams a grounded basis for shaping scope, staffing, effort, and price. Less work is rebuilt from memory, and senior review starts from something more specific than a blank page."],
+  ["Deliver with control", "Approved commitments remain connected to assignments, milestones, decisions, hours, and billing. Leaders can see where delivery diverged, why it changed, and which patterns put margin or quality at risk."],
+  ["Build proof into the proposition", "Methods and points of view remain connected to the situations in which they were used and the outcomes that followed. The firm develops a stronger basis for demonstrating specific expertise, reducing buyer risk, and defending value beyond hours."],
 ];
 
 const lifecycle = [
@@ -76,7 +76,7 @@ export default function PlatformPage() {
             <h1>Make every engagement an advantage.</h1>
           </div>
           <div className="pf-hero-copy">
-            <p>AllianceOne connects the context behind a decision, the approach your team chose, and what happened next. Your firm’s accumulated experience becomes practical guidance for new work, with its evidence still attached.</p>
+            <p>AllianceOne turns delivery history into the scope, staffing, workstreams, effort, and deliverables for new client work. It carries the approved plan into the systems your firm already uses, then connects actual delivery and outcomes back to the decisions that shaped it.</p>
             <strong>Make firm-specific judgment usable in live engagements.</strong>
           </div>
         </div>
@@ -160,8 +160,8 @@ export default function PlatformPage() {
     <Track name="assets" className="pf-section pf-assets">
       <Wrap>
         <div className="pf-section-head">
-          <h2>Give the next team a better starting point.</h2>
-          <p>AllianceOne brings forward the prior work that fits the current situation and shows the basis for using it. Teams inherit an informed starting point while remaining free to reach a different conclusion.</p>
+          <h2>Better scoping. More controlled delivery. Stronger proof.</h2>
+          <p>The economic value appears where engagement performance is shaped: how work is scoped and priced, how delivery is governed, and how the firm demonstrates differentiated value to buyers.</p>
         </div>
         <div className="pf-asset-grid pf-grid--three">
           {assets.map(([name, body]) => <article key={name}><h3>{name}</h3><p>{body}</p></article>)}
