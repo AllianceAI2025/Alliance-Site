@@ -85,8 +85,8 @@ export default function CompanyPage() {
 
       <Track name="cta" className="asg-cta">
         <Wrap>
-          <h2>Put your firm’s experience to work.</h2>
-          <div><p>We are working with a small number of professional-services firms as pilot partners, beginning with a defined workflow and a shared set of success criteria.</p><Btn variant="dark" onClick={() => { capture("cta_clicked", { location: "page_cta" }); setModal(true); }}>Discuss a pilot</Btn></div>
+          <h2>We are looking for a small number of pilot partners.</h2>
+          <div><p>We are inviting consulting and advisory firms to test AllianceOne against one defined workflow, with a shared set of success criteria and a clear decision about whether to expand.</p><Btn variant="dark" onClick={() => { capture("cta_clicked", { location: "page_cta" }); setModal(true); }}>Discuss a pilot</Btn></div>
         </Wrap>
       </Track>
     </main>
