@@ -1583,6 +1583,10 @@
 .pf-asset-grid article:last-child{border-right:0}
 .pf-asset-grid h3{margin:0;font-size:clamp(1.4rem,1.9vw,2.1rem);font-weight:510;letter-spacing:-.035em;line-height:1.08}
 .pf-asset-grid p{margin:58px 0 0;color:var(--pf-muted);font-size:.85rem;line-height:1.7}
+@media(min-width:1061px){
+  .pf-asset-grid h3{min-height:2.16em}
+  .pf-asset-grid p{margin-top:36px}
+}
 
 .pf-lifecycle{background:#fafbf7}
 .pf-lifecycle-list{display:grid;grid-template-columns:repeat(3,1fr);margin-top:clamp(76px,9vw,126px);border-top:1px solid var(--pf-ink)}
