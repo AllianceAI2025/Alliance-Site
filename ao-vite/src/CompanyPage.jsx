@@ -86,7 +86,7 @@ export default function CompanyPage() {
       <Track name="cta" className="asg-cta">
         <Wrap>
           <h2>Put your firm’s experience to work.</h2>
-          <div><p>We are working with a small number of professional-services firms on design partnerships, implementation planning, and early production use.</p><Btn variant="dark" onClick={() => { capture("cta_clicked", { location: "page_cta" }); setModal(true); }}>Discuss a partnership</Btn></div>
+          <div><p>We are working with a small number of professional-services firms as pilot partners, beginning with a defined workflow and a shared set of success criteria.</p><Btn variant="dark" onClick={() => { capture("cta_clicked", { location: "page_cta" }); setModal(true); }}>Discuss a pilot</Btn></div>
         </Wrap>
       </Track>
     </main>

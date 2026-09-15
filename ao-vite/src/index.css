@@ -1629,6 +1629,7 @@
 .pf-cta>div>div{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(320px,.55fr);gap:clamp(60px,10vw,170px);align-items:end}
 .pf-cta h2{max-width:900px;margin:0;font-size:clamp(3.3rem,6vw,6.7rem);font-weight:480;letter-spacing:-.058em;line-height:.92}
 .pf-cta p{margin:0 0 34px;color:var(--pf-muted);font-size:.94rem;line-height:1.7}
+.pf-cta-copy p:last-child{margin-bottom:0}
 
 @media(max-width:1060px){
   .pf-hero-grid,.pf-section-head,.pf-cta>div>div{grid-template-columns:1fr;gap:52px}

@@ -209,8 +209,8 @@ export default function PlatformPage() {
 
     <Track name="cta" className="pf-cta">
       <Wrap>
-        <div><h2>Make your firm’s experience easier to apply and harder to imitate.</h2></div>
-        <div><p>We are working with a small number of professional-services firms to shape AllianceOne around their methods, operating workflows, and existing systems.</p><Btn variant="dark" onClick={() => { capture("cta_clicked", { location: "page_cta" }); open(); }}>Discuss a design partnership</Btn></div>
+        <div><h2>We are looking for a small number of pilot partners.</h2></div>
+        <div><div className="pf-cta-copy"><p>The pilot is for consulting and advisory firms ready to test AllianceOne against one defined, live operating workflow. We will configure the product around your methods, connect the relevant systems, and agree on success criteria before the pilot begins.</p><p>Start with one engagement type or workflow. Prove where AllianceOne improves scoping, delivery control, or the firm’s ability to reuse what it has learned. Then decide together whether to expand.</p></div><Btn variant="dark" onClick={() => { capture("cta_clicked", { location: "page_cta" }); open(); }}>Discuss a pilot</Btn></div>
       </Wrap>
     </Track>
   </main><Footer onCta={open} /><Modal open={modal} onClose={() => setModal(false)} /></div>;
