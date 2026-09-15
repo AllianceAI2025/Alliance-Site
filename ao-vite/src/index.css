@@ -1795,8 +1795,7 @@ html,body,.asg-page{overflow-anchor:none}
 .site-nav--dark .nav-menu span{background:#fff}
 .site-nav--dark .mobile-nav{border-bottom-color:rgba(255,255,255,.14);background:#07100e}
 .site-nav--dark .mobile-nav a,.site-nav--dark .mobile-nav button{color:#fff}
-.footer-brand{display:block;width:256px;text-decoration:none}
-.footer-brand img{display:block;width:100%;height:auto}
+.footer-brand{display:inline-flex;width:auto;color:#fff;text-decoration:none}
 .product-kicker{margin-bottom:30px}
 .product-kicker .logo-lockup{font-size:1.08rem}
 
@@ -1810,7 +1809,7 @@ html,body,.asg-page{overflow-anchor:none}
 
 @media(max-width:760px){
   .brand-link{gap:3px}.brand-link .brand-mark{width:46px;height:46px}.brand-wordmark strong{font-size:1.32rem}.brand-wordmark small{margin-top:5px;font-size:.47rem}
-  .footer-brand{width:220px}
+  .footer-brand{width:auto}
   .pf-product-kicker{margin-bottom:30px}
   .pf-product-kicker .logo-lockup{font-size:1.02rem}
   .pf-hero h1{font-size:clamp(3.45rem,15.4vw,5.35rem);letter-spacing:-.058em;line-height:.88}
