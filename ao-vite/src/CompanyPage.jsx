@@ -35,7 +35,7 @@ export default function CompanyPage() {
         <Wrap>
           <div className="asg-hero-copy">
             <h1>Turn what your firm has learned into how it works.</h1>
-            <p>Alliance Systems Group builds software and services for consulting and advisory firms. We help make accumulated delivery experience usable in live work—without replacing professional judgment or the systems your teams already use.</p>
+            <p>Alliance Systems Group builds software and services for consulting and advisory firms. We help make accumulated delivery experience usable in live work without replacing professional judgment or the systems your teams already use.</p>
             <div className="asg-hero-actions">
               <a href="/allianceone/">View AllianceOne <span aria-hidden="true">↗</span></a>
               <button onClick={() => { capture("cta_clicked", { location: "hero" }); setModal(true); }}>Talk with us <span aria-hidden="true">↗</span></button>
@@ -55,7 +55,7 @@ export default function CompanyPage() {
             <h2>Generic capability is getting cheaper. Firm-specific judgment is not.</h2>
             <div>
               <p>Every firm can access increasingly capable AI. What competitors cannot access is your history of solving particular problems: the patterns your people have recognized, the methods they have refined, and the evidence showing when those methods worked.</p>
-              <p>That experience is rarely absent. It is unassembled—distributed across people, proposals, plans, deliverables, conversations, and financial records. We help firms put it back to work.</p>
+              <p>That experience is rarely absent. It is unassembled and distributed across people, proposals, plans, deliverables, conversations, and financial records. We help firms put it back to work.</p>
             </div>
           </div>
         </Wrap>

@@ -1779,7 +1779,7 @@ html,body,.asg-page{overflow-anchor:none}
 }
 
 /* Shared corporate navigation and product identity. */
-.brand-link{display:inline-flex;align-items:center;flex:none;gap:8px;color:#07100e;text-decoration:none}
+.brand-link{display:inline-flex;align-items:center;flex:none;gap:4px;color:#07100e;text-decoration:none}
 .brand-link .brand-mark{display:block;width:52px;height:52px;object-fit:contain}
 .brand-wordmark{display:inline-flex;flex-direction:column;align-items:center;line-height:1;text-transform:uppercase}
 .brand-wordmark strong{font-family:'Bodoni MT',Didot,'Times New Roman',serif;font-size:1.48rem;font-weight:400;letter-spacing:.018em;line-height:.82}
@@ -1805,7 +1805,7 @@ html,body,.asg-page{overflow-anchor:none}
 
 
 @media(max-width:760px){
-  .brand-link{gap:7px}.brand-link .brand-mark{width:46px;height:46px}.brand-wordmark strong{font-size:1.32rem}.brand-wordmark small{margin-top:5px;font-size:.47rem}
+  .brand-link{gap:3px}.brand-link .brand-mark{width:46px;height:46px}.brand-wordmark strong{font-size:1.32rem}.brand-wordmark small{margin-top:5px;font-size:.47rem}
   .footer-brand{width:220px}
   .pf-product-kicker{margin-bottom:30px}
   .pf-product-kicker .logo-lockup{font-size:1.02rem}

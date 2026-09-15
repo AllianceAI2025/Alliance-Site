@@ -16,9 +16,9 @@ const firms = [
 ];
 
 const waysOfWorking = [
-  ["Context", "The client conditions, constraints, starting assumptions, and comparable situations that made a choice appropriate."],
-  ["Reasoning", "The options considered, evidence used, tradeoffs made, and rationale behind the team’s recommendation."],
-  ["Outcome", "What was delivered, what changed during the work, and what the evidence supports carrying into future engagements."],
+  ["Approach", "How the firm frames the problem, the questions it asks first, the evidence it trusts, and the precedent it brings forward."],
+  ["Think", "The options considered, the tradeoffs made, the assumptions carried, and the reasoning behind the recommendation."],
+  ["Deliver", "How scope, staffing, sequence, governance, decisions, changes, and outcomes fit together in practice."],
 ];
 
 const firmIP = [
@@ -29,7 +29,7 @@ const firmIP = [
 ];
 
 const assets = [
-  ["Relevant", "Precedent is matched by the problem conditions, decision dynamics, delivery shape, and outcome—not just similar words."],
+  ["Relevant", "Precedent is matched by the problem conditions, decision dynamics, delivery shape, and outcome, not just similar words."],
   ["Traceable", "Every material commitment and conclusion remains connected to its source, owner, approval, and supporting evidence."],
   ["Repeatable", "Teams can apply proven methods and delivery patterns without treating them as universal answers."],
 ];
@@ -73,7 +73,7 @@ export default function PlatformPage() {
         <div className="pf-hero-grid">
           <div className="pf-hero-title">
             <div className="pf-product-kicker"><Logo light /></div>
-            <h1>Turn every engagement into an advantage the next team can use.</h1>
+            <h1>Make every engagement an advantage.</h1>
           </div>
           <div className="pf-hero-copy">
             <p>AllianceOne connects the context behind a decision, the approach your team chose, and what happened next. Your firm’s accumulated experience becomes practical guidance for new work, with its evidence still attached.</p>
@@ -106,7 +106,7 @@ export default function PlatformPage() {
       <Wrap>
         <div className="pf-section-head">
           <h2>The model is not the edge.</h2>
-          <p>Capable models can research, analyze, generate, and act. Every firm can access them. What they do not bring is your history of solving specific problems—or the evidence required to know when prior experience should apply.</p>
+          <p>Frontier models from OpenAI and Anthropic can research, analyze, generate, and act. Every firm can access them. What they do not bring is your history of solving specific problems or the evidence required to know when prior experience should apply.</p>
         </div>
         <div className="pf-comparison">
           <p className="pf-model-declaration">General AI brings capability. AllianceOne brings your firm’s earned context.</p>
@@ -122,21 +122,21 @@ export default function PlatformPage() {
 
     <Track name="principle" className="pf-principle">
       <Wrap>
-        <h2>People exercise judgment. AllianceOne preserves the evidence behind it.</h2>
+        <h2>AllianceOne owns intent. Your existing tools own execution.</h2>
         <div className="pf-principle-grid">
           <div>
-            <h3>Professional judgment</h3>
-            <p>Practitioners determine what precedent applies, choose the approach, approve the plan, make material tradeoffs, and decide what the firm should carry forward.</p>
+            <h3>Intent</h3>
+            <p>AllianceOne maintains the accepted scope, approved plan, staffing and effort model, deliverable commitments, assumptions, decision gates, and the rationale for every approved change. That record remains intact from pursuit through close-out.</p>
           </div>
           <div className="pf-principle-link" aria-hidden="true"><span /><i /><span /></div>
           <div>
-            <h3>Operating record</h3>
-            <p>AllianceOne keeps each approved choice connected to its context and rationale, writes the resulting plan into execution systems, and reads delivery evidence back against it.</p>
+            <h3>Execution</h3>
+            <p>CRM, PSA, project, document, time, and billing systems continue to manage opportunities, tasks, assignments, files, hours, invoices, and delivery status. AllianceOne writes approved intent into those systems and reads delivery evidence back.</p>
           </div>
         </div>
         <div className="pf-principle-result">
-          <h3>The system makes judgment visible. It does not make the judgment.</h3>
-          <p>Teams remain accountable for the work. AllianceOne gives them a traceable basis for deciding, acting, reviewing, and learning together.</p>
+          <h3>What was promised and what was delivered stay connected.</h3>
+          <p>Leaders can see the original commitment, every approved change, and how delivery compared with the plan. Teams keep working in the systems they already use while AllianceOne preserves the meaning across them.</p>
         </div>
       </Wrap>
     </Track>
@@ -150,7 +150,7 @@ export default function PlatformPage() {
         <div className="pf-method-grid pf-grid--three">
           {waysOfWorking.map(([name, body]) => <article key={name}><h3>{name}</h3><p>{body}</p></article>)}
         </div>
-        <p className="pf-method-note">The firm’s intellectual property stays active while teams are making decisions—not dormant in a repository or flattened into a generic answer.</p>
+        <p className="pf-method-note">The firm’s intellectual property stays active while teams are making decisions, not dormant in a repository or flattened into a generic answer.</p>
         <div className="pf-ip-row">
           {firmIP.map(([name, body]) => <div key={name}><h4>{name}</h4><p>{body}</p></div>)}
         </div>
@@ -209,7 +209,7 @@ export default function PlatformPage() {
 
     <Track name="cta" className="pf-cta">
       <Wrap>
-        <div><h2>Make your firm’s experience easier to apply—and harder to imitate.</h2></div>
+        <div><h2>Make your firm’s experience easier to apply and harder to imitate.</h2></div>
         <div><p>We are working with a small number of professional-services firms to shape AllianceOne around their methods, operating workflows, and existing systems.</p><Btn variant="dark" onClick={() => { capture("cta_clicked", { location: "page_cta" }); open(); }}>Discuss a design partnership</Btn></div>
       </Wrap>
     </Track>
