@@ -108,8 +108,8 @@ function Hero() {
       <div className="hero-grid hero-grid--copy">
         <div className="hero-copy">
           <div className="product-kicker"><Logo light /></div>
-          <h1>Plan the next engagement with the full weight of your firm behind it.</h1>
-          <p>AllianceOne turns delivery history into the workstreams, staffing, effort, and deliverables for new client work. The plan moves into the systems your firm already uses. Actual delivery flows back against it.</p>
+          <h1>Carry judgment from the first client signal to the next engagement.</h1>
+          <p>AllianceOne connects what was understood, promised, decided, delivered, and learned across the engagement lifecycle. Each phase gives the next team better context without taking decisions out of people’s hands.</p>
         </div>
       </div>
     </Wrap>
@@ -119,18 +119,18 @@ function Hero() {
 function IntentStatement() {
   return <Track name="intent" className="section intent-statement">
     <Wrap>
-      <div className="intent-copy"><h2>Your tools record activity.<br />AllianceOne carries intent.</h2><p>CRM knows the opportunity. Project management knows the task status. Billing knows the actuals. Documents and conversations hold the reasoning. AllianceOne maintains the plan that connects them and the story of how that plan changed.</p></div>
+      <div className="intent-copy"><h2>Execution systems record activity.<br />AllianceOne preserves what it means.</h2><p>CRM knows the opportunity. Project management knows the task status. Billing knows the actuals. Documents and conversations hold the reasoning. AllianceOne connects those records to the approved plan and preserves why that plan changed.</p></div>
     </Wrap>
   </Track>;
 }
 
 const loopSteps = [
-  { n: "01", label: "Scope", title: "Turn early context into an approved scope.", body: "AllianceOne carries early conversations into the opportunity, assembles the Pursuit Brief, and gives the consultant a grounded working surface in Chat. The resulting internal scope is reviewed by the engagement lead; only that approved scope can unlock and ground the client proposal.", visual: <ScopeScene /> },
-  { n: "02", label: "Plan", title: "Turn what was sold into a delivery plan.", body: "When CRM marks the engagement Won, AllianceOne locks the accepted proposal facts and opens planning mode. The engagement manager builds deliverables, assignments, dependencies, effort, and the roadmap in Chat; approval creates the authoritative plan that can be written into the firm’s project or PSA system.", visual: <PlanScene /> },
-  { n: "03", label: "Materialize", title: "Write the plan into your project system.", body: "AllianceOne validates the destination mapping, then creates the project, phases, deliverables, assignments, and milestones in the firm’s PSA or project-management system. That system owns execution; AllianceOne retains the approved baseline and the receipt linking every created record to it.", visual: <MaterializeScene /> },
-  { n: "04", label: "Execute", title: "Give each consultant the engagement context.", body: "Each person receives a workspace shaped by the approved plan: assigned deliverables, workstream context, review expectations, and the engagement brief. In Chat, they can research the firm’s record, apply proven methods and templates, surface missing evidence, and develop the work without losing the connection to what the firm committed.", visual: <ExecuteScene /> },
-  { n: "05", label: "Reconcile", title: "Delivery is measured against what was committed.", body: "Milestones and effort return from project systems. Billing actuals return from ERP. Scope, approvals, and evidence return from the systems that own them. AllianceOne reconciles the whole engagement without rewriting the baseline.", visual: <ReconcileScene /> },
-  { n: "06", label: "Learn", title: "The engagement leaves the practice smarter.", body: "At close-out, outcomes meet the conditions and decisions that produced them. Methods are validated, refined, or contradicted, and the next pursuit begins with a more accurate model of how the firm delivers.", visual: <PracticeScene /> },
+  { n: "01", label: "Scope", title: "Turn early context into an approved scope.", body: "Early conversations become a Pursuit Brief: the client situation, open questions, relevant precedent, proposed approach, and evidence still needed. The engagement lead reviews the internal scope before it grounds a client proposal.", visual: <ScopeScene /> },
+  { n: "02", label: "Plan", title: "Translate the commitment into a delivery plan.", body: "Once the engagement is won, the accepted proposal becomes the starting point for workstreams, deliverables, assignments, dependencies, effort, and milestones. Approval establishes the baseline that will govern delivery.", visual: <PlanScene /> },
+  { n: "03", label: "Materialize", title: "Put the approved plan into the systems that run the work.", body: "AllianceOne creates the corresponding project, phases, assignments, and milestones in the firm’s PSA or project-management system. The execution system owns those records; AllianceOne retains their connection to the approved intent.", visual: <MaterializeScene /> },
+  { n: "04", label: "Execute", title: "Give each consultant the context to deliver well.", body: "Every person works from the relevant portion of the approved plan, with the engagement brief, proven methods, source expectations, and review standards close at hand. The work stays connected to what the firm committed.", visual: <ExecuteScene /> },
+  { n: "05", label: "Reconcile", title: "Compare delivery with the plan without rewriting history.", body: "Milestones, effort, billing, approvals, changes, and supporting evidence return from the systems that own them. Leaders can see the original commitment, the current position, and the reasons for material variance.", visual: <ReconcileScene /> },
+  { n: "06", label: "Learn", title: "Turn the completed engagement into usable precedent.", body: "Close-out connects outcomes to the conditions, methods, and decisions that produced them. What held, what changed, and what failed becomes grounded guidance for the next pursuit—not an untested rule.", visual: <PracticeScene /> },
 ];
 
 function TrackedVisual({ scene, children }) {
@@ -141,7 +141,7 @@ function TrackedVisual({ scene, children }) {
 function Loop() {
   return <Track name="lifecycle" id="loop" className="section loop-section">
     <Wrap>
-      <div className="loop-intro"><Head size="display">One operating loop, from question to institutional learning.</Head></div>
+      <div className="loop-intro"><Head size="display">One operating loop, from first signal to usable precedent.</Head></div>
       <div className="loop-steps">{loopSteps.map((step, i) => <article id={`phase-${step.label.toLowerCase()}`} className={`loop-step loop-step--${i + 1}`} key={step.n}>
         <div className="loop-step-copy"><span className="step-number">{step.label}</span><h3>{step.title}</h3><p>{step.body}</p></div>
         <TrackedVisual scene={step.label}>{step.visual}</TrackedVisual>
@@ -157,14 +157,14 @@ function StateModel() {
   ];
   return <Track name="state_model" className="section state-section">
     <Wrap>
-      <div className="state-heading"><Head light>A conversation history is not engagement state.</Head><p>AllianceOne maintains six connected forms of state across the lifecycle. Each one has an owner, a source, and a place in the engagement story.</p></div>
+      <div className="state-heading"><Head light>The engagement becomes more than a collection of records.</Head><p>AllianceOne maintains six connected forms of state across the lifecycle. Together they show what the team intended, what changed, what happened, and what the firm can responsibly carry forward.</p></div>
       <div className="state-table">{states.map(([name, desc]) => <div key={name}><strong>{name}</strong><p>{desc}</p><i /></div>)}</div>
     </Wrap>
   </Track>;
 }
 
 export function Footer({ onCta }) {
-  return <footer className="site-footer"><Wrap><div className="footer-main"><div><a href="/" className="footer-brand"><img src="/brand/asg/alliance-systems-group-horizontal-white.png" alt="Alliance Systems Group" /></a><p>Operating infrastructure for expert work.</p></div><div className="footer-nav"><div><span>Product</span><a href="/allianceone/">AllianceOne</a><a href="/how-it-works/">How it works</a><a href="/security/">Security &amp; governance</a></div><div><span>Company</span><a href="/">Alliance Systems Group</a><button onClick={() => { capture("cta_clicked", { location: "footer" }); onCta(); }}>Design partner program</button><a href="mailto:hello@myalliance.ai">hello@myalliance.ai</a></div></div></div><div className="footer-base"><span>AllianceOne is a product of Alliance Systems Group Inc.</span><span>© 2026 Alliance Systems Group Inc. All rights reserved.</span></div></Wrap></footer>;
+  return <footer className="site-footer"><Wrap><div className="footer-main"><div><a href="/" className="footer-brand"><img src="/brand/asg/alliance-systems-group-horizontal-white.png" alt="Alliance Systems Group" /></a><p>Operating infrastructure for firms whose advantage depends on expert judgment.</p></div><div className="footer-nav"><div><span>Product</span><a href="/allianceone/">AllianceOne</a><a href="/how-it-works/">How it works</a></div><div><span>Company</span><a href="/">Alliance Systems Group</a><button onClick={() => { capture("cta_clicked", { location: "footer" }); onCta(); }}>Design partner program</button><a href="mailto:hello@myalliance.ai">hello@myalliance.ai</a></div></div></div><div className="footer-base"><span>AllianceOne is a product of Alliance Systems Group Inc.</span><span>© 2026 Alliance Systems Group Inc. All rights reserved.</span></div></Wrap></footer>;
 }
 
 export function Modal({ open, onClose }) {

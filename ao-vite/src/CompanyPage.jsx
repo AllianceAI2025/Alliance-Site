@@ -3,10 +3,10 @@ import { Btn, Footer, Logo, Modal, Nav, Wrap, useFonts } from "./App.jsx";
 import { capture, Track } from "./analytics";
 
 const services = [
-  ["Systems integration", "Connect AllianceOne to CRM, PSA, project, document, communication, and finance systems. Define which records each system owns and how approved plans and delivery actuals move between them."],
-  ["Practice configuration", "Configure engagement types, methods, templates, deliverable standards, review gates, and comparable-work criteria around your firm's practices."],
-  ["Workflow design", "Define how pursuits become scopes, scopes become approved plans, and plan changes are reviewed, written back, and retained."],
-  ["Adoption and governance", "Set approval rights, evidence standards, operating controls, and team practices, then support rollout across initial engagements."],
+  ["Systems integration", "Connect AllianceOne to CRM, PSA, project, document, communication, and finance systems. Define what each system owns and how approved plans and delivery evidence move between them."],
+  ["Practice configuration", "Shape engagement types, methods, templates, review standards, and comparable-work criteria around the way your practitioners actually work."],
+  ["Workflow design", "Define how pursuits become scopes, scopes become approved plans, and material decisions are reviewed, carried into delivery, and retained."],
+  ["Adoption and governance", "Establish approval rights, evidence standards, operating controls, and team practices, then support adoption through the first live engagements."],
 ];
 
 export default function CompanyPage() {
@@ -34,8 +34,8 @@ export default function CompanyPage() {
         <img className="asg-hero-mark" src="/brand/asg/alliance-systems-group-mark-white.png" alt="" aria-hidden="true" />
         <Wrap>
           <div className="asg-hero-copy">
-            <h1>Software and services for professional firms.</h1>
-            <p>Alliance Systems Group Inc. develops AllianceOne and works with consulting and advisory firms to put it into practice. We connect the product to the systems your firm already uses, configure it around your methods, and help your teams adopt it in live engagements.</p>
+            <h1>Turn what your firm has learned into how it works.</h1>
+            <p>Alliance Systems Group builds software and services for consulting and advisory firms. We help make accumulated delivery experience usable in live work—without replacing professional judgment or the systems your teams already use.</p>
             <div className="asg-hero-actions">
               <a href="/allianceone/">View AllianceOne <span aria-hidden="true">↗</span></a>
               <button onClick={() => { capture("cta_clicked", { location: "hero" }); setModal(true); }}>Talk with us <span aria-hidden="true">↗</span></button>
@@ -44,7 +44,7 @@ export default function CompanyPage() {
           <div className="asg-hero-statement">
             <strong>Flagship product</strong>
             <Logo light />
-            <p>Our software for scoping, planning, delivering, and learning from client engagements.</p>
+            <p>Our software for carrying firm-specific experience through scoping, planning, delivery, and review.</p>
           </div>
         </Wrap>
       </Track>
@@ -52,10 +52,10 @@ export default function CompanyPage() {
       <Track name="thesis" id="thesis" className="asg-section asg-thesis">
         <Wrap>
           <div className="asg-section-head">
-            <h2>A firm should be able to use what it has already learned.</h2>
+            <h2>Generic capability is getting cheaper. Firm-specific judgment is not.</h2>
             <div>
-              <p>Most professional firms have years of useful experience spread across proposals, project plans, deliverables, email, time records, billing systems, and the people who led the work.</p>
-              <p>We build software and services that make that experience available while new work is being scoped, planned, staffed, and delivered.</p>
+              <p>Every firm can access increasingly capable AI. What competitors cannot access is your history of solving particular problems: the patterns your people have recognized, the methods they have refined, and the evidence showing when those methods worked.</p>
+              <p>That experience is rarely absent. It is unassembled—distributed across people, proposals, plans, deliverables, conversations, and financial records. We help firms put it back to work.</p>
             </div>
           </div>
         </Wrap>
@@ -64,8 +64,8 @@ export default function CompanyPage() {
       <Track name="product" id="platform" className="asg-section asg-product">
         <Wrap>
           <div className="asg-product-head">
-            <div><Logo /><h2>AllianceOne keeps the engagement connected from pursuit through close-out.</h2></div>
-            <div className="asg-product-summary"><p>AllianceOne is the flagship product of Alliance Systems Group Inc. It maintains the approved scope, plan, staffing, decisions, delivery evidence, and outcomes of an engagement while CRM, PSA, document, and finance systems continue to run the work they own.</p></div>
+            <div><Logo /><h2>AllianceOne turns delivery history into working precedent.</h2></div>
+            <div className="asg-product-summary"><p>AllianceOne connects the conditions a team faced, the choices it made, the reasoning behind them, and what happened next. That record informs new scopes and plans while CRM, PSA, document, and finance systems continue to run the work they own.</p></div>
           </div>
           <a className="asg-product-link" href="/allianceone/">See the AllianceOne product <span aria-hidden="true">↗</span></a>
         </Wrap>
@@ -74,8 +74,8 @@ export default function CompanyPage() {
       <Track name="services" id="services" className="asg-section asg-services">
         <Wrap>
           <div className="asg-section-head">
-            <h2>We help firms put AllianceOne into production.</h2>
-            <div><p>Our services cover the work required to connect the product to your firm, configure it around how your teams operate, and establish the governance needed for live client work.</p></div>
+            <h2>We make the product fit the practice.</h2>
+            <div><p>AllianceOne becomes useful when it reflects how your firm sells, decides, delivers, and reviews work. Our services connect the technology, operating model, and adoption required for live client engagements.</p></div>
           </div>
           <div className="asg-services-list">
             {services.map(([name, body]) => <article key={name}><h3>{name}</h3><p>{body}</p></article>)}
@@ -85,7 +85,7 @@ export default function CompanyPage() {
 
       <Track name="cta" className="asg-cta">
         <Wrap>
-          <h2>Talk with us about your firm.</h2>
+          <h2>Put your firm’s experience to work.</h2>
           <div><p>We are working with a small number of professional-services firms on design partnerships, implementation planning, and early production use.</p><Btn variant="dark" onClick={() => { capture("cta_clicked", { location: "page_cta" }); setModal(true); }}>Discuss a partnership</Btn></div>
         </Wrap>
       </Track>
