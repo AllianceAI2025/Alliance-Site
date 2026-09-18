@@ -84,8 +84,7 @@ export function Nav({ onCta, dark = false }) {
   return <header className={`site-nav${dark ? " site-nav--dark" : ""}`}>
     <Wrap className="nav-inner">
       <a href="/" className="brand-link" aria-label="Alliance Systems Group home">
-        <img className="brand-mark" src={dark ? "/brand/asg/alliance-systems-group-mark-white.png" : "/brand/asg/alliance-systems-group-mark-ink.png"} alt="" aria-hidden="true" />
-        <span className="brand-wordmark"><strong>Alliance</strong><small>Systems Group</small></span>
+        <img className="brand-lockup-image" src={dark ? "/brand/asg/alliance-systems-group-horizontal-white.png" : "/brand/asg/alliance-systems-group-horizontal-ink.png"} alt="Alliance Systems Group" />
       </a>
       <nav className="desktop-nav" aria-label="Main navigation">
         <a href="/">Home</a>
@@ -164,7 +163,7 @@ function StateModel() {
 }
 
 export function Footer({ onCta }) {
-  return <footer className="site-footer"><Wrap><div className="footer-main"><div><a href="/" className="brand-link footer-brand" aria-label="Alliance Systems Group home"><img className="brand-mark" src="/brand/asg/alliance-systems-group-mark-white.png" alt="" aria-hidden="true" /><span className="brand-wordmark"><strong>Alliance</strong><small>Systems Group</small></span></a><p>Operating infrastructure for firms whose advantage depends on expert judgment.</p></div><div className="footer-nav"><div><span>Product</span><a href="/allianceone/">AllianceOne</a><a href="/how-it-works/">How it works</a></div><div><span>Company</span><a href="/">Alliance Systems Group</a><button onClick={() => { capture("cta_clicked", { location: "footer" }); onCta(); }}>Pilot partner program</button><a href="mailto:hello@myalliance.ai">hello@myalliance.ai</a></div></div></div><div className="footer-base"><span>AllianceOne is a product of Alliance Systems Group Inc.</span><span>© 2026 Alliance Systems Group Inc. All rights reserved.</span></div></Wrap></footer>;
+  return <footer className="site-footer"><Wrap><div className="footer-main"><div><a href="/" className="brand-link footer-brand" aria-label="Alliance Systems Group home"><img className="brand-lockup-image" src="/brand/asg/alliance-systems-group-horizontal-white.png" alt="Alliance Systems Group" /></a><p>Operating infrastructure for firms whose advantage depends on expert judgment.</p></div><div className="footer-nav"><div><span>Product</span><a href="/allianceone/">AllianceOne</a><a href="/how-it-works/">How it works</a></div><div><span>Company</span><a href="/">Alliance Systems Group</a><button onClick={() => { capture("cta_clicked", { location: "footer" }); onCta(); }}>Pilot partner program</button><a href="mailto:hello@myalliance.ai">hello@myalliance.ai</a></div></div></div><div className="footer-base"><span>AllianceOne is a product of Alliance Systems Group Inc.</span><span>© 2026 Alliance Systems Group Inc. All rights reserved.</span></div></Wrap></footer>;
 }
 
 export function Modal({ open, onClose }) {
