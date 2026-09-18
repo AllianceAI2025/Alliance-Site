@@ -1785,9 +1785,11 @@ html,body,.asg-page{overflow-anchor:none}
 }
 
 /* Shared corporate navigation and product identity. */
-.brand-link{display:inline-flex;align-items:center;flex:none;color:#07100e;text-decoration:none}
-.brand-lockup-image{display:block;width:154px;height:auto}
-.footer-brand .brand-lockup-image{width:174px}
+.brand-link{display:inline-flex;align-items:center;flex:none;gap:3px;color:#07100e;text-decoration:none}
+.brand-link .brand-mark{display:block;width:52px;height:52px;object-fit:contain}
+.brand-wordmark{display:inline-flex;flex-direction:column;align-items:center;line-height:1;text-transform:uppercase}
+.brand-wordmark strong{font-family:'Bodoni Moda','Bodoni MT',Didot,'Times New Roman',serif;font-size:1.48rem;font-weight:400;letter-spacing:.005em;line-height:.84}
+.brand-wordmark small{margin-top:5px;padding-left:.23em;font-family:'Inter','Helvetica Neue',Arial,sans-serif;font-size:.5rem;font-weight:600;letter-spacing:.23em;line-height:1;white-space:nowrap}
 .site-nav--dark{border-top-color:#86c43d;border-bottom-color:rgba(255,255,255,.14);background:rgba(5,11,9,.94)}
 .site-nav--dark .brand-link{color:#fff}
 .site-nav--dark .desktop-nav a,.site-nav--dark .desktop-nav button{color:rgba(255,255,255,.72)}
@@ -1808,7 +1810,7 @@ html,body,.asg-page{overflow-anchor:none}
 
 
 @media(max-width:760px){
-  .brand-lockup-image{width:144px}.footer-brand .brand-lockup-image{width:164px}
+  .brand-link{gap:2px}.brand-link .brand-mark{width:46px;height:46px}.brand-wordmark strong{font-size:1.32rem}.brand-wordmark small{margin-top:5px;font-size:.45rem}
   .footer-brand{width:auto}
   .pf-product-kicker{margin-bottom:30px}
   .pf-product-kicker .logo-lockup{font-size:1.02rem}
