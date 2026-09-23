@@ -223,9 +223,16 @@ export function Modal({ open, onClose }) {
         capture("partner_form_submitted", { firm: form.firm, role: form.role });
         setStatus("sent");
       }
-      else if (/activat/i.test(message)) setStatus("activate");
-      else setStatus("error");
+      else if (/activat/i.test(message)) {
+        capture("partner_form_failed", { reason: "activation_required" });
+        setStatus("activate");
+      }
+      else {
+        capture("partner_form_failed", { reason: "rejected" });
+        setStatus("error");
+      }
     } catch {
+      capture("partner_form_failed", { reason: "network" });
       setStatus("error");
     }
   };

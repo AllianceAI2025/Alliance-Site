@@ -8,10 +8,11 @@ let started = false;
 export function getPageName() {
   const path = (typeof window === "undefined" ? "" : window.location.pathname).replace(/\/+$/, "") || "/";
   if (path === "/") return "home";
-  if (path.startsWith("/allianceone") || path.startsWith("/platform")) return "allianceone";
+  if (path.startsWith("/allianceone")) return "allianceone";
+  if (path.startsWith("/platform")) return "platform";
   if (path.startsWith("/how-it-works")) return "how_it_works";
   if (path.startsWith("/security")) return "security";
-  if (path.startsWith("/company")) return "home";
+  if (path.startsWith("/company")) return "company";
   return path.replace(/^\//, "") || "home";
 }
 
@@ -25,7 +26,9 @@ export function initAnalytics() {
     autocapture: false,
     capture_pageview: true,
     capture_pageleave: true,
-    disable_session_recording: true,
+    session_recording: {
+      maskAllInputs: true,
+    },
     persistence: "localStorage+cookie",
     loaded: (client) => {
       client.register({ page: getPageName() });
