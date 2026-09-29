@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useFonts, Btn, Logo, Wrap, Nav, Footer, Modal } from "./App.jsx";
+import { useFonts, Head, Btn, Logo, Wrap, Nav, Footer, Modal } from "./App.jsx";
 import { capture, Track } from "./analytics";
 
 const systems = [
@@ -44,20 +44,29 @@ const lifecycle = [
 ];
 
 const comparison = [
-  ["Capability", "Researches, reasons, and generates", "Applies those capabilities to the firm’s governed record"],
-  ["Unit of work", "A conversation, request, or task", "The engagement, from first signal through outcome"],
-  ["Firm context", "Retrieves available information", "Connects people, commitments, decisions, and precedent"],
-  ["Authority", "Interprets the records it receives", "Resolves which source, version, owner, and approval governs"],
-  ["Action", "Produces or writes an artifact", "Moves approved intent into execution and retains the receipt"],
-  ["Improvement", "Improves general model capability", "Tests the firm’s own methods against delivery evidence"],
+  ["Scope", "Reads every version of a proposal", "Knows which version became the contracted scope, and what changed after"],
+  ["Structure", "Summarizes a statement of work", "Represents scope as structured work: workstreams, deliverables, effort, and economics"],
+  ["Delivery", "Queries CRM, PSA, and finance data", "Reconciles what was sold, planned, staffed, billed, and delivered"],
+  ["Conflicts", "Reports what each source says", "Resolves which source governs and treats the discrepancy as evidence"],
+  ["Method", "Drafts a plan from general best practice", "Builds from how your firm actually scopes, staffs, and delivers this kind of work"],
+  ["Action", "Uses tools when asked", "Knows which actions each engagement stage permits and who must approve them"],
+  ["Evidence", "Cites the documents it read", "Keeps lineage behind every material assertion, across versions and years"],
+  ["Learning", "Improves as general models improve", "Tests the firm’s methods against delivery outcomes, on top of model gains"],
+];
+
+const answers = [
+  ["Why not build this on our enterprise AI platform?", "Enterprise AI platforms provide strong building blocks: connectors, agents, memory, and governance. They do not arrive knowing what a professional-services engagement is, how scope becomes staffed work, or which of several conflicting records reflects what was actually delivered. AllianceOne is that professional-services layer, built so the reasoning underneath can come from leading frontier models."],
+  ["Which models does AllianceOne use?", "AllianceOne uses leading frontier models for reasoning, language, and tool use, and it is designed so those models can change as the field moves. Your firm’s knowledge lives in its own governed record, not in any model’s weights, so changing models does not mean starting over."],
+  ["What happens as the models get better?", "AllianceOne gets better with them. Stronger models reason more effectively over the same record of how your firm works. The model supplies the intelligence; AllianceOne supplies what is true about your firm, what matters, what is permitted, and what happened last time."],
 ];
 
 const architecture = [
+  ["Frontier models", "Reasoning, language, tool use; interchangeable as the field moves"],
   ["Practice", "Methods, archetypes, capabilities, evidence health"],
   ["Learning", "Outcomes, variances, end states, calibration"],
   ["Engagement state", "Intent, commitments, plans, decisions"],
   ["Evidence", "Documents, conversations, actuals, attribution"],
-  ["Identity", "Engagements, clients, people, systems"],
+  ["Identity", "The same client, person, and engagement, recognized across every system"],
   ["Source systems", "CRM, PSA, Microsoft 365, ERP, HRIS"],
 ];
 
@@ -77,7 +86,7 @@ export default function PlatformPage() {
           </div>
           <div className="pf-hero-copy">
             <p>AllianceOne turns delivery history into the scope, staffing, workstreams, effort, and deliverables for new client work. It carries the approved plan into the systems your firm already uses, then connects actual delivery and outcomes back to the decisions that shaped it.</p>
-            <strong>Make firm-specific judgment usable in live engagements.</strong>
+            <strong>Frontier models know how to reason. AllianceOne knows how your firm works.</strong>
           </div>
         </div>
       </Wrap>
@@ -87,7 +96,7 @@ export default function PlatformPage() {
       <Wrap>
         <div className="pf-section-head">
           <h2>The evidence behind judgment is already there.</h2>
-          <p>CRM, project tools, documents, conversations, and billing each hold part of the engagement. AllianceOne connects those records without replacing the systems that own them, so a final deliverable is not mistaken for the full story.</p>
+          <p>CRM, project tools, documents, conversations, and billing each hold part of the engagement. AllianceOne connects those records without replacing the systems that own them, so a final deliverable is not mistaken for the full story, and no one has to rediscover the engagement every time they ask about it.</p>
         </div>
         <div className="pf-system-map">
           <div className="pf-system-list">
@@ -95,7 +104,7 @@ export default function PlatformPage() {
           </div>
           <div className="pf-record">
             <h3>Connected engagement record</h3>
-            <p>The context, commitments, decisions, delivery evidence, and outcomes that make prior work usable.</p>
+            <p>A durable, structured account of each engagement, with every material fact tied to its source, version, and evidence.</p>
             <div><span>Approved scope</span><span>Current plan</span><span>Decision history</span><span>Delivered outcome</span></div>
           </div>
         </div>
@@ -106,32 +115,32 @@ export default function PlatformPage() {
       <Wrap>
         <div className="pf-section-head">
           <h2>The model is not the edge.</h2>
-          <p>Frontier models from OpenAI and Anthropic can research, analyze, generate, and act. Every firm can access them. What they do not bring is your history of solving specific problems or the evidence required to know when prior experience should apply.</p>
+          <p>Frontier models from OpenAI, Anthropic, and Google can reason, research, use tools, and act across enterprise systems. Every firm can access them, and AllianceOne uses them too. What they do not maintain by default is a governed account of how your firm works: how it approaches a problem, what it committed, what it actually delivered, and what the evidence later showed.</p>
         </div>
         <div className="pf-comparison">
-          <p className="pf-model-declaration">General AI brings capability. AllianceOne brings your firm’s earned context.</p>
-          <div className="pf-comparison-head"><span /><strong>AI assistant</strong><strong>AllianceOne</strong></div>
-          {comparison.map(([dimension, model, alliance]) => <div className="pf-comparison-row" key={dimension}><strong>{dimension}</strong><p>{model}</p><p>{alliance}</p></div>)}
+          <p className="pf-model-declaration">General-purpose AI brings the intelligence. AllianceOne brings how your firm works.</p>
+          <div className="pf-comparison-head"><span /><strong>General-purpose AI</strong><strong>AllianceOne</strong></div>
+          {comparison.map(([dimension, model, alliance]) => <div className="pf-comparison-row" key={dimension}><strong>{dimension}</strong><p data-label="General-purpose AI">{model}</p><p data-label="AllianceOne">{alliance}</p></div>)}
         </div>
         <div className="pf-model-moat">
-          <h3>Your experience is the part competitors cannot license.</h3>
-          <p>When decisions remain connected to their conditions and outcomes, each completed engagement adds evidence to the firm’s methods, points of view, and ability to deliver with confidence.</p>
+          <h3>Better models make AllianceOne better. Your experience is the part competitors cannot license.</h3>
+          <p>Every improvement in frontier models improves how AllianceOne reasons over your firm’s record. The record itself stays with your firm: when decisions remain connected to their conditions and outcomes, each completed engagement adds evidence to the firm’s methods, points of view, and ability to deliver with confidence.</p>
         </div>
       </Wrap>
     </Track>
 
     <Track name="principle" className="pf-principle">
       <Wrap>
-        <h2>AllianceOne owns intent. Your existing tools own execution.</h2>
+        <h2>AllianceOne is the system of record for how your firm works.</h2>
         <div className="pf-principle-grid">
           <div>
-            <h3>Intent</h3>
-            <p>AllianceOne maintains the accepted scope, approved plan, staffing and effort model, deliverable commitments, assumptions, decision gates, and the rationale for every approved change. That record remains intact from pursuit through close-out.</p>
+            <h3>How the firm works</h3>
+            <p>AllianceOne maintains how your firm thinks, sells, scopes, and delivers: its methods, standards, and precedent; the intent behind every engagement, from accepted scope and approved plan to staffing, commitments, and the rationale for each change; and what the firm has learned from the outcomes. That record remains intact from pursuit through close-out, and from one engagement to the next.</p>
           </div>
           <div className="pf-principle-link" aria-hidden="true"><span /><i /><span /></div>
           <div>
-            <h3>Execution</h3>
-            <p>CRM, PSA, project, document, time, and billing systems continue to manage opportunities, tasks, assignments, files, hours, invoices, and delivery status. AllianceOne writes approved intent into those systems and reads delivery evidence back.</p>
+            <h3>The facts they record</h3>
+            <p>CRM, PSA, project, document, time, and billing systems remain authoritative for the facts they own: opportunities, tasks, assignments, files, hours, invoices, and delivery status. AllianceOne writes approved intent into those systems and reads delivery evidence back.</p>
           </div>
         </div>
         <div className="pf-principle-result">
@@ -187,11 +196,20 @@ export default function PlatformPage() {
         <div className="pf-architecture-grid">
           <div className="pf-section-head pf-section-head--stacked">
           <h2>Evidence before inference.</h2>
-          <p>Source systems retain authority over the records they own. AllianceOne resolves identity and engagement state across them, and only carries a lesson into firm practice when the supporting evidence is known.</p>
+          <p>Frontier models provide the reasoning. AllianceOne provides the institutional layer they reason over. Source systems retain authority over the facts they own; AllianceOne resolves identity and engagement state across them, and only carries a lesson into firm practice when the supporting evidence is known.</p>
           </div>
           <div className="pf-architecture-stack">
-            {architecture.map(([name, body]) => <div key={name}><strong>{name}</strong><span>{body}</span></div>)}
+            {architecture.map(([name, body]) => <div key={name} className={name === "Practice" ? "is-core" : name === "Frontier models" ? "is-model" : undefined}><strong>{name}</strong><span>{body}</span></div>)}
           </div>
+        </div>
+      </Wrap>
+    </Track>
+
+    <Track name="questions" className="section straight-section">
+      <Wrap>
+        <div className="straight-grid">
+          <div><Head light size="quiet">Questions about AI you should ask us.</Head></div>
+          <div className="straight-list">{answers.map(([q, a]) => <article className="straight-item" key={q}><h3>{q}</h3><p>{a}</p></article>)}</div>
         </div>
       </Wrap>
     </Track>

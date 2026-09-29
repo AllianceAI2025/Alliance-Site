@@ -1617,8 +1617,10 @@
 .pf-architecture-stack>div{display:grid;grid-template-columns:.48fr 1fr;gap:30px;padding:20px 0;border-bottom:1px solid var(--pf-line)}
 .pf-architecture-stack strong{font-size:1rem;font-weight:620}
 .pf-architecture-stack span{color:var(--pf-muted);font-size:.78rem;line-height:1.5}
-.pf-architecture-stack>div:first-child{background:#dfe9d8}
-.pf-architecture-stack>div:first-child>*{padding-left:12px}
+.pf-architecture-stack>div.is-core{background:#dfe9d8}
+.pf-architecture-stack>div.is-core>*{padding-left:12px}
+.pf-architecture-stack>div.is-model{border-bottom-style:dashed}
+.pf-architecture-stack>div.is-model strong{color:var(--pf-muted);font-weight:560}
 
 
 
@@ -1665,8 +1667,12 @@
   .pf-lifecycle-list{grid-template-columns:1fr}
   .pf-lifecycle-list article,.pf-lifecycle-list article:nth-child(3n+2),.pf-lifecycle-list article:nth-child(3n+3){min-height:0;padding:26px 0;border-right:0}
   .pf-lifecycle-list p{margin-top:28px}
-  .pf-comparison{overflow-x:auto}
-  .pf-comparison-head,.pf-comparison-row{min-width:680px;grid-template-columns:130px 1fr 1fr}
+  .pf-comparison-head{display:none}
+  .pf-comparison-row{grid-template-columns:1fr;padding:24px 0}
+  .pf-comparison-row>strong{padding:0 0 14px}
+  .pf-comparison-row>p,.pf-comparison-row>p:nth-child(3){padding:0;border-left:0}
+  .pf-comparison-row>p:nth-child(3){margin-top:12px;padding-left:14px;border-left:2px solid #86c43d}
+  .pf-comparison-row>p:before{content:attr(data-label);display:block;margin-bottom:4px;color:rgba(242,243,238,.45);font-size:.62rem;font-weight:650;letter-spacing:.06em;text-transform:uppercase}
   .pf-architecture-grid{gap:58px}
   .pf-architecture-stack>div{grid-template-columns:1fr;gap:7px}
   

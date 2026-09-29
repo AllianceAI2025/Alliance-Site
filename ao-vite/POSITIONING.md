@@ -1,5 +1,62 @@
 # AllianceOne — Positioning & Language Registers
 
+## The foundation-model thesis (canonical — every page must agree with this)
+
+Frontier models (OpenAI, Anthropic, Google) now reason, use tools, act across
+enterprise systems, and ship with connectors, memory, and governance. We do not
+argue that our AI is smarter, or that general AI "can't" read documents or use
+systems. It can.
+
+**One-liner:** *Frontier models know how to reason. AllianceOne knows how your
+firm works.*
+
+**Ownership statement (use this, not variants):** AllianceOne is the **system of
+record for how your firm works**: how it thinks, sells, scopes, and delivers.
+That covers three things, always in this order:
+1. **Practice** — the firm's methods, standards, and precedent (how it thinks
+   and delivers).
+2. **Engagement intent** — accepted scope, approved plan, staffing, commitments,
+   decisions, and the rationale for every change.
+3. **Learning** — what the firm learned from outcomes, tied to evidence.
+
+**Source systems** (CRM, PSA, project, documents, time, billing) remain
+**authoritative for the facts they own**: opportunities, tasks, assignments,
+files, hours, invoices, delivery status. AllianceOne writes approved intent into
+them and reads delivery evidence back. Never say AllianceOne "owns execution
+data" or "replaces" those systems; never reduce what AllianceOne owns to
+"intent" or "engagement state" alone.
+
+**Model stance:** AllianceOne uses leading frontier models and is designed so
+the model can change as the field does. The firm's knowledge lives in its own
+governed record, not in model weights. **Better models make AllianceOne
+better** — model improvement is a tailwind, not a threat. (Diligence note:
+confirm the product's model-swapping capability before making stronger claims
+than "designed so the model can change.")
+
+**Three layers (technical / investor register; the site uses it lightly):**
+1. *Frontier intelligence* — reasoning, language, tool use, agentic execution.
+2. *Institutional intelligence* (the IP) — professional-services ontology,
+   reconstruction of what actually happened from conflicting sources, evidence
+   lineage, temporal state (proposed → contracted → planned → changed →
+   delivered → billed → learned), entity resolution, firm operating patterns,
+   outcome-based evaluation.
+3. *System of action* — scope → plan → materialize → execute → reconcile →
+   learn, with humans approving.
+
+**Competitive comparison — lead with rows that need professional-services
+semantics + reconciliation + time** (which proposal version became contracted
+scope; what was sold vs. planned vs. billed vs. delivered; which source governs
+a conflict; which actions each engagement stage permits). Avoid rows a
+horizontal platform can plausibly claim (generic memory, generic citations).
+Compare against "general-purpose AI," not a strawman chatbot.
+
+**"Why not build it on our AI platform?"** Platforms provide the primitives
+(connectors, agents, memory, governance). AllianceOne is the professional-services
+implementation of them. (Investor analogy, not site copy: PostgreSQL is not
+Salesforce's competitor; someone building a vertical product on it is.)
+
+---
+
 ## The spine (the one idea everything flows from)
 
 Consulting is the craft of applying proven frameworks to specific problems.
@@ -70,9 +127,11 @@ Hook: *We don't train a model on your firm. We build a living model OF your
 firm — every fact, decision, and nuance connected, and put to work in the hands
 of the people who built it.*
 
-Competitive line: general models **retrieve** from everything; AllianceOne
-**accumulates** from your firm. We use models too — to reason over your firm's
-history. The history is the difference, and it's the one thing no model brings.
+Competitive line: *Frontier models know how to reason. AllianceOne knows how
+your firm works.* General models **retrieve** from everything; AllianceOne
+**accumulates** a governed record of how your firm works. We use frontier models
+too, and they make AllianceOne better as they improve. The record is the
+difference, and it's the one thing no model brings.
 
 ---
 
@@ -108,8 +167,16 @@ Today: a neuro-symbolic platform (graph + embeddings + grounded LLM inference)
 that already exhibits learning behavior. Trajectory as engagement volume grows:
 embed graph nodes for structural similarity, learn edge weights that predict
 engagement success, trainable prediction heads on the causal-inference layer.
-The moat compounds: every completed engagement deepens a firm-specific model a
-competitor with a generic foundation model cannot replicate. Honesty gate:
+The moat is **durable structured institutional state**: every completed
+engagement deepens a governed, evidence-backed record of how the firm works.
+The realistic threat is not GPT-N itself but a competitor assembling frontier
+models + agent infrastructure + enterprise connectors into a
+professional-services product, so the race is to establish the
+professional-services domain layer (ontology, reconstruction, evidence graph,
+temporal engagement model, outcome-based evals) first. Answer to "what happens
+when GPT-7 can do this?": GPT-7 makes AllianceOne better; it does not replace
+the layer that tells it what is true about the firm, what matters, what is
+permitted, and what happened last time. Honesty gate:
 present the GNN trajectory as roadmap, gated on volume — not present capability.
 
 ---

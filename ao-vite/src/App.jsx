@@ -91,12 +91,13 @@ export function Nav({ onCta, dark = false }) {
         <a href="/">Home</a>
         <a href="/allianceone/">AllianceOne</a>
         <a href="/how-it-works/">How it works</a>
+        <a href="/security/">Security</a>
         <button onClick={() => { capture("cta_clicked", { location: "nav" }); onCta(); }}>Become a pilot partner</button>
       </nav>
       <button className="nav-menu" onClick={() => setOpen(!open)} aria-expanded={open} aria-label="Toggle menu"><span /><span /></button>
     </Wrap>
     {open && <div className="mobile-nav">
-      <a href="/" onClick={() => setOpen(false)}>Home</a><a href="/allianceone/" onClick={() => setOpen(false)}>AllianceOne</a><a href="/how-it-works/" onClick={() => setOpen(false)}>How it works</a>
+      <a href="/" onClick={() => setOpen(false)}>Home</a><a href="/allianceone/" onClick={() => setOpen(false)}>AllianceOne</a><a href="/how-it-works/" onClick={() => setOpen(false)}>How it works</a><a href="/security/" onClick={() => setOpen(false)}>Security</a>
       <button onClick={() => { setOpen(false); capture("cta_clicked", { location: "nav_mobile" }); onCta(); }}>Become a pilot partner</button>
     </div>}
   </header>;
@@ -109,7 +110,7 @@ function Hero() {
         <div className="hero-copy">
           <div className="product-kicker"><Logo light /></div>
           <h1>Carry judgment from the first client signal to the next engagement.</h1>
-          <p>AllianceOne connects what was understood, promised, decided, delivered, and learned across the engagement lifecycle. Each phase gives the next team better context without taking decisions out of people’s hands.</p>
+          <p>AllianceOne connects what was understood, promised, decided, delivered, and learned across the engagement lifecycle, and keeps it as a durable record of how your firm works. Each phase gives the next team better context without taking decisions out of people’s hands.</p>
         </div>
       </div>
     </Wrap>
@@ -119,7 +120,7 @@ function Hero() {
 function IntentStatement() {
   return <Track name="intent" className="section intent-statement">
     <Wrap>
-      <div className="intent-copy"><h2>Execution systems record activity.<br />AllianceOne preserves what it means.</h2><p>CRM knows the opportunity. Project management knows the task status. Billing knows the actuals. Documents and conversations hold the reasoning. AllianceOne connects those records to the approved plan and preserves why that plan changed.</p></div>
+      <div className="intent-copy"><h2>Source systems record the facts.<br />AllianceOne records how your firm works.</h2><p>CRM knows the opportunity. Project management knows the task status. Billing knows the actuals. Documents and conversations hold the reasoning. Each stays authoritative for what it owns. AllianceOne connects those records to the firm’s methods and the approved plan, preserves why that plan changed, and keeps what the firm learned. Frontier models reason over that record; they do not have to rediscover the engagement every time someone asks.</p></div>
     </Wrap>
   </Track>;
 }
@@ -153,18 +154,18 @@ function Loop() {
 function StateModel() {
   const states = [
     ["Intent", "What the firm plans and why"], ["Commitment", "What the client accepted"], ["Execution", "What the systems report"],
-    ["Decision", "What changed, who changed it, and why"], ["Outcome", "What was delivered and achieved"], ["Practice", "What the firm carries forward"],
+    ["Decision", "What changed, who changed it, and why"], ["Outcome", "What was delivered and achieved"], ["Practice", "How the firm thinks and delivers, and what it carries forward"],
   ];
   return <Track name="state_model" className="section state-section">
     <Wrap>
-      <div className="state-heading"><Head light>The engagement becomes more than a collection of records.</Head><p>AllianceOne maintains six connected forms of state across the lifecycle. Together they show what the team intended, what changed, what happened, and what the firm can responsibly carry forward.</p></div>
+      <div className="state-heading"><Head light>The engagement becomes more than a collection of records.</Head><p>AllianceOne maintains six connected forms of state across the lifecycle, each tied to its sources and version history. Together they show what the team intended, what changed, what happened, and what the firm can responsibly carry forward into how it works next time.</p></div>
       <div className="state-table">{states.map(([name, desc]) => <div key={name}><strong>{name}</strong><p>{desc}</p><i /></div>)}</div>
     </Wrap>
   </Track>;
 }
 
 export function Footer({ onCta }) {
-  return <footer className="site-footer"><Wrap><div className="footer-main"><div><a href="/" className="brand-link footer-brand" aria-label="Alliance Systems Group home"><img className="brand-mark" src="/brand/asg/alliance-systems-group-mark-white.png" alt="" aria-hidden="true" /><span className="brand-wordmark"><strong>Alliance</strong><small>Systems Group</small></span></a><p>Operating infrastructure for firms whose advantage depends on expert judgment.</p></div><div className="footer-nav"><div><span>Product</span><a href="/allianceone/">AllianceOne</a><a href="/how-it-works/">How it works</a></div><div><span>Company</span><a href="/">Alliance Systems Group</a><button onClick={() => { capture("cta_clicked", { location: "footer" }); onCta(); }}>Pilot partner program</button><a href="mailto:hello@myalliance.ai">hello@myalliance.ai</a></div></div></div><div className="footer-base"><span>AllianceOne is a product of Alliance Systems Group Inc.</span><span>© 2026 Alliance Systems Group Inc. All rights reserved.</span></div></Wrap></footer>;
+  return <footer className="site-footer"><Wrap><div className="footer-main"><div><a href="/" className="brand-link footer-brand" aria-label="Alliance Systems Group home"><img className="brand-mark" src="/brand/asg/alliance-systems-group-mark-white.png" alt="" aria-hidden="true" /><span className="brand-wordmark"><strong>Alliance</strong><small>Systems Group</small></span></a><p>Operating infrastructure for firms whose advantage depends on expert judgment.</p></div><div className="footer-nav"><div><span>Product</span><a href="/allianceone/">AllianceOne</a><a href="/how-it-works/">How it works</a><a href="/security/">Security</a></div><div><span>Company</span><a href="/">Alliance Systems Group</a><button onClick={() => { capture("cta_clicked", { location: "footer" }); onCta(); }}>Pilot partner program</button><a href="mailto:hello@myalliance.ai">hello@myalliance.ai</a></div></div></div><div className="footer-base"><span>AllianceOne is a product of Alliance Systems Group Inc.</span><span>© 2026 Alliance Systems Group Inc. All rights reserved.</span></div></Wrap></footer>;
 }
 
 export function Modal({ open, onClose }) {

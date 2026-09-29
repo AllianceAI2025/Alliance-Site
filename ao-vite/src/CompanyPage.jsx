@@ -35,7 +35,7 @@ export default function CompanyPage() {
         <Wrap>
           <div className="asg-hero-copy">
             <h1>Turn what your firm has learned into how it works.</h1>
-            <p>Alliance Systems Group builds software and services for consulting and advisory firms. We help make accumulated delivery experience usable in live work without replacing professional judgment or the systems your teams already use.</p>
+            <p>Alliance Systems Group builds software and services for consulting and advisory firms. We turn accumulated delivery experience into a living, governed account of how your firm works, and put it to use in live engagements without replacing professional judgment or the systems your teams already use.</p>
             <div className="asg-hero-actions">
               <a href="/allianceone/">View AllianceOne <span aria-hidden="true">↗</span></a>
               <button onClick={() => { capture("cta_clicked", { location: "hero" }); setModal(true); }}>Talk with us <span aria-hidden="true">↗</span></button>
@@ -44,7 +44,7 @@ export default function CompanyPage() {
           <div className="asg-hero-statement">
             <strong>Flagship product</strong>
             <Logo light />
-            <p>Our software for carrying firm-specific experience through scoping, planning, delivery, and review.</p>
+            <p>The system of record for how your firm works, from the first client signal through delivery, review, and the next engagement.</p>
           </div>
         </Wrap>
       </Track>
@@ -52,10 +52,10 @@ export default function CompanyPage() {
       <Track name="thesis" id="thesis" className="asg-section asg-thesis">
         <Wrap>
           <div className="asg-section-head">
-            <h2>Generic capability is getting cheaper. Firm-specific judgment is not.</h2>
+            <h2>Frontier models know how to reason. Your advantage is how your firm works.</h2>
             <div>
-              <p>Every firm can access increasingly capable AI. What competitors cannot access is your history of solving particular problems: the patterns your people have recognized, the methods they have refined, and the evidence showing when those methods worked.</p>
-              <p>That experience is rarely absent. It is unassembled and distributed across people, proposals, plans, deliverables, conversations, and financial records. We help firms put it back to work.</p>
+              <p>Every firm can access increasingly capable AI, and each new model makes that intelligence cheaper and more powerful. We build on those models rather than against them. What no model brings is your firm’s history of solving particular problems: the patterns your people have recognized, the methods they have refined, and the evidence showing when those methods worked.</p>
+              <p>That experience is rarely absent. It is unassembled and distributed across people, proposals, plans, deliverables, conversations, and financial records. We help firms assemble it into a durable account of how they work, then put it back to work, so every improvement in the models makes the firm’s own experience more useful.</p>
             </div>
           </div>
         </Wrap>
@@ -64,8 +64,8 @@ export default function CompanyPage() {
       <Track name="product" id="platform" className="asg-section asg-product">
         <Wrap>
           <div className="asg-product-head">
-            <div><Logo /><h2>AllianceOne turns delivery history into working precedent.</h2></div>
-            <div className="asg-product-summary"><p>AllianceOne connects the conditions a team faced, the choices it made, the reasoning behind them, and what happened next. That record informs new scopes and plans while CRM, PSA, document, and finance systems continue to run the work they own.</p></div>
+            <div><Logo /><h2>AllianceOne is the system of record for how your firm works.</h2></div>
+            <div className="asg-product-summary"><p>AllianceOne maintains how your firm thinks, sells, scopes, and delivers: its methods and precedent, the intent behind every engagement, and what the firm has learned from the outcomes. That record informs new scopes and plans, using leading frontier models, while CRM, PSA, document, and finance systems remain authoritative for the facts they own.</p></div>
           </div>
           <a className="asg-product-link" href="/allianceone/">See the AllianceOne product <span aria-hidden="true">↗</span></a>
         </Wrap>
