@@ -26,14 +26,41 @@ them and reads delivery evidence back. Never say AllianceOne "owns execution
 data" or "replaces" those systems; never reduce what AllianceOne owns to
 "intent" or "engagement state" alone.
 
-**Model stance:** AllianceOne uses leading frontier models and is designed so
-the model can change as the field does. The firm's knowledge lives in its own
-governed record, not in model weights. **Better models make AllianceOne
-better** — model improvement is a tailwind, not a threat. (Diligence note:
-confirm the product's model-swapping capability before making stronger claims
-than "designed so the model can change.")
+**Model stance (matches the investor business case, §7.5):** AllianceOne runs
+on leading frontier models, and every model change is evaluated against real
+engagement work before it reaches a customer. Model choice can evolve with
+quality, cost, and customer requirements. The firm's knowledge lives in its own
+governed record, not in model weights. Do NOT claim that model improvements
+automatically make AllianceOne better, and do not call models
+"interchangeable." Avoid the phrase "better ones."
 
-**Three layers (technical / investor register; the site uses it lightly):**
+**Platform question (business case §7.5):** a firm *could* build this on a
+frontier platform; AllianceOne is designed to make buying the better choice
+(maintained engagement model, configured methods, approval rules, tested PSA
+mappings, accountable team). Never claim competitors can't build it.
+
+**Status:** say we are looking for design partners. Do not describe the product
+stage (e.g., "in development with design partners") on the site. Use "design
+partner," never "pilot partner."
+
+**Controlled vocabulary (from the business case):** *firm knowledge* (methods,
+IP, practitioner judgment, engagement history), *engagement record* (proposed,
+approved, changed, delivered, learned), *approved baseline*. Avoid synonyms
+such as "governed account," "durable record," or "living model" on the site.
+
+**Value props (business case §6.5, in this order):** scope with less rework;
+hand off cleanly to delivery; act sooner on variance. Theme line: "Better
+engagement economics. Stronger evidence of value."
+
+**One job per page, one home per claim:**
+- Home: who we are; one-liner appears once (hero card). ~250 words.
+- AllianceOne: value props, loop summary, frontier-AI comparison + build vs.
+  buy, and the full ownership statement (the only place it appears). ~700 words.
+- How it works: the six-step loop and demos.
+- Security: evidence, lineage, permissions, source authority.
+Don't restate the ownership statement or model stance on other pages.
+
+**Three layers (investor narrative only; not on the site):**
 1. *Frontier intelligence* — reasoning, language, tool use, agentic execution.
 2. *Institutional intelligence* (the IP) — professional-services ontology,
    reconstruction of what actually happened from conflicting sources, evidence
@@ -129,9 +156,8 @@ of the people who built it.*
 
 Competitive line: *Frontier models know how to reason. AllianceOne knows how
 your firm works.* General models **retrieve** from everything; AllianceOne
-**accumulates** a governed record of how your firm works. We use frontier models
-too, and they make AllianceOne better as they improve. The record is the
-difference, and it's the one thing no model brings.
+**accumulates** your firm knowledge and engagement record. We use frontier
+models too; the record is the difference.
 
 ---
 
@@ -173,10 +199,11 @@ The realistic threat is not GPT-N itself but a competitor assembling frontier
 models + agent infrastructure + enterprise connectors into a
 professional-services product, so the race is to establish the
 professional-services domain layer (ontology, reconstruction, evidence graph,
-temporal engagement model, outcome-based evals) first. Answer to "what happens
-when GPT-7 can do this?": GPT-7 makes AllianceOne better; it does not replace
-the layer that tells it what is true about the firm, what matters, what is
-permitted, and what happened last time. Honesty gate:
+temporal engagement model, outcome-based evals) first. Answer to "what happens when GPT-7 can do this?": we adopt stronger models
+once they pass our domain evaluations; the model does not replace the layer
+that establishes what is true about the firm, what is permitted, and what
+happened last time. (Business case §7.6: the case rests on execution and
+customer preference, not technical impossibility elsewhere.) Honesty gate:
 present the GNN trajectory as roadmap, gated on volume — not present capability.
 
 ---
