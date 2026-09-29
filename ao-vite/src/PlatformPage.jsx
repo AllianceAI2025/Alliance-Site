@@ -115,7 +115,7 @@ export default function PlatformPage() {
         </div>
         <div className="pf-model-moat">
           <h3>Your experience is the part competitors cannot license.</h3>
-          <p>When decisions remain connected to their conditions and outcomes, each completed engagement adds evidence to the firm’s methods, points of view, and ability to deliver with confidence. AllianceOne runs on leading frontier models, and every model change is evaluated against real engagement work before it reaches your practice.</p>
+          <p>When decisions remain connected to their conditions and outcomes, each completed engagement adds evidence to the firm’s methods, points of view, and ability to deliver with confidence.</p>
         </div>
       </Wrap>
     </Track>
@@ -212,8 +212,8 @@ export default function PlatformPage() {
         <h2>We are looking for a small number of design partners.</h2>
         <div className="pf-cta-detail">
           <div className="pf-cta-copy">
-            <p>The design partnership is for consulting and advisory firms ready to test AllianceOne against one defined, live operating workflow. We will configure the product around your methods, connect the relevant systems, and agree on success criteria before the partnership begins.</p>
-            <p>Prove where AllianceOne improves scoping, delivery control, or the firm’s ability to reuse what it has learned. Then decide together whether to expand.</p>
+            <p>We’re inviting a few consulting and advisory firms to prove AllianceOne on one real workflow, with success defined together at the start.</p>
+            <p>We configure AllianceOne around your methods and connect the systems involved.</p>
           </div>
           <Btn variant="dark" onClick={() => { capture("cta_clicked", { location: "page_cta" }); open(); }}>Discuss a design partnership</Btn>
         </div>

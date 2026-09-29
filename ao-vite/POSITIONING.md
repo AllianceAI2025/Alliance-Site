@@ -8,10 +8,12 @@
   its methods, standards, and precedent, plus the engagement's accepted scope,
   approved plan, and the rationale for every change. CRM, PSA, document, and
   finance systems remain authoritative for the facts they own.
-- **Models:** AllianceOne uses leading frontier models (OpenAI, Anthropic,
-  Google), and every model change is evaluated against real engagement work
-  before it reaches a customer. Don't claim model improvements automatically
-  make AllianceOne better, and don't claim competitors can't build it.
+- **Models:** AllianceOne uses frontier models (OpenAI, Anthropic, Google).
+  Don't claim how model changes are evaluated or released, don't claim model
+  improvements automatically make AllianceOne better, and don't claim
+  competitors can't build it.
+- **Calls to action:** invite partnership; don't say "decide whether to
+  expand" or similar.
 - **Naming:** "design partner," never "pilot partner." Don't describe the
   product's stage beyond "we are looking for design partners."
 - **Vocabulary:** prefer the business case's terms: *firm knowledge*,
