@@ -1,5 +1,24 @@
 # AllianceOne — Positioning & Language Registers
 
+## Current rules (align with the investor business case)
+
+- **One-liner:** *Frontier models know how to reason. AllianceOne knows how
+  your firm works.*
+- **Ownership:** AllianceOne is the system of record for how your firm works:
+  its methods, standards, and precedent, plus the engagement's accepted scope,
+  approved plan, and the rationale for every change. CRM, PSA, document, and
+  finance systems remain authoritative for the facts they own.
+- **Models:** AllianceOne uses frontier models (OpenAI, Anthropic, Google).
+  Don't claim how model changes are evaluated or released, don't claim model
+  improvements automatically make AllianceOne better, and don't claim
+  competitors can't build it.
+- **Calls to action:** invite partnership; don't say "decide whether to
+  expand" or similar.
+- **Naming:** "design partner," never "pilot partner." Don't describe the
+  product's stage beyond "we are looking for design partners."
+- **Vocabulary:** prefer the business case's terms: *firm knowledge*,
+  *engagement record*, *approved baseline*.
+
 ## The spine (the one idea everything flows from)
 
 Consulting is the craft of applying proven frameworks to specific problems.
