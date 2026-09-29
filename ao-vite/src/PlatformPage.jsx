@@ -106,32 +106,32 @@ export default function PlatformPage() {
       <Wrap>
         <div className="pf-section-head">
           <h2>The model is not the edge.</h2>
-          <p>Frontier models from OpenAI and Anthropic can research, analyze, generate, and act. Every firm can access them. What they do not bring is your history of solving specific problems or the evidence required to know when prior experience should apply.</p>
+          <p>Frontier models from OpenAI, Anthropic, and Google can research, analyze, generate, and act. Every firm can access them, and AllianceOne uses them too. What they do not bring is your history of solving specific problems or the evidence required to know when prior experience should apply.</p>
         </div>
         <div className="pf-comparison">
-          <p className="pf-model-declaration">General AI brings capability. AllianceOne brings your firm’s earned context.</p>
-          <div className="pf-comparison-head"><span /><strong>AI assistant</strong><strong>AllianceOne</strong></div>
-          {comparison.map(([dimension, model, alliance]) => <div className="pf-comparison-row" key={dimension}><strong>{dimension}</strong><p>{model}</p><p>{alliance}</p></div>)}
+          <p className="pf-model-declaration">Frontier models know how to reason. AllianceOne knows how your firm works.</p>
+          <div className="pf-comparison-head"><span /><strong>General-purpose AI</strong><strong>AllianceOne</strong></div>
+          {comparison.map(([dimension, model, alliance]) => <div className="pf-comparison-row" key={dimension}><strong>{dimension}</strong><p data-label="General-purpose AI">{model}</p><p data-label="AllianceOne">{alliance}</p></div>)}
         </div>
         <div className="pf-model-moat">
           <h3>Your experience is the part competitors cannot license.</h3>
-          <p>When decisions remain connected to their conditions and outcomes, each completed engagement adds evidence to the firm’s methods, points of view, and ability to deliver with confidence.</p>
+          <p>When decisions remain connected to their conditions and outcomes, each completed engagement adds evidence to the firm’s methods, points of view, and ability to deliver with confidence. AllianceOne runs on leading frontier models, and every model change is evaluated against real engagement work before it reaches your practice.</p>
         </div>
       </Wrap>
     </Track>
 
     <Track name="principle" className="pf-principle">
       <Wrap>
-        <h2>AllianceOne owns intent. Your existing tools own execution.</h2>
+        <h2>AllianceOne is the system of record for how your firm works.</h2>
         <div className="pf-principle-grid">
           <div>
-            <h3>Intent</h3>
-            <p>AllianceOne maintains the accepted scope, approved plan, staffing and effort model, deliverable commitments, assumptions, decision gates, and the rationale for every approved change. That record remains intact from pursuit through close-out.</p>
+            <h3>How the firm works</h3>
+            <p>AllianceOne maintains how your firm thinks and delivers: its methods, standards, and precedent. It also holds the accepted scope, approved plan, staffing and effort model, deliverable commitments, assumptions, decision gates, and the rationale for every approved change. That record remains intact from pursuit through close-out.</p>
           </div>
           <div className="pf-principle-link" aria-hidden="true"><span /><i /><span /></div>
           <div>
             <h3>Execution</h3>
-            <p>CRM, PSA, project, document, time, and billing systems continue to manage opportunities, tasks, assignments, files, hours, invoices, and delivery status. AllianceOne writes approved intent into those systems and reads delivery evidence back.</p>
+            <p>CRM, PSA, project, document, time, and billing systems remain authoritative for the facts they own: opportunities, tasks, assignments, files, hours, invoices, and delivery status. AllianceOne writes approved intent into those systems and reads delivery evidence back.</p>
           </div>
         </div>
         <div className="pf-principle-result">
@@ -209,13 +209,13 @@ export default function PlatformPage() {
 
     <Track name="cta" className="pf-cta">
       <Wrap>
-        <h2>We are looking for a small number of pilot partners.</h2>
+        <h2>We are looking for a small number of design partners.</h2>
         <div className="pf-cta-detail">
           <div className="pf-cta-copy">
-            <p>The pilot is for consulting and advisory firms ready to test AllianceOne against one defined, live operating workflow. We will configure the product around your methods, connect the relevant systems, and agree on success criteria before the pilot begins.</p>
+            <p>The design partnership is for consulting and advisory firms ready to test AllianceOne against one defined, live operating workflow. We will configure the product around your methods, connect the relevant systems, and agree on success criteria before the partnership begins.</p>
             <p>Prove where AllianceOne improves scoping, delivery control, or the firm’s ability to reuse what it has learned. Then decide together whether to expand.</p>
           </div>
-          <Btn variant="dark" onClick={() => { capture("cta_clicked", { location: "page_cta" }); open(); }}>Discuss a pilot</Btn>
+          <Btn variant="dark" onClick={() => { capture("cta_clicked", { location: "page_cta" }); open(); }}>Discuss a design partnership</Btn>
         </div>
       </Wrap>
     </Track>
