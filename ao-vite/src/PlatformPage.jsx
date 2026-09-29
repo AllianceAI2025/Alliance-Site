@@ -45,10 +45,10 @@ const lifecycle = [
 
 const comparison = [
   ["Capability", "Researches, reasons, and generates", "Applies those capabilities to the firm’s governed record"],
-  ["Unit of work", "A conversation, request, or task", "The engagement, from first signal through outcome"],
-  ["Firm context", "Retrieves available information", "Connects people, commitments, decisions, and precedent"],
+  ["Unit of work", "A request, task, or multi-step workflow", "The engagement, from first signal through outcome"],
+  ["Firm context", "Searches and reasons across connected company data", "Connects people, commitments, decisions, and precedent to the engagement they shaped"],
   ["Authority", "Interprets the records it receives", "Resolves which source, version, owner, and approval governs"],
-  ["Action", "Produces or writes an artifact", "Moves approved intent into execution and retains the receipt"],
+  ["Action", "Takes actions across tools and systems", "Moves only approved intent into execution and retains the receipt"],
   ["Improvement", "Improves general model capability", "Tests the firm’s own methods against delivery evidence"],
 ];
 
@@ -106,7 +106,7 @@ export default function PlatformPage() {
       <Wrap>
         <div className="pf-section-head">
           <h2>The model is not the edge.</h2>
-          <p>Frontier models from OpenAI, Anthropic, and Google can research, analyze, generate, and act. Every firm can access them, and AllianceOne uses them too. What they do not bring is your history of solving specific problems or the evidence required to know when prior experience should apply.</p>
+          <p>Frontier models from OpenAI, Anthropic, and Google can research, analyze, generate, and act. Every firm can access them. What they do not bring is your history of solving specific problems or the evidence required to know when prior experience should apply.</p>
         </div>
         <div className="pf-comparison">
           <p className="pf-model-declaration">Frontier models know how to reason. AllianceOne knows how your firm works.</p>
