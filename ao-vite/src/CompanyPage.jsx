@@ -3,10 +3,10 @@ import { Btn, Footer, Logo, Modal, Nav, Wrap, useFonts } from "./App.jsx";
 import { capture, Track } from "./analytics";
 
 const services = [
-  ["Systems integration", "Connect AllianceOne to your CRM, PSA, document, and finance systems."],
-  ["Practice configuration", "Shape engagement types, methods, and review standards around how your practitioners work."],
-  ["Workflow design", "Define how pursuits become approved plans and how decisions carry into delivery."],
-  ["Adoption and governance", "Set approval rights and evidence standards, and support the first live engagements."],
+  ["Systems integration", "Connect AllianceOne to CRM, PSA, project, document, communication, and finance systems. Define what each system owns and how approved plans and delivery evidence move between them."],
+  ["Practice configuration", "Shape engagement types, methods, templates, review standards, and comparable-work criteria around the way your practitioners actually work."],
+  ["Workflow design", "Define how pursuits become scopes, scopes become approved plans, and material decisions are reviewed, carried into delivery, and retained."],
+  ["Adoption and governance", "Establish approval rights, evidence standards, operating controls, and team practices, then support adoption through the first live engagements."],
 ];
 
 export default function CompanyPage() {
@@ -35,7 +35,7 @@ export default function CompanyPage() {
         <Wrap>
           <div className="asg-hero-copy">
             <h1>Turn what your firm has learned into how it works.</h1>
-            <p>Alliance Systems Group builds software and services that put a consulting or advisory firm’s own experience to work in every engagement.</p>
+            <p>Alliance Systems Group builds software and services for consulting and advisory firms. We help make accumulated delivery experience usable in live work without replacing professional judgment or the systems your teams already use.</p>
             <div className="asg-hero-actions">
               <a href="/allianceone/">View AllianceOne <span aria-hidden="true">↗</span></a>
               <button onClick={() => { capture("cta_clicked", { location: "hero" }); setModal(true); }}>Talk with us <span aria-hidden="true">↗</span></button>
@@ -44,7 +44,7 @@ export default function CompanyPage() {
           <div className="asg-hero-statement">
             <strong>Flagship product</strong>
             <Logo light />
-            <p>Frontier models know how to reason. AllianceOne knows how your firm works.</p>
+            <p>Our software for carrying firm-specific experience through scoping, planning, delivery, and review.</p>
           </div>
         </Wrap>
       </Track>
@@ -52,9 +52,10 @@ export default function CompanyPage() {
       <Track name="thesis" id="thesis" className="asg-section asg-thesis">
         <Wrap>
           <div className="asg-section-head">
-            <h2>Every firm has access to the same AI. Only yours has your experience.</h2>
+            <h2>Generic capability is getting cheaper. Firm-specific judgment is not.</h2>
             <div>
-              <p>That experience is rarely missing. It is spread across people, proposals, plans, deliverables, and financial records. We bring it to the point of work, using leading frontier models, without replacing professional judgment or the systems your teams already use.</p>
+              <p>Every firm can access increasingly capable AI. What competitors cannot access is your history of solving particular problems: the patterns your people have recognized, the methods they have refined, and the evidence showing when those methods worked.</p>
+              <p>That experience is rarely absent. It is unassembled and distributed across people, proposals, plans, deliverables, conversations, and financial records. We help firms put it back to work.</p>
             </div>
           </div>
         </Wrap>
@@ -63,8 +64,8 @@ export default function CompanyPage() {
       <Track name="product" id="platform" className="asg-section asg-product">
         <Wrap>
           <div className="asg-product-head">
-            <div><Logo /><h2>AllianceOne connects firm knowledge to every engagement.</h2></div>
-            <div className="asg-product-summary"><p>It grounds scopes and plans in your firm’s methods and precedent, carries the approved plan into the systems that run the work, and connects what was delivered back to what was committed.</p></div>
+            <div><Logo /><h2>AllianceOne turns delivery history into working precedent.</h2></div>
+            <div className="asg-product-summary"><p>AllianceOne connects the conditions a team faced, the choices it made, the reasoning behind them, and what happened next. That record informs new scopes and plans while CRM, PSA, document, and finance systems continue to run the work they own.</p></div>
           </div>
           <a className="asg-product-link" href="/allianceone/">See the AllianceOne product <span aria-hidden="true">↗</span></a>
         </Wrap>
@@ -74,7 +75,7 @@ export default function CompanyPage() {
         <Wrap>
           <div className="asg-section-head">
             <h2>We make the product fit the practice.</h2>
-            <div><p>AllianceOne is useful when it reflects how your firm sells, decides, and delivers. Our services close that gap.</p></div>
+            <div><p>AllianceOne becomes useful when it reflects how your firm sells, decides, delivers, and reviews work. Our services connect the technology, operating model, and adoption required for live client engagements.</p></div>
           </div>
           <div className="asg-services-list">
             {services.map(([name, body]) => <article key={name}><h3>{name}</h3><p>{body}</p></article>)}
@@ -84,8 +85,8 @@ export default function CompanyPage() {
 
       <Track name="cta" className="asg-cta">
         <Wrap>
-          <h2>We are looking for a small number of design partners.</h2>
-          <div><p>For consulting and advisory firms ready to prove AllianceOne on one live workflow, with success criteria agreed before we begin.</p><Btn variant="dark" onClick={() => { capture("cta_clicked", { location: "page_cta" }); setModal(true); }}>Discuss a design partnership</Btn></div>
+          <h2>We are looking for a small number of pilot partners.</h2>
+          <div><p>We are inviting consulting and advisory firms to test AllianceOne against one defined workflow, with a shared set of success criteria and a clear decision about whether to expand.</p><Btn variant="dark" onClick={() => { capture("cta_clicked", { location: "page_cta" }); setModal(true); }}>Discuss a pilot</Btn></div>
         </Wrap>
       </Track>
     </main>

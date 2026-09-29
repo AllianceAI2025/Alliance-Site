@@ -91,14 +91,13 @@ export function Nav({ onCta, dark = false }) {
         <a href="/">Home</a>
         <a href="/allianceone/">AllianceOne</a>
         <a href="/how-it-works/">How it works</a>
-        <a href="/security/">Security</a>
-        <button onClick={() => { capture("cta_clicked", { location: "nav" }); onCta(); }}>Become a design partner</button>
+        <button onClick={() => { capture("cta_clicked", { location: "nav" }); onCta(); }}>Become a pilot partner</button>
       </nav>
       <button className="nav-menu" onClick={() => setOpen(!open)} aria-expanded={open} aria-label="Toggle menu"><span /><span /></button>
     </Wrap>
     {open && <div className="mobile-nav">
-      <a href="/" onClick={() => setOpen(false)}>Home</a><a href="/allianceone/" onClick={() => setOpen(false)}>AllianceOne</a><a href="/how-it-works/" onClick={() => setOpen(false)}>How it works</a><a href="/security/" onClick={() => setOpen(false)}>Security</a>
-      <button onClick={() => { setOpen(false); capture("cta_clicked", { location: "nav_mobile" }); onCta(); }}>Become a design partner</button>
+      <a href="/" onClick={() => setOpen(false)}>Home</a><a href="/allianceone/" onClick={() => setOpen(false)}>AllianceOne</a><a href="/how-it-works/" onClick={() => setOpen(false)}>How it works</a>
+      <button onClick={() => { setOpen(false); capture("cta_clicked", { location: "nav_mobile" }); onCta(); }}>Become a pilot partner</button>
     </div>}
   </header>;
 }
@@ -110,7 +109,7 @@ function Hero() {
         <div className="hero-copy">
           <div className="product-kicker"><Logo light /></div>
           <h1>Carry judgment from the first client signal to the next engagement.</h1>
-          <p>AllianceOne connects what was understood, promised, decided, delivered, and learned across the engagement. Each phase gives the next team better context, and people make every decision.</p>
+          <p>AllianceOne connects what was understood, promised, decided, delivered, and learned across the engagement lifecycle. Each phase gives the next team better context without taking decisions out of people’s hands.</p>
         </div>
       </div>
     </Wrap>
@@ -120,7 +119,7 @@ function Hero() {
 function IntentStatement() {
   return <Track name="intent" className="section intent-statement">
     <Wrap>
-      <div className="intent-copy"><h2>Source systems record the facts.<br />AllianceOne records how your firm works.</h2><p>CRM knows the opportunity. Project management knows the status. Billing knows the actuals. AllianceOne connects them to your firm’s methods and the approved baseline, and keeps why the plan changed.</p></div>
+      <div className="intent-copy"><h2>Execution systems record activity.<br />AllianceOne preserves what it means.</h2><p>CRM knows the opportunity. Project management knows the task status. Billing knows the actuals. Documents and conversations hold the reasoning. AllianceOne connects those records to the approved plan and preserves why that plan changed.</p></div>
     </Wrap>
   </Track>;
 }
@@ -154,18 +153,18 @@ function Loop() {
 function StateModel() {
   const states = [
     ["Intent", "What the firm plans and why"], ["Commitment", "What the client accepted"], ["Execution", "What the systems report"],
-    ["Decision", "What changed, who changed it, and why"], ["Outcome", "What was delivered and achieved"], ["Practice", "How the firm thinks and delivers, and what it carries forward"],
+    ["Decision", "What changed, who changed it, and why"], ["Outcome", "What was delivered and achieved"], ["Practice", "What the firm carries forward"],
   ];
   return <Track name="state_model" className="section state-section">
     <Wrap>
-      <div className="state-heading"><Head light>The engagement becomes more than a collection of records.</Head><p>Six connected forms of state show what the team intended, what changed, what happened, and what the firm can carry forward.</p></div>
+      <div className="state-heading"><Head light>The engagement becomes more than a collection of records.</Head><p>AllianceOne maintains six connected forms of state across the lifecycle. Together they show what the team intended, what changed, what happened, and what the firm can responsibly carry forward.</p></div>
       <div className="state-table">{states.map(([name, desc]) => <div key={name}><strong>{name}</strong><p>{desc}</p><i /></div>)}</div>
     </Wrap>
   </Track>;
 }
 
 export function Footer({ onCta }) {
-  return <footer className="site-footer"><Wrap><div className="footer-main"><div><a href="/" className="brand-link footer-brand" aria-label="Alliance Systems Group home"><img className="brand-mark" src="/brand/asg/alliance-systems-group-mark-white.png" alt="" aria-hidden="true" /><span className="brand-wordmark"><strong>Alliance</strong><small>Systems Group</small></span></a><p>Operating infrastructure for firms whose advantage depends on expert judgment.</p></div><div className="footer-nav"><div><span>Product</span><a href="/allianceone/">AllianceOne</a><a href="/how-it-works/">How it works</a><a href="/security/">Security</a></div><div><span>Company</span><a href="/">Alliance Systems Group</a><button onClick={() => { capture("cta_clicked", { location: "footer" }); onCta(); }}>Design partner program</button><a href="mailto:hello@myalliance.ai">hello@myalliance.ai</a></div></div></div><div className="footer-base"><span>AllianceOne is a product of Alliance Systems Group Inc.</span><span>© 2026 Alliance Systems Group Inc. All rights reserved.</span></div></Wrap></footer>;
+  return <footer className="site-footer"><Wrap><div className="footer-main"><div><a href="/" className="brand-link footer-brand" aria-label="Alliance Systems Group home"><img className="brand-mark" src="/brand/asg/alliance-systems-group-mark-white.png" alt="" aria-hidden="true" /><span className="brand-wordmark"><strong>Alliance</strong><small>Systems Group</small></span></a><p>Operating infrastructure for firms whose advantage depends on expert judgment.</p></div><div className="footer-nav"><div><span>Product</span><a href="/allianceone/">AllianceOne</a><a href="/how-it-works/">How it works</a></div><div><span>Company</span><a href="/">Alliance Systems Group</a><button onClick={() => { capture("cta_clicked", { location: "footer" }); onCta(); }}>Pilot partner program</button><a href="mailto:hello@myalliance.ai">hello@myalliance.ai</a></div></div></div><div className="footer-base"><span>AllianceOne is a product of Alliance Systems Group Inc.</span><span>© 2026 Alliance Systems Group Inc. All rights reserved.</span></div></Wrap></footer>;
 }
 
 export function Modal({ open, onClose }) {
@@ -189,7 +188,7 @@ export function Modal({ open, onClose }) {
   if (!open) return null;
   const update = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
   const fallback = () => {
-    const subject = encodeURIComponent("AllianceOne design partner conversation");
+    const subject = encodeURIComponent("AllianceOne pilot partner conversation");
     const body = encodeURIComponent(`Name: ${form.name}\nFirm: ${form.firm}\nRole: ${form.role}\nWork email: ${form.email}${form.note ? `\nNote: ${form.note}` : ""}`);
     window.location.href = `mailto:${DESIGN_PARTNER_EMAIL}?subject=${subject}&body=${body}`;
   };
@@ -209,7 +208,7 @@ export function Modal({ open, onClose }) {
           email: form.email,
           note: form.note,
           _replyto: form.email,
-          _subject: "AllianceOne design partner inquiry",
+          _subject: "AllianceOne pilot partner inquiry",
           _template: "table",
           _captcha: "false",
           _honey: "",
@@ -245,7 +244,7 @@ export function Modal({ open, onClose }) {
           <><h2 id="partner-title">Got it.</h2><p>We’ll reply at {form.email}.</p></>
         ) : (
           <>
-            <h2 id="partner-title">Become a design partner</h2>
+            <h2 id="partner-title">Become a pilot partner</h2>
             <p>Tell us about your firm and the workflow you would like to explore. We’ll follow up to schedule a conversation.</p>
             <form onSubmit={submit}>
               <label className="honeypot" aria-hidden="true">Website<input tabIndex={-1} autoComplete="off" value={form.botcheck} onChange={update("botcheck")} /></label>
