@@ -212,7 +212,7 @@ export default function PlatformPage() {
         <h2>We are looking for a small number of design partners.</h2>
         <div className="pf-cta-detail">
           <div className="pf-cta-copy">
-            <p>We’re inviting a few consulting and advisory firms to prove AllianceOne on one real workflow, with success defined together at the start.</p>
+            <p>We’re inviting consulting and advisory firms to become AllianceOne’s first design partners. Get early access, work directly with our team, and have a say in how the product develops.</p>
             <p>We configure AllianceOne around your methods and connect the systems involved.</p>
           </div>
           <Btn variant="dark" onClick={() => { capture("cta_clicked", { location: "page_cta" }); open(); }}>Discuss a design partnership</Btn>

@@ -86,7 +86,7 @@ export default function CompanyPage() {
       <Track name="cta" className="asg-cta">
         <Wrap>
           <h2>We are looking for a small number of design partners.</h2>
-          <div><p>We’re inviting a few consulting and advisory firms to prove AllianceOne on one real workflow, with success defined together at the start.</p><Btn variant="dark" onClick={() => { capture("cta_clicked", { location: "page_cta" }); setModal(true); }}>Discuss a design partnership</Btn></div>
+          <div><p>We’re inviting consulting and advisory firms to become AllianceOne’s first design partners. Get early access, work directly with our team, and have a say in how the product develops.</p><Btn variant="dark" onClick={() => { capture("cta_clicked", { location: "page_cta" }); setModal(true); }}>Discuss a design partnership</Btn></div>
         </Wrap>
       </Track>
     </main>
