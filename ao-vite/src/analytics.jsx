@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import posthog from "posthog-js";
 
 const token = import.meta.env.VITE_POSTHOG_PROJECT_TOKEN;
-const host = import.meta.env.VITE_POSTHOG_HOST || "https://us.i.posthog.com";
+const host = import.meta.env.VITE_POSTHOG_HOST || "https://r.myalliance.ai";
 let started = false;
 
 export function getPageName() {
@@ -21,8 +21,9 @@ export function initAnalytics() {
   started = true;
   posthog.init(token, {
     api_host: host,
+    ui_host: "https://us.posthog.com",
     defaults: "2026-05-30",
-    person_profiles: "always",
+    person_profiles: "identified_only",
     autocapture: false,
     capture_pageview: true,
     capture_pageleave: true,

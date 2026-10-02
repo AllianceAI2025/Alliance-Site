@@ -30,8 +30,8 @@ jobs:
       - run: npm ci
       - run: npm run build
         env:
-          VITE_POSTHOG_PROJECT_TOKEN: ${{ secrets.VITE_POSTHOG_PROJECT_TOKEN }}
-          VITE_POSTHOG_HOST: ${{ secrets.VITE_POSTHOG_HOST }}
+          VITE_POSTHOG_PROJECT_TOKEN: phc_vfNRt7Rm3tkbrvzavNHvcd7S36GvT2jK3YNoywSHFsqw
+          VITE_POSTHOG_HOST: https://r.myalliance.ai
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ao-vite/dist
