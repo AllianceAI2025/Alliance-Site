@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useFonts, Btn, Logo, Wrap, Nav, Footer, Modal } from "./App.jsx";
+import { useFonts, Btn, Logo, Wrap, Nav, Footer } from "./App.jsx";
 import { capture, Track } from "./analytics";
 
 const systems = [
@@ -62,9 +62,9 @@ const architecture = [
 ];
 
 export default function PlatformPage() {
-  const [modal, setModal] = useState(false);
+
   useFonts();
-  const open = () => setModal(true);
+  const open = () => window.location.assign("/design-partners/");
 
   return <div className="site-shell platform-page"><Nav onCta={open} /><main>
     <Track name="hero" id="platform" className="pf-hero">
@@ -219,5 +219,5 @@ export default function PlatformPage() {
         </div>
       </Wrap>
     </Track>
-  </main><Footer onCta={open} /><Modal open={modal} onClose={() => setModal(false)} /></div>;
+  </main><Footer onCta={open} /></div>;
 }

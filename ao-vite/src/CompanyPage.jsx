@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Btn, Footer, Logo, Modal, Nav, Wrap, useFonts } from "./App.jsx";
+import React, { useEffect } from "react";
+import { Btn, Footer, Logo, Nav, Wrap, useFonts } from "./App.jsx";
 import { capture, Track } from "./analytics";
 
 const services = [
@@ -10,7 +10,7 @@ const services = [
 ];
 
 export default function CompanyPage() {
-  const [modal, setModal] = useState(false);
+
   useFonts();
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export default function CompanyPage() {
   }, []);
 
   return <div className="asg-page">
-    <Nav dark onCta={() => setModal(true)} />
+    <Nav dark onCta={() => window.location.assign("/design-partners/")} />
     <main>
       <Track name="hero" className="asg-hero">
         <div className="asg-hero-grid" aria-hidden="true"><span /><span /><span /><span /></div>
@@ -38,7 +38,7 @@ export default function CompanyPage() {
             <p>Alliance Systems Group builds software and services for consulting and advisory firms. We help make accumulated delivery experience usable in live work without replacing professional judgment or the systems your teams already use.</p>
             <div className="asg-hero-actions">
               <a href="/allianceone/">View AllianceOne <span aria-hidden="true">↗</span></a>
-              <button onClick={() => { capture("cta_clicked", { location: "hero" }); setModal(true); }}>Talk with us <span aria-hidden="true">↗</span></button>
+              <button onClick={() => { capture("cta_clicked", { location: "hero" }); window.location.assign("/design-partners/"); }}>Talk with us <span aria-hidden="true">↗</span></button>
             </div>
           </div>
           <div className="asg-hero-statement">
@@ -67,7 +67,7 @@ export default function CompanyPage() {
             <div><Logo /><h2>AllianceOne turns delivery history into working precedent.</h2></div>
             <div className="asg-product-summary"><p>AllianceOne connects the conditions a team faced, the choices it made, the reasoning behind them, and what happened next. That record informs new scopes and plans while CRM, PSA, document, and finance systems continue to run the work they own.</p></div>
           </div>
-          <a className="asg-product-link" href="/allianceone/">See the AllianceOne product <span aria-hidden="true">↗</span></a>
+          <div className="asg-product-destinations"><a className="asg-product-link" href="/allianceone/">Explore AllianceOne <span aria-hidden="true">↗</span></a><a className="asg-product-link" href="/how-it-works/">See how it works <span aria-hidden="true">↗</span></a></div>
         </Wrap>
       </Track>
 
@@ -86,11 +86,11 @@ export default function CompanyPage() {
       <Track name="cta" className="asg-cta">
         <Wrap>
           <h2>We are looking for a small number of design partners.</h2>
-          <div><p>We’re inviting consulting and advisory firms to become AllianceOne’s first design partners. Get early access, work directly with our team, and have a say in how the product develops.</p><Btn variant="dark" onClick={() => { capture("cta_clicked", { location: "page_cta" }); setModal(true); }}>Discuss a design partnership</Btn></div>
+          <div><p>We’re inviting consulting and advisory firms to become AllianceOne’s first design partners. Get early access, work directly with our team, and have a say in how the product develops.</p><Btn variant="dark" onClick={() => { capture("cta_clicked", { location: "page_cta" }); window.location.assign("/design-partners/"); }}>Discuss a design partnership</Btn></div>
         </Wrap>
       </Track>
     </main>
-    <Footer onCta={() => setModal(true)} />
-    <Modal open={modal} onClose={() => setModal(false)} />
+    <Footer onCta={() => window.location.assign("/design-partners/")} />
+
   </div>;
 }
