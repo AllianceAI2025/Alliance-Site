@@ -15,6 +15,7 @@ export default defineConfig({
         main: fileURLToPath(new URL("./index.html", import.meta.url)),
         allianceOne: fileURLToPath(new URL("./allianceone/index.html", import.meta.url)),
         platform: fileURLToPath(new URL("./platform/index.html", import.meta.url)),
+        designPartners: fileURLToPath(new URL("./design-partners/index.html", import.meta.url)),
         company: fileURLToPath(new URL("./company/index.html", import.meta.url)),
         howItWorks: fileURLToPath(new URL("./how-it-works/index.html", import.meta.url)),
         security: fileURLToPath(new URL("./security/index.html", import.meta.url)),

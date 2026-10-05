@@ -167,25 +167,12 @@ export function Footer({ onCta }) {
   return <footer className="site-footer"><Wrap><div className="footer-main"><div><a href="/" className="brand-link footer-brand" aria-label="Alliance Systems Group home"><img className="brand-mark" src="/brand/asg/alliance-systems-group-mark-white.png" alt="" aria-hidden="true" /><span className="brand-wordmark"><strong>Alliance</strong><small>Systems Group</small></span></a><p>Operating infrastructure for firms whose advantage depends on expert judgment.</p></div><div className="footer-nav"><div><span>Product</span><a href="/allianceone/">AllianceOne</a><a href="/how-it-works/">How it works</a></div><div><span>Company</span><a href="/">Alliance Systems Group</a><button onClick={() => { capture("cta_clicked", { location: "footer" }); onCta(); }}>Design partner program</button><a href="mailto:hello@myalliance.ai">hello@myalliance.ai</a></div></div></div><div className="footer-base"><span>AllianceOne is a product of Alliance Systems Group Inc.</span><span>© 2026 Alliance Systems Group Inc. All rights reserved.</span></div></Wrap></footer>;
 }
 
-export function Modal({ open, onClose }) {
+export function PartnerForm() {
   const [form, setForm] = useState({ name: "", firm: "", email: "", role: "", note: "", botcheck: "" });
   const [status, setStatus] = useState("idle");
-  const statusRef = useRef(status);
-  statusRef.current = status;
-  useEffect(() => {
-    if (!open) return undefined;
-    setStatus("idle");
-    capture("partner_form_opened");
-    const key = (e) => e.key === "Escape" && close();
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", key);
-    return () => { document.body.style.overflow = ""; window.removeEventListener("keydown", key); };
-  }, [open]);
-  const close = () => {
-    if (statusRef.current !== "sent") capture("partner_form_dismissed");
-    onClose();
-  };
-  if (!open) return null;
+  const resultRef = useRef(null);
+  useEffect(() => { capture("partner_form_opened"); }, []);
+  useEffect(() => { if (status === "sent") resultRef.current?.focus(); }, [status]);
   const update = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
   const fallback = () => {
     const subject = encodeURIComponent("AllianceOne design partner conversation");
@@ -194,7 +181,7 @@ export function Modal({ open, onClose }) {
   };
   const submit = async (e) => {
     e.preventDefault();
-    if (form.botcheck) return;
+    if (form.botcheck || status === "sending") return;
     if (!DEMO_FORM_ENDPOINT) return fallback();
     setStatus("sending");
     try {
@@ -218,7 +205,7 @@ export function Modal({ open, onClose }) {
       const data = await r.json().catch(() => ({}));
       const ok = data.success === true || data.success === "true";
       const message = String(data.message || "");
-      if (ok) {
+      if (r.ok && ok) {
         identifyVisitor(form.email, { name: form.name, firm: form.firm, role: form.role });
         capture("partner_form_submitted", { firm: form.firm, role: form.role });
         setStatus("sent");
@@ -237,39 +224,36 @@ export function Modal({ open, onClose }) {
     }
   };
   return (
-    <div className="modal-backdrop" onMouseDown={close}>
-      <div className="modal" onMouseDown={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby="partner-title">
-        <button className="modal-close" onClick={close} aria-label="Close">×</button>
+    <section className="partner-form" id="inquiry" aria-labelledby="partner-title">
         {status === "sent" ? (
-          <><h2 id="partner-title">Got it.</h2><p>We’ll reply at {form.email}.</p></>
+          <div ref={resultRef} tabIndex={-1} className="partner-success"><span aria-hidden="true">✓</span><h2 id="partner-title">Thanks for reaching out.</h2><p>We’ll reply at <strong>{form.email}</strong> to arrange an introductory conversation.</p><p>We look forward to hearing about your firm and what you have in mind for AllianceOne.</p><a href="/allianceone/">Explore AllianceOne →</a></div>
         ) : (
           <>
-            <h2 id="partner-title">Become a design partner</h2>
-            <p>Tell us about your firm and the workflow you would like to explore. We’ll follow up to schedule a conversation.</p>
+            <p className="eyebrow">LET’S TALK</p><h2 id="partner-title">Tell us a little about your firm.</h2>
+            <p>You don’t need a detailed plan. We’ll start with a conversation about your team and what you’re looking for.</p>
             <form onSubmit={submit}>
               <label className="honeypot" aria-hidden="true">Website<input tabIndex={-1} autoComplete="off" value={form.botcheck} onChange={update("botcheck")} /></label>
-              <label>Name<input autoFocus required autoComplete="name" value={form.name} onChange={update("name")} /></label>
+              <label>Name<input required autoComplete="name" value={form.name} onChange={update("name")} /></label>
               <label>Firm<input required autoComplete="organization" value={form.firm} onChange={update("firm")} /></label>
-              <label>Role<input autoComplete="organization-title" value={form.role} onChange={update("role")} /></label>
+              <label>Role <small>Optional</small><input autoComplete="organization-title" value={form.role} onChange={update("role")} /></label>
               <label>Work email<input type="email" required autoComplete="email" value={form.email} onChange={update("email")} /></label>
-              <label className="form-span"><span>Note<em>Optional</em></span><textarea rows={3} value={form.note} onChange={update("note")} /></label>
+              <label className="form-span"><span>What would you like AllianceOne to help your team with? <small>Optional</small></span><textarea aria-describedby="note-help" rows={4} value={form.note} onChange={update("note")} /><small id="note-help">A sentence or two is plenty.</small></label>
               <p className="form-fineprint">We’ll only use this to follow up.</p>
-              <button type="submit" disabled={status === "sending"}>{status === "sending" ? "Sending…" : "Send"}</button>
+              <button type="submit" disabled={status === "sending"}>{status === "sending" ? "Sending…" : "Start a conversation →"}</button>
             </form>
             {status === "activate" && (
-              <p className="form-note">This form still needs a one-time email confirmation. Check {DESIGN_PARTNER_EMAIL} (including spam), then send again. Or <button type="button" onClick={fallback}>open it in email</button>.</p>
+              <p className="form-note" role="alert">We couldn’t deliver your inquiry just yet. Please <button type="button" onClick={fallback}>open it in email</button>.</p>
             )}
-            {status === "error" && <p className="form-error">Couldn’t send. <button type="button" onClick={fallback}>Email us directly.</button></p>}
+            {status === "error" && <p className="form-error" role="alert">Couldn’t send. <button type="button" onClick={fallback}>Email us directly.</button></p>}
           </>
         )}
-      </div>
-    </div>
+    </section>
   );
 }
 
 export default function App() {
-  const [modal, setModal] = useState(false);
+
   useFonts();
-  const open = () => setModal(true);
-  return <div className="site-shell"><Nav onCta={open} /><main><Hero /><IntentStatement /><Loop /><StateModel /></main><Footer onCta={open} /><Modal open={modal} onClose={() => setModal(false)} /></div>;
+  const open = () => window.location.assign("/design-partners/");
+  return <div className="site-shell"><Nav onCta={open} /><main><Hero /><IntentStatement /><Loop /><StateModel /></main><Footer onCta={open} /></div>;
 }
