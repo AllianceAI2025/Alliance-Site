@@ -89,16 +89,16 @@ export function Nav({ onCta, dark = false }) {
       </a>
       <nav className="desktop-nav" aria-label="Main navigation">
         <a href="/">Home</a>
-        <a href="/allianceone/">AllianceOne</a>
+        <a href="/allianceone/">Explore AllianceOne</a>
         <a href="/how-it-works/">How it works</a>
-        <button onClick={() => { capture("cta_clicked", { location: "nav" }); onCta(); }}>Become a design partner</button>
+        <button className="nav-partner-button" onClick={() => { capture("cta_clicked", { location: "nav" }); onCta(); }}>Become a design partner</button>
       </nav>
-      <button className="nav-menu" onClick={() => setOpen(!open)} aria-expanded={open} aria-label="Toggle menu"><span /><span /></button>
+      <button className="nav-menu" onClick={() => { capture(open ? "mobile_menu_closed" : "mobile_menu_opened"); setOpen(!open); }} aria-expanded={open} aria-label="Toggle menu" aria-controls="mobile-navigation"><span /><span /></button>
     </Wrap>
-    {open && <div className="mobile-nav">
-      <a href="/" onClick={() => setOpen(false)}>Home</a><a href="/allianceone/" onClick={() => setOpen(false)}>AllianceOne</a><a href="/how-it-works/" onClick={() => setOpen(false)}>How it works</a>
-      <button onClick={() => { setOpen(false); capture("cta_clicked", { location: "nav_mobile" }); onCta(); }}>Become a design partner</button>
-    </div>}
+    {open && <nav id="mobile-navigation" className="mobile-nav" aria-label="Mobile navigation">
+      <a href="/" onClick={() => setOpen(false)}>Home</a><a href="/allianceone/" onClick={() => setOpen(false)}>Explore AllianceOne</a><a href="/how-it-works/" onClick={() => setOpen(false)}>How it works</a>
+      <button className="nav-partner-button" onClick={() => { setOpen(false); capture("cta_clicked", { location: "nav_mobile" }); onCta(); }}>Become a design partner</button>
+    </nav>}
   </header>;
 }
 

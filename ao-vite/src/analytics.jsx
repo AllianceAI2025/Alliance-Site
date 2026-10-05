@@ -19,6 +19,7 @@ export function getPageName() {
 export function initAnalytics() {
   if (started || typeof window === "undefined" || !token) return;
   started = true;
+  trackSiteNavigation();
   posthog.init(token, {
     api_host: host,
     ui_host: "https://us.posthog.com",
@@ -40,6 +41,40 @@ export function initAnalytics() {
 export function capture(event, properties) {
   if (!token || !started) return;
   posthog.capture(event, { page: getPageName(), ...properties });
+}
+
+function trackSiteNavigation() {
+  document.addEventListener("click", (event) => {
+    const link = event.target.closest?.("a[href]");
+    if (!link) return;
+    const destination = new URL(link.href, window.location.href);
+    if (destination.origin !== window.location.origin) return;
+    const location = link.closest(".mobile-nav") ? "mobile_menu"
+      : link.closest(".site-nav") ? "header"
+      : link.closest("footer, .site-footer") ? "footer" : "in_page";
+    capture("navigation_clicked", {
+      location,
+      destination: destination.pathname,
+      label: link.getAttribute("aria-label") || link.textContent.trim(),
+    });
+  });
+  const reached = new Set();
+  let pending = false;
+  const measure = () => {
+    pending = false;
+    const height = document.documentElement.scrollHeight;
+    if (height <= window.innerHeight) return;
+    const depth = Math.min(100, Math.round((window.scrollY + window.innerHeight) / height * 100));
+    for (const threshold of [25, 50, 75, 100]) {
+      if (depth >= threshold && !reached.has(threshold)) {
+        reached.add(threshold);
+        capture("page_scroll_depth", { percent: threshold });
+      }
+    }
+  };
+  window.addEventListener("scroll", () => {
+    if (!pending) { pending = true; window.requestAnimationFrame(measure); }
+  }, { passive: true });
 }
 
 export function identifyVisitor(email, properties) {

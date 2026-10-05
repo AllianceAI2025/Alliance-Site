@@ -67,7 +67,7 @@ export default function CompanyPage() {
             <div><Logo /><h2>AllianceOne turns delivery history into working precedent.</h2></div>
             <div className="asg-product-summary"><p>AllianceOne connects the conditions a team faced, the choices it made, the reasoning behind them, and what happened next. That record informs new scopes and plans while CRM, PSA, document, and finance systems continue to run the work they own.</p></div>
           </div>
-          <a className="asg-product-link" href="/allianceone/">See the AllianceOne product <span aria-hidden="true">↗</span></a>
+          <div className="asg-product-destinations"><a className="asg-product-link" href="/allianceone/">Explore AllianceOne <span aria-hidden="true">↗</span></a><a className="asg-product-link" href="/how-it-works/">See how it works <span aria-hidden="true">↗</span></a></div>
         </Wrap>
       </Track>
 
