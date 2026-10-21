@@ -1,5 +1,5 @@
 import React from "react";
-import { Nav, Footer, Wrap, PartnerForm, DESIGN_PARTNER_EMAIL, useFonts } from "./App.jsx";
+import { Nav, Footer, Wrap, PartnerForm, DESIGN_PARTNER_EMAIL, useFonts } from "./Site.jsx";
 import "./design-partners.css";
 
 export default function DesignPartnerPage() {

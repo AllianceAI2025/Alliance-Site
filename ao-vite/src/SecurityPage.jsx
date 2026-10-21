@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useFonts, Head, Btn, Wrap, Nav, Footer } from "./App.jsx";
+import { useFonts, Head, Btn, Wrap, Nav, Footer } from "./Site.jsx";
 import { capture, Track } from "./analytics";
 
 const pillars = [
@@ -21,7 +21,7 @@ const answers = [
 
 export default function SecurityPage() {
  useFonts(); const open = () => window.location.assign("/design-partners/");
-  return <div className="site-shell"><Nav onCta={open} /><main>
+  return <div className="site-shell"><Nav onCta={open} /><main id="main-content">
     <Track name="hero" className="security-hero"><Wrap><div className="security-hero-grid"><div><h1>Your firm’s knowledge stays attributable, governed, and yours.</h1></div><p>AllianceOne operates across client work, commercial systems, and internal judgment. The architecture treats provenance, permission, and known uncertainty as part of the product, not administrative metadata.</p></div></Wrap></Track>
     <Track name="pillars" className="section security-pillars"><Wrap><div className="security-pillars-head"><Head size="display">Trust is established claim by claim.</Head></div><div className="security-pillar-list">{pillars.map(([title, body]) => <article className="security-pillar" key={title}><h3>{title}</h3><p>{body}</p></article>)}</div></Wrap></Track>
     <Track name="questions" className="section straight-section"><Wrap><div className="straight-grid"><div><Head light size="quiet">Questions your risk leader should ask.</Head></div><div className="straight-list">{answers.map(([q, a]) => <article className="straight-item" key={q}><h3>{q}</h3><p>{a}</p></article>)}</div></div></Wrap></Track>

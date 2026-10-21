@@ -1,0 +1,15 @@
+.site-nav.quiet-nav{position:relative;top:auto;height:88px;border:0;background:#f2f3ee;color:#17351f;backdrop-filter:none;z-index:20}
+.site-nav.quiet-nav--dark{background:#07100e;color:#f2f3ee}
+.quiet-nav-inner{width:min(1240px,calc(100% - 80px));height:100%;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.quiet-brand{display:inline-flex;align-items:center;gap:8px;color:inherit;text-decoration:none;font-family:'Inter Tight',Inter,sans-serif;font-size:23px;font-weight:500;letter-spacing:-.7px}
+.quiet-brand .logo-cursor{animation:none}.quiet-brand .logo-mark{width:31px;height:31px}
+.quiet-desktop-nav{display:flex;gap:32px;align-items:center}.quiet-desktop-nav>a{font-size:13px;color:inherit;text-decoration:none;opacity:.8}.quiet-desktop-nav>a:hover{opacity:1}
+.quiet-desktop-nav>button,.quiet-mobile-nav>button{border:0;border-radius:6px;padding:13px 19px;background:#86c43d;color:#152411;font-size:12px;font-weight:500;cursor:pointer}.quiet-desktop-nav>button:hover,.quiet-mobile-nav>button:hover{background:#9bd451}
+.quiet-menu{display:none;background:transparent;border:0;padding:12px 0 12px 15px;color:inherit;cursor:pointer;font-size:13px}
+.quiet-mobile-nav{position:absolute;inset:100% 0 auto;display:flex;flex-direction:column;align-items:flex-start;gap:20px;padding:24px;background:#f2f3ee;color:#17351f;box-shadow:0 14px 20px #07100e10}.quiet-mobile-nav>a{text-decoration:none;font-size:17px}
+.quiet-nav--dark .quiet-mobile-nav{background:#0b1913;color:#f2f3ee}.quiet-skip{position:absolute;top:8px;left:12px;transform:translateY(-160%);background:#f2f3ee;color:#17351f;padding:12px;z-index:30}.quiet-skip:focus{transform:none}
+.site-footer.quiet-footer{background:#f2f3ee;color:#17351f;padding:32px 0 28px;border:0}.quiet-footer-inner{width:min(1240px,calc(100% - 80px));margin:auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:34px}
+.quiet-company-mark{display:flex;align-items:center;gap:12px;text-decoration:none}.quiet-company-mark>img{width:43px;height:43px;object-fit:contain}.quiet-company-mark>span{font-family:Georgia,serif;text-transform:uppercase;letter-spacing:1.4px;font-size:20px;line-height:1.2}.quiet-company-mark small{display:block;margin-top:5px;font-family:Inter,sans-serif;font-size:8px;letter-spacing:3px}
+.quiet-footer nav{display:flex;align-items:center;flex-wrap:wrap;gap:24px}.quiet-footer nav>a,.quiet-footer nav>button{border:0;padding:0;background:none;color:#546357;font-size:12px;text-decoration:none;cursor:pointer}.quiet-footer nav>a:hover,.quiet-footer nav>button:hover{color:#17351f}.quiet-footer-base{flex-basis:100%;display:flex;justify-content:space-between;gap:15px;color:#69786c;font-size:11px;line-height:1.7}
+@media(max-width:700px){.site-nav.quiet-nav{height:72px}.quiet-nav-inner,.quiet-footer-inner{width:calc(100% - 40px)}.quiet-desktop-nav{display:none}.quiet-menu{display:block}.quiet-footer-inner{gap:28px}.quiet-footer nav{gap:18px}.quiet-footer-base{flex-direction:column;gap:4px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*{scroll-behavior:auto!important}}
