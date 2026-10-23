@@ -39,6 +39,13 @@ export const engagementReferences = [
   { ...sources.harbor, engagement: "Harbor Grain" },
   { ...sources.meridian, engagement: "Meridian" },
 ];
+// Independent presentations render just the current exchange, never a chat history.
+export const presentations = {
+  opening: [{ id: "understand", label: "The opportunity" }, { id: "precedent", label: "Firm precedent" }],
+  scope: [{ id: "scope-draft", label: "Scope" }, { id: "feasibility", label: "Resources & pricing" }, { id: "proposal", label: "Proposal" }],
+  plan: [{ id: "plan", label: "Engagement plan" }, { id: "plan-review", label: "Review" }, { id: "plan-activation", label: "Application records" }],
+  deliver: [{ id: "assignment", label: "Assignment", artifact: null }, { id: "assessment-draft", label: "Assessment" }, { id: "assessment-review", label: "Review" }],
+};
 export const scenes = [
   {
     id: "understand", chapter: "scope", prompt: "Can you give me an overview of this engagement? What do we know?",
@@ -47,7 +54,7 @@ export const scenes = [
   },
   {
     id: "precedent", chapter: "scope", prompt: "Where have we seen something like this before?",
-    answer: ["Harbor Grain is the closest diagnostic precedent. Late regional validation caused rework and a one-week delay.", "Meridian’s six-region model was delivered on time, but adoption took longer. Bring regional voices into the diagnostic early and define transition readiness separately from producing the board package."],
+    answer: ["At Harbor Grain, Avery built the evidence inventory. Sofia’s review separated observed ownership from proposed design. Late regional validation still caused rework and a one-week delay.", "Lena built Meridian’s six-region ownership matrix; review clarified service boundaries and handoffs. Bring regional voices into Northstar’s diagnostic early and define transition readiness separately from the board package."],
     activity: ["Comparing Harbor and Meridian’s conditions, decisions and outcomes"], sources: [sources.harbor, sources.meridian],
   },
   {
@@ -77,7 +84,7 @@ export const scenes = [
   },
   {
     id: "plan", chapter: "plan", prompt: "Build the engagement plan from the accepted proposal. Show the resources, deliverables and review coverage.",
-    answer: ["The accepted commitments and reviewed pursuit team carry into this planning conversation. Alicia has confirmed the resource windows: Daniel starts in Week 3 and Avery stays within 75%.", "The working plan connects fourteen deliverables to owners, reviewers and the four workstreams. Sofia reviews Avery’s readiness assessment before the baseline; Margaret covers the gates after Week 10."],
+    answer: ["Elena negotiated the fee from $420,000 to $400,000 and accepted proposal v5. The fourteen-week scope and 1,840 hours remain; OPP-20418 is Won. The reviewed pursuit team’s resource holds are confirmed.", "The working plan connects fourteen deliverables to owners, reviewers and the four workstreams. Sofia reviews Avery’s assessment before the baseline; Margaret covers the gates after Week 10."],
     activity: ["Carrying accepted proposal v5 into the new planning conversation", "Sequencing deliverables against confirmed resource windows"], sources: [sources.accepted, sources.availability, sources.method], artifact: "plan",
   },
   {

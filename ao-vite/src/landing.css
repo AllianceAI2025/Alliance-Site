@@ -1,8 +1,142 @@
-.landing-page{background:#f2f3ee;color:#17351f;font-family:Inter,'Segoe UI',sans-serif}.landing-container{width:min(1240px,calc(100% - 80px));margin-inline:auto}.landing-page main{overflow:clip}.landing-hero{background:radial-gradient(ellipse at 78% 30%,#142c1a65,transparent 65%),#07100e;padding:10px 0 42px}.landing-hero-copy{text-align:center;max-width:800px;margin:0 auto 30px}.landing-hero-copy h1{font-family:'Inter Tight',Inter,sans-serif;font-size:clamp(34px,4.2vw,56px);font-weight:500;line-height:1.04;letter-spacing:-1.9px;margin:0;color:#f2f3ee}.landing-hero-copy>p{max-width:560px;margin:18px auto 0;font-size:14px;line-height:1.75;color:#b7c3b1}
-.landing-product{padding:75px 0 64px;scroll-margin-top:35px}.landing-product-intro{display:grid;grid-template-columns:1.25fr 1fr;gap:100px;align-items:start}.landing-page h2,.company-page h1,.company-page h2{font-family:'Inter Tight',Inter,sans-serif;font-weight:500;letter-spacing:-1px;line-height:1.13;color:#173e28}.landing-product h2{font-size:clamp(28px,3.1vw,40px);margin:0}.landing-product-intro>p{font-size:14px;line-height:1.85;color:#667561;margin:3px 0 0}.landing-benefits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:70px;margin-top:43px}.landing-benefits h3{font-size:14px;font-weight:500;line-height:1.5;margin:0 0 11px;color:#345337}.landing-benefits p{font-size:13px;line-height:1.85;color:#7c8974;margin:0;max-width:300px}
-.landing-company{padding:52px 0 70px;background:#e9ede3;scroll-margin-top:25px}.landing-company-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:110px;align-items:start}.landing-company-logo{display:flex;align-items:center;gap:16px;width:fit-content;color:#214c30;text-decoration:none;margin:0 0 32px}.landing-company-logo>img{width:57px;height:57px;object-fit:contain}.landing-company-logo>span{font-family:Georgia,serif;font-size:28px;text-transform:uppercase;letter-spacing:2px;line-height:1.1}.landing-company-logo small{display:block;font-size:9px;font-family:Inter,sans-serif;font-weight:400;letter-spacing:4.4px;margin-top:9px}.landing-company h2{margin:0;font-size:clamp(29px,3vw,38px)}.landing-company-copy>p{margin:7px 0 25px;font-size:14px;line-height:1.85;color:#66755c}.landing-services{display:grid;grid-template-columns:1fr 1fr;gap:15px 25px}.landing-services h3{font-size:12px;font-weight:500;margin:0;line-height:1.6;color:#4c6843}.landing-services p{color:#7f8e73;font-size:13px;line-height:1.8;margin:9px 0 0}.landing-text-link{display:inline-flex;align-items:center;gap:22px;color:#42683a;font-size:12px;text-decoration:none;margin-top:31px}.landing-text-link:hover{text-decoration:underline;text-underline-offset:5px}
-.landing-invitation{padding:62px 0 56px;background:#f2f3ee}.landing-invitation-grid{display:grid;grid-template-columns:1.1fr 1fr;align-items:center;gap:110px}.landing-invitation h2{font-family:'Inter Tight',Inter,sans-serif;font-size:clamp(27px,3vw,37px);font-weight:500;line-height:1.15;letter-spacing:-1px;margin:0;color:#294c30}.landing-invitation p{font-size:13px;line-height:1.8;color:#7b8970;margin:0 0 22px}.landing-invitation a{display:inline-flex;gap:24px;align-items:center;border-radius:6px;background:#173e28;color:#f2f3ee;text-decoration:none;font-size:12px;padding:14px 18px}.landing-invitation a:hover{background:#285636}
-.company-page{font-family:Inter,sans-serif;background:#f2f3ee}.company-page .company-intro{background:#07100e;padding:46px 0 65px}.company-intro .landing-container{display:grid;grid-template-columns:1.1fr 1fr;gap:110px;align-items:center}.company-page .company-intro h1{font-size:clamp(36px,5vw,63px);color:#f2f3ee;margin:0;line-height:1.05;letter-spacing:-2px}.company-intro p{font-size:15px;line-height:1.85;color:#b6c3ae;margin:0}.landing-company--detailed{padding-block:70px}.landing-company--detailed .landing-services{gap:26px}.company-product{padding:65px 0}.company-product .landing-container{max-width:900px}.company-product h2{font-size:34px;max-width:600px;margin:0 0 20px}.company-product p{font-size:14px;line-height:1.9;color:#718369;max-width:700px}.company-product a{margin-top:12px}
-@media(max-width:1000px){.landing-product-intro,.landing-company-grid,.landing-invitation-grid,.company-intro .landing-container{gap:55px}.landing-benefits{gap:35px}.landing-hero-copy{margin-bottom:27px}.landing-hero-copy h1{font-size:45px}.landing-product h2{font-size:33px}.landing-product-intro>p{font-size:13px}}
-@media(max-width:720px){.landing-container{width:calc(100% - 40px)}.landing-hero{padding-top:16px;padding-bottom:30px}.landing-hero-copy{margin-bottom:27px}.landing-hero-copy h1{font-size:38px;letter-spacing:-1.2px}.landing-hero-copy p{font-size:12px;max-width:420px;margin-top:16px}.landing-product{padding:42px 0}.landing-product-intro,.landing-company-grid,.landing-invitation-grid,.company-intro .landing-container{grid-template-columns:1fr;gap:26px}.landing-product h2{font-size:31px}.landing-product-intro>p{font-size:13px}.landing-benefits{grid-template-columns:1fr;gap:25px;margin-top:30px}.landing-benefits p{max-width:520px}.landing-company{padding:36px 0 42px}.landing-company-logo{margin-bottom:25px}.landing-company h2{font-size:32px}.landing-company-copy>p{font-size:13px;margin-top:0}.landing-invitation{padding:42px 0 30px}.landing-invitation h2{font-size:30px}.company-page .company-intro{padding:28px 0 45px}.company-page .company-intro h1{font-size:42px;letter-spacing:-1.4px}.company-intro p{font-size:13px}.company-product{padding:42px 0}.company-product h2{font-size:29px}}
-@media(max-width:450px){.landing-container{width:calc(100% - 28px)}.landing-hero-copy h1{font-size:34px}.landing-hero-copy>p{padding-inline:8px}.landing-services{gap:13px 18px}.landing-company-logo>img{width:46px;height:46px}.landing-company-logo>span{font-size:24px}.landing-company-logo small{font-size:8px;letter-spacing:3.7px}.landing-company h2{font-size:30px}.landing-invitation h2{font-size:28px}.landing-company--detailed .landing-services{grid-template-columns:1fr}}
+.landing-page{--landing-ink:#07100e;--landing-bone:#f2f3ee;--landing-lime:#86c43d;background:var(--landing-bone);color:var(--landing-ink);font-family:Inter,'Segoe UI',sans-serif}
+.landing-container{width:min(1320px,calc(100% - 80px));margin-inline:auto}
+.landing-page main{overflow:clip}
+.landing-page #main-content{scroll-margin-top:78px}
+.landing-page>.quiet-nav{position:sticky;top:0;height:78px;border-top:3px solid var(--landing-lime);background:#f2f3eef2;backdrop-filter:blur(16px);color:var(--landing-ink)}
+.landing-page .quiet-nav-inner,.landing-page .quiet-footer-inner{width:min(1320px,calc(100% - 80px))}
+.landing-page .quiet-brand{font-size:25px;letter-spacing:-.9px}
+.landing-page .quiet-desktop-nav>button{border-radius:3px;padding:13px 20px}
+.landing-hero{position:relative;background:radial-gradient(ellipse at 77% 26%,#86c43d20,transparent 53%),radial-gradient(ellipse at 10% 94%,#86c43d12,transparent 45%),var(--landing-ink);padding:42px 0 42px}
+.landing-hero-copy{text-align:center;max-width:950px;margin:0 auto 34px}
+.landing-hero-copy h1{font-family:'Inter Tight',Inter,sans-serif;font-size:clamp(48px,5.7vw,86px);font-weight:500;line-height:.98;letter-spacing:-.045em;margin:0;color:var(--landing-bone)}
+.landing-hero-copy h1>span{color:var(--landing-lime)}
+.landing-hero-copy>p{max-width:610px;margin:22px auto 0;font-size:15px;line-height:1.75;color:#b5bfb1}
+.landing-page h2,.company-page h1,.company-page h2{font-family:'Inter Tight',Inter,sans-serif;font-weight:500;letter-spacing:-.035em;line-height:1.06;color:#17351f}
+.landing-product{padding:95px 0 92px;scroll-margin-top:78px}
+.landing-product-intro{display:grid;grid-template-columns:1.15fr 1fr;gap:100px;align-items:center}
+.landing-product h2{font-size:clamp(31px,3.2vw,46px);margin:0}
+.landing-product-intro>p{font-size:15px;line-height:1.85;color:#647061;margin:0;max-width:490px}
+.landing-phase{position:relative;padding:90px 0 80px;scroll-margin-top:78px}
+.landing-phase-grid{display:grid;grid-template-columns:minmax(0,.62fr) minmax(0,1.38fr);gap:64px;align-items:center}
+.landing-phase-copy{padding-bottom:24px;max-width:370px}
+.landing-phase-label{font-family:'IBM Plex Mono',monospace;font-size:12px!important;text-transform:uppercase;letter-spacing:1.8px;color:#5b7551!important;margin:0 0 25px!important}
+.landing-phase-copy h2{font-size:clamp(32px,3.35vw,48px);margin:0 0 26px}
+.landing-phase-copy>p{font-size:14px;line-height:1.85;color:#667360;margin:0 0 18px}
+.landing-phase-role{display:block;margin-top:30px;font-size:11px;color:#7a8674}
+.landing-phase--scope{background:#e8ece1}
+.landing-phase--plan{background:radial-gradient(ellipse at 18% 50%,#86c43d18,transparent 58%),#07100e;padding-block:100px 55px}
+.landing-phase--plan .landing-phase-grid{grid-template-columns:minmax(0,1.38fr) minmax(0,.62fr)}
+.landing-phase--plan .landing-phase-copy{grid-column:2;grid-row:1;justify-self:end}
+.landing-phase--plan .engagement-demo{grid-column:1;grid-row:1}
+.landing-phase--plan h2{color:#f2f3ee}
+.landing-phase--plan .landing-phase-copy>p{color:#b1bcab}
+.landing-phase--plan .landing-phase-label{color:#86c43d!important}
+.landing-phase--plan .landing-phase-role{color:#7f9176}
+.landing-phase--deliver{background:radial-gradient(ellipse at 90% 60%,#86c43d0c,transparent 55%),#fafbf7;padding-block:100px 90px}
+.landing-systems{display:flex;align-items:center;justify-content:space-between;gap:40px;margin-top:50px;padding-top:29px;border-top:1px solid #f2f3ee12}
+.landing-systems>p{font-size:12px;line-height:1.7;color:#82927a;margin:0}
+.landing-systems>div{display:flex;align-items:center;gap:36px;flex-wrap:wrap}
+.landing-systems span{display:flex;align-items:center;gap:10px;font-size:12px;color:#b3c0aa}
+.landing-systems img{width:25px;height:25px;object-fit:contain}
+.landing-company{padding:90px 0;background:#e8ece1;scroll-margin-top:78px}
+.landing-company-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:110px;align-items:center}
+.landing-company-logo{display:flex;align-items:center;gap:20px;width:fit-content;color:#214c30;text-decoration:none;margin:0 0 35px}
+.landing-company-logo>img{width:76px;height:76px;object-fit:contain}
+.landing-company-logo>span{font-family:Georgia,serif;font-size:32px;text-transform:uppercase;letter-spacing:2.5px;line-height:1.1}
+.landing-company-logo small{display:block;font-size:10px;font-family:Inter,sans-serif;font-weight:400;letter-spacing:5px;margin-top:10px}
+.landing-company h2{margin:0;font-size:clamp(33px,3.5vw,48px)}
+.landing-company-copy>p{margin:0 0 28px;font-size:15px;line-height:1.85;color:#64715d;max-width:540px}
+.landing-services{display:grid;grid-template-columns:1fr 1fr;gap:18px 25px}
+.landing-services h3{font-size:12px;font-weight:500;margin:0;line-height:1.6;color:#4c6843}
+.landing-services p{color:#718168;font-size:13px;line-height:1.8;margin:9px 0 0}
+.landing-text-link{display:inline-flex;align-items:center;gap:24px;color:#345d2a;font-size:12px;text-decoration:none;margin-top:32px}
+.landing-text-link:hover{text-decoration:underline;text-underline-offset:5px}
+.landing-invitation{padding:75px 0;background:#86c43d}
+.landing-invitation-grid{display:grid;grid-template-columns:1.1fr 1fr;align-items:center;gap:110px}
+.landing-invitation h2{font-family:'Inter Tight',Inter,sans-serif;font-size:clamp(33px,3.5vw,48px);font-weight:500;line-height:1.07;letter-spacing:-.035em;margin:0;color:#17351f}
+.landing-invitation p{font-size:14px;line-height:1.85;color:#355826;margin:0 0 24px;max-width:490px}
+.landing-invitation a{display:inline-flex;gap:30px;align-items:center;border-radius:3px;background:#07100e;color:#f2f3ee;text-decoration:none;font-size:12px;padding:16px 20px}
+.landing-invitation a:hover{background:#17351f}
+.landing-page .quiet-footer{background:#07100e;color:#f2f3ee;padding:48px 0 28px}
+.landing-page .quiet-company-mark>img{filter:brightness(0) invert(1);opacity:.85}
+.landing-page .quiet-footer nav>a,.landing-page .quiet-footer nav>button{color:#b0b9aa}
+.landing-page .quiet-footer nav>a:hover,.landing-page .quiet-footer nav>button:hover{color:#86c43d}
+.landing-page .quiet-footer-base{color:#75836c;margin-top:12px}
+.company-page{font-family:Inter,sans-serif;background:#f2f3ee}
+.company-page .company-intro{background:#07100e;padding:46px 0 65px}
+.company-intro .landing-container{display:grid;grid-template-columns:1.1fr 1fr;gap:110px;align-items:center}
+.company-page .company-intro h1{font-size:clamp(36px,5vw,63px);color:#f2f3ee;margin:0;line-height:1.05;letter-spacing:-2px}
+.company-intro p{font-size:15px;line-height:1.85;color:#b6c3ae;margin:0}
+.landing-company--detailed{padding-block:70px}
+.landing-company--detailed .landing-services{gap:26px}
+.company-product{padding:65px 0}
+.company-product .landing-container{max-width:900px}
+.company-product h2{font-size:34px;max-width:600px;margin:0 0 20px}
+.company-product p{font-size:14px;line-height:1.9;color:#718369;max-width:700px}
+.company-product a{margin-top:12px}
+@media(max-width:1150px){
+  .landing-phase-grid{gap:38px;grid-template-columns:minmax(0,.58fr) minmax(0,1.42fr)}
+  .landing-phase--plan .landing-phase-grid{grid-template-columns:minmax(0,1.42fr) minmax(0,.58fr)}
+  .landing-phase-copy h2{font-size:36px}.landing-phase-copy>p{font-size:13px}
+  .landing-product-intro,.landing-company-grid,.landing-invitation-grid,.company-intro .landing-container{gap:55px}
+}
+@media(max-width:960px){
+  .landing-container,.landing-page .quiet-nav-inner,.landing-page .quiet-footer-inner{width:calc(100% - 48px)}
+  .landing-phase-grid,.landing-phase--plan .landing-phase-grid{grid-template-columns:1fr;gap:35px}
+  .landing-phase-copy{max-width:650px;padding:0}
+  .landing-phase-copy h2{font-size:42px;max-width:550px;margin-bottom:20px}
+  .landing-phase-copy>p{font-size:14px;max-width:600px}
+  .landing-phase-label{margin-bottom:18px!important}
+  .landing-phase-role{margin-top:20px}
+  .landing-phase--plan .landing-phase-copy,.landing-phase--plan .engagement-demo{grid-column:auto;grid-row:auto;justify-self:stretch}
+  .landing-phase{padding-block:65px}
+  .landing-product{padding-block:70px}
+  .landing-product-intro{gap:40px}
+  .landing-product-intro>p{font-size:13px}
+  .landing-company,.landing-invitation{padding-block:65px}
+}
+@media(max-width:720px){
+  .landing-page>.quiet-nav{height:70px}
+  .landing-hero{padding:36px 0 30px}
+  .landing-hero-copy{margin-bottom:28px}
+  .landing-hero-copy h1{font-size:clamp(39px,7.8vw,56px);letter-spacing:-.04em}
+  .landing-hero-copy>p{font-size:13px;max-width:440px;margin-top:20px}
+  .landing-product-intro,.landing-company-grid,.landing-invitation-grid,.company-intro .landing-container{grid-template-columns:1fr;gap:25px}
+  .landing-product{padding-block:48px}
+  .landing-product h2{font-size:34px}.landing-product-intro>p{font-size:14px}
+  .landing-phase{padding-block:48px;scroll-margin-top:70px}
+  .landing-phase-grid{gap:28px}
+  .landing-phase-copy h2{font-size:38px;max-width:480px}
+  .landing-phase-role{font-size:11px;margin-top:18px}
+  .landing-systems{align-items:flex-start;margin-top:30px;padding-top:24px;gap:22px}
+  .landing-systems>p{font-size:11px;min-width:120px}
+  .landing-systems>div{gap:17px}
+  .landing-systems span{font-size:11px}.landing-systems img{width:22px;height:22px}
+  .landing-company,.landing-invitation{padding-block:48px}
+  .landing-company-logo{margin-bottom:28px}
+  .landing-company-logo>img{width:64px;height:64px}
+  .landing-company h2{font-size:36px}
+  .landing-company-copy>p{font-size:14px;margin-top:0}
+  .landing-invitation h2{font-size:36px}
+  .landing-invitation p{font-size:13px}
+  .company-page .company-intro{padding:28px 0 45px}
+  .company-page .company-intro h1{font-size:42px;letter-spacing:-1.4px}
+  .company-intro p{font-size:13px}
+  .company-product{padding-block:42px}
+  .company-product h2{font-size:29px}
+}
+@media(max-width:450px){
+  .landing-container,.landing-page .quiet-nav-inner,.landing-page .quiet-footer-inner{width:calc(100% - 32px)}
+  .landing-page .quiet-brand{font-size:23px}
+  .landing-hero-copy h1{font-size:40px}
+  .landing-hero-copy>p{font-size:12px;padding-inline:8px}
+  .landing-phase-copy h2{font-size:35px}
+  .landing-product h2{font-size:31px}
+  .landing-services{gap:14px 18px}
+  .landing-company-logo>span{font-size:28px}
+  .landing-company-logo small{font-size:9px;letter-spacing:4.3px}
+  .landing-company h2,.landing-invitation h2{font-size:32px}
+  .landing-company--detailed .landing-services{grid-template-columns:1fr}
+  .landing-systems{flex-direction:column;gap:18px}
+  .landing-systems>p>br{display:none}
+}

@@ -1,9 +1,10 @@
 # AllianceOne website
 
 React + Vite marketing site. The landing page leads with an illustrative Northstar
-engagement demo, followed by AllianceOne, Alliance Systems Group and the design
-partner invitation. Existing site wording and forest, cream and lime branding are
-retained; decorative grids and the six stacked phase demos are removed.
+engagement conversation, followed by separate Scope, Plan and Deliver sections,
+Alliance Systems Group and the design partner invitation. Main’s Inter Tight
+typography, signature lime, ink, bone and atmospheric green backgrounds form the
+design foundation. Dense grids and the previous six-phase presentation are removed.
 
 ## Local development
 
@@ -18,8 +19,10 @@ The dev server uses http://localhost:5176. `npm run build` produces `dist/`;
 ## Where to edit
 
 - `src/LandingPage.jsx` and `src/landing.css`: page structure and marketing copy.
-- `src/demo/northstar.js`: fictional conversation, sources, resources and sequence.
-- `src/demo/EngagementDemo.jsx`: typing, playback, pause/resume, seeking and chapters.
+- `src/demo/northstar.js`: fictional conversation, sources, resources and the
+  `presentations` mapping for the opening and three phase players.
+- `src/demo/EngagementDemo.jsx`: single-exchange rendering, typing, visible-player
+  autoplay, pause/resume, replay, example selection and source inspection.
 - `src/demo/DemoArtifacts.jsx`: scope, pricing, proposal, resource plan, application
   receipts, Word-style assessment and evidence workbook.
 - `src/demo/engagement-demo.css`: the product demo appearance and responsive layout.
@@ -33,12 +36,16 @@ The dev server uses http://localhost:5176. `npm run build` produces `dist/`;
 
 ## Demo narrative
 
-**Scope:** establish context, find Harbor and Meridian precedent, trace people and
-review feedback, draft scope, check current resource availability and internal
-costs, prepare a proposal, then record the negotiated exact-version acceptance.
+**Opening:** establish Northstar’s context, then find Harbor and Meridian precedent.
+The hero includes the engagement sidebar and Northstar’s three work threads.
 
-**Plan:** begin a separate planning conversation using the accepted commitments
-and reviewed pursuit team. Develop the schedule, retain the plan review, obtain
+**Scope:** carry precedent into the draft scope, check current resource availability
+and internal costs, then prepare the reviewed proposal. Pricing follows the
+resource and effort basis; it is not introduced in the opportunity overview.
+
+**Plan:** begin a separate planning conversation using the negotiated $400,000
+proposal v5, Won opportunity and confirmed pursuit team. Develop the schedule,
+retain the plan review, obtain
 approval, create Project Operations and SharePoint records, and read them back
 against the approved plan. Application setup is part of Plan.
 
@@ -47,19 +54,26 @@ context. Develop a data-readiness assessment using the firm template and evidenc
 workbook, then retain Sofia's challenge and the response in the revised assessment.
 
 The demo uses local scripted data, not connected accounts or a live model. It is
-labeled as fictional on the page. Playback starts on arrival: the opening prompt
-types, agent activity appears and the response streams. Pause retains progress;
-Replay starts the conversation again. The engagement sidebar shows Northstar's
-scoping, planning and assessment threads and follows the active conversation.
-Selecting a thread or opening a source or artifact pauses playback for inspection.
-Harbor and Meridian open their retained engagement context. On smaller screens,
-the header menu opens the same sidebar. Chapters and the progress control also
-allow seeking. Reduced motion skips character animation.
+labeled as fictional on the page. Each player shows exactly one user/assistant
+exchange at a time, replacing the previous exchange rather than accumulating a
+transcript. The opening starts on arrival; phase players start when scrolled into
+view. Offscreen players and hidden browser tabs retain their playback position.
+
+The prompt types, agent activity appears and the response streams. Pause retains
+progress; Replay restarts that player. The text controls below each player select
+a completed example for inspection. Sidebar thread links lead to the corresponding
+phase section. Harbor and Meridian open their retained engagement context.
+Opening a source, interacting with an artifact or expanding agent activity pauses
+playback. On smaller screens, the hero header menu opens the engagement sidebar.
+Phase players omit the sidebar to keep the work legible. Reduced motion skips
+character animation. Players remain independent and never navigate the page or
+another player when advancing to the next exchange.
 
 ## Routes and publishing
 
 `/` is the full landing page. `/allianceone/` retains the product-focused version;
-`/how-it-works/` opens the same condensed demo without the longer product sections.
+`/how-it-works/` opens the same opening and three phase demonstrations without the
+company section.
 `/company/`, `/security/` and `/design-partners/` remain available. `/platform/`
 continues to redirect to `/allianceone/`.
 
