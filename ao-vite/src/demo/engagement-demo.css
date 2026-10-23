@@ -42,6 +42,7 @@
 .engagement-demo--deliver .demo-agent-response>p{white-space:pre-line}
 .demo-response-sources{display:flex;flex-wrap:wrap;gap:8px 20px;margin:0 0 20px}
 .demo-response-sources>button{border:0;background:none;padding:2px 0;font:inherit;font-size:10px;color:#5b7565;text-align:left;text-decoration:underline;text-decoration-color:#b5cba5;text-underline-offset:3px;cursor:pointer}
+.context-access{font-size:11px;color:#5f7566;line-height:1.8;margin:14px 0 20px}
 .assignment-brief-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin:20px 0}
 .assignment-brief-facts>div{min-height:38px}
 .assignment-brief-facts dt{font-size:10px;color:#6b7e70;margin-bottom:3px}

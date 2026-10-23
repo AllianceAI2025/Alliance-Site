@@ -1,6 +1,25 @@
 import { deliveryTiming, planTiming, scopeTiming } from "./demoPlayback.js";
 import { planDeliverables, planMilestones, readbackPlan } from "./engagementPlan.js";
 export { planDeliverables, planMilestones, readbackPlan };
+export const assessmentFormatName = "Data Readiness Assessment";
+export const assessmentFileName = "Northstar Foods — Data Readiness Assessment.docx";
+
+// Demonstration source grants for Avery's Northstar assignment. Authorship and
+// relevance alone do not grant access to the source engagement or its records.
+const consultantSourceContexts = {
+  discovery: "consultant-overview",
+  assignment: "consultant-assignment",
+  evidence: "evidence",
+  method: "method",
+  "harbor-review": "harbor-review",
+  "ownership-guidance": "ownership-guidance",
+  record: "consultant-record",
+};
+export function resolveDemoSource(phase, key) {
+  if (!Object.hasOwn(stories, phase)) return null;
+  if (phase === "deliver") return Object.hasOwn(consultantSourceContexts, key) ? consultantSourceContexts[key] : null;
+  return Object.hasOwn(contexts, key) ? key : null;
+}
 
 // Fictional Northstar engagement. All actions and records are illustrated locally.
 export const resources = [
@@ -104,32 +123,53 @@ export const stories = {
     answerDuration: 1900, artifact: "assignment-brief", artifactAt: deliveryTiming.assignmentAt, artifactUntil: deliveryTiming.assignmentReady,
     duration: 43100,
     commands: [
-      { typingAt: deliveryTiming.methodTyping, sentAt: deliveryTiming.methodAsked, answerAt: deliveryTiming.methodAnswer, answerDuration: 2200, prompt: "Which version of the ASG Data Readiness Assessment should I use, and what did Sofia challenge in my Harbor evidence pack?", answer: "Use the ASG Data Readiness Assessment (ASG DR01 v1.2) and its companion evidence workbook. Assess coverage, currency, completeness and traceability; link each conclusion to the operating decision it supports.\n\nIn Harbor HG-D01 v1, observed owners and proposed future owners were combined, and some interview summaries lacked record references. Sofia’s accepted v2 required separate fields, a source and date for each material entry, and unresolved conflicts kept visible.\n\nApply that review to Northstar’s evidence: distinguish Northeast’s missing owners from Central’s older inventory, and leave the two absent regions outside an overall readiness conclusion.", sources: [{ key: "method", label: "ASG Data Readiness Assessment · v1.2" }, { key: "harbor", label: "Harbor · Sofia’s HG-D01 review" }] },
-      { typingAt: deliveryTiming.draftTyping, sentAt: deliveryTiming.draftAsked, answerAt: deliveryTiming.draftAnswer, answerDuration: 1300, artifact: "assessment-draft", artifactAt: deliveryTiming.draftAt, artifactUntil: deliveryTiming.draftReady, prompt: "Draft Northstar’s report using the ASG Data Readiness Assessment. Apply Sofia’s review and keep the evidence limits explicit.", answer: "I’ll develop the report from your approved assignment and NS-DATA01, using ASG DR01 v1.2. The evidence register will keep source dates, observed ownership and unresolved conflicts alongside the findings. Sofia reviews the assessment before the diagnostic baseline." },
+      { typingAt: deliveryTiming.methodTyping, sentAt: deliveryTiming.methodAsked, answerAt: deliveryTiming.methodAnswer, answerDuration: 2200, prompt: "Which report format should I use, and can I draw on Sofia’s feedback from my Harbor evidence pack?", answer: `Use the ${assessmentFormatName} report and its companion evidence workbook from the practice library. Assess coverage, currency, completeness and traceability; link each conclusion to the operating decision it supports.\n\nSofia shared a review excerpt from your Harbor HG-D01 v1 evidence pack for this Northstar assignment. It combined observed owners with proposed future owners and lacked some record references. Her accepted v2 required separate fields, a source and date for each material entry, and unresolved conflicts kept visible.\n\nThe published Ownership and Handoffs practice note also applies. Use these sources to distinguish Northeast’s missing owners from Central’s older inventory, keeping the absent regions outside an overall readiness conclusion.`, sources: [{ key: "method", label: assessmentFormatName }, { key: "harbor-review", label: "Avery’s Harbor review · Shared by Sofia" }, { key: "ownership-guidance", label: "Ownership and Handoffs · Practice note" }] },
+      { typingAt: deliveryTiming.draftTyping, sentAt: deliveryTiming.draftAsked, answerAt: deliveryTiming.draftAnswer, answerDuration: 1300, artifact: "assessment-draft", artifactAt: deliveryTiming.draftAt, artifactUntil: deliveryTiming.draftReady, prompt: `Draft Northstar’s report using the ${assessmentFormatName}. Apply the shared review feedback and keep the evidence limits explicit.`, answer: "I’ll develop the report from your approved assignment and NS-DATA01, using the practice library’s assessment format. The evidence register will keep source dates, observed ownership and unresolved conflicts alongside the findings. Sofia reviews the assessment before the diagnostic baseline." },
       { typingAt: deliveryTiming.sendTyping, sentAt: deliveryTiming.sentForReview, answerAt: deliveryTiming.sendAnswer, answerDuration: 1200, artifact: "assessment-review", artifactAt: deliveryTiming.reviewArtifactAt, artifactUntil: deliveryTiming.feedbackReceived, prompt: "Send this assessment and its supporting evidence to Sofia for review.", answer: "I’ve sent revision 1 and the Northstar evidence to Sofia. Her comments will stay linked to this exact draft and its approved assignment." },
       { typingAt: deliveryTiming.reviseTyping, sentAt: deliveryTiming.revising, answerAt: deliveryTiming.reviseAnswer, answerDuration: 1300, artifact: "assessment-revision", artifactAt: deliveryTiming.revisionArtifactAt, artifactUntil: deliveryTiming.approved, prompt: "Address Sofia’s feedback. Explain what each evidence gap means for design readiness.", answer: "I’ll distinguish Northeast’s missing owners from Central’s older inventory and keep West and Southeast outside a whole-client readiness conclusion. I’ll return revision 2 to Sofia with the revision rationale." },
-      { typingAt: deliveryTiming.exportTyping, sentAt: deliveryTiming.exportStarted, answerAt: deliveryTiming.exportAnswer, answerDuration: 1200, artifact: "assessment-export", artifactAt: deliveryTiming.exportArtifactAt, prompt: "Export the approved revision as a Word document using ASG DR01.", answer: "Sofia approved revision 2. I’m exporting that exact version in ASG DR01 v1.2, with the approval, source evidence and revision history retained in Northstar’s engagement record." },
+      { typingAt: deliveryTiming.exportTyping, sentAt: deliveryTiming.exportStarted, answerAt: deliveryTiming.exportAnswer, answerDuration: 1200, artifact: "assessment-export", artifactAt: deliveryTiming.exportArtifactAt, prompt: "Export the approved report as Northstar Foods — Data Readiness Assessment.", answer: "Sofia approved revision 2. I’m exporting that exact version as a Word report, with the approval, source evidence and revision history retained in Northstar’s engagement record." },
     ],
-    activity: [[0, "Reading Avery’s committed assignment and client requirements"], [deliveryTiming.methodAsked, "Connecting ASG DR01 to Sofia’s retained Harbor review"], [deliveryTiming.draftAsked, "Applying Northstar’s evidence and ASG DR01"], [deliveryTiming.draftReady, "Avery’s draft is ready for review"], [deliveryTiming.sentForReview, "Avery requested review of revision 1"], [deliveryTiming.feedbackReceived, "Sofia asked what the evidence gaps prevent the team from concluding"], [deliveryTiming.revising, "Avery requested a revision addressing Sofia’s feedback"], [deliveryTiming.approved, "Sofia approved revision 2 for export"], [deliveryTiming.exportStarted, "Avery requested the approved Word export"]],
+    activity: [[0, "Reading Avery’s committed assignment and client requirements"], [deliveryTiming.methodAsked, "Reading the published report format and shared review excerpt"], [deliveryTiming.draftAsked, "Applying Northstar’s evidence and the practice report format"], [deliveryTiming.draftReady, "Avery’s draft is ready for review"], [deliveryTiming.sentForReview, "Avery requested review of revision 1"], [deliveryTiming.feedbackReceived, "Sofia asked what the evidence gaps prevent the team from concluding"], [deliveryTiming.revising, "Avery requested a revision addressing Sofia’s feedback"], [deliveryTiming.approved, "Sofia approved revision 2 for export"], [deliveryTiming.exportStarted, "Avery requested the approved Word export"]],
     summary: "Avery sent the assessment to Sofia, addressed her feedback, and received approval for revision 2. The finished Word document is available to download.",
   },
 };
 
 export const contexts = {
   method: {
-    label: "Firm method and template", title: "ASG Data Readiness Assessment", reference: "ASG DR01 · Version 1.2 · Companion evidence workbook",
+    label: "Practice library", title: assessmentFormatName, reference: "Standard report and companion evidence workbook · Practice Methods team",
+    access: { kind: "published", audience: "consulting-practice", label: "Published to the consulting practice" },
     text: "Test coverage, currency, completeness and traceability against the operating decisions the diagnostic must support. The report separates the evidence, practitioner assessment, limitations, approach and outstanding questions.",
     facts: [["Evidence register", "Record observed owners, source references, extract dates and unresolved conflicts."], ["Review standard", "Sofia reviews the reasoning, source-to-conclusion links and implications for design."], ["Client conclusions", "Northstar conclusions require Northstar evidence. A received file does not establish readiness."]],
   },
   "harbor-review": {
-    label: "Relevant delivery review", title: "Sofia’s review of Avery’s Harbor evidence pack", reference: "HG-D01 · Accepted v2 · April 25, 2025 · Assignment-relevant excerpt",
+    label: "Shared review excerpt", title: "Sofia’s review of Avery’s Harbor evidence pack", reference: "Prepared by Avery Ross · Reviewed by Sofia Patel · Accepted April 25, 2025",
+    access: { kind: "shared-excerpt", audience: "northstar-delivery-team", sharedBy: "Sofia Patel", label: "Shared by Sofia Patel with the Northstar delivery team for this assignment" },
     text: "Avery’s first version combined observed decision owners with proposed future owners. Some interview summaries had no underlying record reference. Sofia required those fields to be separated, with a source and date for each material entry and contradictory accounts left visible for a sponsor decision.",
     facts: [["Accepted revision", "V2 separated observed ownership from design proposals and retained source references, dates and disputes."], ["Northstar application", "Keep Northeast’s ownership gaps distinct from Central’s currency limits. Missing regions remain outside a whole-client conclusion."]],
   },
-  "meridian-guidance": {
-    label: "Relevant delivery method", title: "Regional ownership and service boundaries", reference: "Meridian · Reviewed service-ownership matrix excerpt",
-    text: "Lena’s reviewed matrix makes service boundaries, handoffs and dated owner acknowledgment explicit. Use that standard to identify which Northstar decisions are affected by each evidence gap.",
-    facts: [["Northstar application", "Trace missing ownership evidence to the affected service boundaries and design decisions."], ["Evidence limit", "A prior engagement’s accepted matrix does not verify Northstar’s owners or readiness."]],
+  "ownership-guidance": {
+    label: "Published practice guidance", title: "Ownership and Handoffs", reference: "Practice Methods Library · Prepared by Lena Torres · Reviewed by Sofia Patel",
+    access: { kind: "published", audience: "consulting-practice", label: "Published to the consulting practice · Client details removed" },
+    text: "Define service boundaries and handoffs, distinguish proposed owners from confirmed acceptance, and retain dated acknowledgment from the person able to accept the responsibility. Apply those checks to the decisions affected by each Northstar evidence gap.",
+    facts: [["Publication basis", "A practice note developed from reviewed delivery experience. The published guidance is available here; the original client files and review conversations remain in their source engagement."], ["Evidence limit", "The method informs Northstar’s checks. Its conclusions still require Northstar evidence."]],
+  },
+  "consultant-overview": {
+    label: "Engagement context", title: "Northstar Foods", reference: "Delivery brief · Committed plan v1",
+    access: { kind: "assignment", audience: "northstar-delivery-team", label: "Available through Avery’s Northstar delivery assignment" },
+    text: "Northstar needs clearer decision ownership across eight regions while service continues, with a board decision package by November 20. Avery’s assessment establishes the evidence that can support the diagnostic before design.",
+    facts: [["Engagement manager", "Margaret Whitfield"], ["Assessment reviewer", "Sofia Patel"], ["Client dependencies", "West and Southeast participation and missing regional evidence"], ["Scope boundary", "Full source audit and implementation excluded"]],
+  },
+  "consultant-assignment": {
+    label: "Committed assignment", title: "Avery’s data-readiness assessment", reference: `Plan v1 · ${readbackAssignment.id} · Project Operations readback`,
+    access: { kind: "assignment", audience: "northstar-delivery-team", label: "Available through Avery’s Northstar delivery assignment" },
+    text: "Establish which regional evidence can support ownership and escalation findings before design. Keep observed owners separate from design proposals and retain source dates, missing evidence and unresolved conflicts. Sofia reviews before the September 11 baseline.",
+    facts: [["Owner", assignment.owner], ["Planned effort", `${assignment.effort} hours`], ["Due", assignment.due], ["Reviewer", assignment.reviewer]],
+  },
+  "consultant-record": {
+    label: "Assessment working record", title: "Avery’s assessment and review history", reference: "Northstar · Data-readiness assessment · Plan v1",
+    access: { kind: "assignment", audience: "northstar-delivery-team", label: "Assessment sources, conversation and revisions available to the Northstar delivery team" },
+    text: "Avery’s questions, assessment reasoning, supporting Northstar sources, Sofia’s feedback, revision 2 and approval stay linked to this assignment. The record also retains which published guidance and shared review excerpt informed the work.",
+    facts: [["Working basis", "Northstar assignment, evidence register and published assessment format"], ["Shared precedent", "Sofia’s excerpt from Avery’s Harbor review, shared for this assignment"], ["Review trail", "Revision 1, Sofia’s challenge, Avery’s response, approved revision 2 and Word export"]],
   },
   harbor: {
     label: "Firm engagement record", title: "Harbor Grain", reference: "EV-104 · Assignment register, accepted deliverables, review revisions and closing report",
@@ -165,6 +205,7 @@ export const contexts = {
   },
   evidence: {
     label: "Client evidence", title: "Northstar regional extracts", reference: "NS-DATA01 · Evidence register",
+    access: { kind: "assignment", audience: "northstar-delivery-team", label: "Client evidence shared with the Northstar delivery team" },
     text: "Six of eight regional extracts are available. Northeast decision-owner fields are incomplete. Central’s inventory is from the prior quarter. West and Southeast extracts remain outstanding. File receipt does not establish suitability for design decisions.",
     facts: [["Coverage", "6 of 8 regional extracts"], ["Ownership", "Northeast fields incomplete"], ["Currency", "Central inventory requires validation"], ["Outstanding", "West and Southeast"]],
   },

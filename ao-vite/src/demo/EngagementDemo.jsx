@@ -1,7 +1,7 @@
 import React, { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import { capture, useVisualDwell } from "../analytics";
 import DemoArtifact from "./DemoArtifacts.jsx";
-import { contexts, stories } from "./northstar.js";
+import { contexts, resolveDemoSource, stories } from "./northstar.js";
 import { activityAt, conversationAt, demoVisibleAt, followScrollTop, playbackFrameAt, playbackRate, textAt } from "./demoPlayback.js";
 import "./engagement-demo.css";
 
@@ -69,6 +69,7 @@ function ContextDialog({ source, onClose }) {
   return <dialog ref={dialog} className="demo-context-dialog" aria-labelledby={`${id}-title`} onClose={onClose} onClick={event => { if (event.target === event.currentTarget) dialog.current.close(); }}>
     <div className="context-dialog-heading"><p>{context.label}</p><button aria-label="Close supporting context" onClick={() => dialog.current.close()}><Icon name="close" /></button></div>
     <h3 id={`${id}-title`}>{context.title}</h3><p className="context-reference">{context.reference}</p><p className="context-description">{context.text}</p>
+    {context.access && <p className="context-access">{context.access.label}</p>}
     {context.facts && <dl className="context-facts">{context.facts.map(([label, text]) => <div key={label}><dt>{label}</dt><dd>{text}</dd></div>)}</dl>}
     {context.carry && <section className="context-carry"><h4>Carried into Northstar</h4>{context.carry.map(([label, text]) => <div key={label}><strong>{label}</strong><p>{text}</p></div>)}</section>}
     <footer>Illustrative engagement records · fictional client and practitioner data</footer>
@@ -100,7 +101,8 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
   const pause = () => setPlaying(false);
   const resume = () => setPlaying(!reduced && clockRef.current < story.duration / playbackRate);
   const inspect = (key) => {
-    const contextKey = phase === "deliver" ? ({ harbor: "harbor-review", meridian: "meridian-guidance" }[key] || key) : key;
+    const contextKey = resolveDemoSource(phase, key);
+    if (!contextKey) return;
     pause(); setSidebarOpen(false); setSource(contextKey); capture("demo_source_opened", { phase, source: contextKey });
   };
 
@@ -174,7 +176,7 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
             <p className="demo-sidebar-label">Engagements</p>
             <div className="demo-northstar-row"><button className="demo-engagement-name" onClick={() => inspect("discovery")}><Icon name="folder" />Northstar Foods</button><button className="demo-thread-toggle" aria-label="Toggle Northstar Foods threads" aria-expanded={threadsOpen} aria-controls={`${id}-threads`} onClick={() => setThreadsOpen(!threadsOpen)}><Icon name="chevron" className={threadsOpen ? "is-expanded" : ""} /></button></div>
             {threadsOpen && <nav className="demo-thread-list" id={`${id}-threads`} aria-label="Northstar Foods threads">{Object.entries(stories).filter(([key]) => !story.threads || story.threads.includes(key)).map(([key, item]) => <a key={key} href={`#${key}`} aria-current={key === phase ? "page" : undefined} onClick={() => setSidebarOpen(false)}>{item.thread}</a>)}</nav>}
-            <button className="demo-engagement-reference" onClick={() => inspect("harbor")}><Icon name="folder" />Harbor Grain</button><button className="demo-engagement-reference" onClick={() => inspect("meridian")}><Icon name="folder" />Meridian</button>
+            {phase !== "deliver" && <><button className="demo-engagement-reference" onClick={() => inspect("harbor")}><Icon name="folder" />Harbor Grain</button><button className="demo-engagement-reference" onClick={() => inspect("meridian")}><Icon name="folder" />Meridian</button></>}
             <div className="demo-profile"><span>{phase === "deliver" ? "AR" : "MW"}</span><div>{story.person}<small>{phase === "deliver" ? "Consultant" : "Engagement manager"}</small></div></div>
           </aside>
         </>

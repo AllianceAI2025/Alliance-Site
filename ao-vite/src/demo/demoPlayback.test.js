@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { approvedPlan, assignment, contexts, effort, historicalCases, readbackAssignment, readbackPlan, readbackProject, resources, staffingCandidates, stories } from "./northstar.js";
+import { approvedPlan, assessmentFileName, assessmentFormatName, assignment, contexts, effort, historicalCases, readbackAssignment, readbackPlan, readbackProject, resolveDemoSource, resources, staffingCandidates, stories } from "./northstar.js";
 import { commonTiming, compareAssignment, comparePlan, conversationAt, deliveryStateAt, deliveryTiming, demoVisibleAt, followScrollTop, playbackFrameAt, planExecutionAt, planTiming, playbackRate, precedentBuildAt, progressAt, scopeTiming, textAt } from "./demoPlayback.js";
 
 test("demos wait until watchable and tolerate small scrolls before leaving", () => {
@@ -219,7 +219,7 @@ test("consultant delivery establishes the assignment and method before drafting"
   const method = story.commands[0], draft = story.commands[1];
   assert.ok(method.typingAt > deliveryTiming.assignmentReady);
   assert.equal(method.sentAt, deliveryTiming.methodAsked);
-  assert.ok(method.answer.includes("ASG DR01 v1.2") && method.answer.includes("HG-D01 v1"));
+  assert.ok(method.answer.includes(assessmentFormatName) && method.answer.includes("HG-D01 v1"));
   assert.ok(method.answer.includes("source and date") && method.answer.includes("unresolved conflicts"));
   assert.ok(method.sources.every(source => contexts[source.key]));
   assert.ok(draft.typingAt > method.answerAt + method.answerDuration);
@@ -233,6 +233,31 @@ test("consultant delivery establishes the assignment and method before drafting"
   const ready = conversationAt(story, deliveryTiming.draftReady).exchanges.at(-1);
   assert.equal(ready.artifact, "assessment-draft");
   assert.equal(ready.artifactElapsed, deliveryTiming.draftReady);
+});
+
+test("Avery can use assigned materials and explicitly shared or published knowledge", () => {
+  for (const key of ["discovery", "assignment", "evidence", "method", "harbor-review", "ownership-guidance", "record"]) {
+    const context = contexts[resolveDemoSource("deliver", key)];
+    assert.ok(context?.access, `${key} has an explicit demonstration source grant`);
+    assert.ok(["northstar-delivery-team", "consulting-practice"].includes(context.access.audience));
+  }
+  for (const key of ["harbor", "meridian", "accepted", "availability", "meridian-guidance", "unknown-source", "toString"]) {
+    assert.equal(resolveDemoSource("deliver", key), null, `${key} cannot fall back to a manager's source`);
+  }
+  assert.equal(resolveDemoSource("deliver", "assignment"), "consultant-assignment");
+  assert.equal(resolveDemoSource("deliver", "record"), "consultant-record");
+  assert.equal(resolveDemoSource("scope", "harbor"), "harbor");
+  assert.equal(resolveDemoSource("plan", "meridian"), "meridian");
+  assert.equal(contexts["harbor-review"].access.kind, "shared-excerpt");
+  assert.equal(contexts["harbor-review"].access.sharedBy, assignment.reviewer);
+  assert.ok(contexts["harbor-review"].reference.includes(assignment.owner));
+  const published = contexts["ownership-guidance"];
+  assert.equal(published.access.kind, "published");
+  assert.ok(published.reference.includes("Lena Torres"), "the published contribution retains attribution");
+  assert.equal(JSON.stringify(published).includes("Meridian"), false, "the practice note does not expose its source client's identity");
+  for (const source of stories.deliver.commands[0].sources) assert.ok(resolveDemoSource("deliver", source.key));
+  assert.equal(assessmentFileName, "Northstar Foods — Data Readiness Assessment.docx");
+  assert.equal(/ASG DR01|v1\.2/.test(JSON.stringify(stories.deliver)), false, "the presentation uses report names rather than technical template identifiers");
 });
 
 test("PSA readback identifies the created project and the approved staffing basis", () => {
