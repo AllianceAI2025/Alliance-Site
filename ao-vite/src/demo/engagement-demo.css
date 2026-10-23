@@ -106,8 +106,14 @@
 .plan-continuity>.artifact-source{font-size:9px;margin-left:5px}
 .plan-execution{min-height:120px;border-top:1px solid #e7edf0;padding-top:14px}
 .plan-approval{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-top:8px;color:#5f737e;font-size:10px}
+.plan-commit-copy{max-width:480px;min-width:0}
+.plan-commit-copy>strong{font-size:11px;font-weight:500;color:#344b3d}
+.plan-commit-copy>p{display:flex;align-items:center;gap:7px;font-size:10px;color:#49606b;margin:9px 0 4px}
+.plan-commit-copy img{width:17px;height:17px;object-fit:contain;flex:none}
+.plan-commit-copy>span{display:block;font-size:10px;line-height:1.8}
 .plan-approval>button{background:#86c43d;color:#07100e;border:0;border-radius:6px;padding:10px 14px;display:flex;align-items:center;gap:20px;cursor:pointer;font-size:10px}
 .plan-approval>button:disabled{background:#eef2f3;color:#5f737e;cursor:default}
+.plan-approval>button.is-submitting{background:#86c43d;color:#07100e;transform:translateY(1px);box-shadow:inset 0 2px 3px #07100e24}
 .execution-heading{display:flex;align-items:center;gap:7px;font-size:10px;color:#5f737e}
 .execution-heading>strong{font-weight:500;color:#506a75}
 .execution-heading>span:last-child{font-size:9px;color:#5f737e;margin-left:auto}

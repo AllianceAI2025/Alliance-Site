@@ -33,12 +33,13 @@ export function ScopeArtifact({ elapsed, onInspect }) {
   </article>;
 }
 
-export function PlanArtifact({ elapsed, onInspect, onApprove }) {
+export function PlanArtifact({ elapsed, onInspect, onSubmit }) {
   const execution = planExecutionAt(elapsed);
+  const submitting = execution.reviewed && elapsed >= planTiming.approved - 600;
   const mismatches = compareAssignment(assignment, readbackAssignment);
   const verified = execution.readbackReady && mismatches.length === 0;
-  return <article className="inline-artifact plan-artifact" aria-label="Northstar engagement plan" aria-busy={!execution.readbackReady}>
-    <ArtifactHead label="Northstar Foods · Engagement plan" title="Resources and delivery schedule" meta="Approved plan v1" elapsed={elapsed} finishedAt={planTiming.approved} />
+  return <article className="inline-artifact plan-artifact" aria-label="Northstar engagement plan" aria-busy={!execution.reviewed || (execution.approved && !execution.readbackReady)}>
+    <ArtifactHead label="Northstar Foods · Engagement plan" title="Resources and delivery schedule" meta={execution.approved ? "Approved plan v1" : "Reviewed plan v1"} elapsed={elapsed} finishedAt={planTiming.reviewed} />
     <div className="plan-basis"><SourceLink source="accepted" onInspect={onInspect}>Accepted proposal v5</SourceLink><span>14 weeks</span><span>{effort.toLocaleString()} hours</span><span>14 deliverables</span><span>August 17 – November 20</span></div>
     <div className="resource-schedule" role="group" aria-label="Resources across fourteen weeks">
       <div className="schedule-axis"><span>Resources</span><div>{[1, 4, 8, 12, 14].map(week => <span key={week}>W{week}</span>)}</div><span>Effort</span></div>
@@ -56,10 +57,10 @@ export function PlanArtifact({ elapsed, onInspect, onApprove }) {
     <div className="plan-review-gate build-slot" data-built={elapsed >= 8000}>{elapsed >= 8000 && <><div><strong>Avery’s assessment</strong><span>{assignment.effort}h · {assignment.due}</span></div><span className="gate-arrow" aria-hidden="true">→</span><div><strong>Sofia’s review</strong><span>Before the diagnostic baseline</span></div><SourceLink source="assignment" onInspect={onInspect}>Assignment basis</SourceLink></>}</div>
     <p className="plan-continuity build-slot">{elapsed >= 9000 && <>Harbor informs Avery’s evidence gate; Meridian informs Lena’s regional validation. Daniel’s W3 hold carries forward. <SourceLink source="availability" onInspect={onInspect}>Resource basis</SourceLink></>}</p>
     <div className="plan-execution build-slot" data-built={elapsed >= planTiming.reviewed} data-approved={execution.approved} data-verified={verified}>
-      {!execution.approved ? <div className="plan-approval"><span>{execution.reviewed ? "Sofia reviewed plan v1. Ready for Margaret’s approval." : "Developing assignments and review coverage."}</span><button disabled={!execution.reviewed} onClick={onApprove}>Approve & set up <span aria-hidden="true">↗</span></button></div> : <>
-        <div className="execution-heading"><span className="execution-check" aria-hidden="true">✓</span><strong>Margaret approved plan v1</strong><span>Approved basis retained</span></div>
-        <div className="execution-receipts"><div><img src="/brand/systems/project-operations.svg" alt="" /><span>Project Operations</span><small>{execution.projectCreated ? "Project, deliverables & assignments created" : "Creating project & assignments…"}</small>{execution.projectCreated && <span className="execution-check" aria-label="Created">✓</span>}</div><div><img src="/brand/systems/sharepoint.svg" alt="" /><span>SharePoint</span><small>{execution.workspaceCreated ? "Approved plan workspace created" : "Preparing workspace…"}</small>{execution.workspaceCreated && <span className="execution-check" aria-label="Created">✓</span>}</div></div>
-        <p className={`execution-readback${verified ? " is-verified" : ""}`}>{verified ? <><span aria-hidden="true">✓</span> Readback matched: Avery · {readbackAssignment.effort}h · {readbackAssignment.due} · Sofia reviews</> : execution.readbackReady ? `Readback differs on ${mismatches.join(", ")}. Review before finalizing.` : "Reading the resulting records back against approved plan v1…"}</p>
+      {!execution.approved ? <div className="plan-approval"><div className="plan-commit-copy"><strong>{execution.reviewed ? "Sofia reviewed plan v1. Ready to commit." : "Developing assignments and review coverage."}</strong><p><img src="/brand/systems/project-operations.svg" alt="" />Dynamics 365 Project Operations</p><span>Create the project, 14 deliverables and 6 resource assignments. File the approved plan in SharePoint.</span></div><button className={submitting ? "is-submitting" : undefined} disabled={!execution.reviewed || submitting} onClick={onSubmit}>{submitting ? "Submitting to PSA…" : "Approve & submit to PSA"}<span aria-hidden="true">↗</span></button></div> : <>
+        <div className="execution-heading"><span className="execution-check" aria-hidden="true">✓</span><strong>Margaret approved and submitted plan v1 to PSA</strong><span>Approved baseline retained</span></div>
+        <div className="execution-receipts"><div><img src="/brand/systems/project-operations.svg" alt="" /><span>Project Operations · PSA</span><small>{execution.projectCreated ? "Project, 14 deliverables & 6 assignments created" : "Writing project, deliverables & assignments…"}</small>{execution.projectCreated && <span className="execution-check" aria-label="Created">✓</span>}</div><div><img src="/brand/systems/sharepoint.svg" alt="" /><span>SharePoint</span><small>{execution.workspaceCreated ? "Approved plan workspace created" : "Preparing workspace…"}</small>{execution.workspaceCreated && <span className="execution-check" aria-label="Created">✓</span>}</div></div>
+        <p className={`execution-readback${verified ? " is-verified" : ""}`}>{verified ? <><span aria-hidden="true">✓</span> PSA readback matched plan v1: Avery · {readbackAssignment.effort}h · {readbackAssignment.due} · Sofia reviews</> : execution.readbackReady ? `Readback differs on ${mismatches.join(", ")}. Review before finalizing.` : "Reading the PSA records back against approved plan v1…"}</p>
       </>}
     </div>
   </article>;
@@ -84,8 +85,8 @@ export function DeliveryArtifact({ elapsed, onInspect }) {
   </article>;
 }
 
-export default function DemoArtifact({ phase, elapsed, onInspect, onApprove }) {
+export default function DemoArtifact({ phase, elapsed, onInspect, onSubmit }) {
   if (phase === "scope") return <ScopeArtifact elapsed={elapsed} onInspect={onInspect} />;
-  if (phase === "plan") return <PlanArtifact elapsed={elapsed} onInspect={onInspect} onApprove={onApprove} />;
+  if (phase === "plan") return <PlanArtifact elapsed={elapsed} onInspect={onInspect} onSubmit={onSubmit} />;
   return <DeliveryArtifact elapsed={elapsed} onInspect={onInspect} />;
 }

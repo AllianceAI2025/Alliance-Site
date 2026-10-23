@@ -3,8 +3,8 @@
 React + Vite marketing site. Three single-exchange demonstrations show how Harbor
 and Meridian experience carries into Northstar's scope, plan and delivery work.
 Scope is the opening demonstration; there is no separate opening player or
-multi-frame sequence. The three examples contain 45 seconds of active playback. Each holds its finished
-artifact for 3.2 seconds before looping in place.
+multi-frame sequence. Playback runs at 80% speed: about 62.5 seconds of active content across the three
+examples. Each holds its finished artifact for 10 seconds before looping in place.
 
 ## Local development
 
@@ -41,23 +41,26 @@ The existing dev server uses http://localhost:5176. The build produces `dist/`.
 
 ## What each example proves
 
-**Scope (14.5s):** One question asks about relevant past work. The scope develops
+**Scope (18.1s + 10s reading hold):** One question asks about relevant past work. The scope develops
 its objective and four workstreams. Harbor's evidence review explains an early
 evidence gate; Meridian's review explains explicit boundaries, acknowledgment and
 transition readiness. Avery and Lena's relevant delivery experience is paired
 with a separate current availability check before a proposal is submitted.
 
-**Plan (16s):** A separate conversation begins from accepted proposal v5 and a Won
+**Plan (26.3s + 10s reading hold):** A separate conversation begins from accepted proposal v5 and a Won
 opportunity. The reviewed pursuit team carries forward. Six resource windows build
 row by row; bars grow into their confirmed weeks. Avery's 36-hour assessment,
 September 7 deadline and Sofia's review are tied to the diagnostic baseline.
-Sofia reviews the plan before Margaret approves it. The illustrated approval then
-creates Project Operations and SharePoint records. A separate application-response
+Sofia reviews the completed plan. For about six seconds, an “Approve & submit to
+PSA” action names Dynamics 365 Project Operations and describes the project,
+14 deliverables, six resource assignments and SharePoint filing. The illustrated
+button press commits the approved baseline before any application records are
+created. Viewers can also click the action themselves to advance to submission. A separate application-response
 fixture is compared with the approved assignment's owner, reviewer, effort, due
 date and baseline. A mismatch produces a discrepancy rather than a success claim.
 The accepted-proposal source retains the pricing basis and negotiated changes.
 
-**Deliver (14.5s):** Avery inherits the approved assignment and firm template.
+**Deliver (18.1s + 10s reading hold):** Avery inherits the approved assignment and firm template.
 Northstar evidence populates the report, with Harbor and Meridian guidance beside
 the work. Sofia asks what the gaps prevent the team from concluding. Avery's
 revision explicitly limits design readiness. Sources, review feedback and revision
@@ -70,7 +73,7 @@ There are no scene counters, example tabs or automatic chapter changes.
 ## Playback and inspection
 
 Each example starts when visible, retains its position offscreen, and pauses when
-the browser document is hidden. A finished scene holds for 3.2 seconds, then resets
+the browser document is hidden. A finished scene holds for 10 seconds, then resets
 its own conversation and feed scroll position without navigating to another section.
 A small Pause/Play icon appears on hover, keyboard focus or touch devices. It retains
 partial builds when paused. Scrolling or interacting with an artifact pauses it. Source links
@@ -80,8 +83,8 @@ scroll to the corresponding section. Mobile uses the same sidebar behind a menu.
 Reduced motion shows each finished example without character, construction or loop motion.
 
 All data, approvals and connector actions are illustrative. The page makes no live
-model requests and does not connect to client systems. The illustrated approval
-runs as part of playback; viewers can also use the approval button after review.
+model requests and does not connect to client systems. The illustrated approval and PSA submission
+run as part of playback; viewers can also submit the plan after review.
 These fixtures specify the intended behavior for engineering, not a working backend.
 
 ## Routes and publishing

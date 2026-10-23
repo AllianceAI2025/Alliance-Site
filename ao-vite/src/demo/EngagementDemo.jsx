@@ -2,7 +2,7 @@ import React, { useEffect, useId, useLayoutEffect, useRef, useState } from "reac
 import { capture, useVisualDwell } from "../analytics";
 import DemoArtifact from "./DemoArtifacts.jsx";
 import { contexts, stories } from "./northstar.js";
-import { activityAt, commonTiming, loopFrameAt, planTiming, textAt } from "./demoPlayback.js";
+import { activityAt, commonTiming, loopFrameAt, planTiming, playbackRate, textAt } from "./demoPlayback.js";
 import "./engagement-demo.css";
 
 function Icon({ name, ...props }) {
@@ -44,7 +44,7 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
   const story = stories[phase];
   const reduced = useReducedMotion();
   const [elapsed, setElapsed] = useState(() => reduced ? story.duration : 0);
-  const clockRef = useRef(elapsed);
+  const clockRef = useRef(elapsed / playbackRate);
   const [playing, setPlaying] = useState(!reduced);
   const [visible, setVisible] = useState(false);
   const [tabVisible, setTabVisible] = useState(() => document.visibilityState !== "hidden");
@@ -63,7 +63,7 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
   const artifactVisible = elapsed >= commonTiming.artifactAt;
   const buildBeat = Math.floor(elapsed / 600);
 
-  const updateClock = (value) => { clockRef.current = value; setElapsed(value); };
+  const updateClock = (value) => { clockRef.current = value / playbackRate; setElapsed(value); };
   const pause = () => { setPlaying(false); autoFollow.current = false; };
   const resume = () => { autoFollow.current = true; setPlaying(!reduced); };
   const inspect = (key) => { pause(); setSidebarOpen(false); setSource(key); capture("demo_source_opened", { phase, source: key }); };
@@ -121,9 +121,9 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
     if (playing) { pause(); setAnnouncement(`${story.label} demonstration paused.`); }
     else resume();
   };
-  const approve = () => {
+  const submitPlan = () => {
     autoFollow.current = true; updateClock(planTiming.approved); setPlaying(true); setEpoch(value => value + 1);
-    capture("demo_plan_approved", { phase, actor: "Margaret Whitfield", illustrative: true });
+    capture("demo_plan_submitted", { phase, actor: "Margaret Whitfield", destination: "Dynamics 365 Project Operations", illustrative: true });
   };
 
   return <div className={`engagement-demo engagement-demo--${phase}${primary ? " engagement-demo--primary" : ""}`} ref={demoRef} id={primary ? "demo" : `${phase}-demo`} data-phase={phase} data-elapsed={Math.round(elapsed)}>
@@ -145,7 +145,7 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
           <div className="demo-feed" ref={feed} role="log" aria-label={`${story.label} conversation`} aria-live="off" onWheel={pause} onTouchStart={pause}>
             <div className="demo-conversation">
               {promptSent && <div className="demo-exchange"><div className="demo-user-message">{story.prompt}</div><div className="demo-agent-response"><div className="demo-agent-name"><img src="/brand/logo-mark.svg" alt="" />AllianceOne</div><p>{textAt(story.answer, elapsed, commonTiming.answerAt, 1100) || <span className="demo-working"><i className="build-pulse" />{activityAt(story, elapsed)}</span>}</p></div>
-                {artifactVisible && <div className="demo-artifact-container" onPointerDown={pause} onFocusCapture={pause}><DemoArtifact phase={phase} elapsed={elapsed} onInspect={inspect} onApprove={approve} /></div>}
+                {artifactVisible && <div className="demo-artifact-container" onPointerDown={pause} onFocusCapture={pause}><DemoArtifact phase={phase} elapsed={elapsed} onInspect={inspect} onSubmit={submitPlan} /></div>}
               </div>}
             </div>
           </div>

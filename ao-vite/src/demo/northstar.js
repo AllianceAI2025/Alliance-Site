@@ -30,9 +30,9 @@ export const stories = {
     label: "Plan", thread: "Engagement planning and staffing", person: "Margaret Whitfield",
     prompt: "Build the plan from Northstar’s accepted proposal and the team we scoped.",
     answer: "Proposal v5 is accepted; OPP-20418 is Won. The reviewed team carries forward, with Avery’s assessment and Sofia’s review connected to the diagnostic baseline.",
-    duration: 16000,
-    activity: [[0, "Grounding the plan in the accepted proposal and reviewed resource basis"], [3500, "Sequencing the confirmed resource windows"], [8000, "Connecting assignments to review coverage"], [11400, "Margaret approved plan v1 · preparing application records"], [14300, "Readback matches the approved assignment"]],
-    summary: "Plan demonstration complete. Application records compared with approved plan v1; readback results are available in the plan.",
+    duration: 21000,
+    activity: [[0, "Grounding the plan in the accepted proposal and reviewed resource basis"], [3500, "Sequencing the confirmed resource windows"], [8000, "Connecting assignments to review coverage"], [10300, "Sofia reviewed plan v1 · ready for Margaret to approve and submit to PSA"], [15200, "Margaret submitted plan v1 to Dynamics 365 Project Operations"], [19100, "PSA readback matches the approved assignment"]],
+    summary: "Plan submitted to Dynamics 365 Project Operations. PSA records compared with approved plan v1; readback results are available in the plan.",
   },
   deliver: {
     label: "Deliver", thread: "Data-readiness assessment", person: "Avery Ross",

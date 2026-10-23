@@ -1,25 +1,28 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { assignment, contexts, effort, readbackAssignment, resources, stories } from "./northstar.js";
-import { commonTiming, compareAssignment, loopFrameAt, loopHold, planExecutionAt, planTiming, progressAt, textAt } from "./demoPlayback.js";
+import { commonTiming, compareAssignment, loopFrameAt, loopHold, planExecutionAt, planTiming, playbackRate, progressAt, textAt } from "./demoPlayback.js";
 
 test("each scene holds its finished artifact, then starts the same exchange again", () => {
   for (const story of Object.values(stories)) {
-    const period = story.duration + loopHold;
-    assert.deepEqual(loopFrameAt(story.duration - 1, story.duration), { elapsed: story.duration - 1, cycle: 0 });
-    assert.deepEqual(loopFrameAt(story.duration + loopHold - 1, story.duration), { elapsed: story.duration, cycle: 0 });
+    const activeDuration = story.duration / playbackRate;
+    const period = activeDuration + loopHold;
+    assert.deepEqual(loopFrameAt(activeDuration - 10, story.duration), { elapsed: story.duration - 10 * playbackRate, cycle: 0 });
+    assert.deepEqual(loopFrameAt(period - 1, story.duration), { elapsed: story.duration, cycle: 0 });
     assert.deepEqual(loopFrameAt(period, story.duration), { elapsed: 0, cycle: 1 });
-    assert.deepEqual(loopFrameAt(period * 2 + commonTiming.artifactAt, story.duration), { elapsed: commonTiming.artifactAt, cycle: 2 });
+    assert.deepEqual(loopFrameAt(period * 2 + commonTiming.artifactAt / playbackRate, story.duration), { elapsed: commonTiming.artifactAt, cycle: 2 });
   }
 });
 
-test("the website has three exchanges totaling no more than 45 seconds", () => {
+test("the website retains three single exchanges with slower builds and a reading hold", () => {
   assert.deepEqual(Object.keys(stories), ["scope", "plan", "deliver"]);
-  assert.ok(Object.values(stories).reduce((sum, story) => sum + story.duration, 0) <= 45000);
+  assert.ok(playbackRate > 0 && playbackRate < 1);
+  assert.ok(loopHold >= 10000, "finished work stays available for at least ten seconds");
   for (const story of Object.values(stories)) {
     assert.ok(story.prompt && story.answer);
   }
   assert.ok(stories.plan.duration > planTiming.verified);
+  assert.ok((planTiming.approved - planTiming.reviewed) / playbackRate >= 6000, "the reviewed plan and PSA submission action remain visible before the illustrated click");
 });
 
 test("the accepted effort fits each person's confirmed resource window", () => {
