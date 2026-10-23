@@ -1,6 +1,7 @@
 export const commonTiming = { promptEnd: 1250, answerAt: 1500, artifactAt: 2700 };
+export const scopeTiming = { precedentAt: 3500, harborAt: 3800, meridianAt: 5500, commandAt: 9800, applyAt: 11800, responding: 12000, draftAt: 14000, workstreamsAt: 14600, resourcesAt: 17400, availabilityAt: 18600, finished: 19400 };
 export const planTiming = { reviewed: 10300, commandAt: 12700, approved: 15200, responding: 15400, projectCreated: 18000, workspaceCreated: 19400, verified: 21100 };
-export const deliveryTiming = { draftReady: 7700, sentForReview: 10800, feedbackReceived: 13200, revising: 16200, revised: 17400, approved: 19000, exportStarted: 22000, exportReady: 23000 };
+export const deliveryTiming = { draftReady: 7700, sendTyping: 8200, sentForReview: 10800, sendAnswer: 11000, feedbackReceived: 13200, reviseTyping: 14000, revising: 16200, reviseAnswer: 16400, revisionContent: 17800, conclusionContent: 19300, revised: 20000, approved: 22000, exportTyping: 23000, exportStarted: 25500, exportAnswer: 25700, exportReady: 27500 };
 export const playbackRate = .8;
 export const loopHold = 10000;
 

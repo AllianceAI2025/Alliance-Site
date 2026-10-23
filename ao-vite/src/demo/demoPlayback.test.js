@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { assignment, contexts, effort, historicalCases, readbackAssignment, readbackProject, resources, stories } from "./northstar.js";
-import { commonTiming, compareAssignment, conversationAt, deliveryStateAt, deliveryTiming, followScrollTop, loopFrameAt, loopHold, planExecutionAt, planTiming, playbackRate, progressAt, textAt } from "./demoPlayback.js";
+import { commonTiming, compareAssignment, conversationAt, deliveryStateAt, deliveryTiming, followScrollTop, loopFrameAt, loopHold, planExecutionAt, planTiming, playbackRate, progressAt, scopeTiming, textAt } from "./demoPlayback.js";
 
 test("each scene holds its finished artifact, then starts the same exchange again", () => {
   for (const story of Object.values(stories)) {
@@ -62,12 +62,47 @@ test("historical context preserves people, accepted work, review and outcome lim
     assert.equal(record.deliverables.length, 3);
     for (const item of record.deliverables) assert.ok(item.owner && item.reviewer && item.accepted && item.format);
     assert.ok(record.conditions && record.review && record.outcome && record.carry && record.limit);
+    assert.ok(record.submitted && record.acceptedChange && record.northstarAction);
     assert.ok(contexts[record.id].facts.some(([label]) => label === "Transfer limits"));
   }
   assert.equal(historicalCases[0].deliverables[0].owner, assignment.owner);
   assert.equal(historicalCases[0].deliverables[0].reviewer, assignment.reviewer);
   assert.equal(historicalCases[1].deliverables[1].owner, "Jordan Hale");
-  assert.ok(stories.scope.artifactAt >= commonTiming.answerAt + stories.scope.answerDuration, "the historical answer completes before scope construction");
+  assert.ok(stories.scope.artifactAt >= commonTiming.answerAt + stories.scope.answerDuration, "the substantive historical answer completes before the findings card");
+});
+
+test("Scope surfaces precedent before the user asks to apply it to a new scope", () => {
+  const story = stories.scope;
+  const sequence = [scopeTiming.precedentAt, scopeTiming.harborAt, scopeTiming.meridianAt, scopeTiming.commandAt, scopeTiming.applyAt, scopeTiming.draftAt, scopeTiming.workstreamsAt, scopeTiming.resourcesAt, scopeTiming.availabilityAt, scopeTiming.finished, story.duration];
+  assert.ok(sequence.every((time, index) => !index || time > sequence[index - 1]));
+  assert.equal(conversationAt(story, scopeTiming.applyAt - 1).prompt, story.prompt);
+  assert.equal(conversationAt(story, scopeTiming.applyAt).prompt, story.commands[0].prompt);
+  assert.ok(scopeTiming.draftAt > story.commands[0].answerAt + story.commands[0].answerDuration);
+  assert.ok(story.answer.includes("one-week delay") && story.answer.includes("slow adoption"), "the response provides actual findings");
+  assert.ok(historicalCases[0].northstarAction.includes("West and Southeast"), "the precedent addresses an open Northstar dependency");
+});
+
+test("Avery types each instruction after its prerequisite and before its action", () => {
+  const story = stories.deliver;
+  assert.equal(story.commands.length, 3);
+  const steps = [
+    [deliveryTiming.draftReady, story.commands[0], "sentForReview"],
+    [deliveryTiming.feedbackReceived, story.commands[1], "revising"],
+    [deliveryTiming.approved, story.commands[2], "exporting"],
+  ];
+  for (const [prerequisite, command, stateKey] of steps) {
+    assert.ok(command.typingAt > prerequisite);
+    assert.equal(deliveryStateAt(command.sentAt - 1)[stateKey], false);
+    assert.equal(deliveryStateAt(command.sentAt)[stateKey], true);
+    const typing = conversationAt(story, (command.typingAt + command.sentAt) / 2);
+    assert.equal(typing.typing, true);
+    assert.ok(typing.composer.length > 0 && typing.composer.length < command.prompt.length);
+    assert.notEqual(typing.prompt, command.prompt, "typing does not send the message early");
+    assert.equal(conversationAt(story, command.sentAt).prompt, command.prompt);
+  }
+  assert.ok(deliveryTiming.revisionContent > story.commands[1].answerAt + story.commands[1].answerDuration);
+  assert.ok(deliveryTiming.revised > deliveryTiming.conclusionContent);
+  assert.ok(deliveryTiming.exportReady > story.commands[2].answerAt + story.commands[2].answerDuration);
 });
 
 test("PSA readback identifies the created project and the approved staffing basis", () => {

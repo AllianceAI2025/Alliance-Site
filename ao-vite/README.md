@@ -3,7 +3,8 @@
 React + Vite marketing site. Three autonomous demonstrations show how Harbor
 and Meridian experience carries into Northstar's scope, plan and delivery work.
 Scope is the opening demonstration; there is no separate opening player or
-multi-frame sequence. Playback runs at 80% speed: about 83 seconds of active content across the three
+separate chapter player. Each scene keeps one exchange visible while follow-up instructions type automatically.
+Playback runs at 80% speed: about 93 seconds of active content across the three
 examples. Each holds its finished artifact for 10 seconds before looping in place.
 
 ## Local development
@@ -44,15 +45,16 @@ The existing dev server uses http://localhost:5176. The build produces `dist/`.
 
 ## What each example proves
 
-**Scope (23.1s + 10s reading hold):** One question asks about relevant past work. The response describes
-the breadth of the historical record: client conditions, named teams, accepted
-deliverables, review changes and outcomes. Harbor and Meridian each show two
-contributors and their Excel/PowerPoint deliverables, with the full three-item
-assignment and accepted-version record available in supporting context. The scope develops
-its objective and four workstreams. Harbor's evidence review explains an early
-evidence gate; Meridian's review explains explicit boundaries, acknowledgment and
-transition readiness. Avery and Lena's relevant delivery experience is paired
-with a separate current availability check before a proposal is submitted.
+**Scope (27.5s + 10s reading hold):** The question about similar work gets a substantive
+answer: Harbor's late regional challenge caused another design pass and a one-week
+delay; Meridian's on-time delivery still saw slower adoption. The findings card
+names the contributors, compares submitted v1 with reviewed v2, and states each
+record's practical implication for Northstar. Margaret then types a request to
+apply those lessons and check staffing. The card becomes a developing scope:
+West/Southeast participation, Sofia's evidence gate, Lena's dated acknowledgment
+and Jordan's readiness conditions. Current availability is checked separately for
+Avery, Lena and Daniel; Daniel's Week 3 hold remains conditional. The original
+records remain available through source links on the scope.
 
 **Plan (28.8s + 10s reading hold):** A separate conversation begins from accepted proposal v5 and a Won
 opportunity. The reviewed pursuit team carries forward. Six resource windows build
@@ -71,11 +73,14 @@ and assignment ASN-NS-DR01. Project dates, ownership, planned hours and the retu
 assignment are visible. The PSA view is a local response fixture, not a live
 Microsoft connection.
 
-**Deliver (30.6s + 10s reading hold):** Avery inherits the approved assignment and firm template.
+**Deliver (36.9s + 10s reading hold):** Avery inherits the approved assignment and firm template.
 Northstar evidence populates the report, with Harbor and Meridian guidance beside
-the work. Avery sends revision 1 to Sofia. Her feedback asks what the evidence gaps
-prevent the team from concluding. Avery addresses the comment; the conclusion
-visibly changes, revision 2 returns to Sofia, and she approves it. Export produces
+the work. Avery automatically types a request to send revision 1 and its evidence
+to Sofia. Her feedback asks what the evidence gaps prevent the team from concluding.
+Avery types a request to address it. The report develops the decision implication
+of each evidence gap, then rewrites the conclusion. Revision 2 returns to Sofia,
+and she approves it. Avery then types a request to export the approved version in
+the firm template. Export produces
 a Word-file receipt with a real download. Review requests, feedback, revision
 rationale and approval remain linked to the engagement.
 

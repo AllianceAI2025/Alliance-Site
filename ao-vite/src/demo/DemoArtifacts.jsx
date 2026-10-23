@@ -1,6 +1,6 @@
 import React from "react";
 import { assignment, effort, historicalCases, readbackAssignment, readbackProject, resources, workstreams } from "./northstar.js";
-import { compareAssignment, deliveryStateAt, deliveryTiming, planExecutionAt, planTiming, progressAt, textAt } from "./demoPlayback.js";
+import { compareAssignment, deliveryStateAt, deliveryTiming, planExecutionAt, planTiming, progressAt, scopeTiming, textAt } from "./demoPlayback.js";
 import assessment from "./assessment.json";
 
 function BuildText({ children, elapsed, at, duration = 500 }) {
@@ -9,37 +9,46 @@ function BuildText({ children, elapsed, at, duration = 500 }) {
 function SourceLink({ source, children, onInspect }) {
   return <button className="artifact-source" onClick={() => onInspect(source)}>{children}<span aria-hidden="true">↗</span></button>;
 }
-function ArtifactHead({ label, title, meta, elapsed, finishedAt }) {
-  return <header className="artifact-head" data-follow-at={2700}><div><p>{label}</p><h3>{title}</h3></div><span className="artifact-meta">{elapsed < finishedAt ? <><i className="build-pulse" />Developing</> : meta}</span></header>;
+function ArtifactHead({ label, title, meta, elapsed, finishedAt, at = 2700 }) {
+  return <header className="artifact-head" data-follow-at={at}><div><p>{label}</p><h3>{title}</h3></div><span className="artifact-meta">{elapsed < finishedAt ? <><i className="build-pulse" />Developing</> : meta}</span></header>;
+}
+
+function PrecedentResponse({ elapsed, onInspect }) {
+  return <article className="inline-artifact precedent-response" aria-label="Historical findings for Northstar">
+    <ArtifactHead label="Firm delivery experience" title="What carries into Northstar" meta="2 engagement records" elapsed={elapsed} finishedAt={scopeTiming.meridianAt + 1000} at={scopeTiming.precedentAt} />
+    <div className="precedent-findings">{historicalCases.map((record, index) => {
+      const at = index ? scopeTiming.meridianAt : scopeTiming.harborAt;
+      return <section className="precedent-finding" key={record.id} data-follow-at={at}>{elapsed >= at && <>
+        <SourceLink source={record.id} onInspect={onInspect}>{record.name} · {record.reference}</SourceLink>
+        <p className="precedent-conditions">{record.conditions}</p>
+        <h4>{index ? "On-time delivery; slower adoption." : "Late validation forced another design pass."}</h4>
+        <p>{record.outcome}</p>
+        <p className="precedent-people">{index ? "Lena Torres built the ownership matrix; Jordan Hale developed the readiness roadmap." : "Avery Ross built the evidence pack; Daniel Okafor developed the design options. Sofia Patel reviewed both."}</p>
+        <div className="precedent-review-change"><p><strong>Submitted v1</strong>{record.submitted}</p><p><strong>Reviewed v2</strong>{record.acceptedChange}</p></div>
+        <div className="precedent-northstar"><strong>For Northstar</strong><p>{record.northstarAction}</p></div>
+      </>}</section>;
+    })}</div>
+    <p className="precedent-transfer-limit">Northstar spans eight regions with a fixed November 20 board gate. These records inform the method and team fit; current availability is checked separately.</p>
+  </article>;
 }
 
 export function ScopeArtifact({ elapsed, onInspect }) {
-  return <article className="inline-artifact scope-artifact" aria-label="Northstar engagement scope" aria-busy={elapsed < 15000}>
-    <ArtifactHead label="Northstar Foods · Engagement scope" title="Operating model & decision rights" meta="Working draft" elapsed={elapsed} finishedAt={15000} />
-    <p className="artifact-purpose" data-follow-at={4300}><BuildText elapsed={elapsed} at={4300} duration={700}>Clearer decision ownership across eight regions, with normal service maintained and a board package by November 20.</BuildText></p>
-    <div className="scope-columns">
-      <section className="scope-precedent"><h4>Firm experience applied</h4>
-        {historicalCases.map((record, index) => {
-          const at = 5200 + index * 2000;
-          return <div className="precedent-entry build-slot" key={record.id} data-follow-at={at}>{elapsed >= at && <>
-            <SourceLink source={record.id} onInspect={onInspect}>{record.name} · {record.reference}</SourceLink>
-            <p className="precedent-conditions">{record.conditions}</p>
-            <ul className="precedent-deliverables">{record.deliverables.slice(0, 2).map(item => <li key={item.id}><strong>{item.owner}</strong><span>{item.title} · {item.format}</span></li>)}</ul>
-            <p><strong>Review changed</strong> {record.reviewSummary}</p>
-            <p><strong>Outcome</strong> {record.outcome}</p>
-            <p className="precedent-application">For Northstar: {record.carry}</p>
-          </>}</div>;
-        })}
-      </section>
-      <section className="scope-workstreams"><h4>Northstar · four workstreams · fourteen weeks</h4>{workstreams.map((stream, index) => <div className="scope-stream build-slot" key={stream.name} data-follow-at={9700 + index * 650}>
-        {elapsed >= 9700 + index * 650 && <><div><strong><BuildText elapsed={elapsed} at={9700 + index * 650} duration={350}>{stream.name}</BuildText></strong><span>W{stream.weeks}</span></div><p><BuildText elapsed={elapsed} at={9950 + index * 650} duration={400}>{stream.detail}</BuildText></p></>}
-      </div>)}</section>
-    </div>
-    <section className="scope-resource-fit"><div className="artifact-section-heading"><h4>Proposed resource fit</h4>{elapsed >= 13800 && <SourceLink source="availability" onInspect={onInspect}>Current availability</SourceLink>}</div>
-      <div className="resource-fit-row build-slot" data-follow-at={13200}>{elapsed >= 13200 && <><strong>Avery Ross</strong><span>Harbor evidence inventory</span><small>{elapsed >= 13800 ? "75% available" : "Checking availability…"}</small></>}</div>
-      <div className="resource-fit-row build-slot" data-follow-at={13800}>{elapsed >= 13800 && <><strong>Lena Torres</strong><span>Meridian ownership matrix</span><small>{elapsed >= 14400 ? "Available from W3" : "Checking availability…"}</small></>}</div>
+  if (elapsed < scopeTiming.draftAt) return <PrecedentResponse elapsed={elapsed} onInspect={onInspect} />;
+  return <article className="inline-artifact scope-artifact" aria-label="Northstar engagement scope" aria-busy={elapsed < scopeTiming.finished}>
+    <ArtifactHead label="Northstar Foods · Engagement scope" title="Operating model & decision rights" meta="Working draft" elapsed={elapsed} finishedAt={scopeTiming.finished} at={scopeTiming.draftAt} />
+    <p className="artifact-purpose" data-follow-at={scopeTiming.draftAt + 100}><BuildText elapsed={elapsed} at={scopeTiming.draftAt + 100} duration={500}>Clearer decision ownership across eight regions, with normal service maintained and a board package by November 20.</BuildText></p>
+    <div className="scope-basis"><span>Applied from</span><SourceLink source="harbor" onInspect={onInspect}>Harbor · HG-D01 / HG-D02</SourceLink><SourceLink source="meridian" onInspect={onInspect}>Meridian · MC-D01 / MC-D02</SourceLink></div>
+    <section className="scope-workstreams"><h4>Four workstreams · fourteen weeks</h4>{workstreams.map((stream, index) => {
+      const at = scopeTiming.workstreamsAt + index * 500;
+      return <div className="scope-stream build-slot" key={stream.name} data-follow-at={at}>{elapsed >= at && <><div><strong><BuildText elapsed={elapsed} at={at} duration={300}>{stream.name}</BuildText></strong><span>W{stream.weeks}</span></div><p><BuildText elapsed={elapsed} at={at + 200} duration={350}>{stream.detail}</BuildText></p></>}</div>;
+    })}</section>
+    <section className="scope-resource-fit"><div className="artifact-section-heading"><h4>Proposed resource fit</h4>{elapsed >= scopeTiming.availabilityAt && <SourceLink source="availability" onInspect={onInspect}>Current availability</SourceLink>}</div>
+      {[["Avery Ross", "Harbor · evidence pack", "75% available"], ["Lena Torres", "Meridian · regional ownership", "Available from W3"], ["Daniel Okafor", "Harbor · operating-model options", "Conditional W3 hold"]].map(([name, experience, availability], index) => {
+        const at = scopeTiming.resourcesAt + index * 600;
+        return <div className="resource-fit-row build-slot" key={name} data-follow-at={at}>{elapsed >= at && <><strong>{name}</strong><span>{experience}</span><small>{elapsed >= scopeTiming.availabilityAt + index * 250 ? availability : "Checking availability…"}</small></>}</div>;
+      })}
     </section>
-    <footer className="artifact-footer build-slot" data-follow-at={15000}>{elapsed >= 15000 && <><span>Implementation excluded. Historical effort is not a Northstar estimate. West and Southeast input remains outstanding.</span><SourceLink source="discovery" onInspect={onInspect}>Client context</SourceLink></>}</footer>
+    <footer className="artifact-footer build-slot" data-follow-at={scopeTiming.finished}>{elapsed >= scopeTiming.finished && <><span>Implementation excluded. West and Southeast participation remains a client dependency.</span><SourceLink source="discovery" onInspect={onInspect}>Client context</SourceLink></>}</footer>
   </article>;
 }
 
@@ -105,8 +114,11 @@ export function DeliveryArtifact({ elapsed, onInspect }) {
       <div className="assessment-letterhead"><img src="/brand/asg/alliance-systems-group-mark-refined.png" alt="" /><span>Alliance Systems Group</span></div>
       <p className="assessment-client">Northstar Foods</p><h3>Data-readiness assessment</h3><p className="assessment-byline">Avery Ross · Reviewer: Sofia Patel · {state.revising ? "Revision 2" : "Revision 1"}</p>
       <section className="assessment-purpose build-slot" data-follow-at={3100}>{elapsed >= 3100 && <><h4>Purpose and assessment basis</h4><p><BuildText elapsed={elapsed} at={3100} duration={650}>{assessment.purpose}</BuildText></p></>}</section>
-      <div className="assessment-evidence">{assessment.evidence.map((item, index) => <div className="assessment-evidence-row build-slot" key={item.label} data-follow-at={4200 + index * 700}>{elapsed >= 4200 + index * 700 && <><span>{item.label}</span><strong>{item.finding}</strong><small>{item.gap}</small></>}</div>)}</div>
-      <section className="assessment-conclusion build-slot" data-follow-at={state.revising ? deliveryTiming.revising : 6600} data-revised={state.revising}>{elapsed >= 6600 && <><h4>Assessment and implications</h4><p>{state.revising ? <BuildText elapsed={elapsed} at={deliveryTiming.revising} duration={deliveryTiming.revised - deliveryTiming.revising}>{assessment.conclusion}</BuildText> : assessment.initialConclusion}</p></>}</section>
+      <div className="assessment-evidence">{assessment.evidence.map((item, index) => {
+        const reviseAt = deliveryTiming.revisionContent + index * 500;
+        return <div className="assessment-evidence-row build-slot" key={item.label} data-follow-at={state.revising ? reviseAt : 4200 + index * 700}>{elapsed >= 4200 + index * 700 && <><span>{item.label}</span><strong>{item.finding}</strong><small>{item.gap}</small>{elapsed >= reviseAt && <p className="assessment-evidence-implication"><BuildText elapsed={elapsed} at={reviseAt} duration={450}>{item.implication}</BuildText></p>}</>}</div>;
+      })}</div>
+      <section className="assessment-conclusion build-slot" data-follow-at={state.revising ? deliveryTiming.conclusionContent : 6600} data-revised={elapsed >= deliveryTiming.conclusionContent}>{elapsed >= 6600 && <><h4>Assessment and implications</h4><p>{elapsed >= deliveryTiming.conclusionContent ? <BuildText elapsed={elapsed} at={deliveryTiming.conclusionContent} duration={deliveryTiming.revised - deliveryTiming.conclusionContent}>{assessment.conclusion}</BuildText> : assessment.initialConclusion}</p></>}</section>
       <footer className="assessment-sources build-slot">{state.draftReady && <><SourceLink source="evidence" onInspect={onInspect}>Northstar evidence</SourceLink><SourceLink source="assignment" onInspect={onInspect}>Approved assignment</SourceLink></>}</footer>
     </div><aside className="assessment-margin" aria-label="Firm guidance and review">
       <div className="delivery-guidance build-slot" data-follow-at={7100}>{elapsed >= 7100 && <><p className="margin-label">Carried into this work</p><SourceLink source="harbor" onInspect={onInspect}>Harbor · Sofia’s review</SourceLink><p>Retain source dates and disputed ownership. Keep observed evidence distinct from design.</p><SourceLink source="meridian" onInspect={onInspect}>Meridian · Lena’s matrix</SourceLink><p>Identify the service boundaries and handoffs each evidence gap affects.</p></>}</div>
@@ -114,7 +126,7 @@ export function DeliveryArtifact({ elapsed, onInspect }) {
       <div className="delivery-record build-slot" data-follow-at={deliveryTiming.approved}>{state.revised && <><p>Review request, feedback, revision rationale and approval retained with their sources.</p><SourceLink source="record" onInspect={onInspect}>Engagement record</SourceLink></>}</div>
     </aside></div>
     <footer className="delivery-workflow build-slot" data-follow-at={state.exportReady ? deliveryTiming.exportReady : state.exporting ? deliveryTiming.exportStarted : state.sentForReview && !state.feedbackReceived ? deliveryTiming.sentForReview : deliveryTiming.draftReady}>
-      {state.draftReady && (!state.sentForReview ? <><div><strong>Avery is sending revision 1 to Sofia</strong><p>The draft and its supporting evidence travel together for review.</p></div><span className="delivery-action-status"><i className="build-pulse" />Sending for review</span></> : !state.feedbackReceived ? <><div><strong>Avery sent revision 1 to Sofia</strong><p>Sofia is reviewing the assessment against the firm’s evidence standard.</p></div><span className="delivery-action-status"><i className="build-pulse" />In review</span></> : !state.revising ? <><div><strong>Sofia returned one review comment</strong><p>Explain which design decisions remain conditional on the evidence gaps.</p></div><span className="delivery-action-status">Feedback received</span></> : !state.approved ? <><div><strong>{state.revised ? "Avery returned revision 2 to Sofia" : "Avery is addressing the review"}</strong><p>{state.revised ? "Sofia is checking the revised conclusion before approval." : "Clarifying design readiness using the evidence gaps and Harbor’s review standard."}</p></div><span className="delivery-action-status"><i className="build-pulse" />{state.revised ? "Final review" : "Revising"}</span></> : state.exportReady ? <><div className="delivery-export-file"><img src="/brand/systems/word.svg" alt="" /><div><strong>Northstar · Data-readiness assessment.docx</strong><p>Exported · Revision 2 · Sofia approved · Firm template v1.2</p></div></div><a className="delivery-download" href={assessment.downloadPath} download>View Word document <span aria-hidden="true">↓</span></a></> : state.exporting ? <><div><strong>Avery is exporting the approved assessment</strong><p>Preparing revision 2 in the firm’s Word template.</p></div><span className="delivery-action-status"><i className="build-pulse" />Preparing Word</span></> : <><div><strong>Sofia approved revision 2</strong><p>Avery’s finished assessment will export in the firm’s Word template.</p></div><span className="delivery-action-status">Approved for export</span></>)}
+      {state.draftReady && (!state.sentForReview ? <><div><strong>Avery’s draft is ready for review</strong><p>Revision 1 and its supporting evidence are ready for Sofia.</p></div><span className="delivery-action-status">Draft ready</span></> : !state.feedbackReceived ? <><div><strong>Avery sent revision 1 to Sofia</strong><p>Sofia is reviewing the assessment against the firm’s evidence standard.</p></div><span className="delivery-action-status"><i className="build-pulse" />In review</span></> : !state.revising ? <><div><strong>Sofia returned one review comment</strong><p>Explain which design decisions remain conditional on the evidence gaps.</p></div><span className="delivery-action-status">Feedback received</span></> : !state.approved ? <><div><strong>{state.revised ? "Avery returned revision 2 to Sofia" : "Avery is addressing the review"}</strong><p>{state.revised ? "Sofia is checking the revised conclusion before approval." : "Clarifying design readiness using the evidence gaps and Harbor’s review standard."}</p></div><span className="delivery-action-status"><i className="build-pulse" />{state.revised ? "Final review" : "Revising"}</span></> : state.exportReady ? <><div className="delivery-export-file"><img src="/brand/systems/word.svg" alt="" /><div><strong>Northstar · Data-readiness assessment.docx</strong><p>Exported · Revision 2 · Sofia approved · Firm template v1.2</p></div></div><a className="delivery-download" href={assessment.downloadPath} download>View Word document <span aria-hidden="true">↓</span></a></> : state.exporting ? <><div><strong>Avery is exporting the approved assessment</strong><p>Preparing revision 2 in the firm’s Word template.</p></div><span className="delivery-action-status"><i className="build-pulse" />Preparing Word</span></> : <><div><strong>Sofia approved revision 2</strong><p>The approved version is ready for Avery’s export request.</p></div><span className="delivery-action-status">Approved for export</span></>)}
     </footer>
   </article>;
 }

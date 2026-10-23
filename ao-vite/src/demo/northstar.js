@@ -1,4 +1,4 @@
-import { planTiming } from "./demoPlayback.js";
+import { deliveryTiming, planTiming, scopeTiming } from "./demoPlayback.js";
 
 // Fictional Northstar engagement. All actions and records are illustrated locally.
 export const resources = [
@@ -15,10 +15,10 @@ export const assignment = { owner: "Avery Ross", reviewer: "Sofia Patel", effort
 export const readbackAssignment = { id: "ASN-NS-DR01", owner: "Avery Ross", reviewer: "Sofia Patel", effort: 36, due: "September 7", baseline: "Plan v1" };
 export const readbackProject = { id: "PRJ-NS-20418", name: "Northstar Foods", manager: "Margaret Whitfield", opportunity: "OPP-20418", start: "August 17", finish: "November 20", effort: 1840, deliverables: 14, resources: 6, baseline: "Plan v1", status: "Scheduled" };
 export const workstreams = [
-  { name: "Diagnostic & evidence", weeks: "1–4", detail: "Regional voices and observed ownership before design.", source: "harbor" },
-  { name: "Operating-model design", weeks: "3–8", detail: "Decision rights, service boundaries and handoffs.", source: "meridian" },
-  { name: "Regional validation", weeks: "7–12", detail: "Dated acknowledgment and unresolved sponsor decisions.", source: "meridian" },
-  { name: "Transition roadmap", weeks: "11–14", detail: "Readiness criteria alongside the board decision package.", source: "meridian" },
+  { name: "Diagnostic & evidence", weeks: "1–4", detail: "Hear West and Southeast early; Sofia reviews observed ownership before design.", source: "harbor" },
+  { name: "Operating-model design", weeks: "3–8", detail: "Test Daniel’s options against regional authority, service boundaries and handoffs.", source: "harbor" },
+  { name: "Regional validation", weeks: "7–12", detail: "Lena records dated acknowledgment, named decision makers and unresolved exceptions.", source: "meridian" },
+  { name: "Transition roadmap", weeks: "11–14", detail: "Jordan defines owners and readiness evidence for the board’s go/no-go decisions.", source: "meridian" },
 ];
 // Retained examples from the workflow prototype's delivery-experience records.
 // Historical effort is not established by these excerpts; do not infer a quote.
@@ -33,6 +33,9 @@ export const historicalCases = [
     ],
     review: "Sofia’s review separated observed owners from proposed design and required source dates and unresolved exceptions. Regional challenges changed Daniel’s design.",
     reviewSummary: "Observed and proposed owners separated; source dates retained. Regional challenges changed the escalation design.",
+    submitted: "HG-D01 v1 combined current and proposed owners; source references were incomplete.",
+    acceptedChange: "Sofia’s accepted v2 separated observed ownership from design and retained sources, dates and disputes.",
+    northstarAction: "Hear West and Southeast during diagnosis. Give Avery the evidence pack, with Sofia reviewing before design.",
     outcome: "Board approved; one week late after regional validation caused another design pass.",
     carry: "Avery’s evidence gate and early regional input before design.",
     limit: "Northstar has eight regions and a fixed board date. Harbor’s closing record does not establish Northstar’s effort.",
@@ -47,6 +50,9 @@ export const historicalCases = [
     ],
     review: "Reviews added explicit service boundaries, dated regional acknowledgment, and readiness evidence for each mobilization decision.",
     reviewSummary: "Explicit boundaries and dated owner acknowledgment added; readiness tied to evidence and go/no-go decisions.",
+    submitted: "MC-D01 v1 treated proposed owners as confirmed; MC-D02 equated completed activities with readiness.",
+    acceptedChange: "Reviews added dated owner responses, explicit handoffs and evidence for each go/no-go decision.",
+    northstarAction: "Use Lena for regional acknowledgment and Jordan for readiness conditions. Keep implementation outside this scope.",
     outcome: "Model and transition plan delivered on time; subsequent review recorded slower adoption.",
     carry: "Lena’s regional acknowledgment and Jordan’s readiness conditions.",
     limit: "The sponsor structure differs. Document acceptance did not establish adoption or a reusable staffing allocation.",
@@ -56,10 +62,11 @@ export const stories = {
   scope: {
     label: "Scope", thread: "Understanding the engagement", person: "Margaret Whitfield",
     prompt: "Where have we done similar work, and what should we carry into Northstar?",
-    answer: "I found Harbor and Meridian’s client conditions, named teams, accepted deliverables, review changes and recorded outcomes. Their five- and six-region engagements need adapting to Northstar’s eight regions and fixed board date. I’ll carry the relevant experience into the scope and proposed team, then check current availability.",
-    answerDuration: 2500, artifactAt: 4200,
-    duration: 18500,
-    activity: [[0, "Connecting discovery with assignments, deliverables and retained reviews"], [4500, "Tracing Harbor’s people, review changes and closing outcome"], [8000, "Tracing Meridian’s delivery and adoption review"], [12000, "Checking current availability before proposal submission"]],
+    answer: "Harbor Grain is the closest match: regional leaders challenged ownership after design, causing rework and a one-week delay. Meridian’s on-time transition still saw slow adoption. For Northstar, I’d bring regional voices forward and require explicit ownership acknowledgment and readiness evidence.",
+    answerDuration: 1900, artifactAt: scopeTiming.precedentAt,
+    duration: 22000,
+    commands: [{ typingAt: scopeTiming.commandAt, sentAt: scopeTiming.applyAt, answerAt: scopeTiming.responding, answerDuration: 1500, prompt: "Use those lessons to draft Northstar’s scope and check who could staff it.", answer: "I’ll involve West and Southeast during diagnosis, place Sofia’s evidence review before design, and carry Meridian’s acknowledgment and readiness checks into the workstreams. Avery and Lena’s current windows support the proposed roles; Daniel’s Week 3 hold remains conditional." }],
+    activity: [[0, "Connecting discovery with assignments, deliverables and retained reviews"], [3800, "Tracing Harbor’s late regional challenge and accepted evidence revision"], [5500, "Connecting Meridian’s review changes to its later adoption outcome"], [11800, "Applying the precedent to Northstar’s scope and proposed team"], [17400, "Checking current availability before proposal submission"]],
     summary: "Harbor and Meridian’s client conditions, contributors, deliverables, review changes and outcomes shape Northstar’s scope and resource fit. Current availability is checked separately.",
   },
   plan: {
@@ -75,8 +82,13 @@ export const stories = {
     label: "Deliver", thread: "Data-readiness assessment", person: "Avery Ross",
     prompt: "Help me develop Northstar’s assessment using our relevant delivery experience.",
     answer: "Your approved assignment provides 36 hours, with Sofia reviewing. Harbor’s evidence standard and Meridian’s service boundaries will inform the assessment and its conclusions. Sofia reviews before the Word export.",
-    duration: 24500,
-    activity: [[0, "Bringing forward Avery’s assignment, the firm template and retained reviews"], [3500, "Checking Northstar’s regional evidence"], [7700, "Avery’s draft is ready to send to Sofia"], [10800, "Avery sent revision 1 to Sofia for review"], [13200, "Sofia asked what the evidence gaps prevent the team from concluding"], [16200, "Avery is addressing Sofia’s feedback using Harbor’s evidence standard"], [19000, "Sofia approved revision 2 for export"], [22000, "Preparing the approved Word document"]],
+    duration: 29500,
+    commands: [
+      { typingAt: deliveryTiming.sendTyping, sentAt: deliveryTiming.sentForReview, answerAt: deliveryTiming.sendAnswer, answerDuration: 1200, prompt: "Send this assessment and its supporting evidence to Sofia for review.", answer: "I’ve sent revision 1 and the Northstar evidence to Sofia. Her comments will stay linked to this exact draft and its approved assignment." },
+      { typingAt: deliveryTiming.reviseTyping, sentAt: deliveryTiming.revising, answerAt: deliveryTiming.reviseAnswer, answerDuration: 1300, prompt: "Address Sofia’s feedback. Explain what each evidence gap means for design readiness.", answer: "I’ll distinguish Northeast’s missing owners from Central’s older inventory and keep West and Southeast outside a whole-client readiness conclusion. I’ll return revision 2 to Sofia with the revision rationale." },
+      { typingAt: deliveryTiming.exportTyping, sentAt: deliveryTiming.exportStarted, answerAt: deliveryTiming.exportAnswer, answerDuration: 1200, prompt: "Export the approved revision as a Word document using the firm template.", answer: "Sofia approved revision 2. I’m exporting that exact version in the firm’s Word template, with the approval, source evidence and revision history retained in Northstar’s engagement record." },
+    ],
+    activity: [[0, "Bringing forward Avery’s assignment, the firm template and retained reviews"], [3500, "Checking Northstar’s regional evidence"], [7700, "Avery’s draft is ready for review"], [10800, "Avery requested review of revision 1"], [13200, "Sofia asked what the evidence gaps prevent the team from concluding"], [16200, "Avery requested a revision addressing Sofia’s feedback"], [22000, "Sofia approved revision 2 for export"], [25500, "Avery requested the approved Word export"]],
     summary: "Avery sent the assessment to Sofia, addressed her feedback, and received approval for revision 2. The finished Word document is available to download.",
   },
 };
