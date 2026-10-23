@@ -21,7 +21,7 @@ export function ScopeArtifact({ elapsed, onInspect }) {
         {elapsed >= 3700 + index * 650 && <><div><strong><BuildText elapsed={elapsed} at={3700 + index * 650} duration={350}>{stream.name}</BuildText></strong><span>W{stream.weeks}</span></div><p><BuildText elapsed={elapsed} at={3950 + index * 650} duration={400}>{stream.detail}</BuildText></p></>}
       </div>)}</section>
       <section className="scope-precedent"><h4>Firm experience applied</h4>
-        <div className="precedent-entry build-slot" data-built={elapsed >= 6500}>{elapsed >= 6500 && <><SourceLink source="harbor" onInspect={onInspect}>Harbor Grain · HG-D01</SourceLink><p>Avery’s inventory; Sofia separated observed owners from design. Late regional input caused a week of rework.</p><p className="precedent-application">Carry forward: early voices and an evidence gate.</p></>}</div>
+        <div className="precedent-entry build-slot" data-built={elapsed >= 6500}>{elapsed >= 6500 && <><SourceLink source="harbor" onInspect={onInspect}>Harbor Grain · HG-D01</SourceLink><p>Avery’s inventory; Sofia separated observed owners from design. Late regional input caused rework and a one-week delay.</p><p className="precedent-application">Carry forward: early voices and an evidence gate.</p></>}</div>
         <div className="precedent-entry build-slot" data-built={elapsed >= 7900}>{elapsed >= 7900 && <><SourceLink source="meridian" onInspect={onInspect}>Meridian · MC-D01</SourceLink><p>Lena’s matrix; review clarified boundaries and acknowledgment. On-time model, slower adoption.</p><p className="precedent-application">Carry forward: handoffs and transition readiness.</p></>}</div>
       </section>
     </div>
