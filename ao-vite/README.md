@@ -1,85 +1,95 @@
 # AllianceOne website
 
-React + Vite marketing site. The landing page leads with an illustrative Northstar
-engagement conversation, followed by separate Scope, Plan and Deliver sections,
-Alliance Systems Group and the design partner invitation. Main’s Inter Tight
-typography, signature lime, ink, bone and atmospheric green backgrounds form the
-design foundation. Dense grids and the previous six-phase presentation are removed.
+React + Vite marketing site. Three single-exchange demonstrations show how Harbor
+and Meridian experience carries into Northstar's scope, plan and delivery work.
+Scope is the opening demonstration; there is no separate opening player or
+multi-frame sequence. Total playback across the three examples is 45 seconds.
 
 ## Local development
 
 ```sh
 npm install
 npm run dev
+npm test
+npm run build
 ```
 
-The dev server uses http://localhost:5176. `npm run build` produces `dist/`;
-`npm run preview` serves a production build.
+The existing dev server uses http://localhost:5176. The build produces `dist/`.
+`npm run preview` serves a production build. No dependencies were added for motion.
 
 ## Where to edit
 
-- `src/LandingPage.jsx` and `src/landing.css`: page structure and marketing copy.
-- `src/demo/northstar.js`: fictional conversation, sources, resources and the
-  `presentations` mapping for the opening and three phase players.
-- `src/demo/EngagementDemo.jsx`: single-exchange rendering, typing, visible-player
-  autoplay, pause/resume, replay, example selection and source inspection.
-- `src/demo/DemoArtifacts.jsx`: scope, pricing, proposal, resource plan, application
-  receipts, Word-style assessment and evidence workbook.
-- `src/demo/engagement-demo.css`: the product demo appearance and responsive layout.
-- `src/Site.jsx` and `src/site-chrome.css`: shared navigation, footer and the
-  existing design partner inquiry form. `src/App.jsx` keeps compatibility exports.
-- `src/CompanyPage.jsx`: concise company and services page.
-- `src/SecurityPage.jsx` and `src/DesignPartnerPage.jsx`: security and inquiry pages.
-- Page entry HTML files: SEO metadata and canonical URLs.
-- `public/brand/asg/alliance-systems-group-mark-refined.png`: approved lion concept.
+- `src/LandingPage.jsx` and `src/landing.css`: page composition, copy and light
+  neutral palette. Brand marks and existing positioning are retained.
+- `src/demo/northstar.js`: the three prompts, responses, sources, people, accepted
+  commitment and connected record. This is the fictional data contract.
+- `src/demo/EngagementDemo.jsx`: independent visibility-aware clocks, typing,
+  pause/resume, replay, source dialogs and a single inline artifact per exchange.
+- `src/demo/DemoArtifacts.jsx`: progressively built scope, resource schedule,
+  illustrated approval/write/readback, and the Word-style assessment revision.
+- `src/demo/demoPlayback.js`: build progress and execution ordering. Approval must
+  precede application writes; readback occurs after both application operations.
+- `src/demo/demoPlayback.test.js`: narrative continuity, available capacity,
+  execution ordering, independent readback comparisons and incomplete build states.
+- `src/demo/engagement-demo.css`: product shell, in-chat cards and responsive views.
+- `src/Site.jsx`, `src/site-chrome.css`, `src/CompanyPage.jsx`: shared navigation,
+  footer, company page and inquiry form.
+- `public/brand/asg/alliance-systems-group-mark-refined.png`: retained lion concept.
 - `public/brand/systems/SOURCES.md`: application mark sources and usage context.
 
-## Demo narrative
+## What each example proves
 
-**Opening:** establish Northstar’s context, then find Harbor and Meridian precedent.
-The hero includes the engagement sidebar and Northstar’s three work threads.
+**Scope (14.5s):** One question asks about relevant past work. The scope develops
+its objective and four workstreams. Harbor's evidence review explains an early
+evidence gate; Meridian's review explains explicit boundaries, acknowledgment and
+transition readiness. Avery and Lena's relevant delivery experience is paired
+with a separate current availability check before a proposal is submitted.
 
-**Scope:** carry precedent into the draft scope, check current resource availability
-and internal costs, then prepare the reviewed proposal. Pricing follows the
-resource and effort basis; it is not introduced in the opportunity overview.
+**Plan (16s):** A separate conversation begins from accepted proposal v5 and a Won
+opportunity. The reviewed pursuit team carries forward. Six resource windows build
+row by row; bars grow into their confirmed weeks. Avery's 36-hour assessment,
+September 7 deadline and Sofia's review are tied to the diagnostic baseline.
+Sofia reviews the plan before Margaret approves it. The illustrated approval then
+creates Project Operations and SharePoint records. A separate application-response
+fixture is compared with the approved assignment's owner, reviewer, effort, due
+date and baseline. A mismatch produces a discrepancy rather than a success claim.
+The accepted-proposal source retains the pricing basis and negotiated changes.
 
-**Plan:** begin a separate planning conversation using the negotiated $400,000
-proposal v5, Won opportunity and confirmed pursuit team. Develop the schedule,
-retain the plan review, obtain
-approval, create Project Operations and SharePoint records, and read them back
-against the approved plan. Application setup is part of Plan.
+**Deliver (14.5s):** Avery inherits the approved assignment and firm template.
+Northstar evidence populates the report, with Harbor and Meridian guidance beside
+the work. Sofia asks what the gaps prevent the team from concluding. Avery's
+revision explicitly limits design readiness. Sources, review feedback and revision
+rationale remain part of the connected engagement record as the work develops.
 
-**Deliver:** Avery inherits the approved assignment, methods and Harbor review
-context. Develop a data-readiness assessment using the firm template and evidence
-workbook, then retain Sofia's challenge and the response in the revised assessment.
+The animation clock drives real intermediate content and bar geometry. Artifact
+rows and sections are absent until their build point; cards do not arrive complete.
+There are no scene counters, example tabs or automatic chapter changes.
 
-The demo uses local scripted data, not connected accounts or a live model. It is
-labeled as fictional on the page. Each player shows exactly one user/assistant
-exchange at a time, replacing the previous exchange rather than accumulating a
-transcript. The opening starts on arrival; phase players start when scrolled into
-view. Offscreen players and hidden browser tabs retain their playback position.
+## Playback and inspection
 
-The prompt types, agent activity appears and the response streams. Pause retains
-progress; Replay restarts that player. The text controls below each player select
-a completed example for inspection. Sidebar thread links lead to the corresponding
-phase section. Harbor and Meridian open their retained engagement context.
-Opening a source, interacting with an artifact or expanding agent activity pauses
-playback. On smaller screens, the hero header menu opens the engagement sidebar.
-Phase players omit the sidebar to keep the work legible. Reduced motion skips
-character animation. Players remain independent and never navigate the page or
-another player when advancing to the next exchange.
+Each example starts when visible, retains its position offscreen, and pauses when
+the browser document is hidden. Pause/Play retains partial builds; Replay restarts
+that example. Scrolling or interacting with an artifact pauses it. Source links
+open an accessible modal without replacing the work. The hero sidebar lists three
+Northstar threads and the Harbor and Meridian engagement records; thread links
+scroll to the corresponding section. Mobile uses the same sidebar behind a menu.
+Reduced motion shows each finished example without character or construction motion.
+
+All data, approvals and connector actions are illustrative. The page makes no live
+model requests and does not connect to client systems. The illustrated approval
+runs as part of playback; viewers can also use the approval button after review.
+These fixtures specify the intended behavior for engineering, not a working backend.
 
 ## Routes and publishing
 
-`/` is the full landing page. `/allianceone/` retains the product-focused version;
-`/how-it-works/` opens the same opening and three phase demonstrations without the
-company section.
-`/company/`, `/security/` and `/design-partners/` remain available. `/platform/`
-continues to redirect to `/allianceone/`.
+`/` includes the three demonstrations, product explanation, Alliance Systems Group
+and the design partner invitation. `/allianceone/` and `/how-it-works/` retain the
+same three examples without the company section. `/company/`, `/security/` and
+`/design-partners/` remain available; `/platform/` redirects to `/allianceone/`.
 
-GitHub Actions publishes pushes to `main`. Work on `refactor` remains a branch
-preview until it is merged. Do not run `npm run deploy` for branch review.
+GitHub Actions publishes pushes to `main`. Changes on `refactor` remain a branch
+preview until merged. Do not run `npm run deploy` for branch review.
 
-Keep claims grounded in the existing positioning: `POSITIONING.md` documents the
-language and ownership rules. Practitioners retain responsibility for judgments
-and approvals; source systems remain authoritative for the facts they own.
+`POSITIONING.md` records the ownership and language rules. Practitioners retain
+responsibility for judgments and approvals; source systems remain authoritative
+for the facts they own. The longer workflow prototype is a separate application.
