@@ -35,6 +35,10 @@ const sources = {
   evidence: { label: "Northstar extracts · NS-DATA01", text: "Six of eight regional extracts are available. Northeast decision-owner fields are incomplete. Central’s inventory is from the prior quarter. West and Southeast extracts remain outstanding. Receipt of a file does not establish its suitability for a decision." },
   assessment: { label: "Firm assessment template v1.2", text: "The assessment must tie required data to the diagnostic objectives, test coverage, currency, completeness and traceability, state the implications of gaps, and distinguish observed evidence from assumptions. Avery owns the assessment; Sofia reviews it." },
 };
+export const engagementReferences = [
+  { ...sources.harbor, engagement: "Harbor Grain" },
+  { ...sources.meridian, engagement: "Meridian" },
+];
 export const scenes = [
   {
     id: "understand", chapter: "scope", prompt: "Can you give me an overview of this engagement? What do we know?",

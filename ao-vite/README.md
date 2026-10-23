@@ -47,10 +47,14 @@ context. Develop a data-readiness assessment using the firm template and evidenc
 workbook, then retain Sofia's challenge and the response in the revised assessment.
 
 The demo uses local scripted data, not connected accounts or a live model. It is
-labeled as fictional on the page. Play types the prompt, shows agent activity and
-streams the response. Pause retains progress; chapters and the progress control
-allow seeking. Reduced motion skips character animation. Supporting source links
-and document views can be inspected independently.
+labeled as fictional on the page. Playback starts on arrival: the opening prompt
+types, agent activity appears and the response streams. Pause retains progress;
+Replay starts the conversation again. The engagement sidebar shows Northstar's
+scoping, planning and assessment threads and follows the active conversation.
+Selecting a thread or opening a source or artifact pauses playback for inspection.
+Harbor and Meridian open their retained engagement context. On smaller screens,
+the header menu opens the same sidebar. Chapters and the progress control also
+allow seeking. Reduced motion skips character animation.
 
 ## Routes and publishing
 
