@@ -1,7 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { assignment, contexts, effort, readbackAssignment, resources, stories } from "./northstar.js";
-import { commonTiming, compareAssignment, loopFrameAt, loopHold, planExecutionAt, planTiming, playbackRate, progressAt, textAt } from "./demoPlayback.js";
+import { readFileSync } from "node:fs";
+import { assignment, contexts, effort, readbackAssignment, readbackProject, resources, stories } from "./northstar.js";
+import { commonTiming, compareAssignment, deliveryStateAt, deliveryTiming, loopFrameAt, loopHold, planExecutionAt, planTiming, playbackRate, progressAt, textAt } from "./demoPlayback.js";
 
 test("each scene holds its finished artifact, then starts the same exchange again", () => {
   for (const story of Object.values(stories)) {
@@ -22,7 +23,47 @@ test("the website retains three single exchanges with slower builds and a readin
     assert.ok(story.prompt && story.answer);
   }
   assert.ok(stories.plan.duration > planTiming.verified);
+  assert.ok(stories.deliver.duration > deliveryTiming.exportReady);
   assert.ok((planTiming.approved - planTiming.reviewed) / playbackRate >= 6000, "the reviewed plan and PSA submission action remain visible before the illustrated click");
+});
+
+test("PSA readback identifies the created project and the approved staffing basis", () => {
+  assert.equal(readbackProject.effort, effort);
+  assert.equal(readbackProject.resources, resources.length);
+  assert.equal(readbackProject.baseline, assignment.baseline);
+  assert.equal(readbackProject.manager, resources[0].name);
+  assert.ok(readbackProject.id && readbackAssignment.id);
+  assert.equal(planExecutionAt(planTiming.approved).projectCreated, false);
+  assert.equal(planExecutionAt(planTiming.projectCreated).projectCreated, true);
+});
+
+test("delivery goes from review request to feedback, revision, approval and export", () => {
+  assert.equal(deliveryStateAt(deliveryTiming.draftReady).sentForReview, false);
+  assert.equal(deliveryStateAt(deliveryTiming.sentForReview).feedbackReceived, false);
+  assert.equal(deliveryStateAt(deliveryTiming.feedbackReceived).revising, false);
+  assert.equal(deliveryStateAt(deliveryTiming.revising).revised, false);
+  assert.equal(deliveryStateAt(deliveryTiming.revised).approved, false);
+  for (let time = 0; time < deliveryTiming.approved; time += 100) {
+    assert.equal(deliveryStateAt(time).exporting, false);
+    assert.equal(deliveryStateAt(time).exportReady, false);
+  }
+  assert.equal(deliveryStateAt(deliveryTiming.approved).exportReady, false);
+  assert.equal(deliveryStateAt(deliveryTiming.exportStarted).exporting, true);
+  assert.equal(deliveryStateAt(deliveryTiming.exportStarted).exportReady, false);
+  assert.equal(deliveryStateAt(deliveryTiming.exportReady).exportReady, true);
+  assert.ok((deliveryTiming.sentForReview - deliveryTiming.draftReady) / playbackRate >= 3500);
+  assert.ok((deliveryTiming.exportStarted - deliveryTiming.approved) / playbackRate >= 3500);
+});
+
+test("the approved assessment has a real Word download and shared report content", () => {
+  const assessment = JSON.parse(readFileSync(new URL("./assessment.json", import.meta.url), "utf8"));
+  const bytes = readFileSync(new URL(`../../public${assessment.downloadPath}`, import.meta.url));
+  assert.equal(bytes.subarray(0, 4).toString("hex"), "504b0304");
+  assert.ok(bytes.length > 10000);
+  assert.equal(assessment.author, assignment.owner);
+  assert.equal(assessment.reviewer, assignment.reviewer);
+  assert.equal(assessment.revision, 2);
+  assert.ok(assessment.conclusion.includes("Design decisions remain conditional"));
 });
 
 test("the accepted effort fits each person's confirmed resource window", () => {

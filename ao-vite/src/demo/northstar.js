@@ -10,7 +10,8 @@ export const resources = [
 export const effort = resources.reduce((sum, resource) => sum + resource.hours, 0);
 export const assignment = { owner: "Avery Ross", reviewer: "Sofia Patel", effort: 36, due: "September 7", baseline: "Plan v1", deliverable: "Data-readiness assessment" };
 // A separate fixture represents the application's response to the illustrated write.
-export const readbackAssignment = { owner: "Avery Ross", reviewer: "Sofia Patel", effort: 36, due: "September 7", baseline: "Plan v1" };
+export const readbackAssignment = { id: "ASN-NS-DR01", owner: "Avery Ross", reviewer: "Sofia Patel", effort: 36, due: "September 7", baseline: "Plan v1" };
+export const readbackProject = { id: "PRJ-NS-20418", name: "Northstar Foods", manager: "Margaret Whitfield", opportunity: "OPP-20418", start: "August 17", finish: "November 20", effort: 1840, deliverables: 14, resources: 6, baseline: "Plan v1", status: "Scheduled" };
 export const workstreams = [
   { name: "Diagnostic & evidence", weeks: "1–4", detail: "Regional voices and observed ownership before design.", source: "harbor" },
   { name: "Operating-model design", weeks: "3–8", detail: "Decision rights, service boundaries and handoffs.", source: "meridian" },
@@ -32,15 +33,15 @@ export const stories = {
     answer: "Proposal v5 is accepted; OPP-20418 is Won. The reviewed team carries forward, with Avery’s assessment and Sofia’s review connected to the diagnostic baseline.",
     duration: 21000,
     activity: [[0, "Grounding the plan in the accepted proposal and reviewed resource basis"], [3500, "Sequencing the confirmed resource windows"], [8000, "Connecting assignments to review coverage"], [10300, "Sofia reviewed plan v1 · ready for Margaret to approve and submit to PSA"], [15200, "Margaret submitted plan v1 to Dynamics 365 Project Operations"], [19100, "PSA readback matches the approved assignment"]],
-    summary: "Plan submitted to Dynamics 365 Project Operations. PSA records compared with approved plan v1; readback results are available in the plan.",
+    summary: "Project PRJ-NS-20418 created in Dynamics 365 Project Operations. The returned project and Avery’s assignment are available alongside the approved plan.",
   },
   deliver: {
     label: "Deliver", thread: "Data-readiness assessment", person: "Avery Ross",
     prompt: "Help me develop Northstar’s assessment using our relevant delivery experience.",
-    answer: "Your approved assignment provides 36 hours, with Sofia reviewing. Harbor’s evidence standard and Meridian’s service boundaries will inform the assessment and its conclusions.",
-    duration: 14500,
-    activity: [[0, "Bringing forward Avery’s assignment, the firm template and retained reviews"], [3500, "Checking Northstar’s regional evidence"], [7000, "Applying Harbor and Meridian review guidance"], [10000, "Retaining Sofia’s feedback, Avery’s revision and the supporting evidence"]],
-    summary: "Assessment revised in response to Sofia’s review, with Harbor and Meridian guidance and Northstar sources retained.",
+    answer: "Your approved assignment provides 36 hours, with Sofia reviewing. Harbor’s evidence standard and Meridian’s service boundaries will inform the assessment and its conclusions. Sofia reviews before the Word export.",
+    duration: 24500,
+    activity: [[0, "Bringing forward Avery’s assignment, the firm template and retained reviews"], [3500, "Checking Northstar’s regional evidence"], [7700, "Avery’s draft is ready to send to Sofia"], [10800, "Avery sent revision 1 to Sofia for review"], [13200, "Sofia asked what the evidence gaps prevent the team from concluding"], [16200, "Avery is addressing Sofia’s feedback using Harbor’s evidence standard"], [19000, "Sofia approved revision 2 for export"], [22000, "Preparing the approved Word document"]],
+    summary: "Avery sent the assessment to Sofia, addressed her feedback, and received approval for revision 2. The finished Word document is available to download.",
   },
 };
 

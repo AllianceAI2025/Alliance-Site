@@ -1,0 +1,27 @@
+{
+  "client": "Northstar Foods",
+  "title": "Data readiness assessment",
+  "author": "Avery Ross",
+  "reviewer": "Sofia Patel",
+  "date": "September 7, 2026",
+  "revision": 2,
+  "template": "ASG DR01",
+  "templateVersion": "1.2",
+  "downloadPath": "/demo/northstar-data-readiness-assessment.docx",
+  "purpose": "Establish which regional evidence can support the decision-rights diagnostic, with observed ownership kept separate from proposed design.",
+  "initialConclusion": "Six regional extracts are available for the diagnostic. Ownership and currency gaps remain open.",
+  "conclusion": "Proceed with initial diagnostic work for the six supplied regions. Design decisions remain conditional on resolving ownership, currency and the missing regional evidence.",
+  "reviewComment": "Explain what these gaps prevent us from concluding about design readiness.",
+  "evidence": [
+    { "label": "Coverage", "finding": "6 of 8 regional extracts", "gap": "West and Southeast outstanding", "implication": "The current evidence cannot establish a complete view of decision ownership across all eight regions." },
+    { "label": "Ownership", "finding": "Northeast incomplete", "gap": "Affected decision owners need validation", "implication": "Decisions involving disputed or missing owners require regional confirmation before the design baseline." },
+    { "label": "Currency", "finding": "Central: prior quarter", "gap": "Confirm suitability for current decisions", "implication": "The team must validate whether the inventory still represents the current operating environment." }
+  ],
+  "actions": [
+    "Obtain the West and Southeast extracts and record their source dates and coverage in the evidence register.",
+    "Validate Northeast decision owners with the relevant regional leads and retain unresolved ownership disputes.",
+    "Confirm the suitability of Central's prior-quarter inventory before relying on it for design decisions.",
+    "Review the resolved evidence gaps with the design lead before confirming the diagnostic baseline."
+  ],
+  "sources": ["NS DATA01 regional evidence register", "Approved engagement plan v1", "Firm data readiness assessment template ASG DR01 v1.2"]
+}

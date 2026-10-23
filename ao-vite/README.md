@@ -3,7 +3,7 @@
 React + Vite marketing site. Three single-exchange demonstrations show how Harbor
 and Meridian experience carries into Northstar's scope, plan and delivery work.
 Scope is the opening demonstration; there is no separate opening player or
-multi-frame sequence. Playback runs at 80% speed: about 62.5 seconds of active content across the three
+multi-frame sequence. Playback runs at 80% speed: about 75 seconds of active content across the three
 examples. Each holds its finished artifact for 10 seconds before looping in place.
 
 ## Local development
@@ -36,6 +36,9 @@ The existing dev server uses http://localhost:5176. The build produces `dist/`.
 - `src/demo/engagement-demo.css`: product shell, in-chat cards and responsive views.
 - `src/Site.jsx`, `src/site-chrome.css`, `src/CompanyPage.jsx`: shared navigation,
   footer, company page and inquiry form.
+- `src/demo/assessment.json`: shared report copy used by the preview and Word builder.
+- `scripts/build-assessment.py`: regenerates the Word export with `python-docx`.
+- `public/demo/northstar-data-readiness-assessment.docx`: downloadable approved revision 2.
 - `public/brand/asg/alliance-systems-group-mark-refined.png`: retained lion concept.
 - `public/brand/systems/SOURCES.md`: application mark sources and usage context.
 
@@ -59,12 +62,24 @@ created. Viewers can also click the action themselves to advance to submission. 
 fixture is compared with the approved assignment's owner, reviewer, effort, due
 date and baseline. A mismatch produces a discrepancy rather than a success claim.
 The accepted-proposal source retains the pricing basis and negotiated changes.
+After creation, the same artifact reveals Project Operations record PRJ-NS-20418
+and assignment ASN-NS-DR01. Project dates, ownership, planned hours and the returned
+assignment are visible. Viewers can switch back to the engagement plan without
+leaving the conversation. The PSA view is a local response fixture, not a live
+Microsoft connection.
 
-**Deliver (18.1s + 10s reading hold):** Avery inherits the approved assignment and firm template.
+**Deliver (30.6s + 10s reading hold):** Avery inherits the approved assignment and firm template.
 Northstar evidence populates the report, with Harbor and Meridian guidance beside
-the work. Sofia asks what the gaps prevent the team from concluding. Avery's
-revision explicitly limits design readiness. Sources, review feedback and revision
-rationale remain part of the connected engagement record as the work develops.
+the work. Avery sends revision 1 to Sofia. Her feedback asks what the evidence gaps
+prevent the team from concluding. Avery addresses the comment; the conclusion
+visibly changes, revision 2 returns to Sofia, and she approves it. Export produces
+a Word-file receipt with a real download. Review requests, feedback, revision
+rationale and approval remain linked to the engagement.
+
+Review, revision and export actions can be clicked to advance the sequence.
+Autoplay illustrates the export without downloading a file on every loop; only a
+viewer click starts a browser download. The client-facing document uses Northstar
+evidence and excludes other clients' names and internal precedent discussions.
 
 The animation clock drives real intermediate content and bar geometry. Artifact
 rows and sections are absent until their build point; cards do not arrive complete.
@@ -86,6 +101,11 @@ All data, approvals and connector actions are illustrative. The page makes no li
 model requests and does not connect to client systems. The illustrated approval and PSA submission
 run as part of playback; viewers can also submit the plan after review.
 These fixtures specify the intended behavior for engineering, not a working backend.
+
+The Word builder uses Python with `python-docx`. Regenerate with
+`python scripts/build-assessment.py`. Word pagination QA requires a DOCX renderer
+such as LibreOffice; the Windows workspace currently has no bundled renderer.
+The report content and OOXML package are checked separately from browser QA.
 
 ## Routes and publishing
 

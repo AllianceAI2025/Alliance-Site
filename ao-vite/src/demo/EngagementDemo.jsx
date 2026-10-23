@@ -2,7 +2,7 @@ import React, { useEffect, useId, useLayoutEffect, useRef, useState } from "reac
 import { capture, useVisualDwell } from "../analytics";
 import DemoArtifact from "./DemoArtifacts.jsx";
 import { contexts, stories } from "./northstar.js";
-import { activityAt, commonTiming, loopFrameAt, planTiming, playbackRate, textAt } from "./demoPlayback.js";
+import { activityAt, commonTiming, deliveryStateAt, deliveryTiming, loopFrameAt, planTiming, playbackRate, textAt } from "./demoPlayback.js";
 import "./engagement-demo.css";
 
 function Icon({ name, ...props }) {
@@ -62,6 +62,7 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
   const promptSent = elapsed >= commonTiming.promptEnd;
   const artifactVisible = elapsed >= commonTiming.artifactAt;
   const buildBeat = Math.floor(elapsed / 600);
+  const workflowBeat = Object.values(phase === "deliver" ? deliveryTiming : phase === "plan" ? planTiming : {}).filter(at => elapsed >= at).length;
 
   const updateClock = (value) => { clockRef.current = value / playbackRate; setElapsed(value); };
   const pause = () => { setPlaying(false); autoFollow.current = false; };
@@ -115,7 +116,7 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
     if (!target) return;
     const excess = target.getBoundingClientRect().bottom - element.getBoundingClientRect().bottom + 20;
     if (excess > 0) element.scrollBy({ top: excess, behavior: reduced ? "instant" : "smooth" });
-  }, [artifactVisible, buildBeat, reduced]);
+  }, [artifactVisible, buildBeat, workflowBeat, reduced]);
 
   const toggle = () => {
     if (playing) { pause(); setAnnouncement(`${story.label} demonstration paused.`); }
@@ -124,6 +125,15 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
   const submitPlan = () => {
     autoFollow.current = true; updateClock(planTiming.approved); setPlaying(true); setEpoch(value => value + 1);
     capture("demo_plan_submitted", { phase, actor: "Margaret Whitfield", destination: "Dynamics 365 Project Operations", illustrative: true });
+  };
+  const deliveryAction = (action) => {
+    const state = deliveryStateAt(elapsed);
+    const allowed = action === "send" ? state.draftReady && !state.sentForReview : action === "revise" ? state.feedbackReceived && !state.revising : action === "export" && state.approved;
+    if (!allowed) return;
+    if (action === "export" && state.exportReady) { resume(); return; }
+    const at = { send: deliveryTiming.sentForReview, revise: deliveryTiming.revising, export: deliveryTiming.exportStarted }[action];
+    autoFollow.current = true; updateClock(at); setPlaying(!reduced); setEpoch(value => value + 1);
+    capture(`demo_assessment_${action}`, { phase, actor: "Avery Ross", reviewer: "Sofia Patel", illustrative: true });
   };
 
   return <div className={`engagement-demo engagement-demo--${phase}${primary ? " engagement-demo--primary" : ""}`} ref={demoRef} id={primary ? "demo" : `${phase}-demo`} data-phase={phase} data-elapsed={Math.round(elapsed)}>
@@ -145,7 +155,7 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
           <div className="demo-feed" ref={feed} role="log" aria-label={`${story.label} conversation`} aria-live="off" onWheel={pause} onTouchStart={pause}>
             <div className="demo-conversation">
               {promptSent && <div className="demo-exchange"><div className="demo-user-message">{story.prompt}</div><div className="demo-agent-response"><div className="demo-agent-name"><img src="/brand/logo-mark.svg" alt="" />AllianceOne</div><p>{textAt(story.answer, elapsed, commonTiming.answerAt, 1100) || <span className="demo-working"><i className="build-pulse" />{activityAt(story, elapsed)}</span>}</p></div>
-                {artifactVisible && <div className="demo-artifact-container" onPointerDown={pause} onFocusCapture={pause}><DemoArtifact phase={phase} elapsed={elapsed} onInspect={inspect} onSubmit={submitPlan} /></div>}
+                {artifactVisible && <div className="demo-artifact-container" onPointerDown={pause} onFocusCapture={pause}><DemoArtifact phase={phase} elapsed={elapsed} onInspect={inspect} onSubmit={submitPlan} onDeliveryAction={deliveryAction} /></div>}
               </div>}
             </div>
           </div>
