@@ -2,7 +2,19 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { assignment, contexts, effort, historicalCases, readbackAssignment, readbackProject, resources, staffingCandidates, stories } from "./northstar.js";
-import { commonTiming, compareAssignment, conversationAt, deliveryStateAt, deliveryTiming, followScrollTop, loopFrameAt, loopHold, planExecutionAt, planTiming, playbackRate, precedentBuildAt, progressAt, scopeTiming, textAt } from "./demoPlayback.js";
+import { commonTiming, compareAssignment, conversationAt, deliveryStateAt, deliveryTiming, demoVisibleAt, followScrollTop, loopFrameAt, loopHold, planExecutionAt, planTiming, playbackRate, precedentBuildAt, progressAt, scopeTiming, textAt } from "./demoPlayback.js";
+
+test("demos wait until watchable and tolerate small scrolls before leaving", () => {
+  const geometry = { windowHeight: 735, viewportHeight: 614 };
+  assert.equal(demoVisibleAt(false, { ...geometry, visibleHeight: 100 }), false, "a glimpse of the next window does not start it");
+  assert.equal(demoVisibleAt(false, { ...geometry, visibleHeight: 400 }), true, "the landing-page window starts without needing to fit completely");
+  assert.equal(demoVisibleAt(true, { ...geometry, visibleHeight: 300 }), true, "scrolling around the current window does not restart it");
+  assert.equal(demoVisibleAt(true, { ...geometry, visibleHeight: 80 }), false, "leaving the window ends the visit");
+  assert.equal(demoVisibleAt(false, { ...geometry, visibleHeight: 100 }), false, "returning waits until there is enough space to watch again");
+  assert.equal(demoVisibleAt(false, { windowHeight: 1000, viewportHeight: 500, visibleHeight: 300 }), true, "a tall mobile window can start within a shorter viewport");
+  assert.equal(demoVisibleAt(false, { windowHeight: 600, viewportHeight: 1200, visibleHeight: 300 }), false, "a small window uses its own height for the entry threshold");
+  assert.equal(demoVisibleAt(true, { windowHeight: 0, viewportHeight: 0, visibleHeight: 0 }), false);
+});
 
 test("each scene holds its finished artifact, then starts the same exchange again", () => {
   for (const story of Object.values(stories)) {

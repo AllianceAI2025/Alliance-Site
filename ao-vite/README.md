@@ -100,8 +100,12 @@ There are no scene counters, example tabs or automatic chapter changes.
 
 ## Playback and inspection
 
-Each example starts when visible, retains its position offscreen, and pauses when
-the browser document is hidden. A finished scene holds for 10 seconds, then resets
+Each example starts from the beginning when enough of its window is visible to
+watch. Leaving the window resets its clock, conversation and internal scroll;
+returning starts a fresh playback, even if it was manually paused on the last visit.
+Small scrolls near the visibility boundary do not repeatedly restart it, and a
+brief arrival delay lets anchor navigation settle before the opening request types.
+Playback pauses while the browser document is hidden. A finished scene holds for 10 seconds, then resets
 its own conversation and feed scroll position without navigating to another section.
 A small Pause/Play icon appears on hover, keyboard focus or touch devices. It retains
 partial builds when paused. Scrolling, touch and artifact focus do not pause playback.
@@ -110,7 +114,7 @@ including changes from plan to PSA record and from review to revision. It scroll
 only the internal feed; it never moves the webpage. Sending a follow-up appends
 the new exchange below the preceding result without resetting the scroll position.
 Completed artifacts have capped clocks so their original versions stay unchanged.
-Only a new loop clears the conversation and resets its own feed. Source links
+A new loop or leaving the window clears the conversation and resets its own feed. Source links
 open an accessible modal without replacing the work; closing it resumes playback. The hero sidebar lists three
 Northstar threads and the Harbor and Meridian engagement records; thread links
 scroll to the corresponding section. Mobile uses the same sidebar behind a menu.

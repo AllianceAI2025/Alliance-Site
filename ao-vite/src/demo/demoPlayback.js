@@ -5,6 +5,14 @@ export const deliveryTiming = { draftReady: 7700, sendTyping: 8200, sentForRevie
 export const playbackRate = .8;
 export const loopHold = 10000;
 
+// Measure against the space available to watch, since a demo can be taller
+// than the viewport. Separate entry/exit points avoid restarts at a scroll edge.
+export function demoVisibleAt(wasVisible, { visibleHeight, windowHeight, viewportHeight }) {
+  const availableHeight = Math.min(windowHeight, viewportHeight);
+  if (availableHeight <= 0) return false;
+  return visibleHeight / availableHeight >= (wasVisible ? .15 : .55);
+}
+
 export function loopFrameAt(clock, duration) {
   const period = duration / playbackRate + loopHold;
   return { elapsed: Math.min((clock % period) * playbackRate, duration), cycle: Math.floor(clock / period) };

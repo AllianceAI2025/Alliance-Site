@@ -2,7 +2,7 @@ import React, { useEffect, useId, useLayoutEffect, useRef, useState } from "reac
 import { capture, useVisualDwell } from "../analytics";
 import DemoArtifact from "./DemoArtifacts.jsx";
 import { contexts, stories } from "./northstar.js";
-import { activityAt, conversationAt, followScrollTop, loopFrameAt, playbackRate, textAt } from "./demoPlayback.js";
+import { activityAt, conversationAt, demoVisibleAt, followScrollTop, loopFrameAt, playbackRate, textAt } from "./demoPlayback.js";
 import "./engagement-demo.css";
 
 function Icon({ name, ...props }) {
@@ -74,7 +74,7 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
   const reduced = useReducedMotion();
   const [elapsed, setElapsed] = useState(() => reduced ? story.duration : 0);
   const clockRef = useRef(elapsed / playbackRate);
-  const [playing, setPlaying] = useState(!reduced);
+  const [playing, setPlaying] = useState(false);
   const [visible, setVisible] = useState(false);
   const [tabVisible, setTabVisible] = useState(() => document.visibilityState !== "hidden");
   const [source, setSource] = useState(null);
@@ -95,17 +95,34 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
   const inspect = (key) => { pause(); setSidebarOpen(false); setSource(key); capture("demo_source_opened", { phase, source: key }); };
 
   useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting && entry.intersectionRatio >= .18), { threshold: .18, rootMargin: "-70px 0px -5% 0px" });
+    let inView = false, arrival;
+    const observer = new IntersectionObserver(([entry]) => {
+      const next = entry.isIntersecting && demoVisibleAt(inView, {
+        visibleHeight: entry.intersectionRect.height,
+        windowHeight: entry.boundingClientRect.height,
+        viewportHeight: entry.rootBounds?.height ?? window.innerHeight,
+      });
+      if (next === inView) return;
+      inView = next;
+      clearTimeout(arrival);
+      // Let an anchor scroll settle before typing the opening request.
+      if (next) arrival = setTimeout(() => setVisible(true), 200);
+      else setVisible(false);
+    }, { threshold: Array.from({ length: 21 }, (_, index) => index / 20), rootMargin: "-70px 0px -5% 0px" });
     observer.observe(demoRef.current);
     const onVisibility = () => setTabVisible(document.visibilityState !== "hidden");
     document.addEventListener("visibilitychange", onVisibility);
-    return () => { observer.disconnect(); document.removeEventListener("visibilitychange", onVisibility); };
+    return () => { clearTimeout(arrival); observer.disconnect(); document.removeEventListener("visibilitychange", onVisibility); };
   }, [demoRef]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    // Every visit is a new viewing session, including returning after a pause.
+    // Reset before painting so a previous artifact never flashes on arrival.
     updateClock(reduced ? story.duration : 0);
-    setPlaying(!reduced);
-  }, [reduced, story.duration]);
+    setPlaying(visible && !reduced);
+    setAnnouncement("");
+    if (feed.current) feed.current.scrollTo({ top: 0, behavior: "instant" });
+  }, [visible, reduced, story.duration]);
 
   useEffect(() => {
     if (!playing || !visible || !tabVisible || reduced) return;
