@@ -2,7 +2,7 @@ import React, { useEffect, useId, useLayoutEffect, useRef, useState } from "reac
 import { capture, useVisualDwell } from "../analytics";
 import DemoArtifact from "./DemoArtifacts.jsx";
 import { contexts, stories } from "./northstar.js";
-import { activityAt, commonTiming, conversationAt, followScrollTop, loopFrameAt, playbackRate, textAt } from "./demoPlayback.js";
+import { activityAt, conversationAt, followScrollTop, loopFrameAt, playbackRate, textAt } from "./demoPlayback.js";
 import "./engagement-demo.css";
 
 function Icon({ name, ...props }) {
@@ -21,7 +21,7 @@ function useReducedMotion() {
   return reduced;
 }
 
-function useConversationFollow(feed, elapsed, enabled, exchangeKey) {
+function useConversationFollow(feed, elapsed, enabled) {
   const current = useRef({ elapsed, enabled });
   current.current = { elapsed, enabled };
   const follow = () => {
@@ -40,9 +40,6 @@ function useConversationFollow(feed, elapsed, enabled, exchangeKey) {
   };
   const followRef = useRef(follow);
   followRef.current = follow;
-  useLayoutEffect(() => {
-    if (feed.current && enabled) feed.current.scrollTo({ top: 0, behavior: "instant" });
-  }, [exchangeKey]);
   const beat = Math.floor(elapsed / 160);
   useLayoutEffect(() => followRef.current(), [beat, enabled]);
   useEffect(() => {
@@ -89,10 +86,8 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
   const completionTracked = useRef(false);
   const demoRef = useVisualDwell(`northstar-${phase}`);
   const id = useId();
-  const promptSent = elapsed >= commonTiming.promptEnd;
-  const artifactVisible = elapsed >= (story.artifactAt || commonTiming.artifactAt);
   const conversation = conversationAt(story, elapsed);
-  useConversationFollow(feed, elapsed, playing && visible && tabVisible && !reduced, conversation.key);
+  useConversationFollow(feed, elapsed, playing && visible && tabVisible && !reduced);
 
   const updateClock = (value) => { clockRef.current = value / playbackRate; setElapsed(value); };
   const pause = () => setPlaying(false);
@@ -160,9 +155,10 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
           <header className="demo-player-header"><div>{primary && <button className="demo-sidebar-toggle" aria-label="Toggle engagement sidebar" aria-controls={`${id}-sidebar`} aria-expanded={sidebarOpen} onClick={() => setSidebarOpen(!sidebarOpen)}><Icon name="menu" /></button>}<strong>Northstar Foods</strong><span>{story.thread}{phase === "deliver" ? " · Avery Ross" : ""}</span></div>{!reduced && <div className="demo-controls"><button onClick={toggle} aria-label={`${playing ? "Pause" : "Play"} ${story.label} demo`} title={playing ? "Pause animation" : "Resume animation"}><Icon name={playing ? "pause" : "play"} /></button></div>}</header>
           <div className="demo-feed" ref={feed} role="log" aria-label={`${story.label} conversation`} aria-live="off">
             <div className="demo-conversation">
-              {promptSent && <div className="demo-exchange"><div className="demo-user-message" data-follow-at={conversation.sentAt}>{conversation.prompt}</div><div className="demo-agent-response"><div className="demo-agent-name"><img src="/brand/logo-mark.svg" alt="" />AllianceOne</div><p data-follow-at={conversation.answerAt}>{textAt(conversation.answer, elapsed, conversation.answerAt, conversation.answerDuration) || <span className="demo-working"><i className="build-pulse" />{activityAt(story, elapsed)}</span>}</p></div>
-                {artifactVisible && <div className="demo-artifact-container"><DemoArtifact phase={phase} elapsed={elapsed} onInspect={inspect} /></div>}
-              </div>}
+              {conversation.exchanges.map(exchange => <div className="demo-exchange" key={exchange.key} data-exchange={exchange.key}>
+                <div className="demo-user-message" data-follow-at={exchange.sentAt}>{exchange.prompt}</div><div className="demo-agent-response"><div className="demo-agent-name"><img src="/brand/logo-mark.svg" alt="" />AllianceOne</div><p data-follow-at={exchange.answerAt}>{textAt(exchange.answer, elapsed, exchange.answerAt, exchange.answerDuration || 1100) || <span className="demo-working"><i className="build-pulse" />{activityAt(story, elapsed)}</span>}</p></div>
+                {exchange.artifact && elapsed >= exchange.artifactAt && <div className="demo-artifact-container"><DemoArtifact type={exchange.artifact} elapsed={exchange.artifactElapsed} onInspect={inspect} /></div>}
+              </div>)}
             </div>
           </div>
           <div className={`demo-composer${conversation.typing ? " is-typing" : ""}`}><span>{conversation.composer}{conversation.typing && <i className="demo-typing-cursor" />}</span><Icon name="arrow" /></div>

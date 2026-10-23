@@ -1,6 +1,6 @@
 import React from "react";
-import { assignment, effort, historicalCases, readbackAssignment, readbackProject, resources, workstreams } from "./northstar.js";
-import { compareAssignment, deliveryStateAt, deliveryTiming, planExecutionAt, planTiming, progressAt, scopeTiming, textAt } from "./demoPlayback.js";
+import { assignment, effort, historicalCases, readbackAssignment, readbackProject, resources, staffingCandidates, workstreams } from "./northstar.js";
+import { compareAssignment, deliveryStateAt, deliveryTiming, planExecutionAt, planTiming, precedentBuildAt, progressAt, scopeTiming, textAt } from "./demoPlayback.js";
 import assessment from "./assessment.json";
 
 function BuildText({ children, elapsed, at, duration = 500 }) {
@@ -9,31 +9,31 @@ function BuildText({ children, elapsed, at, duration = 500 }) {
 function SourceLink({ source, children, onInspect }) {
   return <button className="artifact-source" onClick={() => onInspect(source)}>{children}<span aria-hidden="true">↗</span></button>;
 }
-function ArtifactHead({ label, title, meta, elapsed, finishedAt, at = 2700 }) {
-  return <header className="artifact-head" data-follow-at={at}><div><p>{label}</p><h3>{title}</h3></div><span className="artifact-meta">{elapsed < finishedAt ? <><i className="build-pulse" />Developing</> : meta}</span></header>;
+function ArtifactHead({ label, title, meta, elapsed, finishedAt = 0, at = 2700 }) {
+  return <header className="artifact-head" data-follow-at={at}><div><p>{label}</p><h3>{title}</h3></div>{elapsed >= finishedAt && meta && <span className="artifact-meta">{meta}</span>}</header>;
 }
 
 function PrecedentResponse({ elapsed, onInspect }) {
   return <article className="inline-artifact precedent-response" aria-label="Historical findings for Northstar">
-    <ArtifactHead label="Firm delivery experience" title="What carries into Northstar" meta="2 engagement records" elapsed={elapsed} finishedAt={scopeTiming.meridianAt + 1000} at={scopeTiming.precedentAt} />
+    <ArtifactHead label={<BuildText elapsed={elapsed} at={scopeTiming.precedentAt} duration={400}>Firm delivery experience</BuildText>} title={<BuildText elapsed={elapsed} at={scopeTiming.precedentAt + 100} duration={500}>What carries into Northstar</BuildText>} meta="2 engagement records" elapsed={elapsed} finishedAt={scopeTiming.historyFinished} at={scopeTiming.precedentAt} />
     <div className="precedent-findings">{historicalCases.map((record, index) => {
       const at = index ? scopeTiming.meridianAt : scopeTiming.harborAt;
-      return <section className="precedent-finding" key={record.id} data-follow-at={at}>{elapsed >= at && <>
-        <SourceLink source={record.id} onInspect={onInspect}>{record.name} · {record.reference}</SourceLink>
-        <p className="precedent-conditions">{record.conditions}</p>
-        <h4>{index ? "On-time delivery; slower adoption." : "Late validation forced another design pass."}</h4>
-        <p>{record.outcome}</p>
-        <p className="precedent-people">{index ? "Lena Torres built the ownership matrix; Jordan Hale developed the readiness roadmap." : "Avery Ross built the evidence pack; Daniel Okafor developed the design options. Sofia Patel reviewed both."}</p>
-        <div className="precedent-review-change"><p><strong>Submitted v1</strong>{record.submitted}</p><p><strong>Reviewed v2</strong>{record.acceptedChange}</p></div>
-        <div className="precedent-northstar"><strong>For Northstar</strong><p>{record.northstarAction}</p></div>
+      const build = precedentBuildAt(at);
+      return <section className="precedent-finding" key={record.id}>{elapsed >= at && <>
+        <SourceLink source={record.id} onInspect={onInspect}><BuildText elapsed={elapsed} at={build.source} duration={250}>{`${record.name} · ${record.reference}`}</BuildText></SourceLink>
+        {elapsed >= build.conditions && <p className="precedent-conditions" data-follow-at={build.conditions}><BuildText elapsed={elapsed} at={build.conditions} duration={300}>{record.conditions}</BuildText></p>}
+        {elapsed >= build.finding && <h4 data-follow-at={build.finding}><BuildText elapsed={elapsed} at={build.finding} duration={350}>{index ? "On-time delivery; slower adoption." : "Late validation forced another design pass."}</BuildText></h4>}
+        {elapsed >= build.outcome && <p data-follow-at={build.outcome}><BuildText elapsed={elapsed} at={build.outcome} duration={300}>{record.outcome}</BuildText></p>}
+        {elapsed >= build.people && <p className="precedent-people" data-follow-at={build.people}><BuildText elapsed={elapsed} at={build.people} duration={500}>{index ? "Lena Torres built the ownership matrix; Jordan Hale developed the readiness roadmap." : "Avery Ross built the evidence pack; Daniel Okafor developed the design options. Sofia Patel reviewed both."}</BuildText></p>}
+        <div className="precedent-review-change">{elapsed >= build.submitted && <p data-follow-at={build.submitted}><strong>Submitted v1</strong><BuildText elapsed={elapsed} at={build.submitted} duration={400}>{record.submitted}</BuildText></p>}{elapsed >= build.reviewed && <p data-follow-at={build.reviewed}><strong>Reviewed v2</strong><BuildText elapsed={elapsed} at={build.reviewed} duration={500}>{record.acceptedChange}</BuildText></p>}</div>
+        {elapsed >= build.application && <div className="precedent-northstar" data-follow-at={build.application}><strong>For Northstar</strong><p><BuildText elapsed={elapsed} at={build.application} duration={600}>{record.northstarAction}</BuildText></p></div>}
       </>}</section>;
     })}</div>
-    <p className="precedent-transfer-limit">Northstar spans eight regions with a fixed November 20 board gate. These records inform the method and team fit; current availability is checked separately.</p>
+    {elapsed >= scopeTiming.historyFinished - 500 && <p className="precedent-transfer-limit" data-follow-at={scopeTiming.historyFinished - 500}><BuildText elapsed={elapsed} at={scopeTiming.historyFinished - 500} duration={400}>Northstar spans eight regions with a fixed November 20 board gate. These records inform the method and team fit; current availability is checked separately.</BuildText></p>}
   </article>;
 }
 
 export function ScopeArtifact({ elapsed, onInspect }) {
-  if (elapsed < scopeTiming.draftAt) return <PrecedentResponse elapsed={elapsed} onInspect={onInspect} />;
   return <article className="inline-artifact scope-artifact" aria-label="Northstar engagement scope" aria-busy={elapsed < scopeTiming.finished}>
     <ArtifactHead label="Northstar Foods · Engagement scope" title="Operating model & decision rights" meta="Working draft" elapsed={elapsed} finishedAt={scopeTiming.finished} at={scopeTiming.draftAt} />
     <p className="artifact-purpose" data-follow-at={scopeTiming.draftAt + 100}><BuildText elapsed={elapsed} at={scopeTiming.draftAt + 100} duration={500}>Clearer decision ownership across eight regions, with normal service maintained and a board package by November 20.</BuildText></p>
@@ -42,13 +42,19 @@ export function ScopeArtifact({ elapsed, onInspect }) {
       const at = scopeTiming.workstreamsAt + index * 500;
       return <div className="scope-stream build-slot" key={stream.name} data-follow-at={at}>{elapsed >= at && <><div><strong><BuildText elapsed={elapsed} at={at} duration={300}>{stream.name}</BuildText></strong><span>W{stream.weeks}</span></div><p><BuildText elapsed={elapsed} at={at + 200} duration={350}>{stream.detail}</BuildText></p></>}</div>;
     })}</section>
-    <section className="scope-resource-fit"><div className="artifact-section-heading"><h4>Proposed resource fit</h4>{elapsed >= scopeTiming.availabilityAt && <SourceLink source="availability" onInspect={onInspect}>Current availability</SourceLink>}</div>
-      {[["Avery Ross", "Harbor · evidence pack", "75% available"], ["Lena Torres", "Meridian · regional ownership", "Available from W3"], ["Daniel Okafor", "Harbor · operating-model options", "Conditional W3 hold"]].map(([name, experience, availability], index) => {
-        const at = scopeTiming.resourcesAt + index * 600;
-        return <div className="resource-fit-row build-slot" key={name} data-follow-at={at}>{elapsed >= at && <><strong>{name}</strong><span>{experience}</span><small>{elapsed >= scopeTiming.availabilityAt + index * 250 ? availability : "Checking availability…"}</small></>}</div>;
-      })}
-    </section>
     <footer className="artifact-footer build-slot" data-follow-at={scopeTiming.finished}>{elapsed >= scopeTiming.finished && <><span>Implementation excluded. West and Southeast participation remains a client dependency.</span><SourceLink source="discovery" onInspect={onInspect}>Client context</SourceLink></>}</footer>
+  </article>;
+}
+
+function StaffingArtifact({ elapsed, onInspect }) {
+  return <article className="inline-artifact staffing-artifact" aria-label="Proposed Northstar team" aria-busy={elapsed < scopeTiming.staffingFinished}>
+    <ArtifactHead label="Northstar Foods · Staffing basis" title="People to put forward" meta="Proposed allocation" elapsed={elapsed} finishedAt={scopeTiming.staffingFinished} at={scopeTiming.staffingAt} />
+    <table className="staffing-table"><thead><tr><th>Resource</th><th>Relevant delivery experience</th><th>Current window</th><th>Proposed effort</th></tr></thead><tbody>{staffingCandidates.map((person, index) => {
+      const at = scopeTiming.candidatesAt + index * 550;
+      return <tr key={person.name} data-follow-at={at}>{elapsed >= at && <><td data-label="Resource"><strong><BuildText elapsed={elapsed} at={at} duration={200}>{person.name}</BuildText></strong><small>{person.role}</small></td><td data-label="Relevant experience"><SourceLink source={person.source} onInspect={onInspect}><BuildText elapsed={elapsed} at={at + 100} duration={350}>{person.experience}</BuildText></SourceLink></td><td data-label="Current window"><BuildText elapsed={elapsed} at={at + 200} duration={300}>{`W${person.start}–${person.end} · ${person.capacity}%${person.conditional ? " · conditional hold" : " available"}`}</BuildText></td><td data-label="Proposed effort">{elapsed >= at + 450 && `${person.hours}h`}</td></>}</tr>;
+    })}</tbody></table>
+    {elapsed >= scopeTiming.availabilityAt && <p className="staffing-basis" data-follow-at={scopeTiming.availabilityAt}><strong>{effort.toLocaleString()} hours · 14 weeks · 6 people</strong><SourceLink source="availability" onInspect={onInspect}>Current resource confirmation</SourceLink></p>}
+    {elapsed >= scopeTiming.staffingFinished && <p className="staffing-conditions" data-follow-at={scopeTiming.staffingFinished}>Daniel’s Week 3 release remains conditional. Sofia’s review window ends in Week 10; Margaret covers later gates. Feasibility review and conditional holds precede proposal commitment; bookings follow acceptance and plan approval.</p>}
   </article>;
 }
 
@@ -73,12 +79,8 @@ function PSAWrite() {
 
 export function PlanArtifact({ elapsed, onInspect }) {
   const execution = planExecutionAt(elapsed);
-  const view = execution.approved ? "psa" : "plan";
-  const mismatches = compareAssignment(assignment, readbackAssignment);
-  const verified = execution.readbackReady && mismatches.length === 0;
-  return <article className="inline-artifact plan-artifact" aria-label="Northstar engagement plan" data-view={view} aria-busy={!execution.reviewed || (execution.approved && !execution.readbackReady)}>
-    <ArtifactHead label={view === "psa" ? "Northstar Foods · Approved engagement plan" : "Northstar Foods · Engagement plan"} title={execution.projectCreated ? "Plan committed to Project Operations" : execution.approved ? "Submitting plan to Project Operations" : "Resources and delivery schedule"} meta={execution.approved ? "Approved plan v1" : "Reviewed plan v1"} elapsed={elapsed} finishedAt={planTiming.reviewed} />
-    {view === "plan" ? <>
+  return <article className="inline-artifact plan-artifact" aria-label="Northstar engagement plan" data-view="plan" aria-busy={!execution.reviewed}>
+    <ArtifactHead label="Northstar Foods · Engagement plan" title="Resources and delivery schedule" meta="Reviewed plan v1" elapsed={elapsed} finishedAt={planTiming.reviewed} />
     <div className="plan-basis"><SourceLink source="accepted" onInspect={onInspect}>Accepted proposal v5</SourceLink><span>14 weeks</span><span>{effort.toLocaleString()} hours</span><span>14 deliverables</span><span>August 17 – November 20</span></div>
     <div className="resource-schedule" role="group" aria-label="Resources across fourteen weeks">
       <div className="schedule-axis"><span>Resources</span><div>{[1, 4, 8, 12, 14].map(week => <span key={week}>W{week}</span>)}</div><span>Effort</span></div>
@@ -95,14 +97,22 @@ export function PlanArtifact({ elapsed, onInspect }) {
     <p className="schedule-caption">Bars show confirmed windows; labels are weekly availability ceilings.</p>
     <div className="plan-review-gate build-slot" data-follow-at={8000}>{elapsed >= 8000 && <><div><strong>Avery’s assessment</strong><span>{assignment.effort}h · {assignment.due}</span></div><span className="gate-arrow" aria-hidden="true">→</span><div><strong>Sofia’s review</strong><span>Before the diagnostic baseline</span></div><SourceLink source="assignment" onInspect={onInspect}>Assignment basis</SourceLink></>}</div>
     <p className="plan-continuity build-slot" data-follow-at={9000}>{elapsed >= 9000 && <>Harbor informs Avery’s evidence gate; Meridian informs Lena’s regional validation. Daniel’s W3 hold carries forward. <SourceLink source="availability" onInspect={onInspect}>Resource basis</SourceLink></>}</p>
-    </> : execution.projectCreated ? <PSARecord verified={verified} /> : <PSAWrite />}
-    <div className="plan-execution build-slot" data-follow-at={execution.readbackReady ? planTiming.verified : planTiming.reviewed} data-approved={execution.approved} data-verified={verified}>
-      {!execution.approved ? <div className="plan-approval"><div className="plan-commit-copy"><strong>{execution.reviewed ? "Sofia reviewed plan v1. Ready for Margaret’s approval." : "Developing assignments and review coverage."}</strong><p><img src="/brand/systems/project-operations.svg" alt="" />Dynamics 365 Project Operations</p><span>The reviewed plan retains the accepted proposal, resource windows and assignment rationale.</span></div></div> : execution.projectCreated && <>
-        <div className="execution-heading"><span className="execution-check" aria-hidden="true">✓</span><strong>Margaret approved and submitted plan v1 to PSA</strong><span>Approved baseline retained</span></div>
-        {view === "plan" ? <div className="execution-receipts"><div><img src="/brand/systems/project-operations.svg" alt="" /><span>Project Operations · PSA</span><small>{execution.projectCreated ? `${readbackProject.id} · 14 deliverables & 6 assignments` : "Writing project, deliverables & assignments…"}</small>{execution.projectCreated && <span className="execution-check" aria-label="Created">✓</span>}</div><div><img src="/brand/systems/sharepoint.svg" alt="" /><span>SharePoint</span><small>{execution.workspaceCreated ? "Approved plan workspace created" : "Preparing workspace…"}</small>{execution.workspaceCreated && <span className="execution-check" aria-label="Created">✓</span>}</div></div> : <p className="psa-filing"><img src="/brand/systems/sharepoint.svg" alt="" />{execution.workspaceCreated ? "Approved plan filed in SharePoint" : "Filing the approved plan in SharePoint…"}</p>}
-        <p className={`execution-readback${verified ? " is-verified" : ""}`}>{verified ? <><span aria-hidden="true">✓</span> PSA readback matched plan v1: Avery · {readbackAssignment.effort}h · {readbackAssignment.due} · Sofia reviews</> : execution.readbackReady ? `Readback differs on ${mismatches.join(", ")}. Review before finalizing.` : "Reading the PSA records back against approved plan v1…"}</p>
-      </>}
-    </div>
+    {execution.reviewed && <p className="plan-reviewed" data-follow-at={planTiming.reviewed}>Sofia reviewed plan v1. The accepted scope, proposed team and assignment rationale remain linked to this version.</p>}
+  </article>;
+}
+
+function PlanCommitArtifact({ elapsed }) {
+  const execution = planExecutionAt(elapsed);
+  const mismatches = compareAssignment(assignment, readbackAssignment);
+  const verified = execution.readbackReady && mismatches.length === 0;
+  return <article className="inline-artifact plan-artifact plan-commit-artifact" aria-label="Project Operations submission" data-view="psa" aria-busy={!execution.readbackReady}>
+    <ArtifactHead label="Northstar Foods · Approved plan v1" title={execution.projectCreated ? "Plan committed to Project Operations" : "Submitting plan to Project Operations"} elapsed={elapsed} at={16500} />
+    {execution.projectCreated ? <PSARecord verified={verified} /> : <PSAWrite />}
+    <div className="plan-execution" data-follow-at={execution.readbackReady ? planTiming.verified : planTiming.projectCreated} data-approved={execution.approved} data-verified={verified}>{execution.projectCreated && <>
+      <div className="execution-heading"><span className="execution-check" aria-hidden="true">✓</span><strong>Margaret approved and submitted plan v1 to PSA</strong><span>Approved baseline retained</span></div>
+      <p className="psa-filing"><img src="/brand/systems/sharepoint.svg" alt="" />{execution.workspaceCreated ? "Approved plan filed in SharePoint" : "Filing the approved plan in SharePoint…"}</p>
+      <p className={`execution-readback${verified ? " is-verified" : ""}`}>{verified ? <><span aria-hidden="true">✓</span> PSA readback matched plan v1: Avery · {readbackAssignment.effort}h · {readbackAssignment.due} · Sofia reviews</> : execution.readbackReady ? `Readback differs on ${mismatches.join(", ")}. Review before finalizing.` : "Reading the PSA records back against approved plan v1…"}</p>
+    </>}</div>
   </article>;
 }
 
@@ -131,8 +141,29 @@ export function DeliveryArtifact({ elapsed, onInspect }) {
   </article>;
 }
 
-export default function DemoArtifact({ phase, elapsed, onInspect }) {
-  if (phase === "scope") return <ScopeArtifact elapsed={elapsed} onInspect={onInspect} />;
-  if (phase === "plan") return <PlanArtifact elapsed={elapsed} onInspect={onInspect} />;
+function AssessmentReviewArtifact({ elapsed }) {
+  const feedback = elapsed >= deliveryTiming.feedbackReceived;
+  return <article className="inline-artifact assessment-review-receipt" aria-label="Sofia’s review of assessment revision 1">
+    <p data-follow-at={12500}>Revision 1 and its supporting evidence sent to Sofia Patel.</p>
+    {feedback && <div className="assessment-review" data-follow-at={deliveryTiming.feedbackReceived}><strong>Sofia Patel <span>Review of revision 1</span></strong><p>{assessment.reviewComment}</p></div>}
+  </article>;
+}
+
+function AssessmentExportArtifact({ elapsed }) {
+  const ready = elapsed >= deliveryTiming.exportReady;
+  return <article className="inline-artifact delivery-export-receipt" aria-label="Approved Word export" data-export-ready={ready} data-follow-at={ready ? deliveryTiming.exportReady : 27000}>
+    <div className="delivery-export-file"><img src="/brand/systems/word.svg" alt="Word" /><div><strong>Northstar · Data-readiness assessment.docx</strong><p>{ready ? "Exported · Revision 2 · Sofia approved · Firm template v1.2" : "Exporting approved revision 2 in the firm template…"}</p></div></div>
+    {ready && <a className="delivery-download" href={assessment.downloadPath} download>View Word document <span aria-hidden="true">↓</span></a>}
+  </article>;
+}
+
+export default function DemoArtifact({ type, elapsed, onInspect }) {
+  if (type === "precedent") return <PrecedentResponse elapsed={elapsed} onInspect={onInspect} />;
+  if (type === "scope") return <ScopeArtifact elapsed={elapsed} onInspect={onInspect} />;
+  if (type === "staffing") return <StaffingArtifact elapsed={elapsed} onInspect={onInspect} />;
+  if (type === "plan") return <PlanArtifact elapsed={elapsed} onInspect={onInspect} />;
+  if (type === "commit") return <PlanCommitArtifact elapsed={elapsed} />;
+  if (type === "assessment-review") return <AssessmentReviewArtifact elapsed={elapsed} />;
+  if (type === "assessment-export") return <AssessmentExportArtifact elapsed={elapsed} />;
   return <DeliveryArtifact elapsed={elapsed} onInspect={onInspect} />;
 }

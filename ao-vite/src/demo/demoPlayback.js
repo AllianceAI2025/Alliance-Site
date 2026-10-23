@@ -1,5 +1,5 @@
 export const commonTiming = { promptEnd: 1250, answerAt: 1500, artifactAt: 2700 };
-export const scopeTiming = { precedentAt: 3500, harborAt: 3800, meridianAt: 5500, commandAt: 9800, applyAt: 11800, responding: 12000, draftAt: 14000, workstreamsAt: 14600, resourcesAt: 17400, availabilityAt: 18600, finished: 19400 };
+export const scopeTiming = { precedentAt: 3500, harborAt: 3800, meridianAt: 7100, historyFinished: 10700, commandAt: 11600, applyAt: 13800, responding: 14000, draftAt: 15800, workstreamsAt: 16400, finished: 19000, staffingTyping: 20200, staffingAsked: 22600, staffingAnswer: 22800, staffingAt: 25000, candidatesAt: 25300, availabilityAt: 28500, staffingFinished: 29200 };
 export const planTiming = { reviewed: 10300, commandAt: 12700, approved: 15200, responding: 15400, projectCreated: 18000, workspaceCreated: 19400, verified: 21100 };
 export const deliveryTiming = { draftReady: 7700, sendTyping: 8200, sentForReview: 10800, sendAnswer: 11000, feedbackReceived: 13200, reviseTyping: 14000, revising: 16200, reviseAnswer: 16400, revisionContent: 17800, conclusionContent: 19300, revised: 20000, approved: 22000, exportTyping: 23000, exportStarted: 25500, exportAnswer: 25700, exportReady: 27500 };
 export const playbackRate = .8;
@@ -18,19 +18,23 @@ export function textAt(text, elapsed, start, duration = 500) {
   return text.slice(0, Math.floor(progressAt(elapsed, start, duration) * text.length));
 }
 
-// Keep one visible exchange. Follow-up instructions are typed in the composer
-// before replacing the preceding exchange; the working artifact stays mounted.
+export function precedentBuildAt(start) {
+  return { source: start, conditions: start + 100, finding: start + 300, outcome: start + 600, people: start + 900, submitted: start + 1400, reviewed: start + 1900, application: start + 2400 };
+}
+
+// Append exchanges in time order. Completed artifacts keep the version shown
+// with their original response; later instructions add their own result below.
 export function conversationAt(story, elapsed) {
-  const sent = [...(story.commands || [])].reverse().find(command => elapsed >= command.sentAt);
+  const initialExchange = { key: 0, prompt: story.prompt, answer: story.answer, sentAt: commonTiming.promptEnd, answerAt: commonTiming.answerAt, answerDuration: story.answerDuration || 1100, artifact: story.artifact, artifactAt: story.artifactAt || commonTiming.artifactAt, artifactUntil: story.artifactUntil };
+  const exchanges = [initialExchange, ...(story.commands || []).map(command => ({ ...command, key: command.sentAt }))]
+    .filter(exchange => elapsed >= exchange.sentAt)
+    .map(exchange => ({ ...exchange, artifactElapsed: Math.min(elapsed, exchange.artifactUntil ?? elapsed) }));
+  const current = exchanges.at(-1) || initialExchange;
   const typing = (story.commands || []).find(command => elapsed >= command.typingAt && elapsed < command.sentAt);
   const initial = elapsed < commonTiming.promptEnd;
   return {
-    key: sent?.sentAt || 0,
-    prompt: sent?.prompt || story.prompt,
-    answer: sent?.answer || story.answer,
-    sentAt: sent?.sentAt || commonTiming.promptEnd,
-    answerAt: sent?.answerAt || commonTiming.answerAt,
-    answerDuration: sent?.answerDuration || story.answerDuration || 1100,
+    ...current,
+    exchanges,
     typing: initial || Boolean(typing),
     composer: initial ? textAt(story.prompt, elapsed, 0, commonTiming.promptEnd)
       : typing ? textAt(typing.prompt, elapsed, typing.typingAt, typing.sentAt - typing.typingAt) : "Ask AllianceOne…",

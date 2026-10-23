@@ -1,8 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { assignment, contexts, effort, historicalCases, readbackAssignment, readbackProject, resources, stories } from "./northstar.js";
-import { commonTiming, compareAssignment, conversationAt, deliveryStateAt, deliveryTiming, followScrollTop, loopFrameAt, loopHold, planExecutionAt, planTiming, playbackRate, progressAt, scopeTiming, textAt } from "./demoPlayback.js";
+import { assignment, contexts, effort, historicalCases, readbackAssignment, readbackProject, resources, staffingCandidates, stories } from "./northstar.js";
+import { commonTiming, compareAssignment, conversationAt, deliveryStateAt, deliveryTiming, followScrollTop, loopFrameAt, loopHold, planExecutionAt, planTiming, playbackRate, precedentBuildAt, progressAt, scopeTiming, textAt } from "./demoPlayback.js";
 
 test("each scene holds its finished artifact, then starts the same exchange again", () => {
   for (const story of Object.values(stories)) {
@@ -73,13 +73,59 @@ test("historical context preserves people, accepted work, review and outcome lim
 
 test("Scope surfaces precedent before the user asks to apply it to a new scope", () => {
   const story = stories.scope;
-  const sequence = [scopeTiming.precedentAt, scopeTiming.harborAt, scopeTiming.meridianAt, scopeTiming.commandAt, scopeTiming.applyAt, scopeTiming.draftAt, scopeTiming.workstreamsAt, scopeTiming.resourcesAt, scopeTiming.availabilityAt, scopeTiming.finished, story.duration];
+  const sequence = [scopeTiming.precedentAt, scopeTiming.harborAt, scopeTiming.meridianAt, scopeTiming.historyFinished, scopeTiming.commandAt, scopeTiming.applyAt, scopeTiming.draftAt, scopeTiming.workstreamsAt, scopeTiming.finished, scopeTiming.staffingTyping, scopeTiming.staffingAsked, scopeTiming.staffingAt, scopeTiming.candidatesAt, scopeTiming.availabilityAt, scopeTiming.staffingFinished, story.duration];
   assert.ok(sequence.every((time, index) => !index || time > sequence[index - 1]));
   assert.equal(conversationAt(story, scopeTiming.applyAt - 1).prompt, story.prompt);
   assert.equal(conversationAt(story, scopeTiming.applyAt).prompt, story.commands[0].prompt);
   assert.ok(scopeTiming.draftAt > story.commands[0].answerAt + story.commands[0].answerDuration);
   assert.ok(story.answer.includes("one-week delay") && story.answer.includes("slow adoption"), "the response provides actual findings");
   assert.ok(historicalCases[0].northstarAction.includes("West and Southeast"), "the precedent addresses an open Northstar dependency");
+});
+
+test("new requests append below retained responses and completed artifact versions", () => {
+  for (const story of Object.values(stories)) {
+    assert.equal(conversationAt(story, commonTiming.promptEnd - 1).exchanges.length, 0);
+    const final = conversationAt(story, story.duration);
+    assert.deepEqual(final.exchanges.map(item => item.prompt), [story.prompt, ...story.commands.map(item => item.prompt)]);
+    for (const command of story.commands) {
+      const before = conversationAt(story, command.sentAt - 1).exchanges;
+      const after = conversationAt(story, command.sentAt).exchanges;
+      assert.equal(after.length, before.length + 1);
+      assert.deepEqual(after.slice(0, -1).map(item => item.prompt), before.map(item => item.prompt));
+    }
+    for (const exchange of final.exchanges) {
+      assert.ok(exchange.artifact && exchange.artifactAt >= exchange.answerAt);
+      if (exchange.artifactUntil) assert.equal(exchange.artifactElapsed, exchange.artifactUntil);
+    }
+  }
+  const plan = conversationAt(stories.plan, planTiming.verified).exchanges;
+  assert.deepEqual(plan.map(item => item.artifact), ["plan", "commit"]);
+  assert.equal(plan[0].artifactElapsed, planTiming.reviewed, "the reviewed schedule remains intact after submission");
+  assert.deepEqual(conversationAt(stories.scope, stories.scope.duration).exchanges.map(item => item.artifact), ["precedent", "scope", "staffing"]);
+});
+
+test("firm experience builds text in stages before the next request is sent", () => {
+  const first = precedentBuildAt(scopeTiming.harborAt), second = precedentBuildAt(scopeTiming.meridianAt);
+  assert.ok(first.application + 600 < second.source, "mobile playback finishes one record before moving to the next");
+  assert.ok(second.application + 600 < scopeTiming.historyFinished);
+  assert.ok(scopeTiming.historyFinished < scopeTiming.commandAt);
+  for (const build of [first, second]) {
+    const steps = Object.values(build);
+    assert.ok(steps.every((at, index) => !index || at > steps[index - 1]));
+    assert.equal(textAt(historicalCases[0].submitted, build.submitted - 1, build.submitted, 400), "");
+    const partial = textAt(historicalCases[0].submitted, build.submitted + 200, build.submitted, 400);
+    assert.ok(partial.length > 0 && partial.length < historicalCases[0].submitted.length);
+  }
+});
+
+test("the staffing question evaluates the team before Plan carries it forward", () => {
+  const command = stories.scope.commands[1];
+  assert.equal(command.sentAt, scopeTiming.staffingAsked);
+  assert.equal(command.artifact, "staffing");
+  assert.deepEqual(staffingCandidates.map(item => [item.name, item.hours, item.start, item.end]), resources.map(item => [item.name, item.hours, item.start, item.end]));
+  assert.equal(staffingCandidates.find(item => item.name === "Daniel Okafor").conditional, true);
+  assert.ok(staffingCandidates.every(item => item.experience && contexts[item.source]));
+  assert.ok(stories.plan.answer.includes("Week 3 release is now confirmed"));
 });
 
 test("Avery types each instruction after its prerequisite and before its action", () => {
