@@ -19,8 +19,9 @@ The existing dev server uses http://localhost:5176. The build produces `dist/`.
 
 ## Where to edit
 
-- `src/LandingPage.jsx` and `src/landing.css`: page composition, copy and light
-  neutral palette. Brand marks and existing positioning are retained.
+- `src/LandingPage.jsx` and `src/landing.css`: page composition, copy and the
+  Main brand palette: ink, bone, paper and signature lime. Dark demo surrounds,
+  light document surfaces and restrained green accents replace decorative grids.
 - `src/demo/northstar.js`: the three prompts, responses, sources, people, accepted
   commitment and connected record. This is the fictional data contract.
 - `src/demo/EngagementDemo.jsx`: independent visibility-aware clocks, typing,
