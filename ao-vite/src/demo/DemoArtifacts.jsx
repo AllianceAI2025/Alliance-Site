@@ -160,6 +160,17 @@ function PlanCommitArtifact({ elapsed }) {
   </article>;
 }
 
+function AssignmentBrief({ elapsed, onInspect }) {
+  const task = approvedPlan.deliverables.find(item => item.id === "NS-D01");
+  return <article className="inline-artifact assignment-brief" aria-label="Avery’s committed assessment assignment">
+    <ArtifactHead label="Northstar Foods · Your assignment" title="Data-readiness assessment" elapsed={elapsed} at={deliveryTiming.assignmentAt} />
+    <dl className="assignment-brief-facts">{[["Planned effort", `${assignment.effort} hours`], ["Due", assignment.due], ["Reviewer", assignment.reviewer]].map(([label, value], index) => <div key={label} data-follow-at={3900 + index * 150}>{elapsed >= 3900 + index * 150 && <><dt>{label}</dt><dd><BuildText elapsed={elapsed} at={3900 + index * 150} duration={200}>{value}</BuildText></dd></>}</div>)}</dl>
+    {elapsed >= 4500 && <section data-follow-at={4500}><h4>What it must establish</h4><p><BuildText elapsed={elapsed} at={4500} duration={550}>{assessment.purpose}</BuildText></p></section>}
+    {elapsed >= 5200 && <section data-follow-at={5200}><h4>Acceptance criteria</h4><p><BuildText elapsed={elapsed} at={5200} duration={550}>{task.acceptance}</BuildText></p></section>}
+    {elapsed >= deliveryTiming.assignmentReady && <footer className="artifact-footer" data-follow-at={deliveryTiming.assignmentReady}><span>Plan v1 · {readbackAssignment.id} · Verified in Project Operations</span><SourceLink source="assignment" onInspect={onInspect}>Approved assignment</SourceLink></footer>}
+  </article>;
+}
+
 export function DeliveryArtifact({ elapsed, onInspect }) {
   const state = deliveryStateAt(elapsed);
   return <article className="inline-artifact delivery-artifact" aria-label="Northstar data-readiness assessment" aria-busy={!state.draftReady || (state.revising && !state.revised)} data-review-status={state.approved ? "approved" : state.feedbackReceived ? "feedback" : state.sentForReview ? "in-review" : "draft"} data-export-ready={state.exportReady}>
@@ -167,15 +178,15 @@ export function DeliveryArtifact({ elapsed, onInspect }) {
     <div className="assessment-layout"><div className="assessment-page">
       <div className="assessment-letterhead"><img src="/brand/asg/alliance-systems-group-mark-refined.png" alt="" /><span>Alliance Systems Group</span></div>
       <p className="assessment-client">Northstar Foods</p><h3>Data-readiness assessment</h3><p className="assessment-byline">Avery Ross · Reviewer: Sofia Patel · {state.revising ? "Revision 2" : "Revision 1"}</p>
-      <section className="assessment-purpose build-slot" data-follow-at={3100}>{elapsed >= 3100 && <><h4>Purpose and assessment basis</h4><p><BuildText elapsed={elapsed} at={3100} duration={650}>{assessment.purpose}</BuildText></p></>}</section>
+      <section className="assessment-purpose build-slot" data-follow-at={deliveryTiming.purposeAt}>{elapsed >= deliveryTiming.purposeAt && <><h4>Purpose and assessment basis</h4><p><BuildText elapsed={elapsed} at={deliveryTiming.purposeAt} duration={650}>{assessment.purpose}</BuildText></p></>}</section>
       <div className="assessment-evidence">{assessment.evidence.map((item, index) => {
         const reviseAt = deliveryTiming.revisionContent + index * 500;
-        return <div className="assessment-evidence-row build-slot" key={item.label} data-follow-at={state.revising ? reviseAt : 4200 + index * 700}>{elapsed >= 4200 + index * 700 && <><span>{item.label}</span><strong>{item.finding}</strong><small>{item.gap}</small>{elapsed >= reviseAt && <p className="assessment-evidence-implication"><BuildText elapsed={elapsed} at={reviseAt} duration={450}>{item.implication}</BuildText></p>}</>}</div>;
+        return <div className="assessment-evidence-row build-slot" key={item.label} data-follow-at={state.revising ? reviseAt : deliveryTiming.evidenceAt + index * 700}>{elapsed >= deliveryTiming.evidenceAt + index * 700 && <><span>{item.label}</span><strong>{item.finding}</strong><small>{item.gap}</small>{elapsed >= reviseAt && <p className="assessment-evidence-implication"><BuildText elapsed={elapsed} at={reviseAt} duration={450}>{item.implication}</BuildText></p>}</>}</div>;
       })}</div>
-      <section className="assessment-conclusion build-slot" data-follow-at={state.revising ? deliveryTiming.conclusionContent : 6600} data-revised={elapsed >= deliveryTiming.conclusionContent}>{elapsed >= 6600 && <><h4>Assessment and implications</h4><p>{elapsed >= deliveryTiming.conclusionContent ? <BuildText elapsed={elapsed} at={deliveryTiming.conclusionContent} duration={deliveryTiming.revised - deliveryTiming.conclusionContent}>{assessment.conclusion}</BuildText> : assessment.initialConclusion}</p></>}</section>
+      <section className="assessment-conclusion build-slot" data-follow-at={state.revising ? deliveryTiming.conclusionContent : deliveryTiming.initialConclusionAt} data-revised={elapsed >= deliveryTiming.conclusionContent}>{elapsed >= deliveryTiming.initialConclusionAt && <><h4>Assessment and implications</h4><p>{elapsed >= deliveryTiming.conclusionContent ? <BuildText elapsed={elapsed} at={deliveryTiming.conclusionContent} duration={deliveryTiming.revised - deliveryTiming.conclusionContent}>{assessment.conclusion}</BuildText> : assessment.initialConclusion}</p></>}</section>
       <footer className="assessment-sources build-slot">{state.draftReady && <><SourceLink source="evidence" onInspect={onInspect}>Northstar evidence</SourceLink><SourceLink source="assignment" onInspect={onInspect}>Approved assignment</SourceLink></>}</footer>
     </div><aside className="assessment-margin" aria-label="Firm guidance and review">
-      <div className="delivery-guidance build-slot" data-follow-at={7100}>{elapsed >= 7100 && <><p className="margin-label">Carried into this work</p><SourceLink source="harbor" onInspect={onInspect}>Harbor · Sofia’s review</SourceLink><p>Retain source dates and disputed ownership. Keep observed evidence distinct from design.</p><SourceLink source="meridian" onInspect={onInspect}>Meridian · Lena’s matrix</SourceLink><p>Identify the service boundaries and handoffs each evidence gap affects.</p></>}</div>
+      <div className="delivery-guidance build-slot" data-follow-at={deliveryTiming.guidanceAt}>{elapsed >= deliveryTiming.guidanceAt && <><p className="margin-label">Carried into this work</p><SourceLink source="harbor" onInspect={onInspect}>Harbor · Sofia’s review</SourceLink><p>Retain source dates and disputed ownership. Keep observed evidence distinct from design.</p><SourceLink source="meridian" onInspect={onInspect}>Meridian · Lena’s matrix</SourceLink><p>Identify the service boundaries and handoffs each evidence gap affects.</p></>}</div>
       <div className={`assessment-review build-slot${state.revised ? " is-resolved" : ""}`} data-follow-at={state.revised ? deliveryTiming.revised : deliveryTiming.feedbackReceived}>{state.feedbackReceived && <><strong>Sofia Patel <span>Review of revision 1</span></strong><p>{assessment.reviewComment}</p>{state.revised && <p className="review-resolution"><span aria-hidden="true">✓</span> Avery clarified the limits of the conclusion and returned revision 2.</p>}{state.approved && <p className="review-approval">Sofia approved revision 2 for export.</p>}</>}</div>
       <div className="delivery-record build-slot" data-follow-at={deliveryTiming.approved}>{state.revised && <><p>Review request, feedback, revision rationale and approval retained with their sources.</p><SourceLink source="record" onInspect={onInspect}>Engagement record</SourceLink></>}</div>
     </aside></div>
@@ -188,14 +199,14 @@ export function DeliveryArtifact({ elapsed, onInspect }) {
 function AssessmentReviewArtifact({ elapsed }) {
   const feedback = elapsed >= deliveryTiming.feedbackReceived;
   return <article className="inline-artifact assessment-review-receipt" aria-label="Sofia’s review of assessment revision 1">
-    <p data-follow-at={12500}>Revision 1 and its supporting evidence sent to Sofia Patel.</p>
+    <p data-follow-at={deliveryTiming.reviewArtifactAt}>Revision 1 and its supporting evidence sent to Sofia Patel.</p>
     {feedback && <div className="assessment-review" data-follow-at={deliveryTiming.feedbackReceived}><strong>Sofia Patel <span>Review of revision 1</span></strong><p>{assessment.reviewComment}</p></div>}
   </article>;
 }
 
 function AssessmentExportArtifact({ elapsed }) {
   const ready = elapsed >= deliveryTiming.exportReady;
-  return <article className="inline-artifact delivery-export-receipt" aria-label="Approved Word export" data-export-ready={ready} data-follow-at={ready ? deliveryTiming.exportReady : 27000}>
+  return <article className="inline-artifact delivery-export-receipt" aria-label="Approved Word export" data-export-ready={ready} data-follow-at={ready ? deliveryTiming.exportReady : deliveryTiming.exportArtifactAt}>
     <div className="delivery-export-file"><img src="/brand/systems/word.svg" alt="Word" /><div><strong>Northstar · Data-readiness assessment.docx</strong><p>{ready ? "Exported · Revision 2 · Sofia approved · Firm template v1.2" : "Exporting approved revision 2 in the firm template…"}</p></div></div>
     {ready && <a className="delivery-download" href={assessment.downloadPath} download>View Word document <span aria-hidden="true">↓</span></a>}
   </article>;
@@ -207,6 +218,7 @@ export default function DemoArtifact({ type, elapsed, onInspect }) {
   if (type === "staffing") return <StaffingArtifact elapsed={elapsed} onInspect={onInspect} />;
   if (type === "plan") return <PlanArtifact elapsed={elapsed} onInspect={onInspect} />;
   if (type === "commit") return <PlanCommitArtifact elapsed={elapsed} />;
+  if (type === "assignment-brief") return <AssignmentBrief elapsed={elapsed} onInspect={onInspect} />;
   if (type === "assessment-review") return <AssessmentReviewArtifact elapsed={elapsed} />;
   if (type === "assessment-export") return <AssessmentExportArtifact elapsed={elapsed} />;
   return <DeliveryArtifact elapsed={elapsed} onInspect={onInspect} />;

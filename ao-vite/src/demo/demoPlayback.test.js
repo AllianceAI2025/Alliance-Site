@@ -153,7 +153,7 @@ test("new requests append below retained responses and completed artifact versio
       assert.deepEqual(after.slice(0, -1).map(item => item.prompt), before.map(item => item.prompt));
     }
     for (const exchange of final.exchanges) {
-      assert.ok(exchange.artifact && exchange.artifactAt >= exchange.answerAt);
+      if (exchange.artifact) assert.ok(exchange.artifactAt >= exchange.answerAt);
       if (exchange.artifactUntil) assert.equal(exchange.artifactElapsed, exchange.artifactUntil);
     }
   }
@@ -189,11 +189,10 @@ test("the staffing question evaluates the team before Plan carries it forward", 
 
 test("Avery types each instruction after its prerequisite and before its action", () => {
   const story = stories.deliver;
-  assert.equal(story.commands.length, 3);
   const steps = [
-    [deliveryTiming.draftReady, story.commands[0], "sentForReview"],
-    [deliveryTiming.feedbackReceived, story.commands[1], "revising"],
-    [deliveryTiming.approved, story.commands[2], "exporting"],
+    [deliveryTiming.draftReady, story.commands.find(item => item.sentAt === deliveryTiming.sentForReview), "sentForReview"],
+    [deliveryTiming.feedbackReceived, story.commands.find(item => item.sentAt === deliveryTiming.revising), "revising"],
+    [deliveryTiming.approved, story.commands.find(item => item.sentAt === deliveryTiming.exportStarted), "exporting"],
   ];
   for (const [prerequisite, command, stateKey] of steps) {
     assert.ok(command.typingAt > prerequisite);
@@ -205,9 +204,35 @@ test("Avery types each instruction after its prerequisite and before its action"
     assert.notEqual(typing.prompt, command.prompt, "typing does not send the message early");
     assert.equal(conversationAt(story, command.sentAt).prompt, command.prompt);
   }
-  assert.ok(deliveryTiming.revisionContent > story.commands[1].answerAt + story.commands[1].answerDuration);
+  assert.ok(deliveryTiming.revisionContent > steps[1][1].answerAt + steps[1][1].answerDuration);
   assert.ok(deliveryTiming.revised > deliveryTiming.conclusionContent);
-  assert.ok(deliveryTiming.exportReady > story.commands[2].answerAt + story.commands[2].answerDuration);
+  assert.ok(deliveryTiming.exportReady > steps[2][1].answerAt + steps[2][1].answerDuration);
+});
+
+test("consultant delivery establishes the assignment and method before drafting", () => {
+  const story = stories.deliver;
+  assert.deepEqual(story.threads, ["deliver"]);
+  assert.equal(story.person, assignment.owner);
+  assert.equal(story.artifact, "assignment-brief");
+  assert.ok(story.prompt.includes("What am I delivering"));
+  assert.ok(story.answer.includes("Six of eight") && story.answer.includes("Northeast") && story.answer.includes("Central"));
+  const method = story.commands[0], draft = story.commands[1];
+  assert.ok(method.typingAt > deliveryTiming.assignmentReady);
+  assert.equal(method.sentAt, deliveryTiming.methodAsked);
+  assert.ok(method.answer.includes("ASG DR01 v1.2") && method.answer.includes("HG-D01 v1"));
+  assert.ok(method.answer.includes("source and date") && method.answer.includes("unresolved conflicts"));
+  assert.ok(method.sources.every(source => contexts[source.key]));
+  assert.ok(draft.typingAt > method.answerAt + method.answerDuration);
+  assert.equal(draft.artifact, "assessment-draft");
+  assert.ok(draft.artifactAt > draft.answerAt + draft.answerDuration);
+  assert.ok(deliveryTiming.purposeAt > draft.artifactAt);
+  assert.ok(deliveryTiming.evidenceAt > deliveryTiming.purposeAt + 650);
+  const beforeDraft = conversationAt(story, draft.sentAt - 1).exchanges;
+  assert.equal(beforeDraft.some(item => item.artifact === "assessment-draft"), false);
+  assert.equal(beforeDraft[0].artifactElapsed, deliveryTiming.assignmentReady);
+  const ready = conversationAt(story, deliveryTiming.draftReady).exchanges.at(-1);
+  assert.equal(ready.artifact, "assessment-draft");
+  assert.equal(ready.artifactElapsed, deliveryTiming.draftReady);
 });
 
 test("PSA readback identifies the created project and the approved staffing basis", () => {

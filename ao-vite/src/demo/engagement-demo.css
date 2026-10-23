@@ -39,6 +39,16 @@
 .demo-agent-name{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:500;margin-bottom:9px;color:#35434a}
 .demo-agent-name>img{width:18px;height:18px}
 .demo-agent-response>p{font-size:12px;line-height:1.8;color:#5f737e;min-height:43px;margin:0 0 17px;max-width:820px}
+.engagement-demo--deliver .demo-agent-response>p{white-space:pre-line}
+.demo-response-sources{display:flex;flex-wrap:wrap;gap:8px 20px;margin:0 0 20px}
+.demo-response-sources>button{border:0;background:none;padding:2px 0;font:inherit;font-size:10px;color:#5b7565;text-align:left;text-decoration:underline;text-decoration-color:#b5cba5;text-underline-offset:3px;cursor:pointer}
+.assignment-brief-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin:20px 0}
+.assignment-brief-facts>div{min-height:38px}
+.assignment-brief-facts dt{font-size:10px;color:#6b7e70;margin-bottom:3px}
+.assignment-brief-facts dd{margin:0;font-size:12px;color:#36533f}
+.assignment-brief>section{margin-top:17px}
+.assignment-brief>section>h4{font-size:11px;color:#3c5a47;margin-bottom:5px}
+.assignment-brief>section>p{font-size:11px;line-height:1.85;color:#5c7465;margin:0}
 .demo-working{color:#5f737e;font-size:11px;display:flex;align-items:center;gap:7px}
 .build-pulse{width:4px;height:4px;border-radius:50%;background:#86c43d;display:inline-block;flex:none;animation:demo-breathe 1s ease-in-out infinite}
 @keyframes demo-breathe{50%{opacity:.3}}

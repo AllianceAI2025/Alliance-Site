@@ -1,7 +1,15 @@
 export const commonTiming = { promptEnd: 1250, answerAt: 1500, artifactAt: 2700 };
 export const scopeTiming = { precedentAt: 3500, harborAt: 3800, meridianAt: 7100, historyFinished: 10700, commandAt: 11600, applyAt: 13800, responding: 14000, draftAt: 15800, workstreamsAt: 16400, finished: 19000, staffingTyping: 20200, staffingAsked: 22600, staffingAnswer: 22800, staffingAt: 25000, candidatesAt: 25300, availabilityAt: 28500, staffingFinished: 29200 };
 export const planTiming = { deliverablesAt: 9700, milestonesAt: 14000, reviewed: 15500, commandAt: 18000, approved: 20500, responding: 20700, submissionAt: 22500, projectCreated: 23500, resourcesWrittenAt: 24300, deliverablesWrittenAt: 27500, milestonesWrittenAt: 32000, workspaceCreated: 34300, verified: 36000 };
-export const deliveryTiming = { draftReady: 7700, sendTyping: 8200, sentForReview: 10800, sendAnswer: 11000, feedbackReceived: 13200, reviseTyping: 14000, revising: 16200, reviseAnswer: 16400, revisionContent: 17800, conclusionContent: 19300, revised: 20000, approved: 22000, exportTyping: 23000, exportStarted: 25500, exportAnswer: 25700, exportReady: 27500 };
+export const deliveryTiming = {
+  assignmentAt: 3650, assignmentReady: 6000, methodTyping: 6500, methodAsked: 8500, methodAnswer: 8700,
+  draftTyping: 12500, draftAsked: 14700, draftAnswer: 14900, draftAt: 16300,
+  purposeAt: 16700, evidenceAt: 17800, initialConclusionAt: 20200, guidanceAt: 20700, draftReady: 21300,
+  sendTyping: 21800, sentForReview: 24400, sendAnswer: 24600, reviewArtifactAt: 26100, feedbackReceived: 26800,
+  reviseTyping: 27600, revising: 29800, reviseAnswer: 30000, revisionArtifactAt: 31350, revisionContent: 31400,
+  conclusionContent: 32900, revised: 33600, approved: 35600, exportTyping: 36600,
+  exportStarted: 39100, exportAnswer: 39300, exportArtifactAt: 40600, exportReady: 41100,
+};
 export const playbackRate = .8;
 
 // Measure against the space available to watch, since a demo can be taller

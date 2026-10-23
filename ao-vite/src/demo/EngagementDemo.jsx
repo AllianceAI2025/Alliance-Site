@@ -99,7 +99,10 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
   const updateClock = (value) => { clockRef.current = value / playbackRate; setElapsed(value); };
   const pause = () => setPlaying(false);
   const resume = () => setPlaying(!reduced && clockRef.current < story.duration / playbackRate);
-  const inspect = (key) => { pause(); setSidebarOpen(false); setSource(key); capture("demo_source_opened", { phase, source: key }); };
+  const inspect = (key) => {
+    const contextKey = phase === "deliver" ? ({ harbor: "harbor-review", meridian: "meridian-guidance" }[key] || key) : key;
+    pause(); setSidebarOpen(false); setSource(contextKey); capture("demo_source_opened", { phase, source: contextKey });
+  };
 
   useEffect(() => {
     let inView = false, arrival;
@@ -170,7 +173,7 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
             <div className="demo-sidebar-brand"><img src="/brand/logo-mark-dark.svg" alt="" /><span>AllianceOne</span><button className="demo-sidebar-close" aria-label="Close engagement sidebar" onClick={() => setSidebarOpen(false)}><Icon name="close" /></button></div>
             <p className="demo-sidebar-label">Engagements</p>
             <div className="demo-northstar-row"><button className="demo-engagement-name" onClick={() => inspect("discovery")}><Icon name="folder" />Northstar Foods</button><button className="demo-thread-toggle" aria-label="Toggle Northstar Foods threads" aria-expanded={threadsOpen} aria-controls={`${id}-threads`} onClick={() => setThreadsOpen(!threadsOpen)}><Icon name="chevron" className={threadsOpen ? "is-expanded" : ""} /></button></div>
-            {threadsOpen && <nav className="demo-thread-list" id={`${id}-threads`} aria-label="Northstar Foods threads">{Object.entries(stories).map(([key, item]) => <a key={key} href={`#${key}`} aria-current={key === phase ? "page" : undefined} onClick={() => setSidebarOpen(false)}>{item.thread}</a>)}</nav>}
+            {threadsOpen && <nav className="demo-thread-list" id={`${id}-threads`} aria-label="Northstar Foods threads">{Object.entries(stories).filter(([key]) => !story.threads || story.threads.includes(key)).map(([key, item]) => <a key={key} href={`#${key}`} aria-current={key === phase ? "page" : undefined} onClick={() => setSidebarOpen(false)}>{item.thread}</a>)}</nav>}
             <button className="demo-engagement-reference" onClick={() => inspect("harbor")}><Icon name="folder" />Harbor Grain</button><button className="demo-engagement-reference" onClick={() => inspect("meridian")}><Icon name="folder" />Meridian</button>
             <div className="demo-profile"><span>{phase === "deliver" ? "AR" : "MW"}</span><div>{story.person}<small>{phase === "deliver" ? "Consultant" : "Engagement manager"}</small></div></div>
           </aside>
@@ -181,6 +184,7 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
             <div className="demo-conversation">
               {conversation.exchanges.map(exchange => <div className="demo-exchange" key={exchange.key} data-exchange={exchange.key}>
                 <div className="demo-user-message" data-follow-at={exchange.sentAt}>{exchange.prompt}</div><div className="demo-agent-response"><div className="demo-agent-name"><img src="/brand/logo-mark.svg" alt="" />AllianceOne</div><p data-follow-at={exchange.answerAt}>{textAt(exchange.answer, elapsed, exchange.answerAt, exchange.answerDuration || 1100) || <span className="demo-working"><i className="build-pulse" />{activityAt(story, elapsed)}</span>}</p></div>
+                {exchange.sources && elapsed >= exchange.answerAt + exchange.answerDuration && <div className="demo-response-sources" data-follow-at={exchange.answerAt + exchange.answerDuration}>{exchange.sources.map(item => <button key={item.key} onClick={() => inspect(item.key)}>{item.label} <span aria-hidden="true">↗</span></button>)}</div>}
                 {exchange.artifact && elapsed >= exchange.artifactAt && <div className="demo-artifact-container"><DemoArtifact type={exchange.artifact} elapsed={exchange.artifactElapsed} onInspect={inspect} /></div>}
               </div>)}
             </div>

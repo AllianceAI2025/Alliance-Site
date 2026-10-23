@@ -3,7 +3,7 @@
 React + Vite marketing site. Three autonomous demonstrations show how Harbor
 and Meridian experience carries into Northstar's scope, plan and delivery work.
 Scope is the opening demonstration. Each scene is a continuous thread: new requests and results
-append below earlier messages and artifacts. Playback runs at 80% speed: about 123 seconds of active content across the three
+append below earlier messages and artifacts. Playback runs at 80% speed: about 140 seconds of active content across the three
 examples. Each plays once per visit and holds its finished artifact until you leave the section.
 
 ## Local development
@@ -78,10 +78,19 @@ and review gate, alongside Avery's assignment. Missing or changed records produc
 discrepancy rather than a success claim. The final receipt confirms the full write and
 readback. The PSA view is a local response fixture, not a live Microsoft connection.
 
-**Deliver (36.9s, then holds):** Avery inherits the approved assignment and firm template.
-Northstar evidence populates the report, with Harbor and Meridian guidance beside
-the work. Avery automatically types a request to send revision 1 and its evidence
-to Sofia. Her feedback asks what the evidence gaps prevent the team from concluding.
+**Deliver (53.9s, then holds):** Avery's sidebar contains his assessment thread;
+the manager's pursuit and staffing conversations are absent. Following the workflow
+prototype's consultant sequence, he first asks what he is delivering and what it must
+establish. An assignment brief shows the same 36-hour task, September 7 deadline,
+Sofia review, acceptance criteria and verified PSA assignment from plan v1.
+He then asks which firm template applies and what Sofia challenged in his Harbor
+HG-D01 evidence pack. The response identifies the v1 ownership/source defects,
+the accepted v2 corrections and their application to Northstar's evidence limits.
+Source links open the firm method and assignment-relevant review excerpts.
+Only after these exchanges does Avery request a draft. Northstar evidence then
+populates the Word-style report, with relevant Harbor and Meridian guidance beside
+the work. The Word artifact grows progressively after that drafting request.
+Avery automatically types a request to send revision 1 and its evidence to Sofia. Her feedback asks what the evidence gaps prevent the team from concluding.
 Avery types a request to address it. The report develops the decision implication
 of each evidence gap, then rewrites the conclusion. Revision 2 returns to Sofia,
 and she approves it. Avery then types a request to export the approved version in
@@ -120,9 +129,10 @@ Completed artifacts have capped clocks so their original versions stay unchanged
 Leaving the window clears the conversation and resets its own feed. Source links
 open an accessible modal without replacing the work; closing it resumes unfinished playback.
 Every phase uses the same sidebar and window dimensions, capped to fit the viewport,
-with its current thread selected. The sidebar lists three
+with its current thread selected. The manager sidebar lists three
 Northstar threads and the Harbor and Meridian engagement records; thread links
-scroll to the corresponding section. Mobile uses the same sidebar behind a menu.
+scroll to the corresponding section. Avery sees only his assessment thread; historical
+source links show relevant delivery excerpts. Mobile uses the same sidebar behind a menu.
 Reduced motion shows each finished example without character or construction motion.
 At completion, automatic follow reaches the true bottom of the feed, including artifact
 footers and padding; no timer remains running and the viewer can scroll back to inspect.
