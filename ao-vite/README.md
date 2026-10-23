@@ -83,7 +83,7 @@ the manager's pursuit and staffing conversations are absent. Following the workf
 prototype's consultant sequence, he first asks what he is delivering and what it must
 establish. An assignment brief shows the same 36-hour task, September 7 deadline,
 Sofia review, acceptance criteria and verified PSA assignment from plan v1.
-He then asks which firm template applies and what Sofia challenged in his Harbor
+He then asks which version of the ASG Data Readiness Assessment applies and what Sofia challenged in his Harbor
 HG-D01 evidence pack. The response identifies the v1 ownership/source defects,
 the accepted v2 corrections and their application to Northstar's evidence limits.
 Source links open the firm method and assignment-relevant review excerpts.
@@ -94,7 +94,7 @@ Avery automatically types a request to send revision 1 and its evidence to Sofia
 Avery types a request to address it. The report develops the decision implication
 of each evidence gap, then rewrites the conclusion. Revision 2 returns to Sofia,
 and she approves it. Avery then types a request to export the approved version in
-the firm template. Earlier requests stay in the conversation. Revision 1, Sofia's
+ASG DR01 v1.2. Earlier requests stay in the conversation. Revision 1, Sofia's
 review, revised/approved revision 2, and the export receipt each remain under the
 request that produced them. Export produces
 a Word-file receipt with a real download. Review requests, feedback, revision
