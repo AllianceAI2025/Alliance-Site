@@ -1,4 +1,6 @@
 import { deliveryTiming, planTiming, scopeTiming } from "./demoPlayback.js";
+import { planDeliverables, planMilestones, readbackPlan } from "./engagementPlan.js";
+export { planDeliverables, planMilestones, readbackPlan };
 
 // Fictional Northstar engagement. All actions and records are illustrated locally.
 export const resources = [
@@ -17,14 +19,21 @@ export const staffingCandidates = resources.map((resource, index) => ({ ...resou
 }));
 export const assignment = { owner: "Avery Ross", reviewer: "Sofia Patel", effort: 36, due: "September 7", baseline: "Plan v1", deliverable: "Data-readiness assessment" };
 // A separate fixture represents the application's response to the illustrated write.
-export const readbackAssignment = { id: "ASN-NS-DR01", owner: "Avery Ross", reviewer: "Sofia Patel", effort: 36, due: "September 7", baseline: "Plan v1" };
-export const readbackProject = { id: "PRJ-NS-20418", name: "Northstar Foods", manager: "Margaret Whitfield", opportunity: "OPP-20418", start: "August 17", finish: "November 20", effort: 1840, deliverables: 14, resources: 6, baseline: "Plan v1", status: "Scheduled" };
+export const readbackAssignment = readbackPlan.assignment;
+export const readbackProject = { id: "PRJ-NS-20418", ...readbackPlan.project, deliverables: readbackPlan.deliverables.length, resources: readbackPlan.resources.length, status: "Scheduled" };
 export const workstreams = [
   { name: "Diagnostic & evidence", weeks: "1–4", detail: "Hear West and Southeast early; review observed ownership before design.", source: "harbor" },
   { name: "Operating-model design", weeks: "3–8", detail: "Test design options against regional authority, service boundaries and handoffs.", source: "harbor" },
   { name: "Regional validation", weeks: "7–12", detail: "Record dated acknowledgment, named decision makers and unresolved exceptions.", source: "meridian" },
   { name: "Transition roadmap", weeks: "11–14", detail: "Define owners and readiness evidence for the board’s go/no-go decisions.", source: "meridian" },
 ];
+export const approvedPlan = {
+  project: { name: "Northstar Foods", manager: "Margaret Whitfield", opportunity: "OPP-20418", start: "August 17", finish: "November 20", effort, baseline: "Plan v1", proposal: "Proposal v5", fee: 400000, billing: "40 / 40 / 20", objective: "Decision ownership across eight regions; service maintained; November 20 board decision.", boundary: "Implementation excluded; West and Southeast evidence remains a client dependency." },
+  resources,
+  workstreams: workstreams.map(({ name, weeks }, index) => ({ id: `WS-0${index + 1}`, name, weeks })),
+  deliverables: planDeliverables,
+  milestones: planMilestones,
+};
 // Retained examples from the workflow prototype's delivery-experience records.
 // Historical effort is not established by these excerpts; do not infer a quote.
 export const historicalCases = [
@@ -82,10 +91,10 @@ export const stories = {
     prompt: "Build the plan from Northstar’s accepted proposal and the team we scoped.",
     answer: "Proposal v5 is accepted; OPP-20418 is Won. Daniel’s Week 3 release is now confirmed. The team we evaluated during scoping carries forward, with Avery’s assessment and Sofia’s review connected to the diagnostic baseline.",
     artifact: "plan", artifactUntil: planTiming.reviewed,
-    duration: 23000,
-    commands: [{ typingAt: planTiming.commandAt, sentAt: planTiming.approved, answerAt: planTiming.responding, answerDuration: 1700, artifact: "commit", artifactAt: 16500, prompt: "Approve plan v1 and submit it to Project Operations.", answer: "I’m creating Northstar’s project, 14 deliverables and six resource assignments from approved plan v1. I’ll file the plan in SharePoint and read the project records back to verify the committed baseline." }],
-    activity: [[0, "Grounding the plan in the accepted proposal and reviewed resource basis"], [3500, "Sequencing the confirmed resource windows"], [8000, "Connecting assignments to review coverage"], [10300, "Sofia reviewed plan v1 · ready for Margaret’s approval"], [15200, "Margaret approved plan v1 and requested submission to Project Operations"], [21100, "PSA readback matches the approved assignment"]],
-    summary: "Project PRJ-NS-20418 created in Dynamics 365 Project Operations. The returned project and Avery’s assignment are available alongside the approved plan.",
+    duration: 38000,
+    commands: [{ typingAt: planTiming.commandAt, sentAt: planTiming.approved, answerAt: planTiming.responding, answerDuration: 1700, artifact: "commit", artifactAt: planTiming.submissionAt, prompt: "Approve plan v1 and submit the whole engagement plan to Project Operations.", answer: "I’m committing the four workstreams, all fourteen deliverables, their dates, dependencies and acceptance criteria, six resource bookings and four review gates. I’ll file the approved plan in SharePoint, then read every project record back against plan v1." }],
+    activity: [[0, "Grounding the plan in the accepted proposal and reviewed resource basis"], [3500, "Sequencing the confirmed resource windows"], [8000, "Connecting assignments to review coverage"], [planTiming.reviewed, "Sofia reviewed the complete plan v1 · ready for Margaret’s approval"], [planTiming.approved, "Margaret approved and submitted the complete plan"], [planTiming.verified, "The complete PSA readback matches approved plan v1"]],
+    summary: "The complete Northstar plan is committed to Dynamics 365 Project Operations: four workstreams, fourteen deliverables, six resource bookings and four review gates. The returned records match approved plan v1.",
   },
   deliver: {
     label: "Deliver", thread: "Data-readiness assessment", person: "Avery Ross",

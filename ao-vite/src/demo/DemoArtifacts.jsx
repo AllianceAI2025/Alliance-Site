@@ -1,6 +1,6 @@
 import React from "react";
-import { assignment, effort, historicalCases, readbackAssignment, readbackProject, resources, staffingCandidates, workstreams } from "./northstar.js";
-import { compareAssignment, deliveryStateAt, deliveryTiming, planExecutionAt, planTiming, precedentBuildAt, progressAt, scopeTiming, textAt } from "./demoPlayback.js";
+import { approvedPlan, assignment, effort, historicalCases, readbackAssignment, readbackPlan, readbackProject, resources, staffingCandidates, workstreams } from "./northstar.js";
+import { compareAssignment, comparePlan, deliveryStateAt, deliveryTiming, planExecutionAt, planTiming, precedentBuildAt, progressAt, scopeTiming, textAt } from "./demoPlayback.js";
 import assessment from "./assessment.json";
 
 function BuildText({ children, elapsed, at, duration = 500 }) {
@@ -58,20 +58,62 @@ function StaffingArtifact({ elapsed, onInspect }) {
   </article>;
 }
 
-function PSARecord({ verified }) {
+function PlanWorkbreakdown({ elapsed, written = false }) {
+  const plan = written ? readbackPlan : approvedPlan;
+  const start = written ? planTiming.deliverablesWrittenAt : planTiming.deliverablesAt;
+  const step = written ? 320 : 260;
+  if (elapsed < start) return null;
+  return <section className="plan-workbreakdown" aria-label={written ? "Four workstreams and fourteen committed deliverables" : "Four workstreams and fourteen planned deliverables"}>
+    <h4 data-follow-at={start}>Workstreams and deliverables <span>{written ? "Written to Project Operations" : "Plan v1"}</span></h4>
+    {plan.workstreams.map(stream => {
+      const tasks = plan.deliverables.filter(item => item.stream === stream.id);
+      const firstAt = start + plan.deliverables.indexOf(tasks[0]) * step;
+      if (elapsed < firstAt) return null;
+      return <section className="plan-workstream" key={stream.id} data-workstream={stream.id}>
+        <header><strong>{stream.name}</strong><span>W{stream.weeks}</span></header>
+        {tasks.map(task => {
+          const at = start + plan.deliverables.indexOf(task) * step;
+          if (elapsed < at) return null;
+          return <div className="plan-deliverable" key={task.id} data-deliverable-id={task.id} data-record-id={task.recordId} data-follow-at={at}>
+            <div className="plan-deliverable-content"><small>{task.id}{written ? ` · ${task.recordId}` : ""}</small><strong><BuildText elapsed={elapsed} at={at} duration={130}>{task.title}</BuildText></strong><p><BuildText elapsed={elapsed} at={at + 100} duration={150}>{task.acceptance}</BuildText></p>{task.dependsOn.length > 0 && <small>Requires {task.dependsOn.join(" · ")} before acceptance</small>}</div>
+            <div className="plan-deliverable-owner"><strong>{task.owner}</strong><span>Review · {task.reviewer}</span>{task.effort && <small>{task.effort}h assignment</small>}</div>
+            <div className="plan-deliverable-date"><span>{task.start} –</span><strong>{task.due}</strong></div>
+          </div>;
+        })}
+      </section>;
+    })}
+    <p className="plan-dependency-note">Dependencies apply at acceptance; preparation can overlap. Resource bookings cover delivery, review and engagement management.</p>
+  </section>;
+}
+
+function PlanMilestones({ elapsed, written = false }) {
+  const plan = written ? readbackPlan : approvedPlan;
+  const start = written ? planTiming.milestonesWrittenAt : planTiming.milestonesAt;
+  if (elapsed < start) return null;
+  return <section className="plan-milestones" aria-label={written ? "Committed review gates" : "Planned review gates"}><h4>Review and client decision gates</h4>{plan.milestones.map((gate, index) => {
+    const at = start + index * 250;
+    return elapsed >= at && <div key={gate.id} data-gate-id={gate.id} data-follow-at={at}><div><strong>{gate.title}</strong><span>{gate.reviewer} · {gate.requires.join(" / ")}</span></div><span>{gate.due}</span></div>;
+  })}</section>;
+}
+
+function PSARecord({ elapsed, verified }) {
   return <section className="psa-record build-slot" aria-label="Created Project Operations record" data-project-id={readbackProject.id}>
-    <header className="psa-record-system"><img src="/brand/systems/project-operations.svg" alt="" /><span>Dynamics 365 Project Operations</span><small>Project created</small></header>
+    <header className="psa-record-system"><img src="/brand/systems/project-operations.svg" alt="" /><span>Dynamics 365 Project Operations</span><small>{verified ? "Complete plan verified" : "Project created"}</small></header>
     <div className="psa-record-title" data-follow-at={planTiming.projectCreated}><div><p>{readbackProject.id}</p><h4>{readbackProject.name}</h4></div><span>{readbackProject.status}</span></div>
-    <dl className="psa-record-fields" data-follow-at={planTiming.projectCreated + 700}>{[["Project manager", readbackProject.manager], ["Opportunity", readbackProject.opportunity], ["Start / finish", `${readbackProject.start} – ${readbackProject.finish}`], ["Planned effort", `${readbackProject.effort.toLocaleString()} hours`], ["Deliverables / resources", `${readbackProject.deliverables} deliverables · ${readbackProject.resources} resources`], ["Commitment baseline", readbackProject.baseline]].map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
-    <div className="psa-assignment-heading"><h4>Deliverable assignment · {readbackAssignment.id}</h4><span>{verified ? "Read back from PSA" : "Reading the created assignment…"}</span></div>
-    <table className="psa-assignment" data-follow-at={planTiming.workspaceCreated}><thead><tr>{["Owner", "Deliverable", "Effort", "Due", "Reviewer"].map(label => <th key={label}>{label}</th>)}</tr></thead><tbody><tr>{[["Owner", readbackAssignment.owner], ["Deliverable", assignment.deliverable], ["Effort", `${readbackAssignment.effort}h`], ["Due", readbackAssignment.due], ["Reviewer", readbackAssignment.reviewer]].map(([label, value]) => <td data-label={label} key={label}>{value}</td>)}</tr></tbody></table>
-    <p className="psa-record-origin">Source: Northstar plan v1 · Approved by Margaret Whitfield</p>
+    <dl className="psa-record-fields" data-follow-at={planTiming.projectCreated + 200}>{[["Project manager", readbackProject.manager], ["Opportunity", readbackProject.opportunity], ["Start / finish", `${readbackProject.start} – ${readbackProject.finish}`], ["Planned effort", `${readbackProject.effort.toLocaleString()} hours`], ["Commitment", "$400,000 · 40 / 40 / 20 billing"], ["Commitment baseline", `${readbackProject.proposal} · ${readbackProject.baseline}`]].map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
+    <p className="psa-plan-boundary">{readbackProject.objective} {readbackProject.boundary}</p>
+    {elapsed >= planTiming.resourcesWrittenAt && <section className="psa-bookings" aria-label="Six committed resource bookings"><h4>Resource bookings <span>1,840 hours across six people</span></h4>{readbackPlan.resources.map((person, index) => {
+      const at = planTiming.resourcesWrittenAt + index * 450;
+      return elapsed >= at && <div className="psa-booking" key={person.id} data-booking-id={person.id} data-follow-at={at}><div><strong>{person.name}</strong><span>{person.role}</span></div><span>W{person.start}–{person.end}<small>{person.capacity}% ceiling</small></span><strong>{person.hours}h</strong></div>;
+    })}</section>}
+    <div className="psa-plan-detail"><PlanWorkbreakdown elapsed={elapsed} written /><PlanMilestones elapsed={elapsed} written /></div>
+    {elapsed >= planTiming.workspaceCreated && <p className="psa-record-origin" data-follow-at={planTiming.workspaceCreated}>Complete plan v1 and the accepted proposal linked to {readbackProject.id}. Avery’s {readbackAssignment.effort}h assessment assignment retained as {readbackAssignment.id}. Approved by Margaret Whitfield.</p>}
   </section>;
 }
 
 function PSAWrite() {
   return <section className="psa-write" aria-label="Submitting approved plan to Project Operations" data-follow-at={planTiming.approved}>
-    <div><img src="/brand/systems/project-operations.svg" alt="" /><div><strong>Dynamics 365 Project Operations</strong><p>Creating Northstar’s project, 14 deliverables and 6 resource assignments.</p></div><i className="build-pulse" /></div>
+    <div><img src="/brand/systems/project-operations.svg" alt="" /><div><strong>Dynamics 365 Project Operations</strong><p>Creating the complete plan: four workstreams, fourteen deliverables with dependencies and acceptance criteria, six resource bookings and four review gates.</p></div><i className="build-pulse" /></div>
     <div><img src="/brand/systems/sharepoint.svg" alt="" /><div><strong>SharePoint</strong><p>Preparing the approved plan and its linked engagement workspace.</p></div></div>
     <p>Source: plan v1 · Margaret’s approval retained with the write request.</p>
   </section>;
@@ -96,22 +138,24 @@ export function PlanArtifact({ elapsed, onInspect }) {
     </div>
     <p className="schedule-caption">Bars show confirmed windows; labels are weekly availability ceilings.</p>
     <div className="plan-review-gate build-slot" data-follow-at={8000}>{elapsed >= 8000 && <><div><strong>Avery’s assessment</strong><span>{assignment.effort}h · {assignment.due}</span></div><span className="gate-arrow" aria-hidden="true">→</span><div><strong>Sofia’s review</strong><span>Before the diagnostic baseline</span></div><SourceLink source="assignment" onInspect={onInspect}>Assignment basis</SourceLink></>}</div>
-    <p className="plan-continuity build-slot" data-follow-at={9000}>{elapsed >= 9000 && <>Harbor informs Avery’s evidence gate; Meridian informs Lena’s regional validation. Daniel’s W3 hold carries forward. <SourceLink source="availability" onInspect={onInspect}>Resource basis</SourceLink></>}</p>
+    <p className="plan-continuity build-slot" data-follow-at={9000}>{elapsed >= 9000 && <>Harbor informs Avery’s evidence gate; Meridian informs Lena’s regional validation. Daniel’s W3 release is confirmed. <SourceLink source="availability" onInspect={onInspect}>Resource basis</SourceLink></>}</p>
+    <PlanWorkbreakdown elapsed={elapsed} />
+    <PlanMilestones elapsed={elapsed} />
     {execution.reviewed && <p className="plan-reviewed" data-follow-at={planTiming.reviewed}>Sofia reviewed plan v1. The accepted scope, proposed team and assignment rationale remain linked to this version.</p>}
   </article>;
 }
 
 function PlanCommitArtifact({ elapsed }) {
   const execution = planExecutionAt(elapsed);
-  const mismatches = compareAssignment(assignment, readbackAssignment);
+  const mismatches = [...comparePlan(approvedPlan, readbackPlan), ...compareAssignment(assignment, readbackAssignment)];
   const verified = execution.readbackReady && mismatches.length === 0;
   return <article className="inline-artifact plan-artifact plan-commit-artifact" aria-label="Project Operations submission" data-view="psa" aria-busy={!execution.readbackReady}>
-    <ArtifactHead label="Northstar Foods · Approved plan v1" title={execution.projectCreated ? "Plan committed to Project Operations" : "Submitting plan to Project Operations"} elapsed={elapsed} at={16500} />
-    {execution.projectCreated ? <PSARecord verified={verified} /> : <PSAWrite />}
-    <div className="plan-execution" data-follow-at={execution.readbackReady ? planTiming.verified : planTiming.projectCreated} data-approved={execution.approved} data-verified={verified}>{execution.projectCreated && <>
+    <ArtifactHead label="Northstar Foods · Approved plan v1" title={execution.readbackReady ? "Complete plan committed to Project Operations" : "Committing the engagement plan"} elapsed={elapsed} at={planTiming.submissionAt} />
+    {execution.projectCreated ? <PSARecord elapsed={elapsed} verified={verified} /> : <PSAWrite />}
+    <div className="plan-execution" data-follow-at={planTiming.verified} data-approved={execution.approved} data-verified={verified}>{execution.readbackReady && <>
       <div className="execution-heading"><span className="execution-check" aria-hidden="true">✓</span><strong>Margaret approved and submitted plan v1 to PSA</strong><span>Approved baseline retained</span></div>
       <p className="psa-filing"><img src="/brand/systems/sharepoint.svg" alt="" />{execution.workspaceCreated ? "Approved plan filed in SharePoint" : "Filing the approved plan in SharePoint…"}</p>
-      <p className={`execution-readback${verified ? " is-verified" : ""}`}>{verified ? <><span aria-hidden="true">✓</span> PSA readback matched plan v1: Avery · {readbackAssignment.effort}h · {readbackAssignment.due} · Sofia reviews</> : execution.readbackReady ? `Readback differs on ${mismatches.join(", ")}. Review before finalizing.` : "Reading the PSA records back against approved plan v1…"}</p>
+      <p className={`execution-readback${verified ? " is-verified" : ""}`}>{verified ? <><span aria-hidden="true">✓</span> Full readback matched plan v1: 4 workstreams · 14 deliverables · 6 bookings / 1,840h · 4 gates. Dates, reviewers, dependencies, acceptance criteria and commercial terms verified.</> : `Readback differs on ${mismatches.join(", ")}. Review before finalizing.`}</p>
     </>}</div>
   </article>;
 }

@@ -1,8 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { assignment, contexts, effort, historicalCases, readbackAssignment, readbackProject, resources, staffingCandidates, stories } from "./northstar.js";
-import { commonTiming, compareAssignment, conversationAt, deliveryStateAt, deliveryTiming, demoVisibleAt, followScrollTop, loopFrameAt, loopHold, planExecutionAt, planTiming, playbackRate, precedentBuildAt, progressAt, scopeTiming, textAt } from "./demoPlayback.js";
+import { approvedPlan, assignment, contexts, effort, historicalCases, readbackAssignment, readbackPlan, readbackProject, resources, staffingCandidates, stories } from "./northstar.js";
+import { commonTiming, compareAssignment, comparePlan, conversationAt, deliveryStateAt, deliveryTiming, demoVisibleAt, followScrollTop, playbackFrameAt, planExecutionAt, planTiming, playbackRate, precedentBuildAt, progressAt, scopeTiming, textAt } from "./demoPlayback.js";
 
 test("demos wait until watchable and tolerate small scrolls before leaving", () => {
   const geometry = { windowHeight: 735, viewportHeight: 614 };
@@ -16,21 +16,22 @@ test("demos wait until watchable and tolerate small scrolls before leaving", () 
   assert.equal(demoVisibleAt(true, { windowHeight: 0, viewportHeight: 0, visibleHeight: 0 }), false);
 });
 
-test("each scene holds its finished artifact, then starts the same exchange again", () => {
+test("each scene plays once and holds the exact final frame indefinitely", () => {
   for (const story of Object.values(stories)) {
-    const activeDuration = story.duration / playbackRate;
-    const period = activeDuration + loopHold;
-    assert.deepEqual(loopFrameAt(activeDuration - 10, story.duration), { elapsed: story.duration - 10 * playbackRate, cycle: 0 });
-    assert.deepEqual(loopFrameAt(period - 1, story.duration), { elapsed: story.duration, cycle: 0 });
-    assert.deepEqual(loopFrameAt(period, story.duration), { elapsed: 0, cycle: 1 });
-    assert.deepEqual(loopFrameAt(period * 2 + commonTiming.artifactAt / playbackRate, story.duration), { elapsed: commonTiming.artifactAt, cycle: 2 });
+    const duration = story.duration / playbackRate;
+    assert.deepEqual(playbackFrameAt(0, story.duration), { elapsed: 0, complete: false });
+    assert.deepEqual(playbackFrameAt(duration - 10, story.duration), { elapsed: story.duration - 10 * playbackRate, complete: false });
+    for (const extra of [0, 10000, 60000, 3600000]) {
+      const frame = playbackFrameAt(duration + extra, story.duration);
+      assert.deepEqual(frame, { elapsed: story.duration, complete: true });
+      assert.equal(conversationAt(story, frame.elapsed).exchanges.length, story.commands.length + 1);
+    }
   }
 });
 
 test("the website retains three scenes with slower builds and a reading hold", () => {
   assert.deepEqual(Object.keys(stories), ["scope", "plan", "deliver"]);
   assert.ok(playbackRate > 0 && playbackRate < 1);
-  assert.ok(loopHold >= 10000, "finished work stays available for at least ten seconds");
   for (const story of Object.values(stories)) {
     assert.ok(story.prompt && story.answer);
   }
@@ -55,7 +56,7 @@ test("PSA submission is typed and sent after review, before any application writ
   assert.equal(sent.answer, story.commands[0].answer);
   assert.ok(planTiming.projectCreated >= sent.answerAt + sent.answerDuration);
   assert.equal(conversationAt(story, story.duration).prompt, sent.prompt);
-  assert.equal(conversationAt(story, 0).key, 0, "looping restores the original exchange");
+  assert.equal(conversationAt(story, 0).key, 0, "returning to the section restores the original exchange");
 });
 
 test("automatic follow reveals current content within the feed's scroll limits", () => {
@@ -66,6 +67,52 @@ test("automatic follow reveals current content within the feed's scroll limits",
   assert.equal(followScrollTop({ ...base, targetTop: 0, targetBottom: 40 }), 0);
   assert.equal(followScrollTop({ ...base, targetTop: 1200, targetBottom: 1400 }), 900);
   assert.equal(followScrollTop({ ...base, targetTop: 300, targetBottom: 850 }), 280, "an oversized section starts at its beginning");
+  assert.equal(followScrollTop({ ...base, targetTop: 300, targetBottom: 850, complete: true }), 900, "completion reaches the true feed bottom, including footer and padding");
+  assert.equal(followScrollTop({ ...base, maxScrollTop: -10, complete: true }), 0, "a short completed conversation stays at zero");
+});
+
+test("the whole approved plan has a coherent task, booking and decision structure", () => {
+  assert.equal(approvedPlan.workstreams.length, 4);
+  assert.equal(approvedPlan.deliverables.length, 14);
+  assert.equal(approvedPlan.resources.length, 6);
+  assert.equal(approvedPlan.milestones.length, 4);
+  assert.equal(approvedPlan.project.effort, approvedPlan.resources.reduce((sum, item) => sum + item.hours, 0));
+  const dueDate = value => Date.parse(`${value}, 2026`);
+  for (const task of approvedPlan.deliverables) {
+    assert.ok(resources.some(item => item.name === task.owner));
+    assert.ok(resources.some(item => item.name === task.reviewer) || task.reviewer === "Elena Vargas");
+    assert.ok(approvedPlan.workstreams.some(item => item.id === task.stream));
+    assert.ok(task.acceptance && task.start && task.due);
+    assert.ok(dueDate(task.start) <= dueDate(task.due));
+    for (const dependency of task.dependsOn) {
+      const input = approvedPlan.deliverables.find(item => item.id === dependency);
+      assert.ok(input && input.id !== task.id);
+      assert.ok(dueDate(input.due) <= dueDate(task.due), `${task.id} has its inputs by acceptance`);
+    }
+  }
+  for (const gate of approvedPlan.milestones) {
+    assert.ok(gate.requires.every(id => approvedPlan.deliverables.some(item => item.id === id && dueDate(item.due) <= dueDate(gate.due))));
+  }
+  const assessment = approvedPlan.deliverables.find(item => item.title === assignment.deliverable);
+  for (const key of ["owner", "reviewer", "effort", "due"]) assert.equal(assessment[key], assignment[key]);
+  assert.ok(planTiming.deliverablesAt + 13 * 260 + 250 < planTiming.milestonesAt);
+  assert.ok(planTiming.milestonesAt + 3 * 250 < planTiming.reviewed);
+  assert.ok(planTiming.resourcesWrittenAt + 5 * 450 < planTiming.deliverablesWrittenAt);
+  assert.ok(planTiming.deliverablesWrittenAt + 13 * 320 + 250 < planTiming.milestonesWrittenAt);
+  assert.ok(planTiming.milestonesWrittenAt + 3 * 250 < planTiming.workspaceCreated);
+});
+
+test("full-plan readback detects omissions and changes beyond Avery's assignment", () => {
+  assert.notEqual(readbackPlan.deliverables, approvedPlan.deliverables);
+  assert.deepEqual(comparePlan(approvedPlan, readbackPlan), []);
+  const changed = structuredClone(readbackPlan);
+  changed.deliverables.find(item => item.id === "NS-D14").due = "November 27";
+  changed.deliverables.find(item => item.id === "NS-D09").acceptance = "File received";
+  changed.resources.find(item => item.name === "Daniel Okafor").hours = 400;
+  changed.milestones.pop();
+  changed.project.fee = 420000;
+  const differences = comparePlan(approvedPlan, changed);
+  for (const difference of ["deliverables: NS-D14", "deliverables: NS-D09", "resources: Daniel Okafor", "milestones: G4", "milestones: record count", "project: fee"]) assert.ok(differences.includes(difference));
 });
 
 test("historical context preserves people, accepted work, review and outcome limits", () => {

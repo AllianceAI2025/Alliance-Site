@@ -2,7 +2,7 @@ import React, { useEffect, useId, useLayoutEffect, useRef, useState } from "reac
 import { capture, useVisualDwell } from "../analytics";
 import DemoArtifact from "./DemoArtifacts.jsx";
 import { contexts, stories } from "./northstar.js";
-import { activityAt, conversationAt, demoVisibleAt, followScrollTop, loopFrameAt, playbackRate, textAt } from "./demoPlayback.js";
+import { activityAt, conversationAt, demoVisibleAt, followScrollTop, playbackFrameAt, playbackRate, textAt } from "./demoPlayback.js";
 import "./engagement-demo.css";
 
 function Icon({ name, ...props }) {
@@ -21,12 +21,18 @@ function useReducedMotion() {
   return reduced;
 }
 
-function useConversationFollow(feed, elapsed, enabled) {
-  const current = useRef({ elapsed, enabled });
-  current.current = { elapsed, enabled };
+function useConversationFollow(feed, elapsed, enabled, complete) {
+  const current = useRef({ elapsed, enabled, complete });
+  current.current = { elapsed, enabled, complete };
   const follow = () => {
     const element = feed.current;
     if (!element || !current.current.enabled) return;
+    if (current.current.complete) {
+      // Include the artifact footer and feed padding, beyond the last timed row.
+      const top = followScrollTop({ complete: true, maxScrollTop: element.scrollHeight - element.clientHeight });
+      element.scrollTo({ top, behavior: "smooth" });
+      return;
+    }
     // Explicit narrative timestamps follow the content actually being developed.
     // DOM order alone is misleading in columns and in reserved, still-empty slots.
     const target = [...element.querySelectorAll("[data-follow-at]")]
@@ -41,7 +47,7 @@ function useConversationFollow(feed, elapsed, enabled) {
   const followRef = useRef(follow);
   followRef.current = follow;
   const beat = Math.floor(elapsed / 160);
-  useLayoutEffect(() => followRef.current(), [beat, enabled]);
+  useLayoutEffect(() => followRef.current(), [beat, enabled, complete]);
   useEffect(() => {
     const observer = new ResizeObserver(() => followRef.current());
     observer.observe(feed.current);
@@ -87,11 +93,12 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
   const demoRef = useVisualDwell(`northstar-${phase}`);
   const id = useId();
   const conversation = conversationAt(story, elapsed);
-  useConversationFollow(feed, elapsed, playing && visible && tabVisible && !reduced);
+  const complete = elapsed >= story.duration;
+  useConversationFollow(feed, elapsed, (playing || complete) && visible && tabVisible && !reduced, complete);
 
   const updateClock = (value) => { clockRef.current = value / playbackRate; setElapsed(value); };
   const pause = () => setPlaying(false);
-  const resume = () => setPlaying(!reduced);
+  const resume = () => setPlaying(!reduced && clockRef.current < story.duration / playbackRate);
   const inspect = (key) => { pause(); setSidebarOpen(false); setSource(key); capture("demo_source_opened", { phase, source: key }); };
 
   useEffect(() => {
@@ -129,18 +136,18 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
     if (!tracked.current) { capture("demo_played", { phase, trigger: "autoplay" }); tracked.current = true; }
     let frame, paintedAt = 0;
     const start = performance.now() - clockRef.current;
-    let cycle = loopFrameAt(clockRef.current, story.duration).cycle;
     const tick = (now) => {
-      clockRef.current = now - start;
-      const next = loopFrameAt(clockRef.current, story.duration);
-      if (next.cycle !== cycle) {
-        cycle = next.cycle;
-        if (feed.current) feed.current.scrollTo({ top: 0, behavior: "instant" });
-      }
-      if (next.elapsed >= story.duration && !completionTracked.current) {
+      clockRef.current = Math.min(now - start, story.duration / playbackRate);
+      const next = playbackFrameAt(clockRef.current, story.duration);
+      if (next.complete && !completionTracked.current) {
         completionTracked.current = true;
         setAnnouncement(story.summary);
         capture("demo_completed", { phase });
+      }
+      if (next.complete) {
+        setElapsed(story.duration);
+        setPlaying(false);
+        return;
       }
       if (now - paintedAt >= 30) { setElapsed(next.elapsed); paintedAt = now; }
       frame = requestAnimationFrame(tick);
@@ -154,10 +161,10 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
     else resume();
   };
 
-  return <div className={`engagement-demo engagement-demo--${phase}${primary ? " engagement-demo--primary" : ""}`} ref={demoRef} id={primary ? "demo" : `${phase}-demo`} data-phase={phase} data-elapsed={Math.round(elapsed)}>
+  return <div className={`engagement-demo engagement-demo--${phase}${primary ? " engagement-demo--primary" : ""}`} ref={demoRef} id={primary ? "demo" : `${phase}-demo`} data-phase={phase} data-elapsed={Math.round(elapsed)} data-complete={complete}>
     <section className="demo-stage" aria-label={`${story.label} demonstration`}>
-      <div className={`demo-window${primary ? " demo-window--with-sidebar" : ""}${sidebarOpen ? " demo-window--navigation-open" : ""}`}>
-        {primary && <>
+      <div className={`demo-window demo-window--with-sidebar${sidebarOpen ? " demo-window--navigation-open" : ""}`}>
+        <>
           {sidebarOpen && <button className="demo-sidebar-scrim" aria-label="Close engagement navigation" onClick={() => setSidebarOpen(false)} />}
           <aside className="demo-sidebar" id={`${id}-sidebar`} aria-label="Demo engagements">
             <div className="demo-sidebar-brand"><img src="/brand/logo-mark-dark.svg" alt="" /><span>AllianceOne</span><button className="demo-sidebar-close" aria-label="Close engagement sidebar" onClick={() => setSidebarOpen(false)}><Icon name="close" /></button></div>
@@ -165,11 +172,11 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
             <div className="demo-northstar-row"><button className="demo-engagement-name" onClick={() => inspect("discovery")}><Icon name="folder" />Northstar Foods</button><button className="demo-thread-toggle" aria-label="Toggle Northstar Foods threads" aria-expanded={threadsOpen} aria-controls={`${id}-threads`} onClick={() => setThreadsOpen(!threadsOpen)}><Icon name="chevron" className={threadsOpen ? "is-expanded" : ""} /></button></div>
             {threadsOpen && <nav className="demo-thread-list" id={`${id}-threads`} aria-label="Northstar Foods threads">{Object.entries(stories).map(([key, item]) => <a key={key} href={`#${key}`} aria-current={key === phase ? "page" : undefined} onClick={() => setSidebarOpen(false)}>{item.thread}</a>)}</nav>}
             <button className="demo-engagement-reference" onClick={() => inspect("harbor")}><Icon name="folder" />Harbor Grain</button><button className="demo-engagement-reference" onClick={() => inspect("meridian")}><Icon name="folder" />Meridian</button>
-            <div className="demo-profile"><span>MW</span><div>Margaret Whitfield<small>Engagement manager</small></div></div>
+            <div className="demo-profile"><span>{phase === "deliver" ? "AR" : "MW"}</span><div>{story.person}<small>{phase === "deliver" ? "Consultant" : "Engagement manager"}</small></div></div>
           </aside>
-        </>}
+        </>
         <div className="demo-main">
-          <header className="demo-player-header"><div>{primary && <button className="demo-sidebar-toggle" aria-label="Toggle engagement sidebar" aria-controls={`${id}-sidebar`} aria-expanded={sidebarOpen} onClick={() => setSidebarOpen(!sidebarOpen)}><Icon name="menu" /></button>}<strong>Northstar Foods</strong><span>{story.thread}{phase === "deliver" ? " · Avery Ross" : ""}</span></div>{!reduced && <div className="demo-controls"><button onClick={toggle} aria-label={`${playing ? "Pause" : "Play"} ${story.label} demo`} title={playing ? "Pause animation" : "Resume animation"}><Icon name={playing ? "pause" : "play"} /></button></div>}</header>
+          <header className="demo-player-header"><div><button className="demo-sidebar-toggle" aria-label="Toggle engagement sidebar" aria-controls={`${id}-sidebar`} aria-expanded={sidebarOpen} onClick={() => setSidebarOpen(!sidebarOpen)}><Icon name="menu" /></button><strong>Northstar Foods</strong><span>{story.thread}{phase === "deliver" ? " · Avery Ross" : ""}</span></div>{!reduced && !complete && <div className="demo-controls"><button onClick={toggle} aria-label={`${playing ? "Pause" : "Play"} ${story.label} demo`} title={playing ? "Pause animation" : "Resume animation"}><Icon name={playing ? "pause" : "play"} /></button></div>}</header>
           <div className="demo-feed" ref={feed} role="log" aria-label={`${story.label} conversation`} aria-live="off">
             <div className="demo-conversation">
               {conversation.exchanges.map(exchange => <div className="demo-exchange" key={exchange.key} data-exchange={exchange.key}>
