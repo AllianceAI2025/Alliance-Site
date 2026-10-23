@@ -1,3 +1,5 @@
+import { planTiming } from "./demoPlayback.js";
+
 // Fictional Northstar engagement. All actions and records are illustrated locally.
 export const resources = [
   { name: "Margaret Whitfield", role: "Engagement lead", start: 1, end: 14, capacity: 35, hours: 172 },
@@ -18,21 +20,55 @@ export const workstreams = [
   { name: "Regional validation", weeks: "7–12", detail: "Dated acknowledgment and unresolved sponsor decisions.", source: "meridian" },
   { name: "Transition roadmap", weeks: "11–14", detail: "Readiness criteria alongside the board decision package.", source: "meridian" },
 ];
+// Retained examples from the workflow prototype's delivery-experience records.
+// Historical effort is not established by these excerpts; do not infer a quote.
+export const historicalCases = [
+  {
+    id: "harbor", name: "Harbor Grain", reference: "EV-104",
+    conditions: "Five-region operating-model redesign; conflicting decision ownership.",
+    deliverables: [
+      { id: "HG-D01", title: "Decision inventory & evidence pack", owner: "Avery Ross", format: "Excel", reviewer: "Sofia Patel", accepted: "April 25, 2025" },
+      { id: "HG-D02", title: "Operating-model options & escalation design", owner: "Daniel Okafor", format: "PowerPoint", reviewer: "Sofia Patel", accepted: "May 23, 2025" },
+      { id: "HG-D03", title: "Sponsor decision & board approval record", owner: "Margaret Whitfield", format: "Word", reviewer: "Harbor COO", accepted: "May 23, 2025" },
+    ],
+    review: "Sofia’s review separated observed owners from proposed design and required source dates and unresolved exceptions. Regional challenges changed Daniel’s design.",
+    reviewSummary: "Observed and proposed owners separated; source dates retained. Regional challenges changed the escalation design.",
+    outcome: "Board approved; one week late after regional validation caused another design pass.",
+    carry: "Avery’s evidence gate and early regional input before design.",
+    limit: "Northstar has eight regions and a fixed board date. Harbor’s closing record does not establish Northstar’s effort.",
+  },
+  {
+    id: "meridian", name: "Meridian Components", reference: "EV-087",
+    conditions: "Six-region transition with a different sponsor and decision structure.",
+    deliverables: [
+      { id: "MC-D01", title: "Service-ownership matrix", owner: "Lena Torres", format: "Excel", reviewer: "Sofia Patel", accepted: "October 10, 2025" },
+      { id: "MC-D02", title: "Mobilization roadmap & readiness checklist", owner: "Jordan Hale", format: "PowerPoint", reviewer: "Margaret Whitfield", accepted: "October 24, 2025" },
+      { id: "MC-D03", title: "Regional validation & governance record", owner: "Daniel Okafor", format: "Word", reviewer: "Sofia Patel", accepted: "October 17, 2025" },
+    ],
+    review: "Reviews added explicit service boundaries, dated regional acknowledgment, and readiness evidence for each mobilization decision.",
+    reviewSummary: "Explicit boundaries and dated owner acknowledgment added; readiness tied to evidence and go/no-go decisions.",
+    outcome: "Model and transition plan delivered on time; subsequent review recorded slower adoption.",
+    carry: "Lena’s regional acknowledgment and Jordan’s readiness conditions.",
+    limit: "The sponsor structure differs. Document acceptance did not establish adoption or a reusable staffing allocation.",
+  },
+];
 export const stories = {
   scope: {
     label: "Scope", thread: "Understanding the engagement", person: "Margaret Whitfield",
     prompt: "Where have we done similar work, and what should we carry into Northstar?",
-    answer: "Harbor’s evidence review and Meridian’s ownership work are relevant. I’m carrying their review guidance into the scope and checking the proposed team’s current availability.",
-    duration: 14500,
-    activity: [[0, "Connecting sponsor discovery with the firm’s engagement records"], [3000, "Applying Harbor’s evidence review"], [6000, "Carrying forward Meridian’s boundaries and handoffs"], [9000, "Checking current availability before proposal submission"]],
-    summary: "Scope developed from Harbor and Meridian precedent, with proposed resource fit and current availability.",
+    answer: "I found Harbor and Meridian’s client conditions, named teams, accepted deliverables, review changes and recorded outcomes. Their five- and six-region engagements need adapting to Northstar’s eight regions and fixed board date. I’ll carry the relevant experience into the scope and proposed team, then check current availability.",
+    answerDuration: 2500, artifactAt: 4200,
+    duration: 18500,
+    activity: [[0, "Connecting discovery with assignments, deliverables and retained reviews"], [4500, "Tracing Harbor’s people, review changes and closing outcome"], [8000, "Tracing Meridian’s delivery and adoption review"], [12000, "Checking current availability before proposal submission"]],
+    summary: "Harbor and Meridian’s client conditions, contributors, deliverables, review changes and outcomes shape Northstar’s scope and resource fit. Current availability is checked separately.",
   },
   plan: {
     label: "Plan", thread: "Engagement planning and staffing", person: "Margaret Whitfield",
     prompt: "Build the plan from Northstar’s accepted proposal and the team we scoped.",
     answer: "Proposal v5 is accepted; OPP-20418 is Won. The reviewed team carries forward, with Avery’s assessment and Sofia’s review connected to the diagnostic baseline.",
-    duration: 21000,
-    activity: [[0, "Grounding the plan in the accepted proposal and reviewed resource basis"], [3500, "Sequencing the confirmed resource windows"], [8000, "Connecting assignments to review coverage"], [10300, "Sofia reviewed plan v1 · ready for Margaret to approve and submit to PSA"], [15200, "Margaret submitted plan v1 to Dynamics 365 Project Operations"], [19100, "PSA readback matches the approved assignment"]],
+    duration: 23000,
+    commands: [{ typingAt: planTiming.commandAt, sentAt: planTiming.approved, answerAt: planTiming.responding, answerDuration: 1700, prompt: "Approve plan v1 and submit it to Project Operations.", answer: "I’m creating Northstar’s project, 14 deliverables and six resource assignments from approved plan v1. I’ll file the plan in SharePoint and read the project records back to verify the committed baseline." }],
+    activity: [[0, "Grounding the plan in the accepted proposal and reviewed resource basis"], [3500, "Sequencing the confirmed resource windows"], [8000, "Connecting assignments to review coverage"], [10300, "Sofia reviewed plan v1 · ready for Margaret’s approval"], [15200, "Margaret approved plan v1 and requested submission to Project Operations"], [21100, "PSA readback matches the approved assignment"]],
     summary: "Project PRJ-NS-20418 created in Dynamics 365 Project Operations. The returned project and Avery’s assignment are available alongside the approved plan.",
   },
   deliver: {
@@ -47,15 +83,15 @@ export const stories = {
 
 export const contexts = {
   harbor: {
-    label: "Firm engagement record", title: "Harbor Grain", reference: "HG-D01 · Evidence inventory and review",
-    text: "Avery prepared the evidence inventory. Sofia’s review required observed ownership to remain separate from proposed design, with source dates and ownership disputes retained. Late regional validation caused rework and a one-week delay.",
-    facts: [["Prepared by", "Avery Ross"], ["Reviewed by", "Sofia Patel"], ["Outcome", "Rework and a one-week delay after late regional validation"]],
+    label: "Firm engagement record", title: "Harbor Grain", reference: "EV-104 · Assignment register, accepted deliverables, review revisions and closing report",
+    text: historicalCases[0].conditions + " " + historicalCases[0].review,
+    facts: [...historicalCases[0].deliverables.map(item => [item.id + " · " + item.format, `${item.title}. ${item.owner}; reviewed by ${item.reviewer}. Accepted v2: ${item.accepted}.`]), ["Outcome", historicalCases[0].outcome], ["Transfer limits", historicalCases[0].limit]],
     carry: [["Scope", "Regional voices and an evidence gate before design."], ["Plan", "Avery’s relevant experience informs the proposed assignment; Sofia reviews before the baseline."], ["Deliver", "The assessment retains observed owners, source dates, unresolved evidence and the reviewer’s rationale."]],
   },
   meridian: {
-    label: "Firm engagement record", title: "Meridian", reference: "MC-D01 · Service-ownership matrix and review",
-    text: "Lena developed the six-region service-ownership matrix. Review clarified service boundaries, handoffs and dated regional acknowledgment. The model was delivered on time; adoption took longer than expected.",
-    facts: [["Prepared by", "Lena Torres"], ["Review changed", "Service boundaries, handoffs and dated acknowledgment"], ["Outcome", "Delivered on time; adoption took longer than expected"]],
+    label: "Firm engagement record", title: "Meridian Components", reference: "EV-087 · Assignment register, accepted deliverables, review revisions and delivery review",
+    text: historicalCases[1].conditions + " " + historicalCases[1].review,
+    facts: [...historicalCases[1].deliverables.map(item => [item.id + " · " + item.format, `${item.title}. ${item.owner}; reviewed by ${item.reviewer}. Accepted v2: ${item.accepted}.`]), ["Outcome", historicalCases[1].outcome], ["Transfer limits", historicalCases[1].limit]],
     carry: [["Scope", "Explicit service boundaries and transition-readiness criteria."], ["Plan", "Lena owns regional validation, with acknowledgment built into the plan."], ["Deliver", "The assessment identifies which decisions and service boundaries each evidence gap affects."]],
   },
   discovery: {

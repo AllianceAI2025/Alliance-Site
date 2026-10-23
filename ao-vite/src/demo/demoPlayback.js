@@ -1,5 +1,5 @@
 export const commonTiming = { promptEnd: 1250, answerAt: 1500, artifactAt: 2700 };
-export const planTiming = { reviewed: 10300, approved: 15200, projectCreated: 16400, workspaceCreated: 17600, verified: 19100 };
+export const planTiming = { reviewed: 10300, commandAt: 12700, approved: 15200, responding: 15400, projectCreated: 18000, workspaceCreated: 19400, verified: 21100 };
 export const deliveryTiming = { draftReady: 7700, sentForReview: 10800, feedbackReceived: 13200, revising: 16200, revised: 17400, approved: 19000, exportStarted: 22000, exportReady: 23000 };
 export const playbackRate = .8;
 export const loopHold = 10000;
@@ -15,6 +15,33 @@ export function progressAt(elapsed, start, duration = 500) {
 
 export function textAt(text, elapsed, start, duration = 500) {
   return text.slice(0, Math.floor(progressAt(elapsed, start, duration) * text.length));
+}
+
+// Keep one visible exchange. Follow-up instructions are typed in the composer
+// before replacing the preceding exchange; the working artifact stays mounted.
+export function conversationAt(story, elapsed) {
+  const sent = [...(story.commands || [])].reverse().find(command => elapsed >= command.sentAt);
+  const typing = (story.commands || []).find(command => elapsed >= command.typingAt && elapsed < command.sentAt);
+  const initial = elapsed < commonTiming.promptEnd;
+  return {
+    key: sent?.sentAt || 0,
+    prompt: sent?.prompt || story.prompt,
+    answer: sent?.answer || story.answer,
+    sentAt: sent?.sentAt || commonTiming.promptEnd,
+    answerAt: sent?.answerAt || commonTiming.answerAt,
+    answerDuration: sent?.answerDuration || story.answerDuration || 1100,
+    typing: initial || Boolean(typing),
+    composer: initial ? textAt(story.prompt, elapsed, 0, commonTiming.promptEnd)
+      : typing ? textAt(typing.prompt, elapsed, typing.typingAt, typing.sentAt - typing.typingAt) : "Ask AllianceOne…",
+  };
+}
+
+// Coordinates are relative to the feed's scrollable content, never the page.
+export function followScrollTop({ scrollTop, viewportHeight, targetTop, targetBottom, maxScrollTop, padding = 20 }) {
+  let next = scrollTop;
+  if (targetTop < scrollTop + padding || targetBottom - targetTop > viewportHeight - padding * 2) next = targetTop - padding;
+  else if (targetBottom > scrollTop + viewportHeight - padding) next = targetBottom - viewportHeight + padding;
+  return Math.max(0, Math.min(maxScrollTop, next));
 }
 
 export function planExecutionAt(elapsed) {

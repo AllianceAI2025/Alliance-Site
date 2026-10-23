@@ -2,7 +2,7 @@ import React, { useEffect, useId, useLayoutEffect, useRef, useState } from "reac
 import { capture, useVisualDwell } from "../analytics";
 import DemoArtifact from "./DemoArtifacts.jsx";
 import { contexts, stories } from "./northstar.js";
-import { activityAt, commonTiming, deliveryStateAt, deliveryTiming, loopFrameAt, planTiming, playbackRate, textAt } from "./demoPlayback.js";
+import { activityAt, commonTiming, conversationAt, followScrollTop, loopFrameAt, playbackRate, textAt } from "./demoPlayback.js";
 import "./engagement-demo.css";
 
 function Icon({ name, ...props }) {
@@ -19,6 +19,38 @@ function useReducedMotion() {
     return () => query.removeEventListener("change", update);
   }, []);
   return reduced;
+}
+
+function useConversationFollow(feed, elapsed, enabled, exchangeKey) {
+  const current = useRef({ elapsed, enabled });
+  current.current = { elapsed, enabled };
+  const follow = () => {
+    const element = feed.current;
+    if (!element || !current.current.enabled) return;
+    // Explicit narrative timestamps follow the content actually being developed.
+    // DOM order alone is misleading in columns and in reserved, still-empty slots.
+    const target = [...element.querySelectorAll("[data-follow-at]")]
+      .filter(node => Number(node.dataset.followAt) <= current.current.elapsed && node.textContent.trim())
+      .sort((a, b) => Number(b.dataset.followAt) - Number(a.dataset.followAt))[0];
+    if (!target) return;
+    const bounds = element.getBoundingClientRect();
+    const content = target.getBoundingClientRect();
+    const top = followScrollTop({ scrollTop: element.scrollTop, viewportHeight: element.clientHeight, targetTop: content.top - bounds.top + element.scrollTop, targetBottom: content.bottom - bounds.top + element.scrollTop, maxScrollTop: element.scrollHeight - element.clientHeight });
+    if (Math.abs(top - element.scrollTop) > 2) element.scrollTo({ top, behavior: "smooth" });
+  };
+  const followRef = useRef(follow);
+  followRef.current = follow;
+  useLayoutEffect(() => {
+    if (feed.current && enabled) feed.current.scrollTo({ top: 0, behavior: "instant" });
+  }, [exchangeKey]);
+  const beat = Math.floor(elapsed / 160);
+  useLayoutEffect(() => followRef.current(), [beat, enabled]);
+  useEffect(() => {
+    const observer = new ResizeObserver(() => followRef.current());
+    observer.observe(feed.current);
+    observer.observe(feed.current.firstElementChild);
+    return () => observer.disconnect();
+  }, [feed]);
 }
 
 function ContextDialog({ source, onClose }) {
@@ -48,25 +80,23 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
   const [playing, setPlaying] = useState(!reduced);
   const [visible, setVisible] = useState(false);
   const [tabVisible, setTabVisible] = useState(() => document.visibilityState !== "hidden");
-  const [epoch, setEpoch] = useState(0);
   const [source, setSource] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [threadsOpen, setThreadsOpen] = useState(true);
   const [announcement, setAnnouncement] = useState("");
   const feed = useRef(null);
-  const autoFollow = useRef(true);
   const tracked = useRef(false);
   const completionTracked = useRef(false);
   const demoRef = useVisualDwell(`northstar-${phase}`);
   const id = useId();
   const promptSent = elapsed >= commonTiming.promptEnd;
-  const artifactVisible = elapsed >= commonTiming.artifactAt;
-  const buildBeat = Math.floor(elapsed / 600);
-  const workflowBeat = Object.values(phase === "deliver" ? deliveryTiming : phase === "plan" ? planTiming : {}).filter(at => elapsed >= at).length;
+  const artifactVisible = elapsed >= (story.artifactAt || commonTiming.artifactAt);
+  const conversation = conversationAt(story, elapsed);
+  useConversationFollow(feed, elapsed, playing && visible && tabVisible && !reduced, conversation.key);
 
   const updateClock = (value) => { clockRef.current = value / playbackRate; setElapsed(value); };
-  const pause = () => { setPlaying(false); autoFollow.current = false; };
-  const resume = () => { autoFollow.current = true; setPlaying(!reduced); };
+  const pause = () => setPlaying(false);
+  const resume = () => setPlaying(!reduced);
   const inspect = (key) => { pause(); setSidebarOpen(false); setSource(key); capture("demo_source_opened", { phase, source: key }); };
 
   useEffect(() => {
@@ -93,8 +123,7 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
       const next = loopFrameAt(clockRef.current, story.duration);
       if (next.cycle !== cycle) {
         cycle = next.cycle;
-        autoFollow.current = true;
-        if (feed.current) feed.current.scrollTop = 0;
+        if (feed.current) feed.current.scrollTo({ top: 0, behavior: "instant" });
       }
       if (next.elapsed >= story.duration && !completionTracked.current) {
         completionTracked.current = true;
@@ -106,34 +135,11 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
     };
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-  }, [playing, visible, tabVisible, reduced, story.duration, story.summary, phase, epoch]);
-
-  useLayoutEffect(() => {
-    if (!autoFollow.current || !feed.current || !artifactVisible) return;
-    const element = feed.current;
-    const built = [...element.querySelectorAll(".build-slot")].filter(node => node.dataset.built !== "false" && node.textContent.trim());
-    const target = built[built.length - 1] || element.querySelector(".artifact-head");
-    if (!target) return;
-    const excess = target.getBoundingClientRect().bottom - element.getBoundingClientRect().bottom + 20;
-    if (excess > 0) element.scrollBy({ top: excess, behavior: reduced ? "instant" : "smooth" });
-  }, [artifactVisible, buildBeat, workflowBeat, reduced]);
+  }, [playing, visible, tabVisible, reduced, story.duration, story.summary, phase]);
 
   const toggle = () => {
     if (playing) { pause(); setAnnouncement(`${story.label} demonstration paused.`); }
     else resume();
-  };
-  const submitPlan = () => {
-    autoFollow.current = true; updateClock(planTiming.approved); setPlaying(true); setEpoch(value => value + 1);
-    capture("demo_plan_submitted", { phase, actor: "Margaret Whitfield", destination: "Dynamics 365 Project Operations", illustrative: true });
-  };
-  const deliveryAction = (action) => {
-    const state = deliveryStateAt(elapsed);
-    const allowed = action === "send" ? state.draftReady && !state.sentForReview : action === "revise" ? state.feedbackReceived && !state.revising : action === "export" && state.approved;
-    if (!allowed) return;
-    if (action === "export" && state.exportReady) { resume(); return; }
-    const at = { send: deliveryTiming.sentForReview, revise: deliveryTiming.revising, export: deliveryTiming.exportStarted }[action];
-    autoFollow.current = true; updateClock(at); setPlaying(!reduced); setEpoch(value => value + 1);
-    capture(`demo_assessment_${action}`, { phase, actor: "Avery Ross", reviewer: "Sofia Patel", illustrative: true });
   };
 
   return <div className={`engagement-demo engagement-demo--${phase}${primary ? " engagement-demo--primary" : ""}`} ref={demoRef} id={primary ? "demo" : `${phase}-demo`} data-phase={phase} data-elapsed={Math.round(elapsed)}>
@@ -152,14 +158,14 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
         </>}
         <div className="demo-main">
           <header className="demo-player-header"><div>{primary && <button className="demo-sidebar-toggle" aria-label="Toggle engagement sidebar" aria-controls={`${id}-sidebar`} aria-expanded={sidebarOpen} onClick={() => setSidebarOpen(!sidebarOpen)}><Icon name="menu" /></button>}<strong>Northstar Foods</strong><span>{story.thread}{phase === "deliver" ? " · Avery Ross" : ""}</span></div>{!reduced && <div className="demo-controls"><button onClick={toggle} aria-label={`${playing ? "Pause" : "Play"} ${story.label} demo`} title={playing ? "Pause animation" : "Resume animation"}><Icon name={playing ? "pause" : "play"} /></button></div>}</header>
-          <div className="demo-feed" ref={feed} role="log" aria-label={`${story.label} conversation`} aria-live="off" onWheel={pause} onTouchStart={pause}>
+          <div className="demo-feed" ref={feed} role="log" aria-label={`${story.label} conversation`} aria-live="off">
             <div className="demo-conversation">
-              {promptSent && <div className="demo-exchange"><div className="demo-user-message">{story.prompt}</div><div className="demo-agent-response"><div className="demo-agent-name"><img src="/brand/logo-mark.svg" alt="" />AllianceOne</div><p>{textAt(story.answer, elapsed, commonTiming.answerAt, 1100) || <span className="demo-working"><i className="build-pulse" />{activityAt(story, elapsed)}</span>}</p></div>
-                {artifactVisible && <div className="demo-artifact-container" onPointerDown={pause} onFocusCapture={pause}><DemoArtifact phase={phase} elapsed={elapsed} onInspect={inspect} onSubmit={submitPlan} onDeliveryAction={deliveryAction} /></div>}
+              {promptSent && <div className="demo-exchange"><div className="demo-user-message" data-follow-at={conversation.sentAt}>{conversation.prompt}</div><div className="demo-agent-response"><div className="demo-agent-name"><img src="/brand/logo-mark.svg" alt="" />AllianceOne</div><p data-follow-at={conversation.answerAt}>{textAt(conversation.answer, elapsed, conversation.answerAt, conversation.answerDuration) || <span className="demo-working"><i className="build-pulse" />{activityAt(story, elapsed)}</span>}</p></div>
+                {artifactVisible && <div className="demo-artifact-container"><DemoArtifact phase={phase} elapsed={elapsed} onInspect={inspect} /></div>}
               </div>}
             </div>
           </div>
-          <div className="demo-composer"><span>{!promptSent ? textAt(story.prompt, elapsed, 0, commonTiming.promptEnd) : "Ask AllianceOne…"}{!promptSent && <i className="demo-typing-cursor" />}</span><Icon name="arrow" /></div>
+          <div className={`demo-composer${conversation.typing ? " is-typing" : ""}`}><span>{conversation.composer}{conversation.typing && <i className="demo-typing-cursor" />}</span><Icon name="arrow" /></div>
         </div>
       </div>
     </section>

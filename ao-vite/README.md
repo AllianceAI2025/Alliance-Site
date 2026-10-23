@@ -1,9 +1,9 @@
 # AllianceOne website
 
-React + Vite marketing site. Three single-exchange demonstrations show how Harbor
+React + Vite marketing site. Three autonomous demonstrations show how Harbor
 and Meridian experience carries into Northstar's scope, plan and delivery work.
 Scope is the opening demonstration; there is no separate opening player or
-multi-frame sequence. Playback runs at 80% speed: about 75 seconds of active content across the three
+multi-frame sequence. Playback runs at 80% speed: about 83 seconds of active content across the three
 examples. Each holds its finished artifact for 10 seconds before looping in place.
 
 ## Local development
@@ -26,7 +26,7 @@ The existing dev server uses http://localhost:5176. The build produces `dist/`.
 - `src/demo/northstar.js`: the three prompts, responses, sources, people, accepted
   commitment and connected record. This is the fictional data contract.
 - `src/demo/EngagementDemo.jsx`: independent visibility-aware clocks, typing,
-  pause/resume, automatic loops, source dialogs and a single inline artifact per exchange.
+  pause/resume, automatic loops, source dialogs and one visible exchange with its working artifact.
 - `src/demo/DemoArtifacts.jsx`: progressively built scope, resource schedule,
   illustrated approval/write/readback, and the Word-style assessment revision.
 - `src/demo/demoPlayback.js`: build progress and execution ordering. Approval must
@@ -44,28 +44,31 @@ The existing dev server uses http://localhost:5176. The build produces `dist/`.
 
 ## What each example proves
 
-**Scope (18.1s + 10s reading hold):** One question asks about relevant past work. The scope develops
+**Scope (23.1s + 10s reading hold):** One question asks about relevant past work. The response describes
+the breadth of the historical record: client conditions, named teams, accepted
+deliverables, review changes and outcomes. Harbor and Meridian each show two
+contributors and their Excel/PowerPoint deliverables, with the full three-item
+assignment and accepted-version record available in supporting context. The scope develops
 its objective and four workstreams. Harbor's evidence review explains an early
 evidence gate; Meridian's review explains explicit boundaries, acknowledgment and
 transition readiness. Avery and Lena's relevant delivery experience is paired
 with a separate current availability check before a proposal is submitted.
 
-**Plan (26.3s + 10s reading hold):** A separate conversation begins from accepted proposal v5 and a Won
+**Plan (28.8s + 10s reading hold):** A separate conversation begins from accepted proposal v5 and a Won
 opportunity. The reviewed pursuit team carries forward. Six resource windows build
 row by row; bars grow into their confirmed weeks. Avery's 36-hour assessment,
 September 7 deadline and Sofia's review are tied to the diagnostic baseline.
-Sofia reviews the completed plan. For about six seconds, an “Approve & submit to
-PSA” action names Dynamics 365 Project Operations and describes the project,
-14 deliverables, six resource assignments and SharePoint filing. The illustrated
-button press commits the approved baseline before any application records are
-created. Viewers can also click the action themselves to advance to submission. A separate application-response
+Sofia reviews the completed plan. Margaret then types “Approve plan v1 and submit
+it to Project Operations.” The sent message replaces the preceding exchange while
+the working artifact remains in place. AllianceOne describes the write, creates
+the project, 14 deliverables and six resource assignments, and files the plan in
+SharePoint. No submission button or viewer interaction is required. A separate application-response
 fixture is compared with the approved assignment's owner, reviewer, effort, due
 date and baseline. A mismatch produces a discrepancy rather than a success claim.
 The accepted-proposal source retains the pricing basis and negotiated changes.
 After creation, the same artifact reveals Project Operations record PRJ-NS-20418
 and assignment ASN-NS-DR01. Project dates, ownership, planned hours and the returned
-assignment are visible. Viewers can switch back to the engagement plan without
-leaving the conversation. The PSA view is a local response fixture, not a live
+assignment are visible. The PSA view is a local response fixture, not a live
 Microsoft connection.
 
 **Deliver (30.6s + 10s reading hold):** Avery inherits the approved assignment and firm template.
@@ -76,9 +79,10 @@ visibly changes, revision 2 returns to Sofia, and she approves it. Export produc
 a Word-file receipt with a real download. Review requests, feedback, revision
 rationale and approval remain linked to the engagement.
 
-Review, revision and export actions can be clicked to advance the sequence.
-Autoplay illustrates the export without downloading a file on every loop; only a
-viewer click starts a browser download. The client-facing document uses Northstar
+Review, revision and export run automatically and show the actor and resulting
+status, with no action buttons to advance the story. Autoplay illustrates the export
+without downloading a file on every loop; an optional finished-file link starts a
+browser download. The client-facing document uses Northstar
 evidence and excludes other clients' names and internal precedent discussions.
 
 The animation clock drives real intermediate content and bar geometry. Artifact
@@ -91,7 +95,11 @@ Each example starts when visible, retains its position offscreen, and pauses whe
 the browser document is hidden. A finished scene holds for 10 seconds, then resets
 its own conversation and feed scroll position without navigating to another section.
 A small Pause/Play icon appears on hover, keyboard focus or touch devices. It retains
-partial builds when paused. Scrolling or interacting with an artifact pauses it. Source links
+partial builds when paused. Scrolling, touch and artifact focus do not pause playback.
+The conversation follows explicit narrative timestamps and actual content size,
+including changes from plan to PSA record and from review to revision. It scrolls
+only the internal feed; it never moves the webpage. Sending the follow-up command
+returns the feed to the new exchange, and each loop resets its own feed. Source links
 open an accessible modal without replacing the work; closing it resumes playback. The hero sidebar lists three
 Northstar threads and the Harbor and Meridian engagement records; thread links
 scroll to the corresponding section. Mobile uses the same sidebar behind a menu.
@@ -99,7 +107,7 @@ Reduced motion shows each finished example without character, construction or lo
 
 All data, approvals and connector actions are illustrative. The page makes no live
 model requests and does not connect to client systems. The illustrated approval and PSA submission
-run as part of playback; viewers can also submit the plan after review.
+run entirely as part of playback.
 These fixtures specify the intended behavior for engineering, not a working backend.
 
 The Word builder uses Python with `python-docx`. Regenerate with

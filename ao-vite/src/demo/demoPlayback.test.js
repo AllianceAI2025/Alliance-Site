@@ -1,8 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { assignment, contexts, effort, readbackAssignment, readbackProject, resources, stories } from "./northstar.js";
-import { commonTiming, compareAssignment, deliveryStateAt, deliveryTiming, loopFrameAt, loopHold, planExecutionAt, planTiming, playbackRate, progressAt, textAt } from "./demoPlayback.js";
+import { assignment, contexts, effort, historicalCases, readbackAssignment, readbackProject, resources, stories } from "./northstar.js";
+import { commonTiming, compareAssignment, conversationAt, deliveryStateAt, deliveryTiming, followScrollTop, loopFrameAt, loopHold, planExecutionAt, planTiming, playbackRate, progressAt, textAt } from "./demoPlayback.js";
 
 test("each scene holds its finished artifact, then starts the same exchange again", () => {
   for (const story of Object.values(stories)) {
@@ -15,7 +15,7 @@ test("each scene holds its finished artifact, then starts the same exchange agai
   }
 });
 
-test("the website retains three single exchanges with slower builds and a reading hold", () => {
+test("the website retains three scenes with slower builds and a reading hold", () => {
   assert.deepEqual(Object.keys(stories), ["scope", "plan", "deliver"]);
   assert.ok(playbackRate > 0 && playbackRate < 1);
   assert.ok(loopHold >= 10000, "finished work stays available for at least ten seconds");
@@ -24,7 +24,50 @@ test("the website retains three single exchanges with slower builds and a readin
   }
   assert.ok(stories.plan.duration > planTiming.verified);
   assert.ok(stories.deliver.duration > deliveryTiming.exportReady);
-  assert.ok((planTiming.approved - planTiming.reviewed) / playbackRate >= 6000, "the reviewed plan and PSA submission action remain visible before the illustrated click");
+  assert.ok((planTiming.approved - planTiming.reviewed) / playbackRate >= 6000, "the reviewed plan stays available before the typed approval is sent");
+});
+
+test("PSA submission is typed and sent after review, before any application writes", () => {
+  const story = stories.plan;
+  assert.ok(planTiming.commandAt > planTiming.reviewed);
+  assert.equal(conversationAt(story, planTiming.commandAt - 1).typing, false);
+  const duringTyping = conversationAt(story, (planTiming.commandAt + planTiming.approved) / 2);
+  assert.equal(duringTyping.typing, true);
+  assert.equal(duringTyping.prompt, story.prompt, "the previous exchange stays visible until sending");
+  assert.ok(duringTyping.composer.length > 0 && duringTyping.composer.length < story.commands[0].prompt.length);
+  assert.equal(planExecutionAt(planTiming.approved - 1).approved, false);
+  const sent = conversationAt(story, planTiming.approved);
+  assert.equal(sent.typing, false);
+  assert.equal(sent.prompt, story.commands[0].prompt);
+  assert.ok(sent.prompt.includes("Approve plan v1") && sent.prompt.includes("Project Operations"));
+  assert.equal(sent.answer, story.commands[0].answer);
+  assert.ok(planTiming.projectCreated >= sent.answerAt + sent.answerDuration);
+  assert.equal(conversationAt(story, story.duration).prompt, sent.prompt);
+  assert.equal(conversationAt(story, 0).key, 0, "looping restores the original exchange");
+});
+
+test("automatic follow reveals current content within the feed's scroll limits", () => {
+  const base = { scrollTop: 100, viewportHeight: 400, maxScrollTop: 900 };
+  assert.equal(followScrollTop({ ...base, targetTop: 180, targetBottom: 280 }), 100, "visible content does not move");
+  assert.equal(followScrollTop({ ...base, targetTop: 460, targetBottom: 560 }), 180, "new content below the viewport is revealed");
+  assert.equal(followScrollTop({ ...base, targetTop: 40, targetBottom: 80 }), 20, "a changed artifact can return to its heading");
+  assert.equal(followScrollTop({ ...base, targetTop: 0, targetBottom: 40 }), 0);
+  assert.equal(followScrollTop({ ...base, targetTop: 1200, targetBottom: 1400 }), 900);
+  assert.equal(followScrollTop({ ...base, targetTop: 300, targetBottom: 850 }), 280, "an oversized section starts at its beginning");
+});
+
+test("historical context preserves people, accepted work, review and outcome limits", () => {
+  assert.deepEqual(historicalCases.map(item => item.reference), ["EV-104", "EV-087"]);
+  for (const record of historicalCases) {
+    assert.equal(record.deliverables.length, 3);
+    for (const item of record.deliverables) assert.ok(item.owner && item.reviewer && item.accepted && item.format);
+    assert.ok(record.conditions && record.review && record.outcome && record.carry && record.limit);
+    assert.ok(contexts[record.id].facts.some(([label]) => label === "Transfer limits"));
+  }
+  assert.equal(historicalCases[0].deliverables[0].owner, assignment.owner);
+  assert.equal(historicalCases[0].deliverables[0].reviewer, assignment.reviewer);
+  assert.equal(historicalCases[1].deliverables[1].owner, "Jordan Hale");
+  assert.ok(stories.scope.artifactAt >= commonTiming.answerAt + stories.scope.answerDuration, "the historical answer completes before scope construction");
 });
 
 test("PSA readback identifies the created project and the approved staffing basis", () => {
