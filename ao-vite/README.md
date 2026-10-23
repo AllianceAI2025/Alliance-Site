@@ -3,7 +3,8 @@
 React + Vite marketing site. Three single-exchange demonstrations show how Harbor
 and Meridian experience carries into Northstar's scope, plan and delivery work.
 Scope is the opening demonstration; there is no separate opening player or
-multi-frame sequence. Total playback across the three examples is 45 seconds.
+multi-frame sequence. The three examples contain 45 seconds of active playback. Each holds its finished
+artifact for 3.2 seconds before looping in place.
 
 ## Local development
 
@@ -25,13 +26,13 @@ The existing dev server uses http://localhost:5176. The build produces `dist/`.
 - `src/demo/northstar.js`: the three prompts, responses, sources, people, accepted
   commitment and connected record. This is the fictional data contract.
 - `src/demo/EngagementDemo.jsx`: independent visibility-aware clocks, typing,
-  pause/resume, replay, source dialogs and a single inline artifact per exchange.
+  pause/resume, automatic loops, source dialogs and a single inline artifact per exchange.
 - `src/demo/DemoArtifacts.jsx`: progressively built scope, resource schedule,
   illustrated approval/write/readback, and the Word-style assessment revision.
 - `src/demo/demoPlayback.js`: build progress and execution ordering. Approval must
   precede application writes; readback occurs after both application operations.
 - `src/demo/demoPlayback.test.js`: narrative continuity, available capacity,
-  execution ordering, independent readback comparisons and incomplete build states.
+  execution ordering, independent readback comparisons, incomplete builds and loop boundaries.
 - `src/demo/engagement-demo.css`: product shell, in-chat cards and responsive views.
 - `src/Site.jsx`, `src/site-chrome.css`, `src/CompanyPage.jsx`: shared navigation,
   footer, company page and inquiry form.
@@ -69,12 +70,14 @@ There are no scene counters, example tabs or automatic chapter changes.
 ## Playback and inspection
 
 Each example starts when visible, retains its position offscreen, and pauses when
-the browser document is hidden. Pause/Play retains partial builds; Replay restarts
-that example. Scrolling or interacting with an artifact pauses it. Source links
-open an accessible modal without replacing the work. The hero sidebar lists three
+the browser document is hidden. A finished scene holds for 3.2 seconds, then resets
+its own conversation and feed scroll position without navigating to another section.
+A small Pause/Play icon appears on hover, keyboard focus or touch devices. It retains
+partial builds when paused. Scrolling or interacting with an artifact pauses it. Source links
+open an accessible modal without replacing the work; closing it resumes playback. The hero sidebar lists three
 Northstar threads and the Harbor and Meridian engagement records; thread links
 scroll to the corresponding section. Mobile uses the same sidebar behind a menu.
-Reduced motion shows each finished example without character or construction motion.
+Reduced motion shows each finished example without character, construction or loop motion.
 
 All data, approvals and connector actions are illustrative. The page makes no live
 model requests and does not connect to client systems. The illustrated approval

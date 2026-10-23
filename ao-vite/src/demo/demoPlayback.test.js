@@ -1,7 +1,17 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { assignment, contexts, effort, readbackAssignment, resources, stories } from "./northstar.js";
-import { commonTiming, compareAssignment, planExecutionAt, planTiming, progressAt, textAt } from "./demoPlayback.js";
+import { commonTiming, compareAssignment, loopFrameAt, loopHold, planExecutionAt, planTiming, progressAt, textAt } from "./demoPlayback.js";
+
+test("each scene holds its finished artifact, then starts the same exchange again", () => {
+  for (const story of Object.values(stories)) {
+    const period = story.duration + loopHold;
+    assert.deepEqual(loopFrameAt(story.duration - 1, story.duration), { elapsed: story.duration - 1, cycle: 0 });
+    assert.deepEqual(loopFrameAt(story.duration + loopHold - 1, story.duration), { elapsed: story.duration, cycle: 0 });
+    assert.deepEqual(loopFrameAt(period, story.duration), { elapsed: 0, cycle: 1 });
+    assert.deepEqual(loopFrameAt(period * 2 + commonTiming.artifactAt, story.duration), { elapsed: commonTiming.artifactAt, cycle: 2 });
+  }
+});
 
 test("the website has three exchanges totaling no more than 45 seconds", () => {
   assert.deepEqual(Object.keys(stories), ["scope", "plan", "deliver"]);

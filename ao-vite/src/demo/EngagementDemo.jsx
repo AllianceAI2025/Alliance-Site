@@ -2,11 +2,11 @@ import React, { useEffect, useId, useLayoutEffect, useRef, useState } from "reac
 import { capture, useVisualDwell } from "../analytics";
 import DemoArtifact from "./DemoArtifacts.jsx";
 import { contexts, stories } from "./northstar.js";
-import { activityAt, commonTiming, planTiming, textAt } from "./demoPlayback.js";
+import { activityAt, commonTiming, loopFrameAt, planTiming, textAt } from "./demoPlayback.js";
 import "./engagement-demo.css";
 
 function Icon({ name, ...props }) {
-  const paths = { play: "m8 5 11 7-11 7Z", pause: "M8 5v14M16 5v14", replay: "M3 10a9 9 0 1 1 2 9M3 4v6h6", close: "m6 6 12 12M18 6 6 18", arrow: "M12 19V5m-6 6 6-6 6 6", folder: "M3 7V5h6l2 2h10v12H3Zm0 3h18", chevron: "m9 6 6 6-6 6", menu: "M4 6h16M4 12h16M4 18h16" };
+  const paths = { play: "m8 5 11 7-11 7Z", pause: "M8 5v14M16 5v14", close: "m6 6 12 12M18 6 6 18", arrow: "M12 19V5m-6 6 6-6 6 6", folder: "M3 7V5h6l2 2h10v12H3Zm0 3h18", chevron: "m9 6 6 6-6 6", menu: "M4 6h16M4 12h16M4 18h16" };
   return <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}><path d={paths[name]} /></svg>;
 }
 
@@ -44,7 +44,7 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
   const story = stories[phase];
   const reduced = useReducedMotion();
   const [elapsed, setElapsed] = useState(() => reduced ? story.duration : 0);
-  const elapsedRef = useRef(elapsed);
+  const clockRef = useRef(elapsed);
   const [playing, setPlaying] = useState(!reduced);
   const [visible, setVisible] = useState(false);
   const [tabVisible, setTabVisible] = useState(() => document.visibilityState !== "hidden");
@@ -56,15 +56,16 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
   const feed = useRef(null);
   const autoFollow = useRef(true);
   const tracked = useRef(false);
+  const completionTracked = useRef(false);
   const demoRef = useVisualDwell(`northstar-${phase}`);
   const id = useId();
-  const complete = elapsed >= story.duration;
   const promptSent = elapsed >= commonTiming.promptEnd;
   const artifactVisible = elapsed >= commonTiming.artifactAt;
   const buildBeat = Math.floor(elapsed / 600);
 
-  const updateClock = (value) => { elapsedRef.current = value; setElapsed(value); };
+  const updateClock = (value) => { clockRef.current = value; setElapsed(value); };
   const pause = () => { setPlaying(false); autoFollow.current = false; };
+  const resume = () => { autoFollow.current = true; setPlaying(!reduced); };
   const inspect = (key) => { pause(); setSidebarOpen(false); setSource(key); capture("demo_source_opened", { phase, source: key }); };
 
   useEffect(() => {
@@ -76,21 +77,30 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
   }, [demoRef]);
 
   useEffect(() => {
-    if (reduced) { updateClock(story.duration); setPlaying(false); }
+    updateClock(reduced ? story.duration : 0);
+    setPlaying(!reduced);
   }, [reduced, story.duration]);
 
   useEffect(() => {
     if (!playing || !visible || !tabVisible || reduced) return;
     if (!tracked.current) { capture("demo_played", { phase, trigger: "autoplay" }); tracked.current = true; }
     let frame, paintedAt = 0;
-    const start = performance.now() - elapsedRef.current;
+    const start = performance.now() - clockRef.current;
+    let cycle = loopFrameAt(clockRef.current, story.duration).cycle;
     const tick = (now) => {
-      const value = Math.min(story.duration, now - start);
-      if (value >= story.duration) {
-        updateClock(story.duration); setPlaying(false); setAnnouncement(story.summary);
-        capture("demo_completed", { phase }); return;
+      clockRef.current = now - start;
+      const next = loopFrameAt(clockRef.current, story.duration);
+      if (next.cycle !== cycle) {
+        cycle = next.cycle;
+        autoFollow.current = true;
+        if (feed.current) feed.current.scrollTop = 0;
       }
-      if (now - paintedAt >= 30) { updateClock(value); paintedAt = now; }
+      if (next.elapsed >= story.duration && !completionTracked.current) {
+        completionTracked.current = true;
+        setAnnouncement(story.summary);
+        capture("demo_completed", { phase });
+      }
+      if (now - paintedAt >= 30) { setElapsed(next.elapsed); paintedAt = now; }
       frame = requestAnimationFrame(tick);
     };
     frame = requestAnimationFrame(tick);
@@ -107,16 +117,9 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
     if (excess > 0) element.scrollBy({ top: excess, behavior: reduced ? "instant" : "smooth" });
   }, [artifactVisible, buildBeat, reduced]);
 
-  const replay = () => {
-    autoFollow.current = true; setSource(null); setSidebarOpen(false);
-    updateClock(reduced ? story.duration : 0); setPlaying(!reduced); setEpoch(value => value + 1);
-    if (feed.current) feed.current.scrollTop = 0;
-    capture("demo_played", { phase, trigger: "replay" });
-  };
   const toggle = () => {
     if (playing) { pause(); setAnnouncement(`${story.label} demonstration paused.`); }
-    else if (complete) replay();
-    else { autoFollow.current = true; setPlaying(true); }
+    else resume();
   };
   const approve = () => {
     autoFollow.current = true; updateClock(planTiming.approved); setPlaying(true); setEpoch(value => value + 1);
@@ -132,13 +135,13 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
             <div className="demo-sidebar-brand"><img src="/brand/logo-mark-dark.svg" alt="" /><span>AllianceOne</span><button className="demo-sidebar-close" aria-label="Close engagement sidebar" onClick={() => setSidebarOpen(false)}><Icon name="close" /></button></div>
             <p className="demo-sidebar-label">Engagements</p>
             <div className="demo-northstar-row"><button className="demo-engagement-name" onClick={() => inspect("discovery")}><Icon name="folder" />Northstar Foods</button><button className="demo-thread-toggle" aria-label="Toggle Northstar Foods threads" aria-expanded={threadsOpen} aria-controls={`${id}-threads`} onClick={() => setThreadsOpen(!threadsOpen)}><Icon name="chevron" className={threadsOpen ? "is-expanded" : ""} /></button></div>
-            {threadsOpen && <nav className="demo-thread-list" id={`${id}-threads`} aria-label="Northstar Foods threads">{Object.entries(stories).map(([key, item]) => <a key={key} href={`#${key}`} aria-current={key === phase ? "page" : undefined} onClick={() => { pause(); setSidebarOpen(false); }}>{item.thread}</a>)}</nav>}
+            {threadsOpen && <nav className="demo-thread-list" id={`${id}-threads`} aria-label="Northstar Foods threads">{Object.entries(stories).map(([key, item]) => <a key={key} href={`#${key}`} aria-current={key === phase ? "page" : undefined} onClick={() => setSidebarOpen(false)}>{item.thread}</a>)}</nav>}
             <button className="demo-engagement-reference" onClick={() => inspect("harbor")}><Icon name="folder" />Harbor Grain</button><button className="demo-engagement-reference" onClick={() => inspect("meridian")}><Icon name="folder" />Meridian</button>
             <div className="demo-profile"><span>MW</span><div>Margaret Whitfield<small>Engagement manager</small></div></div>
           </aside>
         </>}
         <div className="demo-main">
-          <header className="demo-player-header"><div>{primary && <button className="demo-sidebar-toggle" aria-label="Toggle engagement sidebar" aria-controls={`${id}-sidebar`} aria-expanded={sidebarOpen} onClick={() => setSidebarOpen(!sidebarOpen)}><Icon name="menu" /></button>}<strong>Northstar Foods</strong><span>{story.thread}{phase === "deliver" ? " · Avery Ross" : ""}</span></div><div className="demo-controls"><button onClick={toggle} aria-label={`${playing ? "Pause" : complete ? "Replay" : "Play"} ${story.label} demo`}><Icon name={playing ? "pause" : "play"} /><span>{playing ? "Pause" : complete ? "Replay" : "Play"}</span></button>{!complete && <button className="demo-replay" onClick={replay} aria-label={`Restart ${story.label} demo`}><Icon name="replay" /></button>}</div></header>
+          <header className="demo-player-header"><div>{primary && <button className="demo-sidebar-toggle" aria-label="Toggle engagement sidebar" aria-controls={`${id}-sidebar`} aria-expanded={sidebarOpen} onClick={() => setSidebarOpen(!sidebarOpen)}><Icon name="menu" /></button>}<strong>Northstar Foods</strong><span>{story.thread}{phase === "deliver" ? " · Avery Ross" : ""}</span></div>{!reduced && <div className="demo-controls"><button onClick={toggle} aria-label={`${playing ? "Pause" : "Play"} ${story.label} demo`} title={playing ? "Pause animation" : "Resume animation"}><Icon name={playing ? "pause" : "play"} /></button></div>}</header>
           <div className="demo-feed" ref={feed} role="log" aria-label={`${story.label} conversation`} aria-live="off" onWheel={pause} onTouchStart={pause}>
             <div className="demo-conversation">
               {promptSent && <div className="demo-exchange"><div className="demo-user-message">{story.prompt}</div><div className="demo-agent-response"><div className="demo-agent-name"><img src="/brand/logo-mark.svg" alt="" />AllianceOne</div><p>{textAt(story.answer, elapsed, commonTiming.answerAt, 1100) || <span className="demo-working"><i className="build-pulse" />{activityAt(story, elapsed)}</span>}</p></div>
@@ -150,8 +153,7 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
         </div>
       </div>
     </section>
-    <div className="demo-footnote"><span>{story.label} · {story.person}</span><span>Illustrative demo · fictional engagement</span></div>
-    {source && <ContextDialog source={source} onClose={() => setSource(null)} />}
+    {source && <ContextDialog source={source} onClose={() => { setSource(null); resume(); }} />}
     <div className="demo-sr-only" role="status" aria-live="polite">{announcement}</div>
   </div>;
 }

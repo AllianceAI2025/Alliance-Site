@@ -1,5 +1,11 @@
 export const commonTiming = { promptEnd: 1250, answerAt: 1500, artifactAt: 2700 };
 export const planTiming = { reviewed: 10300, approved: 11400, projectCreated: 12200, workspaceCreated: 13100, verified: 14300 };
+export const loopHold = 3200;
+
+export function loopFrameAt(clock, duration) {
+  const period = duration + loopHold;
+  return { elapsed: Math.min(clock % period, duration), cycle: Math.floor(clock / period) };
+}
 
 export function progressAt(elapsed, start, duration = 500) {
   return Math.min(1, Math.max(0, (elapsed - start) / duration));
