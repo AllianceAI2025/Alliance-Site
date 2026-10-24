@@ -63,7 +63,7 @@ function EngagementRecord() {
           <article><h3>Make the experience useful again.</h3><p>Conversations, review feedback, decisions and revisions are captured as the work develops. Practitioners review the resulting lessons, their evidence and their limits before they inform future engagements.</p></article>
         </div>
       </div>
-      <div className="landing-record-governance"><p>Practitioners remain responsible for the analysis and decisions. Source access and reuse follow the permissions of the person and engagement.</p><a href="/security/">Data and permissions <span aria-hidden="true">↗</span></a></div>
+      <div className="landing-record-governance"><p>Practitioners remain responsible for the analysis and decisions. Source access and reuse follow the permissions of the person and engagement.</p></div>
     </div>
   </Track>;
 }

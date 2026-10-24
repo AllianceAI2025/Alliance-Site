@@ -50,8 +50,6 @@
 .landing-record-explanation p{font-size:12px;line-height:1.9;color:var(--landing-muted);margin:0;max-width:460px}
 .landing-record-governance{display:flex;justify-content:space-between;align-items:center;gap:40px;margin-top:38px}
 .landing-record-governance>p{font-size:11px;line-height:1.85;color:var(--landing-muted);max-width:710px;margin:0}
-.landing-record-governance>a{display:inline-flex;align-items:center;gap:23px;font-size:11px;white-space:nowrap;text-underline-offset:6px;text-decoration-color:var(--landing-green)}
-.landing-record-governance>a:hover{text-decoration-color:var(--landing-ink)}
 .landing-phase{padding:69px 0 65px;scroll-margin-top:72px}
 .landing-phase--plan{background:radial-gradient(ellipse at 96% 3%,#86c43d0d,transparent 62%),var(--landing-paper)}
 .landing-phase--deliver{background:radial-gradient(ellipse at 0% 100%,#86c43d3d,transparent 62%),radial-gradient(ellipse at 92% 8%,#86c43d24,transparent 60%),var(--landing-ink);padding-top:78px;color:var(--landing-bone)}
