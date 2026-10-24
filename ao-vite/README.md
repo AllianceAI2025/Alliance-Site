@@ -124,8 +124,14 @@ Playback pauses while the browser document is hidden. Each scene plays once and 
 its finished conversation indefinitely. It restarts only after leaving and returning.
 A small Pause/Play icon appears on hover, keyboard focus or touch devices. It retains
 partial builds when paused. Scrolling, touch and artifact focus do not pause playback.
-The conversation follows explicit narrative timestamps and actual content size,
-including changes from plan to PSA record and from review to revision. It scrolls
+The conversation follows explicit narrative timestamps and actual content size.
+A single eased animation updates its destination as text grows, without restarting
+the browser's smooth scrolling on each character. Long responses follow their newest
+lines instead of pinning their headings. Artifact-entry markers reveal a new card's
+opening before following its progressively built rows. Only the current exchange can
+move the feed; earlier, frozen artifacts cannot reclaim it. A newly active block
+entirely above view (such as another precedent column) can reframe once. This covers
+changes from plan to PSA record and from review to revision. It scrolls
 only the internal feed; it never moves the webpage. Sending a follow-up appends
 the new exchange below the preceding result without resetting the scroll position.
 Completed artifacts have capped clocks so their original versions stay unchanged.

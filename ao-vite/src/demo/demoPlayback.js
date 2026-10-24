@@ -57,12 +57,25 @@ export function conversationAt(story, elapsed) {
 }
 
 // Coordinates are relative to the feed's scrollable content, never the page.
-export function followScrollTop({ scrollTop, viewportHeight, targetTop, targetBottom, maxScrollTop, padding = 20, complete = false }) {
+export function followScrollTop({ scrollTop, viewportHeight, targetTop, targetBottom, maxScrollTop, padding = 32, complete = false, newTarget = false }) {
   if (complete) return Math.max(0, maxScrollTop);
-  let next = scrollTop;
-  if (targetTop < scrollTop + padding || targetBottom - targetTop > viewportHeight - padding * 2) next = targetTop - padding;
-  else if (targetBottom > scrollTop + viewportHeight - padding) next = targetBottom - viewportHeight + padding;
+  // Follow the growing end of the active text, including blocks taller than the
+  // pane. Reframe upward only when a newly active block is entirely above view
+  // (for example the second column of the precedent card), never as text grows.
+  const tail = targetBottom - viewportHeight + padding;
+  const next = newTarget && targetBottom < scrollTop + padding
+    ? Math.max(targetTop - padding, tail)
+    : Math.max(scrollTop, tail);
   return Math.max(0, Math.min(maxScrollTop, next));
+}
+
+export function advanceScrollTop(current, target, deltaMs) {
+  const distance = target - current;
+  if (Math.abs(distance) <= 1) return target;
+  const fraction = 1 - Math.exp(-Math.min(64, Math.max(1, deltaMs)) / 80);
+  // At least one pixel avoids a rounded scrollTop stalling just short of goal.
+  const step = Math.min(Math.abs(distance), Math.max(1, Math.abs(distance) * fraction));
+  return current + Math.sign(distance) * step;
 }
 
 export function planExecutionAt(elapsed) {

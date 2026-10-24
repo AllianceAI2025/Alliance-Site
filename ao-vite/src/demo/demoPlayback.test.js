@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { approvedPlan, assessmentFileName, assessmentFormatName, assignment, contexts, effort, historicalCases, readbackAssignment, readbackPlan, readbackProject, resolveDemoSource, resources, staffingCandidates, stories } from "./northstar.js";
-import { commonTiming, compareAssignment, comparePlan, conversationAt, deliveryStateAt, deliveryTiming, demoVisibleAt, followScrollTop, playbackFrameAt, planExecutionAt, planTiming, playbackRate, precedentBuildAt, progressAt, scopeTiming, textAt } from "./demoPlayback.js";
+import { advanceScrollTop, commonTiming, compareAssignment, comparePlan, conversationAt, deliveryStateAt, deliveryTiming, demoVisibleAt, followScrollTop, playbackFrameAt, planExecutionAt, planTiming, playbackRate, precedentBuildAt, progressAt, scopeTiming, textAt } from "./demoPlayback.js";
 
 test("demos wait until watchable and tolerate small scrolls before leaving", () => {
   const geometry = { windowHeight: 735, viewportHeight: 614 };
@@ -62,13 +62,37 @@ test("PSA submission is typed and sent after review, before any application writ
 test("automatic follow reveals current content within the feed's scroll limits", () => {
   const base = { scrollTop: 100, viewportHeight: 400, maxScrollTop: 900 };
   assert.equal(followScrollTop({ ...base, targetTop: 180, targetBottom: 280 }), 100, "visible content does not move");
-  assert.equal(followScrollTop({ ...base, targetTop: 460, targetBottom: 560 }), 180, "new content below the viewport is revealed");
-  assert.equal(followScrollTop({ ...base, targetTop: 40, targetBottom: 80 }), 20, "a changed artifact can return to its heading");
-  assert.equal(followScrollTop({ ...base, targetTop: 0, targetBottom: 40 }), 0);
+  assert.equal(followScrollTop({ ...base, targetTop: 460, targetBottom: 560 }), 192, "new content has breathing room above the composer");
+  assert.equal(followScrollTop({ ...base, targetTop: 40, targetBottom: 80 }), 100, "a growing block never pulls the reader back to its beginning");
+  assert.equal(followScrollTop({ ...base, targetTop: 40, targetBottom: 80, newTarget: true }), 8, "a newly active column can be reframed once");
+  assert.equal(followScrollTop({ ...base, targetTop: 0, targetBottom: 40, newTarget: true }), 0);
   assert.equal(followScrollTop({ ...base, targetTop: 1200, targetBottom: 1400 }), 900);
-  assert.equal(followScrollTop({ ...base, targetTop: 300, targetBottom: 850 }), 280, "an oversized section starts at its beginning");
+  assert.equal(followScrollTop({ ...base, targetTop: 300, targetBottom: 850 }), 482, "the end of an oversized response stays visible as it grows");
+  assert.equal(followScrollTop({ ...base, scrollTop: 482, targetTop: 300, targetBottom: 920 }), 552, "the same response keeps following its new lines");
   assert.equal(followScrollTop({ ...base, targetTop: 300, targetBottom: 850, complete: true }), 900, "completion reaches the true feed bottom, including footer and padding");
   assert.equal(followScrollTop({ ...base, maxScrollTop: -10, complete: true }), 0, "a short completed conversation stays at zero");
+});
+
+test("one scroll animation tracks a moving target without overshoot or pixel stalls", () => {
+  for (const [start, target] of [[0, 900], [600, 200], [95, 97], [97, 95]]) {
+    let position = start;
+    for (let frame = 0; frame < 120; frame++) {
+      const next = Math.round(advanceScrollTop(position, target, 16));
+      assert.ok(next >= Math.min(start, target) && next <= Math.max(start, target));
+      position = next;
+    }
+    assert.equal(position, target, "integer scroll positions still reach the destination");
+  }
+  assert.ok(advanceScrollTop(0, 600, 32) > advanceScrollTop(0, 600, 16));
+  assert.equal(advanceScrollTop(0, 600, 10000), advanceScrollTop(0, 600, 64), "a delayed frame cannot cause a sudden jump");
+  let position = 0;
+  for (let frame = 0; frame < 120; frame++) {
+    const target = frame < 30 ? 300 : 600;
+    const next = advanceScrollTop(position, target, 16);
+    assert.ok(next >= position && next <= target, "a new line updates the running animation rather than restarting it");
+    position = next;
+  }
+  assert.equal(position, 600);
 });
 
 test("the whole approved plan has a coherent task, booking and decision structure", () => {

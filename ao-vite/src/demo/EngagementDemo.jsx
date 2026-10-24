@@ -2,7 +2,7 @@ import React, { useEffect, useId, useLayoutEffect, useRef, useState } from "reac
 import { capture, useVisualDwell } from "../analytics";
 import DemoArtifact from "./DemoArtifacts.jsx";
 import { contexts, resolveDemoSource, stories } from "./northstar.js";
-import { activityAt, conversationAt, demoVisibleAt, followScrollTop, playbackFrameAt, playbackRate, textAt } from "./demoPlayback.js";
+import { activityAt, advanceScrollTop, conversationAt, demoVisibleAt, followScrollTop, playbackFrameAt, playbackRate, textAt } from "./demoPlayback.js";
 import "./engagement-demo.css";
 
 function Icon({ name, ...props }) {
@@ -24,30 +24,63 @@ function useReducedMotion() {
 function useConversationFollow(feed, elapsed, enabled, complete) {
   const current = useRef({ elapsed, enabled, complete });
   current.current = { elapsed, enabled, complete };
+  const motion = useRef({ frame: null, goal: 0, at: 0, target: null });
+  const stop = () => {
+    cancelAnimationFrame(motion.current.frame);
+    Object.assign(motion.current, { frame: null, goal: feed.current?.scrollTop || 0, at: 0, target: null });
+  };
+  const animate = (now) => {
+    const element = feed.current;
+    const state = motion.current;
+    if (!element || !current.current.enabled) { stop(); return; }
+    const goal = Math.max(0, Math.min(state.goal, element.scrollHeight - element.clientHeight));
+    const top = advanceScrollTop(element.scrollTop, goal, state.at ? now - state.at : 16);
+    state.at = now;
+    element.scrollTo({ top, behavior: "instant" });
+    if (Math.abs(element.scrollTop - goal) <= 1) {
+      element.scrollTo({ top: goal, behavior: "instant" });
+      state.frame = null;
+      state.at = 0;
+    } else state.frame = requestAnimationFrame(animate);
+  };
+  const moveTo = (top) => {
+    const state = motion.current;
+    state.goal = top;
+    if (state.frame === null && Math.abs(feed.current.scrollTop - top) > .5) state.frame = requestAnimationFrame(animate);
+  };
   const follow = () => {
     const element = feed.current;
     if (!element || !current.current.enabled) return;
     if (current.current.complete) {
-      // Include the artifact footer and feed padding, beyond the last timed row.
-      const top = followScrollTop({ complete: true, maxScrollTop: element.scrollHeight - element.clientHeight });
-      element.scrollTo({ top, behavior: "smooth" });
+      moveTo(followScrollTop({ complete: true, maxScrollTop: element.scrollHeight - element.clientHeight }));
       return;
     }
-    // Explicit narrative timestamps follow the content actually being developed.
-    // DOM order alone is misleading in columns and in reserved, still-empty slots.
-    const target = [...element.querySelectorAll("[data-follow-at]")]
-      .filter(node => Number(node.dataset.followAt) <= current.current.elapsed && node.textContent.trim())
-      .sort((a, b) => Number(b.dataset.followAt) - Number(a.dataset.followAt))[0];
+    // Past exchanges and their frozen artifacts cannot reclaim the scroll.
+    const exchange = element.querySelector(".demo-conversation > .demo-exchange:last-child");
+    let target = null, latestAt = -Infinity;
+    for (const node of exchange?.querySelectorAll("[data-follow-at]") || []) {
+      const at = Number(node.dataset.followAt);
+      if (at <= current.current.elapsed && at >= latestAt && node.textContent.trim()) { target = node; latestAt = at; }
+    }
     if (!target) return;
     const bounds = element.getBoundingClientRect();
     const content = target.getBoundingClientRect();
-    const top = followScrollTop({ scrollTop: element.scrollTop, viewportHeight: element.clientHeight, targetTop: content.top - bounds.top + element.scrollTop, targetBottom: content.bottom - bounds.top + element.scrollTop, maxScrollTop: element.scrollHeight - element.clientHeight });
-    if (Math.abs(top - element.scrollTop) > 2) element.scrollTo({ top, behavior: "smooth" });
+    // An artifact's first frame reveals its opening, rather than all its reserved
+    // document space. Subsequent timestamps follow the actual text/rows growing.
+    const height = target.dataset.followKind === "entry" ? Math.min(content.height, element.clientHeight * .45) : content.height;
+    const state = motion.current;
+    const top = followScrollTop({ scrollTop: state.frame === null ? element.scrollTop : state.goal, viewportHeight: element.clientHeight, targetTop: content.top - bounds.top + element.scrollTop, targetBottom: content.top - bounds.top + element.scrollTop + height, maxScrollTop: element.scrollHeight - element.clientHeight, newTarget: target !== state.target });
+    state.target = target;
+    moveTo(top);
   };
   const followRef = useRef(follow);
   followRef.current = follow;
-  const beat = Math.floor(elapsed / 160);
-  useLayoutEffect(() => followRef.current(), [beat, enabled, complete]);
+  useLayoutEffect(() => followRef.current(), [elapsed, enabled, complete]);
+  useEffect(() => {
+    if (enabled) followRef.current();
+    else stop();
+    return stop;
+  }, [enabled]);
   useEffect(() => {
     const observer = new ResizeObserver(() => followRef.current());
     observer.observe(feed.current);
@@ -187,7 +220,7 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
               {conversation.exchanges.map(exchange => <div className="demo-exchange" key={exchange.key} data-exchange={exchange.key}>
                 <div className="demo-user-message" data-follow-at={exchange.sentAt}>{exchange.prompt}</div><div className="demo-agent-response"><div className="demo-agent-name"><img src="/brand/logo-mark.svg" alt="" />AllianceOne</div><p data-follow-at={exchange.answerAt}>{textAt(exchange.answer, elapsed, exchange.answerAt, exchange.answerDuration || 1100) || <span className="demo-working"><i className="build-pulse" />{activityAt(story, elapsed)}</span>}</p></div>
                 {exchange.sources && elapsed >= exchange.answerAt + exchange.answerDuration && <div className="demo-response-sources" data-follow-at={exchange.answerAt + exchange.answerDuration}>{exchange.sources.map(item => <button key={item.key} onClick={() => inspect(item.key)}>{item.label} <span aria-hidden="true">↗</span></button>)}</div>}
-                {exchange.artifact && elapsed >= exchange.artifactAt && <div className="demo-artifact-container"><DemoArtifact type={exchange.artifact} elapsed={exchange.artifactElapsed} onInspect={inspect} /></div>}
+                {exchange.artifact && elapsed >= exchange.artifactAt && <div className="demo-artifact-container" data-follow-at={exchange.artifactAt} data-follow-kind="entry"><DemoArtifact type={exchange.artifact} elapsed={exchange.artifactElapsed} onInspect={inspect} /></div>}
               </div>)}
             </div>
           </div>
