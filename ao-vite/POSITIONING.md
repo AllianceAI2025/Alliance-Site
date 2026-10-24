@@ -2,12 +2,15 @@
 
 ## Current rules (align with the investor business case)
 
-- **One-liner:** *Frontier models know how to reason. AllianceOne knows how
-  your firm works.*
-- **Ownership:** AllianceOne is the system of record for how your firm works:
-  its methods, standards, and precedent, plus the engagement's accepted scope,
-  approved plan, and the rationale for every change. CRM, PSA, document, and
-  finance systems remain authoritative for the facts they own.
+- **Product definition:** AllianceOne connects firm methods, intellectual property,
+  practitioner judgment and engagement history with scoping, staffing, planning
+  and delivery. The application maintains the approved engagement context around
+  the models; it does not claim general-purpose platforms cannot retrieve, reason
+  or act across systems.
+- **Ownership:** AllianceOne is being built to maintain an approved engagement
+  record connecting firm methods, standards and precedent with accepted scope,
+  the approved plan and the rationale for authorized changes. CRM, PSA, document
+  and finance systems remain authoritative for the records they own.
 - **Models:** AllianceOne uses frontier models (OpenAI, Anthropic, Google).
   Don't claim how model changes are evaluated or released, don't claim model
   improvements automatically make AllianceOne better, and don't claim
@@ -18,6 +21,9 @@
   product's stage beyond "we are looking for design partners."
 - **Vocabulary:** prefer the business case's terms: *firm knowledge*,
   *engagement record*, *approved baseline*.
+
+The exploration registers below preserve earlier positioning work. The current
+rules above and the September 2026 business case govern public product claims.
 
 ## The spine (the one idea everything flows from)
 

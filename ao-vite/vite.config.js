@@ -4,7 +4,7 @@ import { fileURLToPath, URL } from "node:url";
 
 // base "/" because the site serves from the root of a custom domain.
 // If hosting at user.github.io/repo-name instead, change to "/repo-name/".
-// Multi-page build: corporate landing, product, walkthrough, and security.
+// Distinct Home, Product, Solutions, Company and design-partner destinations.
 // /platform/ is a static redirect to /allianceone/ kept for old links.
 export default defineConfig({
   plugins: [react()],
@@ -18,6 +18,7 @@ export default defineConfig({
         designPartners: fileURLToPath(new URL("./design-partners/index.html", import.meta.url)),
         company: fileURLToPath(new URL("./company/index.html", import.meta.url)),
         howItWorks: fileURLToPath(new URL("./how-it-works/index.html", import.meta.url)),
+        solutions: fileURLToPath(new URL("./solutions/index.html", import.meta.url)),
         security: fileURLToPath(new URL("./security/index.html", import.meta.url)),
       },
     },

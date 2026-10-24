@@ -11,6 +11,7 @@ export function getPageName() {
   if (path.startsWith("/allianceone")) return "allianceone";
   if (path.startsWith("/platform")) return "platform";
   if (path.startsWith("/how-it-works")) return "how_it_works";
+  if (path.startsWith("/solutions")) return "solutions";
   if (path.startsWith("/security")) return "security";
   if (path.startsWith("/company")) return "company";
   return path.replace(/^\//, "") || "home";

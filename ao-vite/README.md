@@ -20,40 +20,57 @@ The existing dev server uses http://localhost:5176. The build produces `dist/`.
 
 ## Product story and business-case alignment
 
-The landing page keeps the three Scope, Plan and Deliver demonstrations. Two
-editorial sections bring the useful parts of Main's Explore AllianceOne
-(`PlatformPage.jsx`) and How It Works (`App.jsx`) into that sequence:
+The site now has four distinct destinations. "Solutions" is the working name
+for the engagement-workflow page formerly called How It Works.
 
-- **Firm knowledge at the point of work:** current methods and IP, the people
-  and reasoning behind prior delivery, and the current client's context. This
-  broadens the story beyond historical-document retrieval.
-- **What was promised and what was delivered stay connected:** an approved
-  engagement record, PSA plan writeback and readback, signals compared with the
-  baseline, and reviewed experience available to subsequent teams. CRM, PSA,
-  documents and finance keep authority over the records they own.
+| Destination | Content and source |
+| --- | --- |
+| Home | The existing autonomous Scope, Plan and Deliver demonstrations, a concise product introduction, ASG and the design-partner invitation. |
+| Product (`/allianceone/`) | Main's Explore AllianceOne: firm IP, methods, templates, precedent, people and review reasoning; approved engagement state; source-system ownership; the application around frontier models; engagement value; applicable practices and product questions. |
+| Solutions (`/solutions/`) | Main's How It Works plus relevant Explore material: opportunity ownership, context and precedent; resource fit and availability before proposal approval; accepted scope and planning; approved PSA writeback/readback; consultant assignment, review and export; delivery signals, decisions and reviewed future reuse. |
+| Company (`/company/`) | Alliance Systems Group's software and services, systems integration, practice configuration, workflow design, adoption and the bounded implementation approach. |
+
+Product explains what AllianceOne maintains. Solutions explains how practitioners
+use it. The pages deliberately retain substantial content for review and later
+editing, rather than repeating the homepage or compressing the business into
+feature labels. They preserve useful Main headlines and the business case's
+terms: firm knowledge, engagement record and approved baseline.
 
 The content follows the September 2026 investor business case, particularly
 sections 3 (customer value), 4 (knowledge and the engagement loop), 7.4–7.5
 (the consulting workflow around frontier AI), 8.1 (bounded first deployment)
-and 10.1 (access and human approval). Capturing conversations, decisions and
-revisions is part of doing the work; reviewing a lesson before future reuse is
-distinct from asking a consultant to manually submit one.
+and 10.1 (access and human approval). Current practice knowledge includes
+frameworks, diagnostic tools, training, publications and practitioner judgment,
+as well as historical engagement evidence.
 
-The design-partner invitation starts with one practice, one recurring engagement
-type and one PSA/project system, with benefit and review criteria agreed together.
-The page describes the intended product workflow. The demos remain local fixtures;
-the copy does not claim proven customer savings, production-wide connector
-availability, certified controls or automatic improvement from unreviewed data.
-The confidential business case itself is not bundled or linked from the website.
-The linked Security page describes production requirements and design-partner
-validation, rather than presenting planned access or AI-quality controls as
-already established in production.
+The public sequence remains Scope, Plan and Deliver. Materializing the approved
+plan is part of Plan; reconciliation and reviewed experience continue through
+delivery and into the next engagement. Capturing conversations, decisions and
+revisions is part of doing the work. Practitioners review lessons before future
+reuse; the application does not ask a consultant to manually "admit" one in chat.
+Staffing capability and current availability are checked during pursuit, before
+commercial commitments are accepted.
+
+The Northstar, Harbor and Meridian examples remain fictional. Product illustrations
+are readable static views, the knowledge explorer and signal examples are local
+controls, and the homepage demos keep their existing scripted playback. None
+claims a live connector or production authorization boundary. The confidential
+business case is not bundled or linked. No customer ROI, certifications,
+universal connectors or automatic improvement from unreviewed data is claimed.
 
 ## Where to edit
 
-- `src/LandingPage.jsx` and `src/landing.css`: page composition, copy and the
-  Main brand palette: ink, bone, paper and signature lime. Dark demo surrounds,
-  light document surfaces and restrained green accents replace decorative grids.
+- `src/LandingPage.jsx`: the demo-led homepage.
+- `src/PlatformPage.jsx`: the Product / Explore AllianceOne page.
+- `src/SolutionsPage.jsx`: the engagement-workflow Solutions page.
+- `src/CompanyPage.jsx`: the company and implementation story.
+- `src/content/siteContent.js`: shared navigation and the fuller public content.
+- `src/PageParts.jsx`: shared page shell, knowledge explorer, readable precedent,
+  approved-record, resource-plan, writeback, assessment and agent-signal views.
+- `src/studio.css`: marketing composition, Instrument Serif display typography,
+  Inter reading text, light product windows, ink / warm-white / signature lime.
+- `src/Site.jsx` and `src/site-chrome.css`: floating page navigation, selected
+  states, responsive menu, shared footer and the existing partner form.
 - `src/demo/northstar.js`: the three prompts, responses, sources, people, accepted
   commitment and connected record. This is the fictional data contract.
 - `src/demo/engagementPlan.js`: the complete approved work breakdown and independent
@@ -197,12 +214,31 @@ The Word builder uses Python with `python-docx`. Regenerate with
 such as LibreOffice; the Windows workspace currently has no bundled renderer.
 The report content and OOXML package are checked separately from browser QA.
 
+## Review checks for the page redesign
+
+- All 24 existing demo tests pass; the multi-page production build includes
+  the new Solutions destination and its legacy alias.
+- Home, Product, Solutions, Company, Design partners, Security and the legacy
+  How It Works route were checked at phone width, with no horizontal page overflow
+  or unresolved internal section links.
+- Product's knowledge controls support keyboard selection. Delivery signal
+  examples switch context without leaving the page; questions use native disclosures.
+- Scope, Plan and Deliver were run through completion in the new shell. Plan's
+  complete write/readback and Avery's review/revision/approved Word export remain
+  intact, each feed reaches its bottom, and leaving resets the finished example.
+- The resource-plan and report illustrations use separate class names from the
+  animated artifacts. The tablet demo retains its full width with navigation collapsed.
+
 ## Routes and publishing
 
-`/` includes the three demonstrations, product explanation, Alliance Systems Group
-and the design partner invitation. `/allianceone/` and `/how-it-works/` retain the
-same three examples without the company section. `/company/`, `/security/` and
-`/design-partners/` remain available; `/platform/` redirects to `/allianceone/`.
+`/` is the demo-led homepage. `/allianceone/` is Product; `/solutions/` is
+Solutions; `/company/` is Company. Each has a distinct navigation state and content.
+`/how-it-works/` remains a working legacy URL for Solutions and declares
+`/solutions/` as its canonical URL. `/platform/` redirects to `/allianceone/`.
+`/security/` and `/design-partners/` remain available with the shared navigation.
+Cross-page section links resolve after React mounts. Legacy loop / execution /
+materialization / learning anchors resolve to their corresponding Solutions content.
+The homepage's `#demo`, `#plan-demo` and `#deliver-demo` anchors remain stable.
 
 GitHub Actions publishes pushes to `main`. Changes on `refactor` remain a branch
 preview until merged. Do not run `npm run deploy` for branch review.

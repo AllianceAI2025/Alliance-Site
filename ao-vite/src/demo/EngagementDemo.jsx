@@ -205,7 +205,7 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
         <>
           {sidebarOpen && <button className="demo-sidebar-scrim" aria-label="Close engagement navigation" onClick={() => setSidebarOpen(false)} />}
           <aside className="demo-sidebar" id={`${id}-sidebar`} aria-label="Demo engagements">
-            <div className="demo-sidebar-brand"><img src="/brand/logo-mark-dark.svg" alt="" /><span>AllianceOne</span><button className="demo-sidebar-close" aria-label="Close engagement sidebar" onClick={() => setSidebarOpen(false)}><Icon name="close" /></button></div>
+            <div className="demo-sidebar-brand"><img src="/brand/logo-mark.svg" alt="" /><span>AllianceOne</span><button className="demo-sidebar-close" aria-label="Close engagement sidebar" onClick={() => setSidebarOpen(false)}><Icon name="close" /></button></div>
             <p className="demo-sidebar-label">Engagements</p>
             <div className="demo-northstar-row"><button className="demo-engagement-name" onClick={() => inspect("discovery")}><Icon name="folder" />Northstar Foods</button><button className="demo-thread-toggle" aria-label="Toggle Northstar Foods threads" aria-expanded={threadsOpen} aria-controls={`${id}-threads`} onClick={() => setThreadsOpen(!threadsOpen)}><Icon name="chevron" className={threadsOpen ? "is-expanded" : ""} /></button></div>
             {threadsOpen && <nav className="demo-thread-list" id={`${id}-threads`} aria-label="Northstar Foods threads">{Object.entries(stories).filter(([key]) => !story.threads || story.threads.includes(key)).map(([key, item]) => <a key={key} href={`#${key}`} aria-current={key === phase ? "page" : undefined} onClick={() => setSidebarOpen(false)}>{item.thread}</a>)}</nav>}

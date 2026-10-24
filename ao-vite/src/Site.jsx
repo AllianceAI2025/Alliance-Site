@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { capture, identifyVisitor } from "./analytics";
+import { navigation } from "./content/siteContent.js";
 import "./site-chrome.css";
 
 export const DESIGN_PARTNER_EMAIL = "cole.miska@myalliance.ai";
@@ -29,7 +30,7 @@ export function useFonts() {
     const link = document.createElement("link");
     link.id = "ao-fonts";
     link.rel = "stylesheet";
-    link.href = "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@400;500;600&display=swap";
+    link.href = "https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@400;500;600&display=swap";
     document.head.appendChild(link);
   }, []);
 }
@@ -81,6 +82,8 @@ export function AnchorLink({ id, children, onNavigate, ...props }) {
 
 export function Nav({ onCta, dark = false }) {
   const [open, setOpen] = useState(false);
+  const path = typeof window === "undefined" ? "/" : window.location.pathname;
+  const page = path === "/" ? "home" : /^\/(allianceone|platform)(\/|$)/.test(path) ? "product" : /^\/(solutions|how-it-works)(\/|$)/.test(path) ? "solutions" : path.startsWith("/company") ? "company" : null;
   useEffect(() => {
     if (!open) return;
     const dismiss = (event) => { if (event.key === "Escape") setOpen(false); };
@@ -93,22 +96,20 @@ export function Nav({ onCta, dark = false }) {
     <div className="quiet-nav-inner">
       <a href="/" className="quiet-brand" aria-label="AllianceOne home"><LogoMark size={31} light={dark} /><span>AllianceOne</span></a>
       <nav className="quiet-desktop-nav" aria-label="Main navigation">
-        <a href="/#product">Product</a>
-        <a href="/#how-it-works">How it works</a>
-        <a href="/#company">Company</a>
-        <button onClick={inquire}>Become a design partner</button>
+        {navigation.map((item) => <a key={item.key} href={item.href} aria-current={page === item.key ? "page" : undefined}>{item.label}</a>)}
       </nav>
+      <button className="quiet-partner-button" onClick={inquire}>Become a design partner <span aria-hidden="true">↗</span></button>
       <button className="quiet-menu" onClick={() => { capture(open ? "mobile_menu_closed" : "mobile_menu_opened"); setOpen(!open); }} aria-expanded={open} aria-label={open ? "Close menu" : "Open menu"} aria-controls="mobile-navigation">{open ? "Close" : "Menu"}</button>
     </div>
     {open && <nav id="mobile-navigation" className="quiet-mobile-nav" aria-label="Mobile navigation">
-      <a href="/#product" onClick={() => setOpen(false)}>Product</a><a href="/#how-it-works" onClick={() => setOpen(false)}>How it works</a><a href="/#company" onClick={() => setOpen(false)}>Company</a>
+      {navigation.map((item) => <a key={item.key} href={item.href} aria-current={page === item.key ? "page" : undefined} onClick={() => setOpen(false)}>{item.label}</a>)}
       <button onClick={inquire}>Become a design partner</button>
     </nav>}
   </header>;
 }
 
 export function Footer({ onCta }) {
-  return <footer className="site-footer quiet-footer"><div className="quiet-footer-inner"><a className="quiet-company-mark" href="/company/" aria-label="Alliance Systems Group"><img src="/brand/asg/alliance-systems-group-mark-refined.png" alt="" /><span>Alliance<small>Systems Group</small></span></a><nav aria-label="Footer navigation"><a href="/allianceone/">AllianceOne</a><a href="/how-it-works/#how-it-works">How it works</a><a href="/security/">Security</a><button onClick={() => { capture("cta_clicked", { location: "footer" }); onCta(); }}>Design partners</button><a href="mailto:hello@myalliance.ai">Contact</a></nav><div className="quiet-footer-base"><span>AllianceOne is a product of Alliance Systems Group Inc.</span><span>© 2026 Alliance Systems Group Inc.</span></div></div></footer>;
+  return <footer className="site-footer quiet-footer"><div className="quiet-footer-inner"><a className="quiet-company-mark" href="/company/" aria-label="Alliance Systems Group"><img src="/brand/asg/alliance-systems-group-mark-refined.png" alt="" /><span>Alliance<small>Systems Group</small></span></a><nav aria-label="Footer navigation"><a href="/allianceone/">Product</a><a href="/solutions/">Solutions</a><a href="/company/">Company</a><button onClick={() => { capture("cta_clicked", { location: "footer" }); onCta(); }}>Design partners</button><a href="mailto:hello@myalliance.ai">Contact</a></nav><div className="quiet-footer-base"><span>AllianceOne is a product of Alliance Systems Group Inc.</span><div><a href="/security/">Security</a><span>© 2026 Alliance Systems Group Inc.</span></div></div></div></footer>;
 }
 
 export function PartnerForm() {
