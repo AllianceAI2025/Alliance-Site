@@ -94,20 +94,21 @@ export function Nav({ onCta, dark = false }) {
       <a href="/" className="quiet-brand" aria-label="AllianceOne home"><LogoMark size={31} light={dark} /><span>AllianceOne</span></a>
       <nav className="quiet-desktop-nav" aria-label="Main navigation">
         <a href="/#product">Product</a>
+        <a href="/#how-it-works">How it works</a>
         <a href="/#company">Company</a>
         <button onClick={inquire}>Become a design partner</button>
       </nav>
       <button className="quiet-menu" onClick={() => { capture(open ? "mobile_menu_closed" : "mobile_menu_opened"); setOpen(!open); }} aria-expanded={open} aria-label={open ? "Close menu" : "Open menu"} aria-controls="mobile-navigation">{open ? "Close" : "Menu"}</button>
     </div>
     {open && <nav id="mobile-navigation" className="quiet-mobile-nav" aria-label="Mobile navigation">
-      <a href="/#product" onClick={() => setOpen(false)}>Product</a><a href="/#company" onClick={() => setOpen(false)}>Company</a>
+      <a href="/#product" onClick={() => setOpen(false)}>Product</a><a href="/#how-it-works" onClick={() => setOpen(false)}>How it works</a><a href="/#company" onClick={() => setOpen(false)}>Company</a>
       <button onClick={inquire}>Become a design partner</button>
     </nav>}
   </header>;
 }
 
 export function Footer({ onCta }) {
-  return <footer className="site-footer quiet-footer"><div className="quiet-footer-inner"><a className="quiet-company-mark" href="/company/" aria-label="Alliance Systems Group"><img src="/brand/asg/alliance-systems-group-mark-refined.png" alt="" /><span>Alliance<small>Systems Group</small></span></a><nav aria-label="Footer navigation"><a href="/allianceone/">AllianceOne</a><a href="/how-it-works/">The demo</a><a href="/security/">Security</a><button onClick={() => { capture("cta_clicked", { location: "footer" }); onCta(); }}>Design partners</button><a href="mailto:hello@myalliance.ai">Contact</a></nav><div className="quiet-footer-base"><span>AllianceOne is a product of Alliance Systems Group Inc.</span><span>© 2026 Alliance Systems Group Inc.</span></div></div></footer>;
+  return <footer className="site-footer quiet-footer"><div className="quiet-footer-inner"><a className="quiet-company-mark" href="/company/" aria-label="Alliance Systems Group"><img src="/brand/asg/alliance-systems-group-mark-refined.png" alt="" /><span>Alliance<small>Systems Group</small></span></a><nav aria-label="Footer navigation"><a href="/allianceone/">AllianceOne</a><a href="/how-it-works/#how-it-works">How it works</a><a href="/security/">Security</a><button onClick={() => { capture("cta_clicked", { location: "footer" }); onCta(); }}>Design partners</button><a href="mailto:hello@myalliance.ai">Contact</a></nav><div className="quiet-footer-base"><span>AllianceOne is a product of Alliance Systems Group Inc.</span><span>© 2026 Alliance Systems Group Inc.</span></div></div></footer>;
 }
 
 export function PartnerForm() {

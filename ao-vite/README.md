@@ -18,6 +18,37 @@ npm run build
 The existing dev server uses http://localhost:5176. The build produces `dist/`.
 `npm run preview` serves a production build. No dependencies were added for motion.
 
+## Product story and business-case alignment
+
+The landing page keeps the three Scope, Plan and Deliver demonstrations. Two
+editorial sections bring the useful parts of Main's Explore AllianceOne
+(`PlatformPage.jsx`) and How It Works (`App.jsx`) into that sequence:
+
+- **Firm knowledge at the point of work:** current methods and IP, the people
+  and reasoning behind prior delivery, and the current client's context. This
+  broadens the story beyond historical-document retrieval.
+- **What was promised and what was delivered stay connected:** an approved
+  engagement record, PSA plan writeback and readback, signals compared with the
+  baseline, and reviewed experience available to subsequent teams. CRM, PSA,
+  documents and finance keep authority over the records they own.
+
+The content follows the September 2026 investor business case, particularly
+sections 3 (customer value), 4 (knowledge and the engagement loop), 7.4–7.5
+(the consulting workflow around frontier AI), 8.1 (bounded first deployment)
+and 10.1 (access and human approval). Capturing conversations, decisions and
+revisions is part of doing the work; reviewing a lesson before future reuse is
+distinct from asking a consultant to manually submit one.
+
+The design-partner invitation starts with one practice, one recurring engagement
+type and one PSA/project system, with benefit and review criteria agreed together.
+The page describes the intended product workflow. The demos remain local fixtures;
+the copy does not claim proven customer savings, production-wide connector
+availability, certified controls or automatic improvement from unreviewed data.
+The confidential business case itself is not bundled or linked from the website.
+The linked Security page describes production requirements and design-partner
+validation, rather than presenting planned access or AI-quality controls as
+already established in production.
+
 ## Where to edit
 
 - `src/LandingPage.jsx` and `src/landing.css`: page composition, copy and the
