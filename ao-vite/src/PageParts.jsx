@@ -17,7 +17,7 @@ export function PageShell({ page, dark = false, children }) {
 }
 
 export function PartnerInvitation() {
-  return <Track name="design_partners" className="studio-partner"><div className="studio-container studio-partner-inner"><h2>We are looking for a small{" "}<br />number of design partners.</h2><p>We’re inviting consulting and advisory firms to get early access, work directly with our team, and have a say in how AllianceOne develops.</p><a className="studio-button studio-button--green" href="/design-partners/" onClick={() => capture("cta_clicked", { location: "page_cta" })}>Discuss a design partnership <span aria-hidden="true">↗</span></a><p className="studio-partner-detail">One practice. One recurring engagement type. One PSA or project system.{" "}<br />The intended benefit and review criteria are agreed together.</p></div></Track>;
+  return <Track name="design_partners" className="studio-partner"><div className="studio-container studio-partner-inner"><h2>We are looking for a small{" "}<br />number of design partners.</h2><p>We’re inviting consulting and advisory firms to get early access, work directly with our team, and have a say in how AllianceOne develops.</p><a className="studio-button studio-button--green" href="/design-partners/" onClick={() => capture("cta_clicked", { location: "page_cta" })}>Discuss a design partnership <span aria-hidden="true">↗</span></a></div></Track>;
 }
 
 export function CompanyOverview({ detailed = false }) {
