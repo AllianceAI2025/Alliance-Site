@@ -21,6 +21,7 @@ export default function LandingPage() {
     <Track name="home_hero" className="studio-home-hero studio-dark-field">
       <div className="studio-container studio-home-heading">
         <h1>Firm knowledge at{" "}<br />the point of work.</h1>
+        <p>AllianceOne connects your firm’s methods, intellectual property, practitioner judgment and engagement history with how teams scope, staff, plan and deliver client work.</p>
       </div>
     </Track>
     <DemoSection phase="scope" label="Scope" primary>

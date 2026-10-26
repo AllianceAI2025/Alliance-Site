@@ -61,8 +61,10 @@ universal connectors or automatic improvement from unreviewed data is claimed.
 ## Where to edit
 
 - `src/LandingPage.jsx`: the homepage hero and shared text / demo section structure.
-- `src/home.css`: the warm-white / deep-green / warm-white Home chapters, with
-  text beside the demo above 1100px and stacked introductions on narrower screens.
+- `src/home.css`: the restored hero introduction and varied Home chapters: featured
+  Scope, reversed Plan and centered Deliver. Side layouts remain above 860px;
+  container queries adapt application navigation and artifacts to each window’s
+  available width. Phone and tablet introductions stack above the demonstrations.
 - `src/PlatformPage.jsx`: the Product / Explore AllianceOne page.
 - `src/SolutionsPage.jsx`: the engagement-workflow Solutions page.
 - `src/CompanyPage.jsx`: the company and implementation story.
