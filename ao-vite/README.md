@@ -25,7 +25,7 @@ for the engagement-workflow page formerly called How It Works.
 
 | Destination | Content and source |
 | --- | --- |
-| Home | The existing autonomous Scope, Plan and Deliver demonstrations, a concise product introduction, ASG and the design-partner invitation. |
+| Home | A separate brand hero followed by Scope, Plan and Deliver demonstrations, concise explanations, ASG and the design-partner invitation. |
 | Product (`/allianceone/`) | Main's Explore AllianceOne: firm IP, methods, templates, precedent, people and review reasoning; approved engagement state; source-system ownership; the application around frontier models; engagement value; applicable practices and product questions. |
 | Solutions (`/solutions/`) | Main's How It Works plus relevant Explore material: opportunity ownership, context and precedent; resource fit and availability before proposal approval; accepted scope and planning; approved PSA writeback/readback; consultant assignment, review and export; delivery signals, decisions and reviewed future reuse. |
 | Company (`/company/`) | Alliance Systems Group's software and services, systems integration, practice configuration, workflow design, adoption and the bounded implementation approach. |
@@ -60,7 +60,9 @@ universal connectors or automatic improvement from unreviewed data is claimed.
 
 ## Where to edit
 
-- `src/LandingPage.jsx`: the demo-led homepage.
+- `src/LandingPage.jsx`: the homepage hero and shared text / demo section structure.
+- `src/home.css`: the warm-white / deep-green / warm-white Home chapters, with
+  text beside the demo above 1100px and stacked introductions on narrower screens.
 - `src/PlatformPage.jsx`: the Product / Explore AllianceOne page.
 - `src/SolutionsPage.jsx`: the engagement-workflow Solutions page.
 - `src/CompanyPage.jsx`: the company and implementation story.

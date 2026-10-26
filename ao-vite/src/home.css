@@ -1,0 +1,145 @@
+.studio-home-hero {
+  padding: 112px 0 40px;
+}
+
+.studio-home-heading {
+  max-width: 920px;
+  text-align: center;
+}
+
+.studio-page .studio-home-heading h1 {
+  color: #fff;
+  font-size: clamp(58px, 5.4vw, 76px);
+  line-height: .94;
+  letter-spacing: -.02em;
+}
+
+.studio-home-scene {
+  padding: 80px 0;
+  background: var(--studio-canvas);
+}
+
+.studio-home-scene--scope {
+  padding-top: 40px;
+}
+
+.studio-demo-layout {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 40px;
+  align-items: start;
+}
+
+.studio-demo-layout > .engagement-demo {
+  min-width: 0;
+}
+
+.studio-demo-intro {
+  padding-top: 72px;
+  text-align: left;
+}
+
+.studio-page .studio-demo-intro > h2 {
+  margin: 0 0 16px;
+  color: var(--studio-ink);
+  font-family: "Inter Tight", Inter, "Segoe UI", sans-serif;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -.025em;
+}
+
+.studio-demo-intro > p {
+  margin: 0;
+  color: var(--studio-muted);
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.studio-home-scene--plan {
+  background: radial-gradient(ellipse at 0% 25%, #86c43d1c, transparent 62%), #10261b;
+}
+
+.studio-home-scene--plan .studio-demo-intro > h2 {
+  color: #fafbf7;
+}
+
+.studio-home-scene--plan .studio-demo-intro > p {
+  color: #bdcdbb;
+}
+
+.studio-home-scene--plan .demo-stage {
+  border-color: #ffffff26;
+  background: #ffffff12;
+  box-shadow: 0 24px 65px #0002;
+}
+
+@media (max-width: 1100px) {
+  .studio-home-scene {
+    padding-block: 64px;
+  }
+
+  .studio-home-scene--scope {
+    padding-top: 40px;
+  }
+
+  .studio-demo-layout {
+    display: block;
+  }
+
+  .studio-demo-intro {
+    display: grid;
+    grid-template-columns: 160px minmax(0, 1fr);
+    gap: 24px;
+    padding-top: 0;
+    margin: 0 8px 24px;
+  }
+
+  .studio-page .studio-demo-intro > h2 {
+    margin: 0;
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 800px) {
+  .studio-page .studio-home-heading h1 {
+    font-size: 66px;
+  }
+
+  .studio-demo-intro {
+    grid-template-columns: 120px minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .studio-home-hero {
+    padding-top: 116px;
+  }
+
+  .studio-page .studio-home-heading h1 {
+    font-size: clamp(42px, 12vw, 57px);
+    line-height: 1;
+  }
+
+  .studio-home-scene {
+    padding-block: 48px;
+  }
+
+  .studio-home-scene--scope {
+    padding-top: 32px;
+  }
+
+  .studio-demo-intro {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin: 0 5px 20px;
+  }
+
+  .studio-page .studio-demo-intro > h2 {
+    font-size: 24px;
+  }
+
+  .studio-demo-intro > p {
+    font-size: 15px;
+  }
+}
