@@ -65,9 +65,10 @@ export const systemSources = [
 ];
 
 export const productBenefits = [
-  ["Scope with evidence", "Comparable engagements give leaders a basis for testing scope, staffing, effort and pricing assumptions before the firm commits. Preparation begins with the firm's methods and relevant experience, with gaps and differences available for review."],
-  ["Deliver with control", "Approved commitments stay connected to assignments, milestones, decisions and available actuals. Managers can examine where delivery diverges, understand the supporting context and decide whether to change staffing, sequence or scope."],
-  ["Build proof into the proposition", "Methods and points of view remain connected to the situations in which they were applied and the results observed. That evidence gives a firm a stronger basis for explaining its expertise and the value of its approach to a new client."],
+  ["More realistic commitments.", "Client conditions, firm methods, comparable work and current resource availability give leaders a basis for testing scope, staffing, effort and pricing assumptions before committing. Gaps and differences remain available for review."],
+  ["Act sooner when delivery drifts.", "Time, milestones, client changes and available financial actuals return from selected firm systems and are compared with the approved plan. Managers can examine causes, affected commitments and context before authorizing changes to scope, resources or sequence."],
+  ["Every engagement informs the next.", "Decisions, review changes and observed results stay connected to client conditions and supporting sources. Practitioners review lessons and limits of permitted reuse before that experience informs new scopes, plans and delivery."],
+  ["Build proof into the proposition.", "Methods and points of view stay connected to the conditions in which they were applied and the results observed. That evidence helps the firm explain its expertise, support proposals and discuss the value behind its fees."],
 ];
 
 export const firmTypes = [

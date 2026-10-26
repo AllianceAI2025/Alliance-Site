@@ -1,51 +1,70 @@
-.studio-product-ways {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 44px;
-  margin-bottom: 44px;
-}
-
-.studio-page .studio-product-ways h3 {
-  margin: 0 0 14px;
-  color: #213d29;
-  font-family: "Inter Tight", Inter, "Segoe UI", sans-serif;
-  font-size: 21px;
-  font-weight: 500;
-  line-height: 1.25;
-  letter-spacing: -.025em;
-}
-
-.studio-product-ways p {
-  margin: 0;
-  color: #62705e;
-  font-size: 15px;
-  line-height: 1.8;
-}
-
-.studio-product-ip-statement {
-  max-width: 860px;
-  margin: 0 0 36px;
-  color: #213d29;
-  font-size: 20px;
-  line-height: 1.65;
-}
-
 .studio-product-knowledge .knowledge-menu span {
   font-size: 14px;
   line-height: 1.75;
 }
 
-@media (max-width: 1100px) {
-  .studio-product-ways { gap: 28px; }
+.studio-page--product .studio-product-hero h1 {
+  font-size: clamp(52px, 4.8vw, 70px);
+}
+
+.product-engagement-overview {
+  margin: 0;
+  padding: 28px;
+  color: var(--studio-ink);
+  background: #fff;
+  border: 1px solid #e3e8df;
+  border-radius: 20px;
+  box-shadow: 0 18px 60px #13251c08;
+}
+
+.product-overview-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.product-overview-top > span { color: #788474; font-size: 11px; }
+.studio-page .product-engagement-overview h3 {
+  margin: 20px 0 10px;
+  font-family: "Inter Tight", Inter, "Segoe UI", sans-serif;
+  font-size: 29px;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -.025em;
+}
+.product-overview-objective { margin: 0; color: #62705e; font-size: 13px; line-height: 1.75; }
+.product-overview-baseline { display: grid; gap: 16px; margin: 22px 0 0; }
+.product-overview-baseline dt { margin: 0 0 5px; color: #788474; font-size: 11px; }
+.product-overview-baseline dd { margin: 0; color: #344b37; font-size: 13px; line-height: 1.7; }
+.product-overview-baseline small { display: block; color: #788474; font-size: 11px; }
+.product-overview-work { margin-top: 22px; padding-top: 20px; border-top: 1px solid #e8ece4; }
+.product-overview-label { margin: 0 0 9px; color: #788474; font-size: 11px; }
+.studio-page .product-overview-work h4 { margin: 0 0 6px; color: #213d29; font-size: 17px; font-weight: 500; line-height: 1.4; }
+.product-overview-byline { margin: 0; color: #788474; font-size: 11px; line-height: 1.75; }
+.product-overview-evidence { margin-top: 16px; font-size: 12px; line-height: 1.75; }
+.product-overview-evidence strong { display: block; color: #344b37; font-weight: 500; }
+.product-overview-evidence span { color: #788474; }
+.product-overview-review { margin: 18px 0 7px; color: #506b46; font-size: 12px; font-weight: 500; }
+.product-overview-conclusion { margin: 0; color: #62705e; font-size: 13px; line-height: 1.75; }
+.product-overview-system { display: flex; align-items: center; gap: 8px; margin-top: 22px; color: #62705e; font-size: 11px; line-height: 1.65; }
+.product-overview-system > img { width: 19px; height: 19px; flex: none; }
+.product-engagement-overview > figcaption { margin-top: 14px; color: #85907e; font-size: 10px; line-height: 1.75; }
+
+.studio-product-deployment {
+  display: grid;
+  grid-template-columns: .8fr 2fr;
+  gap: 48px;
+  margin-top: 48px;
+}
+.studio-page .studio-product-deployment h3 { margin: 0; color: #e5eedc; font-size: 22px; font-weight: 500; line-height: 1.4; }
+.studio-product-deployment p { margin: 0; color: #acbca6; font-size: 15px; line-height: 1.85; }
+
+@media (max-width: 800px) {
+  .studio-product-deployment { grid-template-columns: 1fr; gap: 16px; }
 }
 
 @media (max-width: 600px) {
-  .studio-product-ways {
-    grid-template-columns: 1fr;
-    gap: 28px;
-    margin-bottom: 32px;
-  }
-  .studio-product-ip-statement { font-size: 18px; margin-bottom: 28px; }
+  .studio-page--product .studio-product-hero h1 { font-size: 49px; }
+  .product-engagement-overview { padding: 24px 22px; border-radius: 17px; }
   .studio-product-knowledge .knowledge-menu { display: flex; flex-direction: column; }
   .studio-product-knowledge .knowledge-menu strong { font-size: 15px; }
+}
+
+@media (max-width: 380px) {
+  .studio-page--product .studio-product-hero h1 { font-size: 44px; }
 }

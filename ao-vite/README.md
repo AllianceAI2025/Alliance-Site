@@ -33,14 +33,16 @@ for the engagement-workflow page formerly called How It Works.
 | Destination | Content and source |
 | --- | --- |
 | Home | The hero and Scope, Plan and Deliver demos show the application. Better conditions for delivery completes the loop for firm leadership: more realistic commitments, acting sooner on delivery variance, and reviewed experience informing the next engagement. The closing label connects these benefits to engagement economics and evidence of value. Scope remains separate from the hero. |
-| Product (`/allianceone/`) | The full Preserve the chain explanation introduces Approach / Think / Deliver and the four firm IP categories, integrated with the existing knowledge explorer and examples. Approved engagement state, source-system ownership, the application around frontier models, engagement value and applicable practices follow. |
+| Product (`/allianceone/`) | Firm knowledge leads the hero beside a Northstar overview grounded in the same accepted proposal, approved plan and reviewed assessment as the demos. The IP explorer carries the consolidated methods, templates, precedent and quality explanation. Approved engagement state and source-system ownership follow. The model section includes accountable deployment; benefits use Home's three names plus evidence supporting the firm's proposition. |
 | Solutions (`/solutions/`) | Main's How It Works plus relevant Explore material: opportunity ownership, context and precedent; resource fit and availability before proposal approval; accepted scope and planning; approved PSA writeback/readback; consultant assignment, review and export; delivery signals, decisions and reviewed future reuse. |
 | Company (`/company/`) | Alliance Systems Group's software and services, systems integration, practice configuration, workflow design, adoption and the bounded implementation approach. |
 
 Product explains what AllianceOne maintains. Precedent is part of firm knowledge;
 the approved engagement record and source-system ownership form one connected
-section. The model section closes with “Frontier models know how to reason.
-AllianceOne knows how your firm works.” Solutions explains how practitioners use
+section. The model section retains “Frontier models know how to reason.
+AllianceOne knows how your firm works.” and explains practice configuration,
+validated system mappings, implementation and ongoing support for the selected
+workflow. Solutions explains how practitioners use
 it. Both preserve the business case's terms: firm knowledge, engagement record
 and approved baseline.
 
@@ -74,7 +76,8 @@ universal connectors or automatic improvement from unreviewed data is claimed.
   Container queries adapt application navigation and artifacts to each window’s
   available width. Scope remains the first product surface on narrow screens.
 - `src/PlatformPage.jsx`: the Product / Explore AllianceOne page.
-- `src/product-knowledge.css`: the complete Product explanation and responsive knowledge explorer summaries.
+- `src/ProductEngagementOverview.jsx`: the Product hero's Northstar overview, using shared plan and assessment fixtures without changing the demos.
+- `src/product-knowledge.css`: Product overview, deployment explanation and responsive knowledge explorer summaries.
 - `src/SolutionsPage.jsx`: the engagement-workflow Solutions page.
 - `src/CompanyPage.jsx`: the company and implementation story.
 - `src/content/siteContent.js`: shared navigation and the fuller public content.
