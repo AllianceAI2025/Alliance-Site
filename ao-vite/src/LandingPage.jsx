@@ -37,7 +37,9 @@ export default function LandingPage() {
         </div>
       </div>
     </Track>
-    <DemoSection phase="scope" label="Scope" headline="Start with relevant firm experience." primary />
+    <DemoSection phase="scope" label="Scope" headline="Start with relevant firm experience." primary>
+      Develop the scope and proposal using client context, firm methods, comparable work and current resource availability.
+    </DemoSection>
     <DemoSection phase="plan" label="Plan" headline="Carry the approved plan into delivery.">
       Develop the deliverables, resource allocations, effort, dependencies and review gates. Review the commitments before creating and verifying records in the firm’s PSA or project system.
     </DemoSection>
