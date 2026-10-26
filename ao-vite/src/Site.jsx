@@ -109,7 +109,7 @@ export function Nav({ onCta, dark = false }) {
 }
 
 export function Footer({ onCta }) {
-  return <footer className="site-footer quiet-footer"><div className="quiet-footer-inner"><a className="quiet-company-mark" href="/company/" aria-label="Alliance Systems Group"><img src="/brand/asg/alliance-systems-group-mark-refined.png" alt="" /><span>Alliance<small>Systems Group</small></span></a><nav aria-label="Footer navigation"><a href="/allianceone/">Product</a><a href="/solutions/">Solutions</a><a href="/company/">Company</a><button onClick={() => { capture("cta_clicked", { location: "footer" }); onCta(); }}>Design partners</button><a href="mailto:hello@myalliance.ai">Contact</a></nav><div className="quiet-footer-base"><span>AllianceOne is a product of Alliance Systems Group Inc.</span><div><a href="/security/">Security</a><span>© 2026 Alliance Systems Group Inc.</span></div></div></div></footer>;
+  return <footer className="site-footer quiet-footer"><div className="quiet-footer-inner"><a className="quiet-company-mark" href="/company/" aria-label="Alliance Systems Group"><img src="/brand/asg/alliance-systems-group-mark-refined.png" alt="" /><span>Alliance<small>Systems Group</small></span></a><nav aria-label="Footer navigation"><a href="/allianceone/">Product</a><a href="/solutions/">Solutions</a><a href="/company/">Company</a><button onClick={() => { capture("cta_clicked", { location: "footer" }); onCta(); }}>Design partners</button><a href="mailto:hello@myalliance.ai">Contact</a></nav><div className="quiet-footer-base"><span>AllianceOne is a product of Alliance Systems Group Inc.</span><div><span>© 2026 Alliance Systems Group Inc.</span></div></div></div></footer>;
 }
 
 export function PartnerForm() {

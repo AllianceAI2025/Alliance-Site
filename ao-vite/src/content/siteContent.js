@@ -11,7 +11,7 @@ export const navigation = [
 export const firmKnowledge = [
   {
     id: "methods", title: "Methods and frameworks", short: "How the firm approaches a problem",
-    body: "Your methodologies, proprietary frameworks, diagnostic tools, training and internal publications establish how your firm works. AllianceOne is designed to connect that practice knowledge with the conditions in which it has been applied, so a team can understand which approach fits and how to adapt it.",
+    body: "Your methodologies, proprietary frameworks, diagnostic tools, training and internal publications establish how your firm works. AllianceOne connects that practice knowledge with the conditions in which it has been applied, so a team can understand which approach fits and how to adapt it.",
     exampleTitle: "Ownership and Handoffs", exampleType: "Practice Methods Library",
     example: "Separate observed ownership from a proposed future model. Record the evidence, date and unresolved conflicts before recommending a design.",
     detail: "Prepared by Lena Torres · Reviewed by Sofia Patel",
