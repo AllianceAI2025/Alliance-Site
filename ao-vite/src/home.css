@@ -189,13 +189,6 @@
   margin: 0;
   max-width: 340px;
 }
-.studio-home-value-note {
-  max-width: 860px;
-  margin: 32px 0 0;
-  color: #62705e;
-  font-size: 16px;
-  line-height: 1.8;
-}
 
 /* Let the work, rather than empty template slots, determine the card height. */
 .studio-home-scene--plan .schedule-row {
@@ -531,5 +524,4 @@
   .studio-home-benefits { grid-template-columns: 1fr; gap: 28px; }
   .studio-page .studio-home-benefits h3 { font-size: 21px; margin-bottom: 10px; }
   .studio-home-benefits p { max-width: none; }
-  .studio-home-value-note { font-size: 15px; }
 }

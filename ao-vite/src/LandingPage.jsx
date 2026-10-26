@@ -2,11 +2,16 @@ import React from "react";
 import { Track } from "./analytics";
 import EngagementDemo from "./demo/EngagementDemo.jsx";
 import { PageShell, PartnerInvitation } from "./PageParts.jsx";
-import { waysOfWorking } from "./content/siteContent.js";
 import "./home.css";
 
 export { CompanyOverview, PartnerInvitation } from "./PageParts.jsx";
 export { practiceServices } from "./content/siteContent.js";
+
+const deliveryOutcomes = [
+  ["More realistic commitments.", "Test scope, resource fit, availability, effort and pricing assumptions before the firm commits."],
+  ["A plan that carries into delivery.", "Turn the accepted scope into an approved, staffed plan in the project system, with clear assignments, dependencies and review requirements."],
+  ["Better-supported delivery.", "Give consultants the client context, firm methods and relevant review experience to develop their analysis and work through feedback."],
+];
 
 function DemoSection({ phase, label, headline, children, primary = false }) {
   return <Track name={phase} id={phase} className={`studio-home-scene studio-home-scene--${phase}${phase === "plan" ? " studio-dark-field" : ""}`}>
@@ -42,12 +47,11 @@ export default function LandingPage() {
     <Track name="workflow" id="workflow" className="studio-home-value"><div className="studio-container">
       <header className="studio-home-value-heading">
         <h2>Better conditions for delivery.</h2>
-        <p>A useful precedent shows more than what a prior team produced. It explains the situation they faced, why they chose an approach, and what the evidence later showed.</p>
+        <p>AllianceOne brings the firm’s methods, delivery experience and current engagement context into the decisions that shape the work.</p>
       </header>
       <div className="studio-home-benefits">
-        {waysOfWorking.map(([title, body]) => <article key={title}><h3>{title}</h3><p>{body}</p></article>)}
+        {deliveryOutcomes.map(([title, body]) => <article key={title}><h3>{title}</h3><p>{body}</p></article>)}
       </div>
-      <p className="studio-home-value-note">The firm’s intellectual property stays active while teams are making decisions, not dormant in a repository or flattened into a generic answer.</p>
     </div></Track>
     <PartnerInvitation />
   </PageShell>;
