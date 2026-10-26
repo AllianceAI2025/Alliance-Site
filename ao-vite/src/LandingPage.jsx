@@ -8,9 +8,16 @@ export { CompanyOverview, PartnerInvitation } from "./PageParts.jsx";
 export { practiceServices } from "./content/siteContent.js";
 
 const waysOfWorking = [
-  ["Approach", "Bring the firm’s methods, frameworks and precedent into how teams frame the problem, ask questions and assess evidence. Relevant client conditions, past results and resource availability inform the scope and proposal before the firm commits."],
-  ["Think", "Keep the options considered, assumptions, tradeoffs and reasoning behind each recommendation connected to their sources. Consultants and reviewers can examine why an approach fits this engagement and build on prior judgment instead of reconstructing it."],
-  ["Deliver", "Connect scope, staffing, sequence and governance with the work people deliver. Approved plans become records in the firm’s systems; delivery signals, decisions, changes, review and outcomes stay linked to the commitments they affect."],
+  ["Approach", "How the firm frames the problem, the questions it asks first, the evidence it trusts, and the precedent it brings forward."],
+  ["Think", "The options considered, the tradeoffs made, the assumptions carried, and the reasoning behind the recommendation."],
+  ["Deliver", "How scope, staffing, sequence, governance, decisions, changes, and outcomes fit together in practice."],
+];
+
+const firmIP = [
+  ["Methods and frameworks", "The questions the firm asks, the evidence it trusts, and the way it structures a problem."],
+  ["Deliverable types and templates", "The proven shapes, required sections, source expectations, and review gates behind client work."],
+  ["Prior work and precedent", "Comparable scopes, staffing patterns, decisions, changes, outcomes, and lessons from delivery."],
+  ["Review and quality standards", "The criteria partners and engagement leaders use to determine whether work is ready to advance."],
 ];
 
 function DemoSection({ phase, label, headline, children, primary = false }) {
@@ -47,11 +54,23 @@ export default function LandingPage() {
     <Track name="workflow" id="workflow" className="studio-home-value"><div className="studio-container">
       <header className="studio-home-value-heading">
         <h2>Better conditions for delivery.</h2>
-        <p>AllianceOne brings together how your firm approaches a problem, reasons through it and delivers the work. Methods and intellectual property stay connected to the client conditions, people, decisions and outcomes that give them meaning.</p>
+        <p>Firm knowledge informs the scope and plan, gives consultants a clear basis for their work, and helps managers understand when delivery diverges from the commitment.</p>
       </header>
-      <div className="studio-home-benefits">
-        {waysOfWorking.map(([title, body]) => <article key={title}><h3>{title}</h3><p>{body}</p></article>)}
-      </div>
+      <section aria-labelledby="judgment-chain">
+        <header className="studio-home-judgment-heading">
+          <h3 id="judgment-chain">Preserve the chain that makes judgment credible.</h3>
+          <p>A useful precedent shows more than what a prior team produced. It explains the situation they faced, why they chose an approach, and what the evidence later showed.</p>
+        </header>
+        <div className="studio-home-benefits">
+          {waysOfWorking.map(([title, body]) => <article key={title}><h4>{title}</h4><p>{body}</p></article>)}
+        </div>
+        <div className="studio-home-ip">
+          <p className="studio-home-ip-statement">The firm’s intellectual property stays active while teams are making decisions, not dormant in a repository or flattened into a generic answer.</p>
+          <div className="studio-home-ip-types">
+            {firmIP.map(([title, body]) => <article key={title}><h4>{title}</h4><p>{body}</p></article>)}
+          </div>
+        </div>
+      </section>
       <p className="studio-home-experience">As people work, conversations, decisions, revisions and their supporting evidence become part of the engagement record. Practitioners review the resulting experience before it informs another engagement, with the original context and limits available to the next team.</p>
     </div></Track>
     <PartnerInvitation />
