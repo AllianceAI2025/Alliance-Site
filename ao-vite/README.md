@@ -5,6 +5,9 @@ and Meridian experience carries into Northstar's scope, plan and delivery work.
 Scope is the opening demonstration. Each scene is a continuous thread: new requests and results
 append below earlier messages and artifacts. Playback runs at 80% speed: about 140 seconds of active content across the three
 examples. Each plays once per visit and holds its finished artifact until you leave the section.
+The opening question is visible before playback begins. Replies and later typed
+requests run on the existing clock, so an offscreen or newly entered window is
+never an empty chat.
 
 ## Local development
 
@@ -30,11 +33,12 @@ for the engagement-workflow page formerly called How It Works.
 | Solutions (`/solutions/`) | Main's How It Works plus relevant Explore material: opportunity ownership, context and precedent; resource fit and availability before proposal approval; accepted scope and planning; approved PSA writeback/readback; consultant assignment, review and export; delivery signals, decisions and reviewed future reuse. |
 | Company (`/company/`) | Alliance Systems Group's software and services, systems integration, practice configuration, workflow design, adoption and the bounded implementation approach. |
 
-Product explains what AllianceOne maintains. Solutions explains how practitioners
-use it. The pages deliberately retain substantial content for review and later
-editing, rather than repeating the homepage or compressing the business into
-feature labels. They preserve useful Main headlines and the business case's
-terms: firm knowledge, engagement record and approved baseline.
+Product explains what AllianceOne maintains. Precedent is part of firm knowledge;
+the approved engagement record and source-system ownership form one connected
+section. The model section closes with “Frontier models know how to reason.
+AllianceOne knows how your firm works.” Solutions explains how practitioners use
+it. Both preserve the business case's terms: firm knowledge, engagement record
+and approved baseline.
 
 The content follows the September 2026 investor business case, particularly
 sections 3 (customer value), 4 (knowledge and the engagement loop), 7.4–7.5
@@ -62,7 +66,8 @@ universal connectors or automatic improvement from unreviewed data is claimed.
 
 - `src/LandingPage.jsx`: the homepage hero and shared text / demo section structure.
 - `src/home.css`: the restored hero introduction and varied Home chapters: featured
-  Scope, reversed Plan and centered Deliver. Side layouts remain above 860px;
+  Scope, a wider resource schedule in reversed Plan and a larger report in centered
+  Deliver, with shorter windows and tighter section spacing. Side layouts remain above 860px;
   container queries adapt application navigation and artifacts to each window’s
   available width. Phone and tablet introductions stack above the demonstrations.
 - `src/PlatformPage.jsx`: the Product / Explore AllianceOne page.
@@ -83,6 +88,8 @@ universal connectors or automatic improvement from unreviewed data is claimed.
   pause/resume, completion holds, source dialogs and retained exchanges in a continuous conversation.
 - `src/demo/DemoArtifacts.jsx`: progressively built scope, resource schedule,
   illustrated approval/write/readback, and the Word-style assessment revision.
+  Schedule rows enter as they are populated; empty report sections reserve no space.
+  The completed export includes a readable preview from the approved Word report.
 - `src/demo/demoPlayback.js`: build progress and execution ordering. Approval must
   precede application writes; readback occurs after both application operations.
 - `src/demo/demoPlayback.test.js`: narrative continuity, available capacity,

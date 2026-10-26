@@ -40,3 +40,47 @@
 .studio-page :is(a,button,summary,[role=tabpanel]):focus-visible{outline:2px solid #52733e;outline-offset:4px}.studio-page .quiet-nav--dark :is(a,button):focus-visible,.studio-dark-field a:focus-visible{outline-color:#b8e67f}
 
 @media(max-width:800px){.solution-chapter-grid{gap:0}.solution-chapter-copy{display:contents}.solution-chapter-copy>.studio-kicker{margin-bottom:16px}.solution-chapter-copy>h2{margin-bottom:0}.solution-chapter-copy>.solution-intro{margin:24px 0 32px}.solution-chapter-visual{grid-row:4;margin:0 auto 35px}.solution-details{margin:0}.solution-result{margin-top:30px}}
+.studio-knowledge-context {
+  max-width: 850px;
+  margin: 36px auto 0;
+  color: var(--studio-muted);
+  font-size: 16px;
+  line-height: 1.9;
+}
+.studio-product-record {
+  padding-top: 32px;
+}
+.studio-record-systems {
+  margin-top: 72px;
+}
+.studio-record-systems > header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+.studio-record-systems h3 {
+  margin: 0;
+  color: var(--studio-ink);
+  font-family: "Inter Tight", Inter, sans-serif;
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: -.025em;
+  line-height: 1.25;
+}
+.studio-record-systems header > p {
+  margin: 0;
+  color: var(--studio-muted);
+  font-size: 16px;
+  line-height: 1.9;
+}
+@media (max-width: 820px) {
+  .studio-record-systems > header { grid-template-columns: 1fr; gap: 16px; }
+  .studio-record-systems { margin-top: 48px; }
+}
+@media (max-width: 600px) {
+  .studio-knowledge-context { font-size: 15px; margin-top: 28px; }
+  .studio-product-record { padding-top: 20px; }
+  .studio-record-systems h3 { font-size: 23px; }
+  .studio-record-systems header > p { font-size: 15px; }
+}

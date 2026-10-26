@@ -74,16 +74,23 @@
 }
 
 .studio-home-scene--plan {
+  padding-block: 64px;
   background: radial-gradient(ellipse at 100% 25%, #86c43d1c, transparent 62%), #10261b;
 }
 
 .studio-home-scene--plan .studio-demo-layout {
-  grid-template-columns: minmax(0, 1fr) clamp(224px, 22vw, 280px);
+  width: min(1400px, calc(100% - 80px));
+  grid-template-columns: minmax(0, 1fr) clamp(210px, 18vw, 248px);
   grid-template-areas: "demo copy";
 }
 
 .studio-home-scene--plan .studio-demo-intro {
-  padding-top: 112px;
+  align-self: center;
+  padding-top: 0;
+}
+
+.studio-home-scene--plan .demo-feed {
+  height: min(520px, calc(100svh - 280px));
 }
 
 .studio-home-scene--plan .studio-demo-intro > h2 {
@@ -101,20 +108,20 @@
 }
 
 .studio-home-scene--deliver {
-  padding-top: 88px;
+  padding-block: 64px 72px;
 }
 
 .studio-home-scene--deliver .studio-demo-layout {
   display: block;
-  max-width: 1120px;
+  max-width: 1240px;
 }
 
 .studio-home-scene--deliver .studio-demo-intro {
   display: grid;
-  grid-template-columns: 180px minmax(0, 700px);
-  gap: 32px;
+  grid-template-columns: 160px minmax(0, 760px);
+  gap: 28px;
   padding-top: 0;
-  margin: 0 8px 36px;
+  margin: 0 8px 24px;
 }
 
 .studio-home-scene--deliver .studio-demo-intro > h2 {
@@ -122,7 +129,80 @@
 }
 
 .studio-home-scene--deliver .demo-feed {
-  height: min(640px, calc(100svh - 370px));
+  height: min(560px, calc(100svh - 340px));
+}
+
+/* Let the work, rather than empty template slots, determine the card height. */
+.studio-home-scene--plan .schedule-row {
+  min-height: 56px;
+}
+
+.studio-home-scene--plan .schedule-person > strong,
+.studio-home-scene--plan .schedule-hours {
+  font-size: 12px;
+}
+
+.studio-home-scene--plan .schedule-person > small {
+  font-size: 10px;
+}
+
+.studio-page .studio-home-scene--deliver .delivery-artifact {
+  padding: 0;
+}
+
+.studio-home-scene--deliver .assessment-page {
+  padding: 28px 30px 24px;
+}
+
+.studio-home-scene--deliver .assessment-page h3 {
+  font-size: 30px;
+  max-width: none;
+}
+
+.studio-home-scene--deliver .assessment-page p:not([class]) {
+  font-size: 12px;
+  line-height: 1.85;
+}
+
+.studio-home-scene--deliver .assessment-evidence-row > strong {
+  font-size: 12px;
+}
+
+.studio-home-scene--deliver .assessment-evidence-row > small,
+.studio-home-scene--deliver .delivery-guidance > p:not(.margin-label),
+.studio-home-scene--deliver .assessment-review > p {
+  font-size: 11px;
+}
+
+.studio-home-scene--deliver :is(.assessment-purpose, .assessment-evidence-row,
+  .assessment-conclusion, .assessment-sources, .delivery-guidance,
+  .assessment-review, .delivery-record, .delivery-workflow):empty {
+  display: none;
+}
+
+.studio-home-scene--deliver .delivery-export-receipt {
+  display: block;
+  background: #edf1ed;
+}
+
+.studio-home-scene--deliver .export-document-page {
+  max-width: 600px;
+  margin: 22px auto;
+  padding: 24px 30px;
+  box-shadow: 0 3px 14px #1527130a;
+}
+
+.studio-home-scene--deliver .export-document-page .assessment-letterhead {
+  margin-bottom: 14px;
+}
+
+.studio-home-scene--deliver .export-document-page .assessment-byline {
+  margin-bottom: 16px;
+}
+
+.studio-home-scene--deliver .delivery-export-receipt > .delivery-download {
+  display: flex;
+  justify-content: flex-end;
 }
 
 /* The application responds to its own width, independently of the page columns. */
@@ -278,6 +358,14 @@
 }
 
 @container home-demo (max-width: 420px) {
+  .studio-home-scene--deliver .assessment-page {
+    padding: 22px 20px;
+  }
+
+  .studio-home-scene--deliver .assessment-page h3 {
+    font-size: 26px;
+  }
+
   .studio-home-scene .demo-feed {
     padding-inline: 16px;
   }
@@ -313,6 +401,18 @@
 
   .studio-home-scene--scope .studio-demo-layout {
     width: calc(100% - 56px);
+  }
+
+  .studio-home-scene--plan {
+    padding-block: 56px;
+  }
+
+  .studio-home-scene--plan .studio-demo-layout {
+    width: calc(100% - 56px);
+  }
+
+  .studio-home-scene--deliver {
+    padding-block: 56px;
   }
 
   .studio-page .studio-demo-intro > h2 {

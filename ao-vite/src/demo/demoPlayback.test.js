@@ -165,9 +165,23 @@ test("Scope surfaces precedent before the user asks to apply it to a new scope",
   assert.ok(historicalCases[0].northstarAction.includes("West and Southeast"), "the precedent addresses an open Northstar dependency");
 });
 
+test("each idle window opens with its question, without a duplicate prompt or early response", () => {
+  for (const story of Object.values(stories)) {
+    for (const elapsed of [0, commonTiming.promptEnd - 1]) {
+      const opening = conversationAt(story, elapsed);
+      assert.equal(opening.exchanges.length, 1);
+      assert.equal(opening.exchanges[0].prompt, story.prompt);
+      assert.equal(opening.typing, false);
+      assert.equal(opening.composer, "Ask AllianceOne…");
+      assert.ok(opening.answerAt > elapsed);
+      assert.ok(opening.artifactAt > elapsed);
+    }
+  }
+});
+
 test("new requests append below retained responses and completed artifact versions", () => {
   for (const story of Object.values(stories)) {
-    assert.equal(conversationAt(story, commonTiming.promptEnd - 1).exchanges.length, 0);
+    assert.equal(conversationAt(story, commonTiming.promptEnd - 1).exchanges.length, 1);
     const final = conversationAt(story, story.duration);
     assert.deepEqual(final.exchanges.map(item => item.prompt), [story.prompt, ...story.commands.map(item => item.prompt)]);
     for (const command of story.commands) {

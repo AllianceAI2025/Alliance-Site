@@ -40,19 +40,19 @@ export function precedentBuildAt(start) {
 // Append exchanges in time order. Completed artifacts keep the version shown
 // with their original response; later instructions add their own result below.
 export function conversationAt(story, elapsed) {
-  const initialExchange = { key: 0, prompt: story.prompt, answer: story.answer, sentAt: commonTiming.promptEnd, answerAt: commonTiming.answerAt, answerDuration: story.answerDuration || 1100, artifact: story.artifact, artifactAt: story.artifactAt || commonTiming.artifactAt, artifactUntil: story.artifactUntil };
+  // The opening question is already in the thread when the window enters view.
+  // Responses, artifacts and subsequent typed requests still follow their clocks.
+  const initialExchange = { key: 0, prompt: story.prompt, answer: story.answer, sentAt: 0, answerAt: commonTiming.answerAt, answerDuration: story.answerDuration || 1100, artifact: story.artifact, artifactAt: story.artifactAt || commonTiming.artifactAt, artifactUntil: story.artifactUntil };
   const exchanges = [initialExchange, ...(story.commands || []).map(command => ({ ...command, key: command.sentAt }))]
     .filter(exchange => elapsed >= exchange.sentAt)
     .map(exchange => ({ ...exchange, artifactElapsed: Math.min(elapsed, exchange.artifactUntil ?? elapsed) }));
   const current = exchanges.at(-1) || initialExchange;
   const typing = (story.commands || []).find(command => elapsed >= command.typingAt && elapsed < command.sentAt);
-  const initial = elapsed < commonTiming.promptEnd;
   return {
     ...current,
     exchanges,
-    typing: initial || Boolean(typing),
-    composer: initial ? textAt(story.prompt, elapsed, 0, commonTiming.promptEnd)
-      : typing ? textAt(typing.prompt, elapsed, typing.typingAt, typing.sentAt - typing.typingAt) : "Ask AllianceOne…",
+    typing: Boolean(typing),
+    composer: typing ? textAt(typing.prompt, elapsed, typing.typingAt, typing.sentAt - typing.typingAt) : "Ask AllianceOne…",
   };
 }
 

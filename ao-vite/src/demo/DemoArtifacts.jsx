@@ -128,17 +128,18 @@ export function PlanArtifact({ elapsed, onInspect }) {
       <div className="schedule-axis"><span>Resources</span><div>{[1, 4, 8, 12, 14].map(week => <span key={week}>W{week}</span>)}</div><span>Effort</span></div>
       {resources.map((person, index) => {
         const at = 3300 + index * 650;
+        if (elapsed < at) return null;
         const width = (person.end - person.start + 1) / 14 * 100 * progressAt(elapsed, at + 250, 650);
         return <div className={`schedule-row build-slot${person.precedent ? " schedule-row--precedent" : ""}`} key={person.name} data-follow-at={at}>
-          <div className="schedule-person">{elapsed >= at && <><strong>{person.precedent ? <button onClick={() => onInspect(person.precedent)}>{person.name}</button> : person.name}</strong><small>{person.role}</small></>}</div>
-          <div className="schedule-track">{elapsed >= at && <div className="schedule-bar" style={{left:`${(person.start - 1) / 14 * 100}%`,width:`${width}%`}} role="img" aria-label={`${person.name}, weeks ${person.start}–${person.end}, ${person.capacity}% weekly availability ceiling`}><span>{width > 20 ? `${person.capacity}%` : ""}</span></div>}</div>
+          <div className="schedule-person"><strong>{person.precedent ? <button onClick={() => onInspect(person.precedent)}>{person.name}</button> : person.name}</strong><small>{person.role}</small></div>
+          <div className="schedule-track"><div className="schedule-bar" style={{left:`${(person.start - 1) / 14 * 100}%`,width:`${width}%`}} role="img" aria-label={`${person.name}, weeks ${person.start}–${person.end}, ${person.capacity}% weekly availability ceiling`}><span>{width > 20 ? `${person.capacity}%` : ""}</span></div></div>
           <span className="schedule-hours">{elapsed >= at + 650 && `${person.hours}h`}</span>
         </div>;
       })}
     </div>
     <p className="schedule-caption">Bars show confirmed windows; labels are weekly availability ceilings.</p>
-    <div className="plan-review-gate build-slot" data-follow-at={8000}>{elapsed >= 8000 && <><div><strong>Avery’s assessment</strong><span>{assignment.effort}h · {assignment.due}</span></div><span className="gate-arrow" aria-hidden="true">→</span><div><strong>Sofia’s review</strong><span>Before the diagnostic baseline</span></div><SourceLink source="assignment" onInspect={onInspect}>Assignment basis</SourceLink></>}</div>
-    <p className="plan-continuity build-slot" data-follow-at={9000}>{elapsed >= 9000 && <>Harbor informs Avery’s evidence gate; Meridian informs Lena’s regional validation. Daniel’s W3 release is confirmed. <SourceLink source="availability" onInspect={onInspect}>Resource basis</SourceLink></>}</p>
+    {elapsed >= 8000 && <div className="plan-review-gate" data-follow-at={8000}><div><strong>Avery’s assessment</strong><span>{assignment.effort}h · {assignment.due}</span></div><span className="gate-arrow" aria-hidden="true">→</span><div><strong>Sofia’s review</strong><span>Before the diagnostic baseline</span></div><SourceLink source="assignment" onInspect={onInspect}>Assignment basis</SourceLink></div>}
+    {elapsed >= 9000 && <p className="plan-continuity" data-follow-at={9000}>Harbor informs Avery’s evidence gate; Meridian informs Lena’s regional validation. Daniel’s W3 release is confirmed. <SourceLink source="availability" onInspect={onInspect}>Resource basis</SourceLink></p>}
     <PlanWorkbreakdown elapsed={elapsed} />
     <PlanMilestones elapsed={elapsed} />
     {execution.reviewed && <p className="plan-reviewed" data-follow-at={planTiming.reviewed}>Sofia reviewed plan v1. The accepted scope, proposed team and assignment rationale remain linked to this version.</p>}
@@ -208,7 +209,15 @@ function AssessmentExportArtifact({ elapsed }) {
   const ready = elapsed >= deliveryTiming.exportReady;
   return <article className="inline-artifact delivery-export-receipt" aria-label="Approved Word export" data-export-ready={ready} data-follow-at={ready ? deliveryTiming.exportReady : deliveryTiming.exportArtifactAt}>
     <div className="delivery-export-file"><img src="/brand/systems/word.svg" alt="Word" /><div><strong>{assessmentFileName}</strong><p>{ready ? "Exported · Revision 2 · Sofia approved" : "Exporting the approved report to Word…"}</p></div></div>
-    {ready && <a className="delivery-download" href={assessment.downloadPath} download={assessmentFileName}>View Word document <span aria-hidden="true">↓</span></a>}
+    {ready && <>
+      <section className="assessment-page export-document-page" aria-label="Preview of the approved assessment">
+        <div className="assessment-letterhead"><img src="/brand/asg/alliance-systems-group-mark-refined.png" alt="" /><span>Alliance Systems Group</span></div>
+        <p className="assessment-client">Northstar Foods</p><h3>{assessmentFormatName}</h3>
+        <p className="assessment-byline">Avery Ross · Reviewed by Sofia Patel · Revision 2</p>
+        <h4>Assessment and implications</h4><p>{assessment.conclusion}</p>
+      </section>
+      <a className="delivery-download" href={assessment.downloadPath} download={assessmentFileName}>View Word document <span aria-hidden="true">↓</span></a>
+    </>}
   </article>;
 }
 
