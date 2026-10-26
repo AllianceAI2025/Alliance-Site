@@ -1,12 +1,24 @@
 import React from "react";
 import { Track } from "./analytics";
 import { EngagementRecordVisual, KnowledgeExplorer, PageShell, PartnerInvitation, PrecedentRecord, SourceOwnership } from "./PageParts.jsx";
-import { firmTypes, productBenefits } from "./content/siteContent.js";
+import { firmTypes, productBenefits, waysOfWorking } from "./content/siteContent.js";
+import "./product-knowledge.css";
 
 export default function PlatformPage() {
   return <PageShell page="product">
     <Track name="product_hero" className="studio-product-hero"><div className="studio-container studio-product-hero-grid"><div className="studio-product-hero-copy"><p className="studio-kicker">Explore AllianceOne</p><h1>Make firm-specific judgment usable in live engagements.</h1><p>AllianceOne connects your firm's methods, intellectual property, practitioner judgment and engagement history with how teams scope, staff, plan and deliver client work.</p><p>It carries the approved plan into the systems your firm already uses, then connects actual delivery and outcomes back to the decisions that shaped it.</p></div><div className="studio-paper-scene"><PrecedentRecord /></div></div></Track>
-    <Track name="firm_knowledge" id="knowledge" className="studio-section studio-knowledge"><div className="studio-container"><header className="studio-section-heading"><p className="studio-kicker">The firm's intellectual property</p><h2>How your firm approaches,{" "}<br />thinks and delivers.</h2><p>Frameworks, diagnostic tools, practice publications and experience all contribute. Their value grows when a team can see why an approach applies, the evidence behind it and the standard their work must meet.</p></header><KnowledgeExplorer /><p id="precedent" className="studio-knowledge-context">A useful precedent includes the client conditions, the approach and its assumptions, who contributed, what changed in review and what the evidence later showed. Teams can judge which experience applies to a new engagement, with its sources and limits in view.</p></div></Track>
+    <Track name="firm_knowledge" id="knowledge" className="studio-section studio-knowledge studio-product-knowledge"><div className="studio-container">
+      <header className="studio-section-heading">
+        <p className="studio-kicker">The firm's intellectual property</p>
+        <h2>Preserve the chain that makes judgment credible.</h2>
+        <p id="precedent">A useful precedent shows more than what a prior team produced. It explains the situation they faced, why they chose an approach, and what the evidence later showed.</p>
+      </header>
+      <div className="studio-product-ways">
+        {waysOfWorking.map(([title, body]) => <article key={title}><h3>{title}</h3><p>{body}</p></article>)}
+      </div>
+      <p className="studio-product-ip-statement">The firm’s intellectual property stays active while teams are making decisions, not dormant in a repository or flattened into a generic answer.</p>
+      <KnowledgeExplorer />
+    </div></Track>
     <Track name="engagement_record" id="record" className="studio-section studio-product-record"><div className="studio-container">
       <div className="studio-record-feature"><div className="studio-feature-copy"><p className="studio-kicker">The approved engagement record</p><h2>Keep the decisions{" "}<br />with the work.</h2><p>Accepted scope, commercial assumptions and the approved plan define the commitment. Workstreams, deliverables, resources, effort, dates and review gates stay linked to it as the engagement develops.</p><p>Conversations, supporting sources and practitioner reasoning explain each revision. New information updates the team's understanding; changes to the commitment require approval, retaining the earlier baseline and the reason for the change.</p></div><EngagementRecordVisual /></div>
       <section id="systems" className="studio-record-systems" aria-labelledby="product-systems-title"><header><h3 id="product-systems-title">Connected to your firm's systems.</h3><p>AllianceOne connects the context across CRM, project tools, documents and billing. Each system continues to own its operating records.</p></header><SourceOwnership /><p className="studio-section-note">The source corpus, permissions, execution system and records involved are agreed for the selected workflow. Known gaps and unsupported assumptions remain visible.</p></section>

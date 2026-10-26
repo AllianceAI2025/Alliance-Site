@@ -32,8 +32,8 @@ for the engagement-workflow page formerly called How It Works.
 
 | Destination | Content and source |
 | --- | --- |
-| Home | Scope sits below the brand hero in a separate light section, with its introduction beside the window on desktop and above it on narrow screens. Plan and Deliver focus on the resource schedule, verified PSA plan and reviewed Word report. Better conditions for delivery introduces the complete Preserve the chain section: Approach / Think / Deliver, active firm IP, methods, templates, precedent and quality standards. Reviewed experience carries forward to the next engagement. The practice and services story lives on Company. |
-| Product (`/allianceone/`) | Main's Explore AllianceOne: firm IP, methods, templates, precedent, people and review reasoning; approved engagement state; source-system ownership; the application around frontier models; engagement value; applicable practices. |
+| Home | The hero and Scope, Plan and Deliver demos show the application. Better conditions for delivery closes with a short precedent introduction, three Approach / Think / Deliver columns and one statement about active firm IP. Scope remains separate from the hero. |
+| Product (`/allianceone/`) | The full Preserve the chain explanation introduces Approach / Think / Deliver and the four firm IP categories, integrated with the existing knowledge explorer and examples. Approved engagement state, source-system ownership, the application around frontier models, engagement value and applicable practices follow. |
 | Solutions (`/solutions/`) | Main's How It Works plus relevant Explore material: opportunity ownership, context and precedent; resource fit and availability before proposal approval; accepted scope and planning; approved PSA writeback/readback; consultant assignment, review and export; delivery signals, decisions and reviewed future reuse. |
 | Company (`/company/`) | Alliance Systems Group's software and services, systems integration, practice configuration, workflow design, adoption and the bounded implementation approach. |
 
@@ -74,6 +74,7 @@ universal connectors or automatic improvement from unreviewed data is claimed.
   Container queries adapt application navigation and artifacts to each window’s
   available width. Scope remains the first product surface on narrow screens.
 - `src/PlatformPage.jsx`: the Product / Explore AllianceOne page.
+- `src/product-knowledge.css`: the complete Product explanation and responsive knowledge explorer summaries.
 - `src/SolutionsPage.jsx`: the engagement-workflow Solutions page.
 - `src/CompanyPage.jsx`: the company and implementation story.
 - `src/content/siteContent.js`: shared navigation and the fuller public content.

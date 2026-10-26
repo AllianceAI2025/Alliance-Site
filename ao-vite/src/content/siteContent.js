@@ -8,9 +8,15 @@ export const navigation = [
   { key: "company", label: "Company", href: "/company/" },
 ];
 
+export const waysOfWorking = [
+  ["Approach", "How the firm frames the problem, the questions it asks first, the evidence it trusts, and the precedent it brings forward."],
+  ["Think", "The options considered, the tradeoffs made, the assumptions carried, and the reasoning behind the recommendation."],
+  ["Deliver", "How scope, staffing, sequence, governance, decisions, changes, and outcomes fit together in practice."],
+];
+
 export const firmKnowledge = [
   {
-    id: "methods", title: "Methods and frameworks", short: "How the firm approaches a problem",
+    id: "methods", title: "Methods and frameworks", short: "The questions the firm asks, the evidence it trusts, and the way it structures a problem.",
     body: "Your methodologies, proprietary frameworks, diagnostic tools, training and internal publications establish how your firm works. AllianceOne connects that practice knowledge with the conditions in which it has been applied, so a team can understand which approach fits and how to adapt it.",
     exampleTitle: "Ownership and Handoffs", exampleType: "Practice Methods Library",
     example: "Separate observed ownership from a proposed future model. Record the evidence, date and unresolved conflicts before recommending a design.",
@@ -18,7 +24,7 @@ export const firmKnowledge = [
     note: "Published practice guidance can inform the work within its permitted audience. A firm's point of view and evidence of a client result remain distinguishable.",
   },
   {
-    id: "deliverables", title: "Deliverables and templates", short: "What good work needs to contain",
+    id: "deliverables", title: "Deliverable types and templates", short: "The proven shapes, required sections, source expectations, and review gates behind client work.",
     body: "Report formats, diagnostic workbooks and presentation structures carry more than a visual identity. They establish required sections, source expectations, analysis and review gates. Teams can develop a deliverable with those requirements present throughout the work, rather than discover them in final review.",
     exampleTitle: "Data Readiness Assessment", exampleType: "Report format and companion evidence workbook",
     example: "Purpose and boundaries. Evidence by region. Observed ownership. Unresolved conflicts. Implications for design readiness. Conclusions and source references.",
@@ -26,7 +32,7 @@ export const firmKnowledge = [
     note: "A named report format provides the structure. The engagement's own evidence supports the client conclusions.",
   },
   {
-    id: "precedent", title: "Prior work and precedent", short: "The experience behind the finished file",
+    id: "precedent", title: "Prior work and precedent", short: "Comparable scopes, staffing patterns, decisions, changes, outcomes, and lessons from delivery.",
     body: "Comparable work connects client conditions, scope, people, effort, decisions and observed results. Review feedback and the revisions it produced help explain what mattered. A team can examine both the similarity and the limits before applying an earlier approach to a new client.",
     exampleTitle: "Harbor → Northstar", exampleType: "Relevant delivery experience",
     example: "Avery's Harbor review distinguished observed decision owners from design proposals. For Northstar, that experience informs the evidence register and the questions to resolve before design.",
@@ -34,7 +40,7 @@ export const firmKnowledge = [
     note: "The manager examines the relevant engagement record. Avery uses the review excerpt Sofia explicitly shared for his Northstar assignment.",
   },
   {
-    id: "quality", title: "Review and quality standards", short: "The reasoning behind acceptance",
+    id: "quality", title: "Review and quality standards", short: "The criteria partners and engagement leaders use to determine whether work is ready to advance.",
     body: "Partner and engagement-leader review makes the firm's standards concrete. The record can retain what a reviewer challenged, the evidence requested, the consultant's response and the resulting change. That reasoning helps the current team improve the work and gives later teams a more useful basis for preparation.",
     exampleTitle: "What does the evidence allow us to conclude?", exampleType: "Northstar assessment review",
     example: "Sofia asks Avery to explain what each evidence gap prevents the team from concluding. Revision 2 carries those implications into the assessment's conclusion before approval and export.",

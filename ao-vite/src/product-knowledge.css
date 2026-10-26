@@ -1,0 +1,51 @@
+.studio-product-ways {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 44px;
+  margin-bottom: 44px;
+}
+
+.studio-page .studio-product-ways h3 {
+  margin: 0 0 14px;
+  color: #213d29;
+  font-family: "Inter Tight", Inter, "Segoe UI", sans-serif;
+  font-size: 21px;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -.025em;
+}
+
+.studio-product-ways p {
+  margin: 0;
+  color: #62705e;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.studio-product-ip-statement {
+  max-width: 860px;
+  margin: 0 0 36px;
+  color: #213d29;
+  font-size: 20px;
+  line-height: 1.65;
+}
+
+.studio-product-knowledge .knowledge-menu span {
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+@media (max-width: 1100px) {
+  .studio-product-ways { gap: 28px; }
+}
+
+@media (max-width: 600px) {
+  .studio-product-ways {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    margin-bottom: 32px;
+  }
+  .studio-product-ip-statement { font-size: 18px; margin-bottom: 28px; }
+  .studio-product-knowledge .knowledge-menu { display: flex; flex-direction: column; }
+  .studio-product-knowledge .knowledge-menu strong { font-size: 15px; }
+}
