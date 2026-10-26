@@ -2,7 +2,7 @@ import React, { useEffect, useId, useLayoutEffect, useRef, useState } from "reac
 import { capture, useVisualDwell } from "../analytics";
 import DemoArtifact from "./DemoArtifacts.jsx";
 import { contexts, resolveDemoSource, stories } from "./northstar.js";
-import { activityAt, advanceScrollTop, conversationAt, demoVisibleAt, followScrollTop, playbackFrameAt, playbackRate, textAt } from "./demoPlayback.js";
+import { activityAt, advanceScrollTop, conversationAt, demoPlaybackReadyAt, demoVisibleAt, followScrollTop, playbackFrameAt, playbackRate, textAt } from "./demoPlayback.js";
 import "./engagement-demo.css";
 
 function Icon({ name, ...props }) {
@@ -19,6 +19,45 @@ function useReducedMotion() {
     return () => query.removeEventListener("change", update);
   }, []);
   return reduced;
+}
+
+function usePlaybackWatchability(demoRef, feed) {
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    let frame = null, active = true;
+    const measure = () => {
+      frame = null;
+      if (!active) return;
+      const composer = demoRef.current.querySelector(".demo-composer");
+      const viewport = window.visualViewport;
+      setReady(current => demoPlaybackReadyAt(current, {
+        top: feed.current.getBoundingClientRect().top,
+        bottom: composer.getBoundingClientRect().bottom,
+        viewportTop: viewport?.offsetTop ?? 0,
+        viewportHeight: viewport?.height ?? window.innerHeight,
+      }));
+    };
+    const schedule = () => { if (active && frame === null) frame = requestAnimationFrame(measure); };
+    const observer = new ResizeObserver(schedule);
+    for (const node of [demoRef.current, demoRef.current.parentElement.parentElement, feed.current, demoRef.current.querySelector(".demo-composer")]) observer.observe(node);
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    const viewport = window.visualViewport;
+    viewport?.addEventListener("resize", schedule);
+    viewport?.addEventListener("scroll", schedule);
+    document.fonts.ready.then(schedule);
+    measure();
+    return () => {
+      active = false;
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      viewport?.removeEventListener("resize", schedule);
+      viewport?.removeEventListener("scroll", schedule);
+    };
+  }, [demoRef, feed]);
+  return ready;
 }
 
 function useConversationFollow(feed, elapsed, enabled, complete) {
@@ -125,10 +164,11 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
   const tracked = useRef(false);
   const completionTracked = useRef(false);
   const demoRef = useVisualDwell(`northstar-${phase}`);
+  const watchable = usePlaybackWatchability(demoRef, feed);
   const id = useId();
   const conversation = conversationAt(story, elapsed);
   const complete = elapsed >= story.duration;
-  useConversationFollow(feed, elapsed, (playing || complete) && visible && tabVisible && !reduced, complete);
+  useConversationFollow(feed, elapsed, (playing || complete) && visible && watchable && tabVisible && !reduced, complete);
 
   const updateClock = (value) => { clockRef.current = value / playbackRate; setElapsed(value); };
   const pause = () => setPlaying(false);
@@ -170,7 +210,7 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
   }, [visible, reduced, story.duration]);
 
   useEffect(() => {
-    if (!playing || !visible || !tabVisible || reduced) return;
+    if (!playing || !visible || !watchable || !tabVisible || reduced) return;
     if (!tracked.current) { capture("demo_played", { phase, trigger: "autoplay" }); tracked.current = true; }
     let frame, paintedAt = 0;
     const start = performance.now() - clockRef.current;
@@ -192,14 +232,14 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
     };
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-  }, [playing, visible, tabVisible, reduced, story.duration, story.summary, phase]);
+  }, [playing, visible, watchable, tabVisible, reduced, story.duration, story.summary, phase]);
 
   const toggle = () => {
     if (playing) { pause(); setAnnouncement(`${story.label} demonstration paused.`); }
     else resume();
   };
 
-  return <div className={`engagement-demo engagement-demo--${phase}${primary ? " engagement-demo--primary" : ""}`} ref={demoRef} id={primary ? "demo" : `${phase}-demo`} data-phase={phase} data-elapsed={Math.round(elapsed)} data-complete={complete}>
+  return <div className={`engagement-demo engagement-demo--${phase}${primary ? " engagement-demo--primary" : ""}`} ref={demoRef} id={primary ? "demo" : `${phase}-demo`} data-phase={phase} data-elapsed={Math.round(elapsed)} data-complete={complete} data-watchable={watchable}>
     <section className="demo-stage" aria-label={`${story.label} demonstration`}>
       <div className={`demo-window demo-window--with-sidebar${sidebarOpen ? " demo-window--navigation-open" : ""}`}>
         <>

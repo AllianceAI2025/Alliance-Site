@@ -8,6 +8,10 @@ examples. Each plays once per visit and holds its finished artifact until you le
 The opening question is visible before playback begins. Replies and later typed
 requests run on the existing clock, so an offscreen or newly entered window is
 never an empty chat.
+Playback waits until the feed and composer fit in the visible viewport. Scrolling
+partway past the writing area pauses its clock; bringing it back resumes from the
+same point. Leaving the section entirely still resets the demonstration. Narrow
+windows use a fixed total height, so longer typed questions wrap within the frame.
 
 ## Local development
 
@@ -28,7 +32,7 @@ for the engagement-workflow page formerly called How It Works.
 
 | Destination | Content and source |
 | --- | --- |
-| Home | Scope overlaps the brand hero as the main product view. Plan and Deliver focus on the resource schedule, verified PSA plan and reviewed Word report. Outcome headlines introduce the demos. Main's Approach / Think / Deliver copy connects the value section to the wider system and engagement record. The practice and services story lives on Company. |
+| Home | Scope's heading precedes its window in the brand hero. Plan and Deliver focus on the resource schedule, verified PSA plan and reviewed Word report. Approach / Think / Deliver explain the benefits of realistic scope and staffing, less context reconstruction, and clear assignments with earlier responses to variance. The practice and services story lives on Company. |
 | Product (`/allianceone/`) | Main's Explore AllianceOne: firm IP, methods, templates, precedent, people and review reasoning; approved engagement state; source-system ownership; the application around frontier models; engagement value; applicable practices. |
 | Solutions (`/solutions/`) | Main's How It Works plus relevant Explore material: opportunity ownership, context and precedent; resource fit and availability before proposal approval; accepted scope and planning; approved PSA writeback/readback; consultant assignment, review and export; delivery signals, decisions and reviewed future reuse. |
 | Company (`/company/`) | Alliance Systems Group's software and services, systems integration, practice configuration, workflow design, adoption and the bounded implementation approach. |
@@ -177,11 +181,13 @@ Each example starts from the beginning when enough of its window is visible to
 watch. Leaving the window resets its clock, conversation and internal scroll;
 returning starts a fresh playback, even if it was manually paused on the last visit.
 Small scrolls near the visibility boundary do not repeatedly restart it, and a
-brief arrival delay lets anchor navigation settle before the opening request types.
+brief arrival delay lets anchor navigation settle before replies begin.
 Playback pauses while the browser document is hidden. Each scene plays once and holds
 its finished conversation indefinitely. It restarts only after leaving and returning.
 A small Pause/Play icon appears on hover, keyboard focus or touch devices. It retains
-partial builds when paused. Scrolling, touch and artifact focus do not pause playback.
+partial builds when paused. Internal scrolling, touch and artifact focus do not pause
+playback. Page scrolling pauses the clock when the feed or composer is clipped,
+then resumes the same conversation when the writing area is visible again.
 The conversation follows explicit narrative timestamps and actual content size.
 A single eased animation updates its destination as text grows, without restarting
 the browser's smooth scrolling on each character. Long responses follow their newest
@@ -195,7 +201,7 @@ the new exchange below the preceding result without resetting the scroll positio
 Completed artifacts have capped clocks so their original versions stay unchanged.
 Leaving the window clears the conversation and resets its own feed. Source links
 open an accessible modal without replacing the work; closing it resumes unfinished playback.
-Every phase uses the same sidebar and window dimensions, capped to fit the viewport,
+Every phase uses the same sidebar and window shell, with a height suited to its layout,
 with its current thread selected. The manager sidebar lists three
 Northstar threads and the Harbor and Meridian engagement records; thread links
 scroll to the corresponding section. Avery sees only Northstar and his assessment thread, without historical client folders.
@@ -226,7 +232,7 @@ The report content and OOXML package are checked separately from browser QA.
 
 ## Review checks for the page redesign
 
-- All 24 existing demo tests pass; the multi-page production build includes
+- All 27 demo tests pass; the multi-page production build includes
   the new Solutions destination and its legacy alias.
 - Home, Product, Solutions, Company, Design partners, Security and the legacy
   How It Works route were checked at phone width, with no horizontal page overflow
@@ -238,6 +244,9 @@ The report content and OOXML package are checked separately from browser QA.
   intact, each feed reaches its bottom, and leaving resets the finished example.
 - The resource-plan and report illustrations use separate class names from the
   animated artifacts. The tablet demo retains its full width with navigation collapsed.
+- The revised Home layout was checked at 1440×1000, 1280×720, 390×844 and
+  320×740. The composer fits inside its window, clipped playback waits, and
+  short-screen navigation scrolls without stretching the frame.
 
 ## Routes and publishing
 

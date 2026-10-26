@@ -8,9 +8,9 @@ export { CompanyOverview, PartnerInvitation } from "./PageParts.jsx";
 export { practiceServices } from "./content/siteContent.js";
 
 const waysOfWorking = [
-  ["Approach", "How the firm frames the problem, the questions it asks first, the evidence it trusts, and the precedent it brings forward."],
-  ["Think", "The options considered, the tradeoffs made, the assumptions carried, and the reasoning behind the recommendation."],
-  ["Deliver", "How scope, staffing, sequence, governance, decisions, changes, and outcomes fit together in practice."],
+  ["Approach", "Reduce avoidable rework by grounding scope and staffing in firm methods, comparable engagements, client conditions and current resource availability."],
+  ["Think", "Spend less time reconstructing context. Keep evidence, prior reasoning and review feedback available when teams work through the decisions this engagement requires."],
+  ["Deliver", "Give consultants clear assignments and relevant guidance. Connect current delivery evidence to the approved plan so managers can respond sooner when work diverges."],
 ];
 
 function DemoSection({ phase, label, headline, children, primary = false }) {
@@ -18,7 +18,7 @@ function DemoSection({ phase, label, headline, children, primary = false }) {
     <div className="studio-container studio-demo-layout">
       <header className="studio-demo-intro">
         <div className="studio-demo-heading"><p className="studio-phase-label">{label}</p><h2>{headline}</h2></div>
-        <p className="studio-demo-description">{children}</p>
+        {children && <p className="studio-demo-description">{children}</p>}
       </header>
       <div className="studio-demo-proof">
         <EngagementDemo phase={phase} primary={primary} />
@@ -37,9 +37,7 @@ export default function LandingPage() {
         </div>
       </div>
     </Track>
-    <DemoSection phase="scope" label="Scope" headline="Start with relevant firm experience." primary>
-      Bring client context, firm methods, delivery experience and current resource availability into the scope and proposal before the firm commits.
-    </DemoSection>
+    <DemoSection phase="scope" label="Scope" headline="Start with relevant firm experience." primary />
     <DemoSection phase="plan" label="Plan" headline="Carry the approved plan into delivery.">
       Develop the deliverables, resource allocations, effort, dependencies and review gates. Review the commitments before creating and verifying records in the firm’s PSA or project system.
     </DemoSection>

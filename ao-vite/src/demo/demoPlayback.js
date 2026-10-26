@@ -20,6 +20,14 @@ export function demoVisibleAt(wasVisible, { visibleHeight, windowHeight, viewpor
   return visibleHeight / availableHeight >= (wasVisible ? .15 : .55);
 }
 
+// A section can be in view while its active writing and composer are still below
+// the fold. Pause the clock in that case without ending the viewing session.
+export function demoPlaybackReadyAt(wasReady, { top, bottom, viewportTop = 0, viewportHeight }) {
+  if (bottom <= top || viewportHeight <= 0) return false;
+  const margin = wasReady ? 4 : 12;
+  return top >= viewportTop + margin && bottom <= viewportTop + viewportHeight - margin;
+}
+
 export function playbackFrameAt(clock, duration) {
   const elapsed = Math.min(Math.max(0, clock * playbackRate), duration);
   return { elapsed, complete: elapsed === duration };

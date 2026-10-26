@@ -2,9 +2,9 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { approvedPlan, assessmentFileName, assessmentFormatName, assignment, contexts, effort, historicalCases, readbackAssignment, readbackPlan, readbackProject, resolveDemoSource, resources, staffingCandidates, stories } from "./northstar.js";
-import { advanceScrollTop, commonTiming, compareAssignment, comparePlan, conversationAt, deliveryStateAt, deliveryTiming, demoVisibleAt, followScrollTop, playbackFrameAt, planExecutionAt, planTiming, playbackRate, precedentBuildAt, progressAt, scopeTiming, textAt } from "./demoPlayback.js";
+import { advanceScrollTop, commonTiming, compareAssignment, comparePlan, conversationAt, deliveryStateAt, deliveryTiming, demoPlaybackReadyAt, demoVisibleAt, followScrollTop, playbackFrameAt, planExecutionAt, planTiming, playbackRate, precedentBuildAt, progressAt, scopeTiming, textAt } from "./demoPlayback.js";
 
-test("demos wait until watchable and tolerate small scrolls before leaving", () => {
+test("demo visits tolerate small scrolls before leaving", () => {
   const geometry = { windowHeight: 735, viewportHeight: 614 };
   assert.equal(demoVisibleAt(false, { ...geometry, visibleHeight: 100 }), false, "a glimpse of the next window does not start it");
   assert.equal(demoVisibleAt(false, { ...geometry, visibleHeight: 400 }), true, "the landing-page window starts without needing to fit completely");
@@ -14,6 +14,23 @@ test("demos wait until watchable and tolerate small scrolls before leaving", () 
   assert.equal(demoVisibleAt(false, { windowHeight: 1000, viewportHeight: 500, visibleHeight: 300 }), true, "a tall mobile window can start within a shorter viewport");
   assert.equal(demoVisibleAt(false, { windowHeight: 600, viewportHeight: 1200, visibleHeight: 300 }), false, "a small window uses its own height for the entry threshold");
   assert.equal(demoVisibleAt(true, { windowHeight: 0, viewportHeight: 0, visibleHeight: 0 }), false);
+});
+
+test("playback waits for the writing area and composer to fit in the visible viewport", () => {
+  assert.equal(demoPlaybackReadyAt(false, { top: 397, bottom: 994, viewportHeight: 844 }), false, "the previously clipped mobile composer cannot play offscreen");
+  assert.equal(demoPlaybackReadyAt(false, { top: 450, bottom: 790, viewportHeight: 844 }), true);
+  assert.equal(demoPlaybackReadyAt(true, { top: -1, bottom: 600, viewportHeight: 844 }), false, "scrolling past the writing area pauses without ending the visit");
+  assert.equal(demoPlaybackReadyAt(false, { top: 30, bottom: 650, viewportTop: 20, viewportHeight: 650 }), false, "entry requires room above the writing area");
+  assert.equal(demoPlaybackReadyAt(false, { top: 40, bottom: 650, viewportTop: 20, viewportHeight: 650 }), true, "mobile browser chrome uses the actual visual viewport");
+  assert.equal(demoPlaybackReadyAt(false, { top: 20, bottom: 700, viewportHeight: 0 }), false);
+  assert.equal(demoPlaybackReadyAt(false, { top: 20, bottom: 20, viewportHeight: 844 }), false);
+});
+
+test("small layout changes do not repeatedly start and stop playback near an edge", () => {
+  const nearEdge = { top: 8, bottom: 835, viewportHeight: 844 };
+  assert.equal(demoPlaybackReadyAt(false, nearEdge), false);
+  assert.equal(demoPlaybackReadyAt(true, nearEdge), true);
+  assert.equal(demoPlaybackReadyAt(true, { ...nearEdge, bottom: 842 }), false);
 });
 
 test("each scene plays once and holds the exact final frame indefinitely", () => {

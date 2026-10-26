@@ -76,6 +76,7 @@
 
 /* Scope is the product surface of the hero, with one continuous chat. */
 .studio-home-scene--scope {
+  --home-demo-height: min(660px, max(320px, calc(100svh - 360px)));
   position: relative;
   z-index: 1;
   margin-top: -132px;
@@ -88,12 +89,9 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 36px;
+  gap: 20px;
 }
 
-.studio-home-scene--scope .studio-demo-proof { order: -1; }
-
-.studio-home-scene--scope .studio-demo-intro,
 .studio-home-scene--deliver .studio-demo-intro {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -102,12 +100,44 @@
   margin-inline: 8px;
 }
 
-.studio-home-scene--scope .studio-demo-description,
 .studio-home-scene--deliver .studio-demo-description { margin: 0; }
 
-.studio-home-scene--scope .demo-feed {
-  height: min(540px, calc(100svh - 280px));
+.studio-home-scene--scope .studio-demo-intro { margin-inline: 8px; }
+.studio-home-scene--scope .studio-demo-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
 }
+.studio-home-scene--scope .studio-phase-label {
+  flex: none;
+  color: #bed4ad;
+  margin: 0;
+}
+.studio-page .studio-home-scene--scope .studio-demo-heading > h2 {
+  color: #fafbf7;
+  font-size: clamp(22px, 1.9vw, 26px);
+  line-height: 1.2;
+  letter-spacing: -.025em;
+}
+
+/* The hero's live writing area fits below its introduction. The feed absorbs
+   composer wrapping so a typed question cannot push the window offscreen. */
+.studio-home-scene--scope .demo-main {
+  display: flex;
+  flex-direction: column;
+  height: var(--home-demo-height);
+}
+.studio-home-scene--scope .demo-sidebar {
+  height: var(--home-demo-height);
+  overflow-y: auto;
+}
+.studio-page .studio-home-scene--scope .demo-feed {
+  flex: 1 1 0;
+  height: auto;
+  min-height: 0;
+}
+.studio-home-scene--scope .demo-player-header { flex-shrink: 0; }
+.studio-home-scene--scope .demo-composer { flex-shrink: 0; }
 
 .studio-home-scene--plan {
   background: radial-gradient(ellipse at 100% 25%, #86c43d1c, transparent 62%), #10261b;
@@ -452,22 +482,47 @@
 }
 
 @media (max-width: 860px) {
+  .studio-home-scene {
+    --home-demo-height: min(clamp(320px, calc(100svh - 440px), 560px), calc(100svh - 36px));
+  }
   .studio-home-heading { display: block; max-width: 650px; text-align: center; }
   .studio-home-summary > p { margin: 24px auto 0; }
   .studio-demo-layout { grid-template-columns: 1fr; grid-template-areas: "copy" "demo"; row-gap: 28px; }
 
-  .studio-home-scene--scope .studio-demo-intro,
   .studio-home-scene--deliver .studio-demo-intro,
   .studio-demo-intro { display: block; margin-inline: 8px; max-width: 650px; }
   .studio-demo-description,
-  .studio-home-scene--scope .studio-demo-description,
   .studio-home-scene--deliver .studio-demo-description { margin-top: 18px; }
+
+  .studio-home-scene .demo-main {
+    display: flex;
+    flex-direction: column;
+    height: var(--home-demo-height);
+  }
+  .studio-home-scene .demo-sidebar {
+    height: var(--home-demo-height);
+    overflow-y: auto;
+    padding-bottom: 20px;
+  }
+  .studio-home-scene .demo-profile {
+    position: static;
+    margin: 24px 7px 0;
+  }
+  .studio-page .studio-home-scene .demo-feed {
+    flex: 1 1 0;
+    height: auto;
+    min-height: 0;
+  }
+  .studio-home-scene .demo-player-header,
+  .studio-home-scene .demo-composer { flex-shrink: 0; }
 }
 
 @media (min-width: 861px) and (max-height: 780px) {
   .studio-home-hero { padding: 100px 0 148px; }
   .studio-page .studio-home-heading h1 { font-size: clamp(52px, 4.7vw, 66px); }
   .studio-home-summary > p { font-size: 15px; line-height: 1.75; }
+  .studio-home-scene--scope .demo-sidebar { padding-bottom: 20px; }
+  .studio-home-scene--scope .demo-profile { position: static; margin: 24px 7px 0; }
 }
 
 @media (max-width: 600px) {
@@ -478,8 +533,9 @@
   .studio-home-scene--scope { padding: 0 0 48px; margin-top: -100px; }
   .studio-home-scene--scope .studio-demo-layout,
   .studio-home-scene--plan .studio-demo-layout { width: calc(100% - 36px); }
-  .studio-home-scene--scope .studio-demo-layout { gap: 28px; }
-  .studio-home-scene--deliver .demo-feed { height: min(440px, calc(100svh - 510px)); }
+  .studio-home-scene--scope .studio-demo-layout { gap: 16px; }
+  .studio-home-scene--scope .studio-demo-heading { gap: 12px; }
+  .studio-page .studio-home-scene--scope .studio-demo-heading > h2 { font-size: 20px; }
   .studio-phase-label { margin-bottom: 12px; font-size: 12px; }
   .studio-page .studio-demo-heading > h2 { font-size: 30px; }
   .studio-demo-description { font-size: 15px; line-height: 1.8; }
