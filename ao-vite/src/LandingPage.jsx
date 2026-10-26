@@ -9,8 +9,8 @@ export { practiceServices } from "./content/siteContent.js";
 
 const deliveryOutcomes = [
   ["More realistic commitments.", "Test scope, resource fit, availability, effort and pricing assumptions before the firm commits."],
-  ["A plan that carries into delivery.", "Turn the accepted scope into an approved, staffed plan in the project system, with clear assignments, dependencies and review requirements."],
-  ["Better-supported delivery.", "Give consultants the client context, firm methods and relevant review experience to develop their analysis and work through feedback."],
+  ["Act sooner when delivery drifts.", "Time, milestones and changes return from the firm’s systems and are compared with the approved plan while there is still time to act."],
+  ["Every engagement informs the next.", "Reviewed decisions, results and lessons become precedent the next team can draw on."],
 ];
 
 function DemoSection({ phase, label, headline, children, primary = false }) {
@@ -48,8 +48,9 @@ export default function LandingPage() {
     </DemoSection>
     <Track name="workflow" id="workflow" className="studio-home-value"><div className="studio-container">
       <header className="studio-home-value-heading">
+        <p className="studio-home-value-kicker">Better engagement economics. Stronger evidence of value.</p>
         <h2>Better conditions for delivery.</h2>
-        <p>AllianceOne brings the firm’s methods, delivery experience and current engagement context into the decisions that shape the work.</p>
+        <p>AllianceOne keeps approved commitments connected to what happens in delivery, so leaders act with better context and each engagement strengthens the next.</p>
       </header>
       <div className="studio-home-benefits">
         {deliveryOutcomes.map(([title, body]) => <article key={title}><h3>{title}</h3><p>{body}</p></article>)}

@@ -32,7 +32,7 @@ for the engagement-workflow page formerly called How It Works.
 
 | Destination | Content and source |
 | --- | --- |
-| Home | The hero and Scope, Plan and Deliver demos show the application. Better conditions for delivery closes with three outcomes: more realistic commitments, a plan that carries into delivery, and better-supported delivery. Scope remains separate from the hero. |
+| Home | The hero and Scope, Plan and Deliver demos show the application. Better conditions for delivery completes the loop for firm leadership: more realistic commitments, acting sooner on delivery variance, and reviewed experience informing the next engagement. The closing label connects these benefits to engagement economics and evidence of value. Scope remains separate from the hero. |
 | Product (`/allianceone/`) | The full Preserve the chain explanation introduces Approach / Think / Deliver and the four firm IP categories, integrated with the existing knowledge explorer and examples. Approved engagement state, source-system ownership, the application around frontier models, engagement value and applicable practices follow. |
 | Solutions (`/solutions/`) | Main's How It Works plus relevant Explore material: opportunity ownership, context and precedent; resource fit and availability before proposal approval; accepted scope and planning; approved PSA writeback/readback; consultant assignment, review and export; delivery signals, decisions and reviewed future reuse. |
 | Company (`/company/`) | Alliance Systems Group's software and services, systems integration, practice configuration, workflow design, adoption and the bounded implementation approach. |

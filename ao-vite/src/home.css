@@ -168,6 +168,13 @@
   font-size: 16px;
   line-height: 1.8;
 }
+.studio-home-value-heading > .studio-home-value-kicker {
+  margin: 0 0 14px;
+  color: #506b46;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.6;
+}
 .studio-home-benefits {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
