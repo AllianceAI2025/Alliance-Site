@@ -28,7 +28,7 @@ for the engagement-workflow page formerly called How It Works.
 
 | Destination | Content and source |
 | --- | --- |
-| Home | Scope overlaps the brand hero as the main product view. Plan and Deliver focus on the resource schedule, verified PSA plan and reviewed Word report. Concise outcome headlines, one caption per demo and three plain benefit columns explain the value. The practice and services story lives on Company. |
+| Home | Scope overlaps the brand hero as the main product view. Plan and Deliver focus on the resource schedule, verified PSA plan and reviewed Word report. Outcome headlines introduce the demos. Main's Approach / Think / Deliver copy connects the value section to the wider system and engagement record. The practice and services story lives on Company. |
 | Product (`/allianceone/`) | Main's Explore AllianceOne: firm IP, methods, templates, precedent, people and review reasoning; approved engagement state; source-system ownership; the application around frontier models; engagement value; applicable practices. |
 | Solutions (`/solutions/`) | Main's How It Works plus relevant Explore material: opportunity ownership, context and precedent; resource fit and availability before proposal approval; accepted scope and planning; approved PSA writeback/readback; consultant assignment, review and export; delivery signals, decisions and reviewed future reuse. |
 | Company (`/company/`) | Alliance Systems Group's software and services, systems integration, practice configuration, workflow design, adoption and the bounded implementation approach. |
@@ -66,7 +66,7 @@ universal connectors or automatic improvement from unreviewed data is claimed.
 
 - `src/LandingPage.jsx`: the homepage hero and shared text / demo section structure.
 - `src/home.css`: the hero / Scope overlap, outcome introductions, artifact-focused
-  Plan and Deliver chapters, and the plain benefits / experience section.
+  Plan and Deliver chapters, and the Approach / Think / Deliver value section.
   Container queries adapt application navigation and artifacts to each window’s
   available width. Scope remains the first product surface on narrow screens.
 - `src/PlatformPage.jsx`: the Product / Explore AllianceOne page.

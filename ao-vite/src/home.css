@@ -24,32 +24,6 @@
   max-width: 540px;
 }
 
-.studio-home-actions {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 24px;
-  margin-top: 24px;
-}
-
-.studio-home-actions .studio-button {
-  padding: 14px 20px;
-  font-size: 13px;
-  gap: 22px;
-}
-
-.studio-demo-jump {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  color: #e4eddf;
-  font-size: 13px;
-  text-decoration: none;
-  padding-block: 12px;
-}
-
-.studio-demo-jump:hover { color: #b8e67f; }
-
 .studio-home-scene {
   padding: 64px 0;
   background: var(--studio-canvas);
@@ -100,14 +74,6 @@
   line-height: 1.8;
 }
 
-.studio-demo-caption {
-  margin: 16px 8px 0;
-  color: #62705e;
-  font-size: 13px;
-  line-height: 1.7;
-  max-width: 900px;
-}
-
 /* Scope is the product surface of the hero, with one continuous chat. */
 .studio-home-scene--scope {
   position: relative;
@@ -151,11 +117,9 @@
   width: min(1400px, calc(100% - 80px));
 }
 
-.studio-home-scene--plan .studio-demo-intro { padding-bottom: 80px; }
 .studio-home-scene--plan .studio-phase-label { color: #b8d49e; }
 .studio-home-scene--plan .studio-demo-heading > h2 { color: #fafbf7; }
 .studio-home-scene--plan .studio-demo-description { color: #bdcdbb; }
-.studio-home-scene--plan .studio-demo-caption { color: #bdcdbb; }
 
 .studio-home-scene--plan .demo-feed {
   height: min(520px, calc(100svh - 280px));
@@ -166,35 +130,6 @@
   background: #ffffff12;
   box-shadow: 0 24px 65px #0002;
 }
-
-.studio-example-systems {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px 24px;
-  margin: 24px 0 0;
-  color: #bdcdbb;
-}
-
-.studio-example-systems > p { font-size: 12px; margin: 0; }
-.studio-example-systems ul {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 20px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.studio-example-systems li {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 12px;
-  color: #e7eee2;
-}
-.studio-example-systems img { width: 18px; height: 18px; object-fit: contain; }
-.studio-example-systems > small { flex-basis: 100%; font-size: 11px; line-height: 1.7; color: #a7bba1; }
 
 .studio-home-scene--deliver { padding-block: 64px; }
 .studio-home-scene--deliver .studio-demo-layout {
@@ -214,7 +149,15 @@
 }
 .studio-page .studio-home-value h2 {
   font-size: clamp(36px, 3.5vw, 48px);
-  margin: 0 0 36px;
+  margin: 0 0 20px;
+}
+.studio-home-value-heading { margin-bottom: 36px; }
+.studio-home-value-heading > p {
+  max-width: 860px;
+  margin: 0;
+  color: #62705e;
+  font-size: 16px;
+  line-height: 1.8;
 }
 .studio-home-benefits {
   display: grid;
@@ -237,26 +180,6 @@
   margin: 0;
   max-width: 340px;
 }
-.studio-home-experience { margin: 44px 0 0; }
-.studio-home-experience ol {
-  display: flex;
-  gap: 48px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.studio-home-experience li { position: relative; flex: 1; padding-right: 16px; }
-.studio-home-experience li:not(:last-child)::after {
-  content: "→";
-  position: absolute;
-  right: -20px;
-  top: 16px;
-  color: #728867;
-  font-size: 20px;
-}
-.studio-home-experience li > span { display: block; color: #6b7b61; font-size: 12px; margin-bottom: 6px; }
-.studio-home-experience strong { font-size: 14px; font-weight: 500; line-height: 1.6; color: #29432e; }
-.studio-home-experience figcaption { margin-top: 20px; color: #69785f; font-size: 12px; line-height: 1.7; }
 
 /* Let the work, rather than empty template slots, determine the card height. */
 .studio-home-scene--plan .schedule-row {
@@ -520,8 +443,6 @@
   .studio-home-heading { gap: 36px; }
   .studio-home-hero { padding: 110px 0 152px; }
   .studio-home-summary > p { font-size: 15px; }
-  .studio-home-actions { gap: 16px; }
-  .studio-home-actions .studio-button { font-size: 12px; padding: 13px 16px; gap: 14px; }
   .studio-home-scene--scope { margin-top: -120px; }
   .studio-home-scene--scope .studio-demo-layout,
   .studio-home-scene--plan .studio-demo-layout { width: calc(100% - 56px); }
@@ -533,33 +454,26 @@
 @media (max-width: 860px) {
   .studio-home-heading { display: block; max-width: 650px; text-align: center; }
   .studio-home-summary > p { margin: 24px auto 0; }
-  .studio-home-actions { justify-content: center; }
   .studio-demo-layout { grid-template-columns: 1fr; grid-template-areas: "copy" "demo"; row-gap: 28px; }
-  .studio-home-scene--plan .studio-demo-intro { padding: 0; }
+
   .studio-home-scene--scope .studio-demo-intro,
   .studio-home-scene--deliver .studio-demo-intro,
   .studio-demo-intro { display: block; margin-inline: 8px; max-width: 650px; }
   .studio-demo-description,
   .studio-home-scene--scope .studio-demo-description,
   .studio-home-scene--deliver .studio-demo-description { margin-top: 18px; }
-  .studio-home-experience ol { gap: 32px; }
-  .studio-home-experience strong { font-size: 13px; }
 }
 
 @media (min-width: 861px) and (max-height: 780px) {
   .studio-home-hero { padding: 100px 0 148px; }
   .studio-page .studio-home-heading h1 { font-size: clamp(52px, 4.7vw, 66px); }
   .studio-home-summary > p { font-size: 15px; line-height: 1.75; }
-  .studio-home-actions { margin-top: 18px; }
 }
 
 @media (max-width: 600px) {
   .studio-home-hero { padding: 108px 0 126px; }
   .studio-page .studio-home-heading h1 { font-size: clamp(39px, 10.5vw, 54px); line-height: 1.02; }
   .studio-home-summary > p { font-size: 14px; line-height: 1.75; margin-top: 20px; }
-  .studio-home-actions { margin-top: 18px; gap: 16px; }
-  .studio-home-actions .studio-button { font-size: 12px; padding: 12px 16px; }
-  .studio-demo-jump { font-size: 12px; gap: 8px; }
   .studio-home-scene { padding-block: 48px; }
   .studio-home-scene--scope { padding: 0 0 48px; margin-top: -100px; }
   .studio-home-scene--scope .studio-demo-layout,
@@ -569,20 +483,11 @@
   .studio-phase-label { margin-bottom: 12px; font-size: 12px; }
   .studio-page .studio-demo-heading > h2 { font-size: 30px; }
   .studio-demo-description { font-size: 15px; line-height: 1.8; }
-  .studio-demo-caption { font-size: 12px; margin: 14px 5px 0; }
-  .studio-example-systems { margin: 24px 0 0; gap: 12px; }
-  .studio-example-systems ul { gap: 16px; }
-  .studio-example-systems li { font-size: 11px; }
-  .studio-example-systems > small { font-size: 11px; }
   .studio-home-value { padding-block: 48px; }
-  .studio-page .studio-home-value h2 { font-size: 36px; margin-bottom: 28px; }
+  .studio-page .studio-home-value h2 { font-size: 36px; margin-bottom: 20px; }
+  .studio-home-value-heading { margin-bottom: 28px; }
+  .studio-home-value-heading > p { font-size: 15px; }
   .studio-home-benefits { grid-template-columns: 1fr; gap: 28px; }
   .studio-page .studio-home-benefits h3 { font-size: 21px; margin-bottom: 10px; }
   .studio-home-benefits p { max-width: none; }
-  .studio-home-experience { margin-top: 36px; }
-  .studio-home-experience ol { flex-direction: column; gap: 28px; }
-  .studio-home-experience li { padding-left: 24px; padding-right: 0; }
-  .studio-home-experience li:not(:last-child)::after { content: "↓"; left: 0; right: auto; top: 39px; font-size: 16px; }
-  .studio-home-experience li > span { margin-bottom: 4px; }
-  .studio-home-experience strong { font-size: 14px; }
 }
