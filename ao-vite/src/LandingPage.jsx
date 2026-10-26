@@ -1,7 +1,7 @@
 import React from "react";
 import { Track } from "./analytics";
 import EngagementDemo from "./demo/EngagementDemo.jsx";
-import { CompanyOverview, PageShell, PartnerInvitation } from "./PageParts.jsx";
+import { PageShell, PartnerInvitation } from "./PageParts.jsx";
 import "./home.css";
 
 export { CompanyOverview, PartnerInvitation } from "./PageParts.jsx";
@@ -34,7 +34,6 @@ export default function LandingPage() {
       Give consultants the engagement context, firm methods and relevant experience to develop deliverables, examine evidence and work through review.
     </DemoSection>
     <Track name="workflow" id="workflow" className="studio-home-continuity studio-container"><h2>What was committed and what{" "}<br />was delivered stay connected.</h2><p>Approved commitments, current delivery signals and the reasoning behind changes form one engagement record. As work develops, that experience becomes something the next team can draw on.</p></Track>
-    <CompanyOverview />
     <PartnerInvitation />
   </PageShell>;
 }
