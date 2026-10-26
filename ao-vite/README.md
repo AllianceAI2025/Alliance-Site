@@ -32,7 +32,7 @@ for the engagement-workflow page formerly called How It Works.
 
 | Destination | Content and source |
 | --- | --- |
-| Home | Scope's heading precedes its window in the brand hero. Plan and Deliver focus on the resource schedule, verified PSA plan and reviewed Word report. Approach / Think / Deliver explain the benefits of realistic scope and staffing, less context reconstruction, and clear assignments with earlier responses to variance. The practice and services story lives on Company. |
+| Home | Scope sits below the brand hero in a separate light section, with its introduction beside the window on desktop and above it on narrow screens. Plan and Deliver focus on the resource schedule, verified PSA plan and reviewed Word report. Approach / Think / Deliver connect practical benefits with the firm's methods, problem framing, reasoning, governance and delivery experience; reviewed experience carries forward to the next engagement. The practice and services story lives on Company. |
 | Product (`/allianceone/`) | Main's Explore AllianceOne: firm IP, methods, templates, precedent, people and review reasoning; approved engagement state; source-system ownership; the application around frontier models; engagement value; applicable practices. |
 | Solutions (`/solutions/`) | Main's How It Works plus relevant Explore material: opportunity ownership, context and precedent; resource fit and availability before proposal approval; accepted scope and planning; approved PSA writeback/readback; consultant assignment, review and export; delivery signals, decisions and reviewed future reuse. |
 | Company (`/company/`) | Alliance Systems Group's software and services, systems integration, practice configuration, workflow design, adoption and the bounded implementation approach. |
@@ -69,7 +69,7 @@ universal connectors or automatic improvement from unreviewed data is claimed.
 ## Where to edit
 
 - `src/LandingPage.jsx`: the homepage hero and shared text / demo section structure.
-- `src/home.css`: the hero / Scope overlap, outcome introductions, artifact-focused
+- `src/home.css`: the separate hero and Scope layout, outcome introductions, artifact-focused
   Plan and Deliver chapters, and the Approach / Think / Deliver value section.
   Container queries adapt application navigation and artifacts to each window’s
   available width. Scope remains the first product surface on narrow screens.

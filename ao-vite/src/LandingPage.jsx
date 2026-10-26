@@ -8,9 +8,9 @@ export { CompanyOverview, PartnerInvitation } from "./PageParts.jsx";
 export { practiceServices } from "./content/siteContent.js";
 
 const waysOfWorking = [
-  ["Approach", "Reduce avoidable rework by grounding scope and staffing in firm methods, comparable engagements, client conditions and current resource availability."],
-  ["Think", "Spend less time reconstructing context. Keep evidence, prior reasoning and review feedback available when teams work through the decisions this engagement requires."],
-  ["Deliver", "Give consultants clear assignments and relevant guidance. Connect current delivery evidence to the approved plan so managers can respond sooner when work diverges."],
+  ["Approach", "Bring the firm’s methods, frameworks and precedent into how teams frame the problem, ask questions and assess evidence. Relevant client conditions, past results and resource availability inform the scope and proposal before the firm commits."],
+  ["Think", "Keep the options considered, assumptions, tradeoffs and reasoning behind each recommendation connected to their sources. Consultants and reviewers can examine why an approach fits this engagement and build on prior judgment instead of reconstructing it."],
+  ["Deliver", "Connect scope, staffing, sequence and governance with the work people deliver. Approved plans become records in the firm’s systems; delivery signals, decisions, changes, review and outcomes stay linked to the commitments they affect."],
 ];
 
 function DemoSection({ phase, label, headline, children, primary = false }) {
@@ -47,11 +47,12 @@ export default function LandingPage() {
     <Track name="workflow" id="workflow" className="studio-home-value"><div className="studio-container">
       <header className="studio-home-value-heading">
         <h2>Better conditions for delivery.</h2>
-        <p>AllianceOne connects firm knowledge with the accepted scope and approved plan. Decisions, approved changes and delivery evidence from the firm’s systems stay connected in one engagement record.</p>
+        <p>AllianceOne brings together how your firm approaches a problem, reasons through it and delivers the work. Methods and intellectual property stay connected to the client conditions, people, decisions and outcomes that give them meaning.</p>
       </header>
       <div className="studio-home-benefits">
         {waysOfWorking.map(([title, body]) => <article key={title}><h3>{title}</h3><p>{body}</p></article>)}
       </div>
+      <p className="studio-home-experience">As people work, conversations, decisions, revisions and their supporting evidence become part of the engagement record. Practitioners review the resulting experience before it informs another engagement, with the original context and limits available to the next team.</p>
     </div></Track>
     <PartnerInvitation />
   </PageShell>;
