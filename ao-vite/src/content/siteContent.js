@@ -70,15 +70,6 @@ export const firmTypes = [
   ["Technology and transformation", "Longer programs span workstreams, specialists, vendors and operating systems. The approved commercial commitment, dependencies, delivery decisions and implementation evidence need to remain connected across that work."],
 ];
 
-export const productQuestions = [
-  ["What does AllianceOne maintain?", "An engagement record that connects the client problem, accepted scope, commercial assumptions, approved delivery plan, decisions, authorized changes and observed delivery. It also connects the firm's methods and relevant experience to the work. Proposed, approved and delivered states remain distinguishable."],
-  ["How does this work alongside AI assistants?", "Research, analysis, drafting and actions are useful throughout an engagement. AllianceOne is being built to organize those capabilities around a consulting workflow: which scope governs, who approved a change, how a plan maps to operating records and what delivery can responsibly teach the firm. Those responsibilities continue after a conversation ends."],
-  ["Does it replace our CRM or PSA?", "CRM, PSA, document and finance applications remain authoritative for the records they own. AllianceOne links the engagement's approved intent and supporting reasoning across them. Production connections and the records involved are defined with each firm."],
-  ["What if the historical record is incomplete?", "Initial setup selects a useful body of historical and current practice material. Practitioners validate the facts and relationships that matter to the chosen workflow. Recorded evidence, recollection and interpretation remain distinguishable, with missing information visible rather than turned into a conclusion."],
-  ["Who can use prior engagement information?", "Access and reuse depend on firm policy, source permissions, engagement restrictions and explicit sharing. A consultant may receive a published method or a shared review excerpt for an assignment without receiving unrestricted access to the original client's work."],
-  ["Where does the first deployment start?", "With one practice, one recurring engagement type, a selected source corpus and one PSA or project-management system. The design-partner work establishes useful context, an approved live plan, writeback, readback and a primary benefit agreed with the sponsor."],
-];
-
 export const solutionChapters = [
   {
     id: "scope", label: "Scope", title: "Turn early context into an approved scope.",

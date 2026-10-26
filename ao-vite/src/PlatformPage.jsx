@@ -1,7 +1,7 @@
 import React from "react";
 import { Track } from "./analytics";
-import { EngagementRecordVisual, KnowledgeExplorer, PageShell, PartnerInvitation, PrecedentRecord, Questions, SourceOwnership } from "./PageParts.jsx";
-import { firmTypes, precedentChain, productBenefits, productQuestions } from "./content/siteContent.js";
+import { EngagementRecordVisual, KnowledgeExplorer, PageShell, PartnerInvitation, PrecedentRecord, SourceOwnership } from "./PageParts.jsx";
+import { firmTypes, precedentChain, productBenefits } from "./content/siteContent.js";
 
 export default function PlatformPage() {
   return <PageShell page="product">
@@ -13,7 +13,6 @@ export default function PlatformPage() {
     <Track name="models" className="studio-section studio-model-section"><div className="studio-container"><div className="studio-model-intro"><p className="studio-kicker">The application around the models</p><h2>The model is not the edge.</h2><p>Research, analysis, drafting and actions are increasingly capable building blocks. AllianceOne is being built around the firm-specific context, domain rules and continuing engagement responsibilities that make them useful in consulting work.</p></div><div className="studio-model-responsibilities"><article><h3>Relevant firm context</h3><p>The method, practitioner reasoning and delivery experience that apply to this client's conditions, with their supporting sources and limits.</p></article><article><h3>Authority to act</h3><p>Which scope and plan govern, who approved them, what changed, and which operating records should receive the approved intent.</p></article><article><h3>Continuity after the conversation</h3><p>The decisions, revisions, system receipts and observed results that remain available through delivery and future work.</p></article></div></div></Track>
     <Track name="value" id="value" className="studio-section"><div className="studio-container studio-value-layout"><header className="studio-section-heading"><h2>Better scoping.{" "}<br />More controlled delivery.{" "}<br />Stronger proof.</h2><p>The value appears where engagement performance is shaped: the commitment a firm makes, the work it delivers and the evidence behind its expertise.</p></header><div className="studio-value-list">{productBenefits.map(([title, body]) => <article key={title}><h3>{title}</h3><p>{body}</p></article>)}<p className="studio-section-note">A design partner agrees the primary benefit and baseline before measurement. Quality, senior review and correction effort are part of the assessment.</p></div></div></Track>
     <Track name="firms" id="firms" className="studio-firms studio-section"><div className="studio-container"><header className="studio-section-heading"><h2>For project-based{" "}<br />professional services.</h2><p>Our starting focus is management consulting firms that also deliver implementation work. The engagement model also speaks to recurring work across specialist advisory and technology practices.</p></header><div className="studio-firm-list">{firmTypes.map(([title, body]) => <article key={title}><h3>{title}</h3><p>{body}</p></article>)}</div></div></Track>
-    <Questions items={productQuestions} intro="More about the engagement record, your existing systems and the first deployment." />
     <PartnerInvitation />
   </PageShell>;
 }

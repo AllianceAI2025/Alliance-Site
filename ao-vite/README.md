@@ -26,7 +26,7 @@ for the engagement-workflow page formerly called How It Works.
 | Destination | Content and source |
 | --- | --- |
 | Home | A separate brand hero followed by Scope, Plan and Deliver demonstrations, concise explanations, ASG and the design-partner invitation. |
-| Product (`/allianceone/`) | Main's Explore AllianceOne: firm IP, methods, templates, precedent, people and review reasoning; approved engagement state; source-system ownership; the application around frontier models; engagement value; applicable practices and product questions. |
+| Product (`/allianceone/`) | Main's Explore AllianceOne: firm IP, methods, templates, precedent, people and review reasoning; approved engagement state; source-system ownership; the application around frontier models; engagement value; applicable practices. |
 | Solutions (`/solutions/`) | Main's How It Works plus relevant Explore material: opportunity ownership, context and precedent; resource fit and availability before proposal approval; accepted scope and planning; approved PSA writeback/readback; consultant assignment, review and export; delivery signals, decisions and reviewed future reuse. |
 | Company (`/company/`) | Alliance Systems Group's software and services, systems integration, practice configuration, workflow design, adoption and the bounded implementation approach. |
 
@@ -226,7 +226,7 @@ The report content and OOXML package are checked separately from browser QA.
   How It Works route were checked at phone width, with no horizontal page overflow
   or unresolved internal section links.
 - Product's knowledge controls support keyboard selection. Delivery signal
-  examples switch context without leaving the page; questions use native disclosures.
+  examples switch context without leaving the page. Product and Solutions omit FAQ sections.
 - Scope, Plan and Deliver were run through completion in the new shell. Plan's
   complete write/readback and Avery's review/revision/approved Word export remain
   intact, each feed reaches its bottom, and leaving resets the finished example.

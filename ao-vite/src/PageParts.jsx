@@ -24,10 +24,6 @@ export function CompanyOverview({ detailed = false }) {
   return <Track name="company" id="company" className={`studio-company-preview${detailed ? " studio-company-preview--detailed" : ""}`}><div className="studio-container studio-company-grid"><div>{!detailed && <a className="studio-asg" href="/company/" aria-label="Alliance Systems Group"><img src="/brand/asg/alliance-systems-group-mark-refined.png" alt="" /><span>Alliance<small>Systems Group</small></span></a>}<h2>We make the product{" "}<br />fit the practice.</h2></div><div><p className="studio-body">{detailed ? "AllianceOne becomes useful when it reflects how your firm sells, decides, delivers and reviews work. Our services connect the technology, operating model and adoption required for live client engagements." : "Alliance Systems Group builds software and services for consulting and advisory firms. We connect the technology, operating model and adoption required to make firm knowledge useful in live client work."}</p>{detailed && <div className="studio-service-list">{practiceServices.map(([title, body]) => <article key={title}><h3>{title}</h3><p>{body}</p></article>)}</div>}</div></div></Track>;
 }
 
-export function Questions({ items, title = "A closer look.", intro }) {
-  return <section className="studio-questions studio-container"><div><h2>{title}</h2>{intro && <p className="studio-body">{intro}</p>}</div><div>{items.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true">+</span></summary><p>{answer}</p></details>)}</div></section>;
-}
-
 export function KnowledgeExplorer() {
   const [selected, setSelected] = useState(0);
   const id = useId();
