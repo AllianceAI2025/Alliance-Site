@@ -39,10 +39,10 @@ export default function LandingPage() {
     </Track>
     <DemoSection phase="scope" headline="Start with relevant firm experience." primary />
     <DemoSection phase="plan" headline="Go beyond the outcome.">
-      Bring the firm’s arguments, court records and partner review into view. Understand what changed in the work and which lessons apply to the matter in front of you.
+      Explore how the firm approached comparable work, what reviewers challenged and how the work changed. Bring that reasoning into the decisions in front of you.
     </DemoSection>
     <DemoSection phase="deliver" headline="Get up to speed. Keep the reasoning.">
-      Give the assigned attorney the client’s instructions, decisions, open questions and relevant shared experience. New information updates the brief without erasing what the team understood before.
+      Give each team member the client’s objectives, key decisions, open questions and relevant firm experience. As new information arrives, keep the current understanding and the reasons for changes together.
     </DemoSection>
     <Track name="workflow" id="workflow" className="studio-home-value"><div className="studio-container">
       <header className="studio-home-value-heading">
