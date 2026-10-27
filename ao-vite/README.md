@@ -86,7 +86,8 @@ files, even though Avery helped prepare Harbor's earlier work.
 
 ## Website structure
 
-- **Home:** each demo uses its main headline without a separate phase label.
+- **Home:** each demo uses its main headline and a cross-practice description
+  without a separate phase label.
   The first demo's introduction sits on its own
   light surface below the brand hero. Its full-width window retains the
   conversation height from 1891aa2, with its header and composer outside that
@@ -94,9 +95,10 @@ files, even though Avery helped prepare Harbor's earlier work.
   narrative. The existing dark green, warm white and restrained accents remain.
 - **Product (`/allianceone/`):** firm knowledge, practice guidance, work product,
   matter/engagement record, source ownership, decision rights and accountable
-  deployment. A Northstar overview uses the same current-matter data as the demo.
-- **Solutions (`/solutions/`):** fuller explanations of comparison, arguments and
-  review, handoff, changing evidence and reviewed future reuse. Comparison and
+  deployment across law, consulting and advisory. Legal details stay in the
+  example panels; a Northstar overview uses the same current-matter data as the demo.
+- **Solutions (`/solutions/`):** cross-practice explanations of comparison, reasoning
+  and review, continuity, changing evidence and reviewed future reuse. Comparison and
   review illustrations reuse Home’s records. The full letterhead brief appears
   as an artifact in the demo only; the Solutions handoff section is text only. Consulting and
   advisory applications remain part of the broader story.

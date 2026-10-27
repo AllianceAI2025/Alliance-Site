@@ -34,7 +34,7 @@ export function KnowledgeExplorer() {
     setSelected(keys[event.key]);
     document.getElementById(`${id}-tab-${keys[event.key]}`)?.focus();
   };
-  return <div className="knowledge-explorer"><div className="knowledge-menu" role="tablist" aria-label="Explore firm knowledge" aria-orientation="vertical" onKeyDown={keyboard}>{firmKnowledge.map((entry, index) => <button key={entry.id} id={`${id}-tab-${index}`} role="tab" aria-selected={selected === index} aria-controls={`${id}-panel`} tabIndex={selected === index ? 0 : -1} onClick={() => setSelected(index)}><strong>{entry.title}</strong><span>{entry.short}</span><i aria-hidden="true">↗</i></button>)}</div><div id={`${id}-panel`} className="knowledge-panel" role="tabpanel" aria-labelledby={`${id}-tab-${selected}`} tabIndex={0}><p className="knowledge-description">{item.body}</p><article className="practice-paper"><div className="practice-paper-top"><LogoMark size={27} /><span>{item.exampleType}</span></div><h3>{item.exampleTitle}</h3><p>{item.example}</p><div className="practice-paper-author">{item.detail}</div></article><p className="knowledge-note">{item.note}</p></div></div>;
+  return <div className="knowledge-explorer"><div className="knowledge-menu" role="tablist" aria-label="Explore firm knowledge" aria-orientation="vertical" onKeyDown={keyboard}>{firmKnowledge.map((entry, index) => <button key={entry.id} id={`${id}-tab-${index}`} role="tab" aria-selected={selected === index} aria-controls={`${id}-panel`} tabIndex={selected === index ? 0 : -1} onClick={() => setSelected(index)}><strong>{entry.title}</strong><span>{entry.short}</span><i aria-hidden="true">↗</i></button>)}</div><div id={`${id}-panel`} className="knowledge-panel" role="tabpanel" aria-labelledby={`${id}-tab-${selected}`} tabIndex={0}><p className="knowledge-description">{item.body}</p><article className="practice-paper"><div className="practice-paper-top"><LogoMark size={27} /><span>{item.exampleType}</span></div><h3>{item.exampleTitle}</h3><p>{item.example}</p><div className="practice-paper-author">{item.detail}</div><footer className="knowledge-note">{item.note}</footer></article></div></div>;
 }
 
 export function EngagementRecordVisual() {
@@ -42,7 +42,7 @@ export function EngagementRecordVisual() {
 }
 
 export function SourceOwnership() {
-  return <div className="source-ownership" role="table" aria-label="System ownership and matter context"><div className="source-ownership-head" role="row"><span role="columnheader">Source system</span><span role="columnheader">What it continues to own</span><span role="columnheader">Its part in the working record</span></div>{systemSources.map((system) => <div className="source-ownership-row" key={system.name} role="row"><strong role="rowheader">{system.name}</strong><p role="cell" data-label="System records">{system.owns}</p><p role="cell" data-label="Working context">{system.contributes}</p></div>)}</div>;
+  return <div className="source-ownership" role="table" aria-label="System ownership and client work"><div className="source-ownership-head" role="row"><span role="columnheader">Source system</span><span role="columnheader">What it continues to own</span><span role="columnheader">Its part in the working record</span></div>{systemSources.map((system) => <div className="source-ownership-row" key={system.name} role="row"><strong role="rowheader">{system.name}</strong><p role="cell" data-label="System records">{system.owns}</p><p role="cell" data-label="Working context">{system.contributes}</p></div>)}</div>;
 }
 
 const signals = [

@@ -37,7 +37,9 @@ export default function LandingPage() {
         </div>
       </div>
     </Track>
-    <DemoSection phase="scope" headline="Start with relevant firm experience." primary />
+    <DemoSection phase="scope" headline="Start with relevant firm experience." primary>
+      Bring comparable work, firm methods and review experience into the client’s situation. Understand what applies, who contributed and which questions still need an answer.
+    </DemoSection>
     <DemoSection phase="plan" headline="Go beyond the outcome.">
       Explore how the firm approached comparable work, what reviewers challenged and how the work changed. Bring that reasoning into the decisions in front of you.
     </DemoSection>

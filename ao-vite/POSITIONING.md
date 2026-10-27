@@ -21,9 +21,14 @@
   product's stage beyond "we are looking for design partners."
 - **Vocabulary:** prefer the business case's terms: *firm knowledge*,
   *engagement record*, *approved baseline*.
+- **Public messaging:** Home, Product and Solutions describe capabilities shared
+  by law, consulting and advisory firms. Keep named matters, motions and other
+  legal specifics inside the fictional demo and example panels. Explain the
+  capability around each example in terms of client work, reasoning, review,
+  responsibilities, changes and results.
 
-The active legal demonstration uses Similar matters, Motion history and Matter
-handoff. It contains three fictional closed matters and one current matter; no
+The active legal demonstration covers relevant experience, reasoning and review,
+and continuity of work. It contains three fictional closed matters and one current matter; no
 PSA writeback, real firm attribution or verified legal authority is represented.
 Matter access and permitted reuse are part of the story. Do not claim competitors
 have no internal knowledge capabilities. Source access in the demo is illustrative,
