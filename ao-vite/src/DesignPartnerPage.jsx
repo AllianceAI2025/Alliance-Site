@@ -12,7 +12,7 @@ export default function DesignPartnerPage() {
         <div className="dp-invitation">
           <p className="eyebrow">ALLIANCEONE / DESIGN PARTNERS</p>
           <h1>Become a<br />design partner.</h1>
-          <p className="dp-lead">We’re inviting consulting and advisory firms to become AllianceOne’s first design partners. Get early access, work directly with our team, and have a say in how the product develops.</p>
+          <p className="dp-lead">We’re inviting law, consulting and advisory firms to become AllianceOne’s first design partners. Get early access, work directly with our team, and have a say in how the product develops.</p>
           <section className="dp-next" aria-labelledby="expect-title">
             <h2 id="expect-title">What to expect</h2>
             <div className="dp-next-item"><h3>Tell us about your team.</h3><p>We’ll talk about the work your firm does, the systems you use, and where you’d like things to work better.</p></div>

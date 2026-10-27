@@ -1,30 +1,23 @@
 import React from "react";
 import { LogoMark } from "./Site.jsx";
-import { readbackPlan } from "./demo/engagementPlan.js";
-import assessment from "./demo/assessment.json";
+import { currentMatter } from "./demo/litigation.js";
 
 export default function ProductEngagementOverview() {
-  const { project, resources, deliverables } = readbackPlan;
-  const task = deliverables.find(item => item.id === "NS-D01");
-  const coverage = assessment.evidence.find(item => item.label === "Coverage");
-
-  return <figure className="product-engagement-overview" aria-label="Northstar engagement overview">
-    <div className="product-overview-top"><LogoMark size={27} /><span>Engagement overview</span></div>
-    <h3>{project.name}</h3>
-    <p className="product-overview-objective">{project.objective}</p>
+  return <figure className="product-engagement-overview" aria-label="Northstar matter overview">
+    <div className="product-overview-top"><LogoMark size={27} /><span>Matter overview · {currentMatter.number}</span></div>
+    <h3>{currentMatter.client}</h3>
+    <p className="product-overview-objective">{currentMatter.title}</p>
     <dl className="product-overview-baseline">
-      <div><dt>Accepted commitment</dt><dd>{project.proposal} · Client accepted</dd></div>
-      <div><dt>Approved plan</dt><dd>{project.baseline} · {resources.length} resources · {deliverables.length} deliverables<small>{project.effort.toLocaleString("en-US")} hours · {project.manager}</small></dd></div>
+      <div><dt>Client instructions</dt><dd>{currentMatter.instruction}</dd></div>
+      <div><dt>Assigned work</dt><dd>{currentMatter.assignment}<small>{currentMatter.associate} · Reviewing partner: {currentMatter.reviewer}</small></dd></div>
     </dl>
-    <section className="product-overview-work" aria-label="Current delivery and review">
-      <p className="product-overview-label">Current delivery</p>
-      <h4>{task.title}</h4>
-      <p className="product-overview-byline">{task.owner} · Review: {task.reviewer}</p>
-      <div className="product-overview-evidence"><strong>{coverage.finding}</strong><span>{coverage.gap}</span></div>
-      <p className="product-overview-review">Revision {assessment.revision} · {assessment.reviewer} approved</p>
-      <p className="product-overview-conclusion">{assessment.conclusion}</p>
+    <section className="product-overview-work" aria-label="Current information and pending decision">
+      <p className="product-overview-label">What changed · October 22</p>
+      <h4>A records assumption needs checking.</h4>
+      <div className="product-overview-evidence"><strong>{currentMatter.newInformation}</strong><span>{currentMatter.originalAssumption}</span></div>
+      <p className="product-overview-review">Handoff revision 2 · For Sofia’s review</p>
+      <p className="product-overview-conclusion">{currentMatter.interpretation}</p>
     </section>
-    <div className="product-overview-system"><img src="/brand/systems/project-operations.svg" alt="" /><span>Approved plan verified in Project Operations</span></div>
-    <figcaption>From the Northstar demonstration. Approval, source evidence and review remain linked.</figcaption>
+    <figcaption>Fictional matter. Earlier assumptions, new sources and proposed decisions remain distinguishable.</figcaption>
   </figure>;
 }

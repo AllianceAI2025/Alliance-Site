@@ -1,16 +1,16 @@
 # AllianceOne — Positioning & Language Registers
 
-## Current rules (align with the investor business case)
+## Current rules (firm knowledge, including legal work)
 
 - **Product definition:** AllianceOne connects firm methods, intellectual property,
-  practitioner judgment and engagement history with scoping, staffing, planning
-  and delivery. The application maintains the approved engagement context around
+  practitioner judgment and past matters and engagements with current client work.
+  Law firms join consulting and advisory firms in the customer base. The application maintains the approved engagement context around
   the models; it does not claim general-purpose platforms cannot retrieve, reason
   or act across systems.
-- **Ownership:** AllianceOne is being built to maintain an approved engagement
-  record connecting firm methods, standards and precedent with accepted scope,
-  the approved plan and the rationale for authorized changes. CRM, PSA, document
-  and finance systems remain authoritative for the records they own.
+- **Ownership:** AllianceOne maintains the matter and engagement context: client
+  instructions, assignments, evidence, working assumptions, review and decisions.
+  Source systems remain authoritative for their records and access controls.
+  A proposed interpretation is distinct from an approved decision.
 - **Models:** AllianceOne uses frontier models (OpenAI, Anthropic, Google).
   Don't claim how model changes are evaluated or released, don't claim model
   improvements automatically make AllianceOne better, and don't claim
@@ -22,8 +22,17 @@
 - **Vocabulary:** prefer the business case's terms: *firm knowledge*,
   *engagement record*, *approved baseline*.
 
-The exploration registers below preserve earlier positioning work. The current
-rules above and the September 2026 business case govern public product claims.
+The active legal demonstration uses Similar matters, Motion history and Matter
+handoff. It contains three fictional closed matters and one current matter; no
+PSA writeback, real firm attribution or verified legal authority is represented.
+Matter access and permitted reuse are part of the story. Do not claim competitors
+have no internal knowledge capabilities. Source access in the demo is illustrative,
+not production authorization.
+
+The exploration registers below preserve earlier consulting positioning work.
+The current rules above govern the expanded public story. The September 2026
+business case remains context for the consulting offering, not evidence that
+the legal workflow has been validated in production.
 
 ## The spine (the one idea everything flows from)
 
