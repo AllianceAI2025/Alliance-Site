@@ -86,7 +86,8 @@ files, even though Avery helped prepare Harbor's earlier work.
 
 ## Website structure
 
-- **Home:** the first demo's Relevant experience introduction sits on its own
+- **Home:** each demo uses its main headline without a separate phase label.
+  The first demo's introduction sits on its own
   light surface below the brand hero. Its full-width window retains the
   conversation height from 1891aa2, with its header and composer outside that
   height. The windows contain the legal

@@ -13,11 +13,11 @@ const deliveryOutcomes = [
   ["Make the next team stronger.", "Carry reviewed reasoning and results into future work, with their sources, limits and permitted use intact."],
 ];
 
-function DemoSection({ phase, label, headline, children, primary = false }) {
+function DemoSection({ phase, headline, children, primary = false }) {
   return <Track name={phase} id={phase} className={`studio-home-scene studio-home-scene--${phase}${phase === "plan" ? " studio-dark-field" : ""}`}>
     <div className="studio-container studio-demo-layout">
       <header className="studio-demo-intro">
-        <div className="studio-demo-heading"><p className="studio-phase-label">{label}</p><h2>{headline}</h2></div>
+        <div className="studio-demo-heading"><h2>{headline}</h2></div>
         {children && <p className="studio-demo-description">{children}</p>}
       </header>
       <div className="studio-demo-proof">
@@ -37,11 +37,11 @@ export default function LandingPage() {
         </div>
       </div>
     </Track>
-    <DemoSection phase="scope" label="Relevant experience" headline="Start with relevant firm experience." primary />
-    <DemoSection phase="plan" label="Reasoning and review" headline="Go beyond the outcome.">
+    <DemoSection phase="scope" headline="Start with relevant firm experience." primary />
+    <DemoSection phase="plan" headline="Go beyond the outcome.">
       Bring the firm’s arguments, court records and partner review into view. Understand what changed in the work and which lessons apply to the matter in front of you.
     </DemoSection>
-    <DemoSection phase="deliver" label="Continuity of work" headline="Get up to speed. Keep the reasoning.">
+    <DemoSection phase="deliver" headline="Get up to speed. Keep the reasoning.">
       Give the assigned attorney the client’s instructions, decisions, open questions and relevant shared experience. New information updates the brief without erasing what the team understood before.
     </DemoSection>
     <Track name="workflow" id="workflow" className="studio-home-value"><div className="studio-container">
