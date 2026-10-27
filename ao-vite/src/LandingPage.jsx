@@ -38,10 +38,10 @@ export default function LandingPage() {
       </div>
     </Track>
     <DemoSection phase="scope" label="Relevant experience" headline="Start with relevant firm experience." primary />
-    <DemoSection phase="plan" label="Motion history" headline="Go beyond the outcome.">
+    <DemoSection phase="plan" label="Reasoning and review" headline="Go beyond the outcome.">
       Bring the firm’s arguments, court records and partner review into view. Understand what changed in the work and which lessons apply to the matter in front of you.
     </DemoSection>
-    <DemoSection phase="deliver" label="Matter handoff" headline="Get up to speed. Keep the reasoning.">
+    <DemoSection phase="deliver" label="Continuity of work" headline="Get up to speed. Keep the reasoning.">
       Give the assigned attorney the client’s instructions, decisions, open questions and relevant shared experience. New information updates the brief without erasing what the team understood before.
     </DemoSection>
     <Track name="workflow" id="workflow" className="studio-home-value"><div className="studio-container">

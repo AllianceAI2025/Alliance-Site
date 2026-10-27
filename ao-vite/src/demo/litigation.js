@@ -141,7 +141,7 @@ export const legalStories = {
     summary: "Three fictional matters connect legal issues, the firm’s arguments, disposition records and partner review to the evidence Northstar still needs. People and economics remain in supporting matter records.",
   },
   plan: {
-    label: "Motion history", thread: "Arguments and review", person: "Margaret Whitfield", role: "Partner", initials: "MW",
+    label: "Reasoning and review", thread: "Arguments and review", person: "Margaret Whitfield", role: "Partner", initials: "MW",
     prompt: "How did our motions to compel production go in those matters? Show what we argued, what the court decided and the partner’s review.",
     answer: "The results differ: Harbor was granted in part, Cedar Ridge was withdrawn after production, and Briar Glen was denied without prejudice. I’ve kept the requested relief, the decision record and the partner’s interpretation separate. Cedar Ridge is not a court win; none of these records predicts Northstar’s outcome.",
     answerDuration: 2200, artifact: "legal-motions", artifactAt: legalTiming.plan.artifact, artifactUntil: legalTiming.plan.firstReady, duration: legalTiming.plan.end,
@@ -150,7 +150,7 @@ export const legalStories = {
     summary: "The motion history distinguishes court reasoning, a withdrawal after production, partner review and the limits of applying that experience to Northstar.",
   },
   deliver: {
-    label: "Handoff", thread: "Matter handoff", person: "Avery Ross", role: "Associate", initials: "AR", threads: ["deliver"],
+    label: "Continuity of work", thread: "Matter handoff", person: "Avery Ross", role: "Associate", initials: "AR", threads: ["deliver"],
     prompt: "I’m joining Northstar. What has been decided, what is still open, and what am I responsible for?",
     answer: "Margaret assigned you an internal assessment of a possible motion to compel production and an evidence map for Sofia’s review. The client wants a targeted records approach with limited operational disruption. The file contains the agreement, chronology and photographs; it does not establish liability or who controls the missing reports. Sofia has shared a Harbor review excerpt and the published practice note for this assignment.",
     answerDuration: 2300, artifact: "legal-handoff", artifactAt: legalTiming.deliver.artifact, artifactUntil: legalTiming.deliver.firstReady, duration: legalTiming.deliver.end,

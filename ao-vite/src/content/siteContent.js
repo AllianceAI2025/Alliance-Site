@@ -80,7 +80,7 @@ export const solutionChapters = [
     result: "A supported comparison, the people behind it and a clearer set of questions for the current matter.",
   },
   {
-    id: "plan", label: "Motion history", title: "Understand the work behind the result.",
+    id: "plan", label: "Reasoning and review", title: "Understand the work behind the result.",
     intro: "Public legal research and internal firm experience answer different questions. AllianceOne brings the firm’s own arguments, draft changes and partner observations together with the relevant decision record.",
     sections: [
       ["Trace the argument and its revision", "Ask what relief the team sought, how the argument developed and what the partner challenged. Harbor’s first draft sought broad records. Sofia’s review asked Avery to connect each request with a disputed issue, exhibit and custodian. The revised draft and the review remain available together."],
@@ -90,7 +90,7 @@ export const solutionChapters = [
     result: "A source-linked account of arguments, dispositions and review that helps the attorney prepare and ask better questions.",
   },
   {
-    id: "deliver", label: "Matter handoff", title: "Keep the matter’s reasoning available.",
+    id: "deliver", label: "Continuity of work", title: "Keep the matter’s reasoning available.",
     intro: "Joining a matter should not require reconstructing its history from scattered messages and files. The assigned attorney can ask what has been decided, why, what remains open and what they are responsible for.",
     sections: [
       ["Start with the approved assignment", "Avery’s Northstar brief distinguishes client instructions, received materials, working assumptions and decisions still awaiting review. The assignment names Sofia as reviewer. The materials received do not, by themselves, establish liability or records control."],

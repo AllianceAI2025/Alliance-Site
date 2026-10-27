@@ -3,7 +3,7 @@
 React + Vite marketing site for law, consulting and advisory firms. The active
 homepage separates its brand hero from the first demo and retains the original
 conversation window sizing from 1891aa2.
-It demonstrates internal litigation experience across three continuous chat scenes: **Relevant experience → Motion history → Matter handoff**. The current
+It demonstrates internal litigation experience across three continuous chat scenes: **Relevant experience → Reasoning and review → Continuity of work**. The current
 visual system and autonomous playback are retained. There is no PSA writeback
 in this narrative.
 
@@ -53,7 +53,7 @@ The original arguments, disposition records and partner review remain inspectabl
 People, fees and documented cost explanations remain in supporting matter records;
 they are not the opening conversation or the comparison's leading fields.
 
-### 2. Motion history — Margaret Whitfield, partner
+### 2. Reasoning and review — Margaret Whitfield, partner
 
 The same three matters supply the requested relief, decision record and partner
 review. A withdrawal after production is not counted as a court win. A partial
@@ -61,7 +61,7 @@ order is not presented as a liability ruling. Margaret then examines Harbor's
 first draft, Sofia's review and what changed in the revised argument. The order's
 stated grounds remain separate from a partner's retrospective observation.
 
-### 3. Handoff — Avery Ross, assigned associate
+### 3. Continuity of work — Avery Ross, assigned associate
 
 Avery asks what has been decided, what remains open and what he is responsible
 for. Handoff revision 1 (October 21) contains the client instructions, assignment,
@@ -121,8 +121,8 @@ verified legal authorities or make the attorney's decision.
 - `src/demo/legalDemo.test.js`: active corpus and narrative invariants.
 
 The internal phase keys `scope`, `plan`, `deliver` remain for existing anchors,
-layout classes and playback code. Their visible labels are Relevant experience,
-Motion history and Matter handoff. Follow-ups append to the same conversation;
+layout classes and playback code. Their visible labels are **Relevant experience**,
+**Reasoning and review**, and **Continuity of work**. Follow-ups append to the same conversation;
 earlier artifacts freeze at their completed version. Each scene plays once,
 holds its last frame, and restarts after leaving and returning. Partial clipping
 of the feed or composer pauses the clock; reduced motion shows the final state.
