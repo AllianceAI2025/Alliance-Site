@@ -39,6 +39,24 @@ test("every historical claim has dated, attributed assessment, draft, result, re
   }
 });
 
+test("the opening leads with sourced legal arguments and their application while retaining supporting economics", () => {
+  const story = legalStories.scope;
+  const conversation = [story.prompt, story.answer, story.commands[0].prompt, story.commands[0].answer].join(" ");
+  assert.doesNotMatch(conversation, /\$|\bbudget\b|\bcost\b|who did|availability|staffing/i);
+  assert.match(conversation, /arguments/);
+  assert.match(conversation, /control/);
+  assert.match(story.commands[0].prompt, /motion assessment/);
+  for (const matter of priorMatters) {
+    assert.ok(matter.legalIssue && matter.northstarQuestion && matter.northstarApplication);
+    assert.ok(legalContexts[matter.sources.brief].text.includes(matter.motion.argument));
+    assert.ok(legalContexts[matter.sources.assessment].text.includes(matter.legalIssue));
+    assert.ok(legalContexts[matter.sources.cost].text.includes(matter.budget.reason));
+    const labels = legalContexts[matter.id].facts.map(([label]) => label);
+    assert.ok(labels.indexOf("The firm’s argument") < labels.indexOf("Contributor"));
+    assert.ok(labels.indexOf("Recorded motion result") < labels.indexOf("Budget / actual fees"));
+  }
+});
+
 test("a withdrawal is not represented as a court win and partial relief is not a liability finding", () => {
   const [harbor, cedar, briar] = priorMatters;
   assert.equal(harbor.motion.result, "Granted in part");

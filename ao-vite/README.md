@@ -1,8 +1,8 @@
 # AllianceOne website
 
 React + Vite marketing site for law, consulting and advisory firms. The active
-homepage demonstrates internal litigation experience across three continuous
-chat scenes: **Similar matters → Motion history → Matter handoff**. The current
+homepage leads with a full-width live demo in the hero and demonstrates internal
+litigation experience across three continuous chat scenes: **Similar matters → Motion history → Matter handoff**. The current
 visual system and autonomous playback are retained. There is no PSA writeback
 in this narrative.
 
@@ -16,7 +16,7 @@ npm run build
 ```
 
 The existing preview is http://localhost:5176. `npm run build` produces `dist/`.
-`npm test` runs 38 checks: shared playback and retained consulting fixtures,
+`npm test` runs 39 checks: shared playback and retained consulting fixtures,
 plus the active litigation corpus, chronology and source-access scenarios.
 
 ## The fictional firm record
@@ -43,12 +43,14 @@ and the documented explanation, rather than inventing a cause from the total.
 
 ### 1. Similar matters — Margaret Whitfield, partner
 
-Margaret asks where the firm has handled comparable work, what changed its view
-and what it cost. A comparison develops in chat, connecting conditions,
-contributors, fee records and partner observations. Her follow-up asks who did
-what and what needs investigating before applying the experience to Northstar.
-The answer identifies Avery, Daniel and Lena, their work, and the reviewing
-partners. Differences between matters remain visible.
+Margaret asks where the firm has handled comparable inspection-record issues,
+what it argued and what changed its approach. The comparison develops the legal
+issue, the firm's position and the recorded disposition in each matter. Her
+follow-up asks what Northstar can carry forward and what still needs evidence:
+issue-and-exhibit mapping, a missing-record schedule and proof of records control.
+The original arguments, disposition records and partner review remain inspectable.
+People, fees and documented cost explanations remain in supporting matter records;
+they are not the opening conversation or the comparison's leading fields.
 
 ### 2. Motion history — Margaret Whitfield, partner
 
@@ -82,8 +84,8 @@ files, even though Avery helped prepare Harbor's earlier work.
 
 ## Website structure
 
-- **Home:** the product definition, three legal demonstrations and firm-level
-  benefits. The existing dark green, warm white and restrained accents remain.
+- **Home:** the product definition and full-width Similar matters demo share
+  the gradient hero. Motion history and Handoff follow, then firm-level benefits. The existing dark green, warm white and restrained accents remain.
 - **Product (`/allianceone/`):** firm knowledge, practice guidance, work product,
   matter/engagement record, source ownership, decision rights and accountable
   deployment. A Northstar overview uses the same current-matter data as the demo.

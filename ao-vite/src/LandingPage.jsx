@@ -8,7 +8,7 @@ export { CompanyOverview, PartnerInvitation } from "./PageParts.jsx";
 export { practiceServices } from "./content/siteContent.js";
 
 const deliveryOutcomes = [
-  ["Start from experience.", "Find comparable matters and engagements, the people behind them, what changed and what the work actually cost."],
+  ["Start from experience.", "Find comparable matters and engagements, the arguments and approaches used, what review changed and what the evidence established."],
   ["See what changed, and why.", "Connect new evidence and client instructions with earlier assessments, open questions and decisions that need attention."],
   ["Make the next team stronger.", "Carry reviewed reasoning and results into future work, with their sources, limits and permitted use intact."],
 ];
@@ -36,10 +36,14 @@ export default function LandingPage() {
           <p>AllianceOne connects your firm’s methods, intellectual property, practitioner judgment and past work with the decisions your people make today. For law, consulting and advisory firms.</p>
         </div>
       </div>
+      <Track name="scope" id="scope" className="studio-home-scene studio-home-scene--scope studio-hero-demo">
+        <div className="studio-container studio-hero-demo-inner">
+          <h2 className="demo-sr-only">Similar matters and internal precedent</h2>
+          <p className="studio-hero-demo-caption">Similar matters</p>
+          <div className="studio-demo-proof"><EngagementDemo phase="scope" primary /></div>
+        </div>
+      </Track>
     </Track>
-    <DemoSection phase="scope" label="Similar matters" headline="Find the experience behind the file." primary>
-      See what comparable matters depended on, who did the work, what changed and how the cost compared with the budget.
-    </DemoSection>
     <DemoSection phase="plan" label="Motion history" headline="Go beyond the outcome.">
       Bring the firm’s arguments, court records and partner review into view. Understand what changed in the work and which lessons apply to the matter in front of you.
     </DemoSection>

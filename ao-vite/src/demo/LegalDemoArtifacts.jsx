@@ -15,40 +15,37 @@ function Source({ id, onInspect }) {
 function Head({ label, title, elapsed, at }) {
   return <header className="artifact-head"><div><p className="artifact-kicker"><Text elapsed={elapsed} at={at} duration={450}>{label}</Text></p><h3><Text elapsed={elapsed} at={at + 150}>{title}</Text></h3></div></header>;
 }
-const money = value => `$${value.toLocaleString("en-US")}`;
-
 export function LegalMatterComparison({ elapsed = legalTiming.scope.firstReady, onInspect }) {
   const start = legalTiming.scope.artifact;
   return <article className="inline-artifact legal-comparison" aria-label="Comparable firm matters">
-    <Head label="Firm matter experience" title="What carries into Northstar" elapsed={elapsed} at={start} />
+    <Head label="Internal matter precedent" title="How the firm approached these issues" elapsed={elapsed} at={start} />
     <div className="legal-record-list">{priorMatters.map((matter, index) => {
-      const at = start + 700 + index * 3600;
+      const at = start + 700 + index * 4200;
       return elapsed < at ? null : <section className="legal-record" key={matter.id}>
         <h4><Text elapsed={elapsed} at={at}>{matter.client}</Text></h4>
-        <p><Text elapsed={elapsed} at={at + 450}>{matter.issue}</Text></p>
-        {elapsed >= at + 1100 && <p className="legal-record-people" data-follow-at={at + 1100}><Text elapsed={elapsed} at={at + 1100}>{`${matter.author} prepared the work · ${matter.lead} led / reviewed`}</Text></p>}
-        {elapsed >= at + 1700 && <p data-follow-at={at + 1700}><Text elapsed={elapsed} at={at + 1700}>{`${money(matter.budget.actual)} actual / ${money(matter.budget.approved)} budget. ${matter.changed}`}</Text></p>}
-        {elapsed >= at + 2700 && <p className="legal-carry" data-follow-at={at + 2700}><Text elapsed={elapsed} at={at + 2700}>{matter.motion.lesson}</Text></p>}
-        {elapsed >= at + 3300 && <div className="legal-record-sources" data-follow-at={at + 3300}><Source id={matter.sources.closeout} onInspect={onInspect} /><Source id={matter.sources.cost} onInspect={onInspect} /></div>}
+        <p className="legal-issue"><Text elapsed={elapsed} at={at + 350}>{matter.legalIssue}</Text></p>
+        {elapsed >= at + 1050 && <p data-follow-at={at + 1050}><strong>The firm’s position </strong><Text elapsed={elapsed} at={at + 1050} duration={1100}>{matter.motion.argument}</Text></p>}
+        {elapsed >= at + 2350 && <p className="legal-carry" data-follow-at={at + 2350}><Text elapsed={elapsed} at={at + 2350} duration={800}>{`${matter.motion.result}. ${matter.motion.recordPoint}`}</Text></p>}
+        {elapsed >= at + 3300 && <div className="legal-record-sources" data-follow-at={at + 3300}><Source id={matter.sources.brief} onInspect={onInspect} /><Source id={matter.sources.decision} onInspect={onInspect} /></div>}
       </section>;
     })}</div>
-    {elapsed >= 15100 && <p className="legal-artifact-note" data-follow-at={15100}>Comparable conditions inform the questions. They do not establish Northstar’s facts or predict an outcome.</p>}
+    {elapsed >= 16600 && <p className="legal-artifact-note" data-follow-at={16600}><Text elapsed={elapsed} at={16600} duration={1000}>{"Northstar needs its own issue-by-issue basis for the requests and evidence of records control. These prior matters inform the assessment; they do not establish this matter’s facts."}</Text></p>}
   </article>;
 }
 
 export function LegalMatterQuestions({ elapsed, onInspect }) {
   const at = legalTiming.scope.nextArtifact;
   return <article className="inline-artifact" aria-label="Questions to carry into Northstar">
-    <Head label="Northstar Foods · Internal assessment" title="Start with the unresolved evidence" elapsed={elapsed} at={at} />
+    <Head label="Northstar Foods · Motion assessment" title="What the current record still needs" elapsed={elapsed} at={at} />
     {priorMatters.map((matter, index) => {
-      const time = at + 750 + index * 1350;
+      const time = at + 750 + index * 1500;
       return elapsed < time ? null : <section className="legal-record" key={matter.id} data-follow-at={time}>
-        <h4><Text elapsed={elapsed} at={time}>{`${matter.author} · ${matter.role}`}</Text></h4>
-        <p><Text elapsed={elapsed} at={time + 350}>{matter.limit}</Text></p>
-        {elapsed >= time + 1000 && <Source id={matter.sources.review} onInspect={onInspect} />}
+        <h4><Text elapsed={elapsed} at={time}>{matter.northstarQuestion}</Text></h4>
+        <p><Text elapsed={elapsed} at={time + 350} duration={900}>{matter.northstarApplication}</Text></p>
+        {elapsed >= time + 1250 && <Source id={matter.sources.review} onInspect={onInspect} />}
       </section>;
     })}
-    {elapsed >= at + 4900 && <p className="legal-carry" data-follow-at={at + 4900}><Text elapsed={elapsed} at={at + 4900}>{"For Northstar: establish the custodian, map each request to an issue and exhibit, and test the collection assumption before extending it to effort or cost."}</Text></p>}
+    {elapsed >= at + 5000 && <p className="legal-carry" data-follow-at={at + 5000}><Text elapsed={elapsed} at={at + 5000} duration={800}>{"Keep the assessment open until those gaps are resolved. Any recommendation to file still requires the current evidence and partner review."}</Text></p>}
   </article>;
 }
 
@@ -57,16 +54,16 @@ export function LegalMotionHistory({ elapsed = legalTiming.plan.firstReady, onIn
   return <article className="inline-artifact" aria-label="Firm motion history">
     <Head label="Firm litigation experience" title="Arguments, decisions and review" elapsed={elapsed} at={start} />
     {priorMatters.map((matter, index) => {
-      const at = start + 650 + index * 3700;
+      const at = start + 650 + index * 4200;
       return elapsed < at ? null : <section className="legal-record" key={matter.id}>
         <h4><Text elapsed={elapsed} at={at}>{`${matter.client} · ${matter.motion.result}`}</Text></h4>
-        {elapsed >= at + 500 && <p data-follow-at={at + 500}><strong>Requested </strong><Text elapsed={elapsed} at={at + 500}>{matter.motion.requested}</Text></p>}
+        {elapsed >= at + 500 && <p data-follow-at={at + 500}><strong>The firm’s argument </strong><Text elapsed={elapsed} at={at + 500} duration={1000}>{matter.motion.argument}</Text></p>}
         {elapsed >= at + 1250 && <p data-follow-at={at + 1250}><strong>{matter.motion.kind === "Court order" ? "Order states " : "Withdrawal record "}</strong><Text elapsed={elapsed} at={at + 1250} duration={1000}>{matter.motion.court}</Text></p>}
         {elapsed >= at + 2500 && <p className="legal-carry" data-follow-at={at + 2500}><strong>Partner observation </strong><Text elapsed={elapsed} at={at + 2500}>{matter.motion.lesson}</Text></p>}
         {elapsed >= at + 3300 && <div className="legal-record-sources" data-follow-at={at + 3300}><Source id={matter.sources.brief} onInspect={onInspect} /><Source id={matter.sources.decision} onInspect={onInspect} /><Source id={matter.sources.review} onInspect={onInspect} /></div>}
       </section>;
     })}
-    {elapsed >= 15000 && <p className="legal-artifact-note" data-follow-at={15000}>These are different dispositions and supporting records, not a motion success rate. Legal authorities require separate attorney verification.</p>}
+    {elapsed >= 16400 && <p className="legal-artifact-note" data-follow-at={16400}>These are different dispositions and supporting records, not a motion success rate. Legal authorities require separate attorney verification.</p>}
   </article>;
 }
 

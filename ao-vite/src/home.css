@@ -1,6 +1,5 @@
-.studio-home-hero {
-  padding: 116px 0 52px;
-}
+.studio-home-hero { padding: 116px 0 48px; }
+.studio-home-hero::after { content: ''; position: absolute; inset: auto 0 0; height: 180px; background: var(--studio-canvas); z-index: -1; }
 
 .studio-home-heading {
   display: grid;
@@ -74,18 +73,16 @@
   line-height: 1.8;
 }
 
-/* Scope has its own introduction and surface, separate from the brand hero. */
-.studio-home-scene--scope {
-  --home-demo-height: min(660px, max(320px, calc(100svh - 360px)));
-  padding: 40px 0 64px;
+/* The opening conversation is the full-width product surface in the hero. */
+.studio-home-hero .studio-hero-demo {
+  --home-demo-height: clamp(420px, calc(100svh - 350px), 660px);
+  margin-top: 28px;
+  padding: 0;
+  background: transparent;
 }
-
-.studio-home-scene--scope .studio-demo-layout {
-  width: min(1320px, calc(100% - 80px));
-  grid-template-columns: 240px minmax(0, 1fr);
-  grid-template-areas: "copy demo";
-  gap: 40px;
-}
+.studio-hero-demo-inner { width: min(1320px, calc(100% - 80px)); }
+.studio-hero-demo-caption { color: #b8c9ad; font-size: 13px; margin: 0 0 12px 8px; }
+.studio-home-hero .demo-stage { background: #ffffff0c; border-color: #ffffff26; box-shadow: 0 24px 65px #0002; }
 
 .studio-home-scene--deliver .studio-demo-intro {
   display: grid;
@@ -97,9 +94,7 @@
 
 .studio-home-scene--deliver .studio-demo-description { margin: 0; }
 
-.studio-home-scene--scope .studio-demo-intro { max-width: 240px; }
-
-/* The opening writing area fits below the hero. The feed absorbs
+/* The opening writing area fits below the hero copy. The feed absorbs
    composer wrapping so a typed question cannot push the window offscreen. */
 .studio-home-scene--scope .demo-main {
   display: flex;
@@ -459,10 +454,9 @@
   .studio-home-heading { gap: 36px; }
   .studio-home-hero { padding: 110px 0 48px; }
   .studio-home-summary > p { font-size: 15px; }
-  .studio-home-scene--scope .studio-demo-layout,
   .studio-home-scene--plan .studio-demo-layout { width: calc(100% - 56px); }
+  .studio-hero-demo-inner { width: calc(100% - 56px); }
   .studio-demo-layout { grid-template-columns: minmax(0, 1fr) 230px; gap: 28px; }
-  .studio-home-scene--scope .studio-demo-layout { grid-template-columns: 200px minmax(0, 1fr); gap: 28px; }
   .studio-page .studio-demo-heading > h2 { font-size: 32px; }
   .studio-home-benefits { gap: 28px; }
 }
@@ -474,10 +468,9 @@
   .studio-home-heading { display: block; max-width: 650px; text-align: center; }
   .studio-home-summary > p { margin: 24px auto 0; }
   .studio-demo-layout { grid-template-columns: 1fr; grid-template-areas: "copy" "demo"; row-gap: 28px; }
-  .studio-home-scene--scope .studio-demo-layout { grid-template-columns: 1fr; grid-template-areas: "copy" "demo"; row-gap: 24px; }
+  .studio-home-hero .studio-hero-demo { --home-demo-height: clamp(280px, calc(100svh - 440px), 480px); margin-top: 24px; }
 
   .studio-home-scene--deliver .studio-demo-intro,
-  .studio-home-scene--scope .studio-demo-intro,
   .studio-demo-intro { display: block; margin-inline: 8px; max-width: 650px; }
   .studio-demo-description,
   .studio-home-scene--deliver .studio-demo-description { margin-top: 18px; }
@@ -506,11 +499,14 @@
 }
 
 @media (min-width: 861px) and (max-height: 780px) {
-  .studio-home-hero { padding: 100px 0 44px; }
-  .studio-page .studio-home-heading h1 { font-size: clamp(52px, 4.7vw, 66px); }
+  .studio-home-hero { padding: 96px 0 32px; }
+  .studio-page .studio-home-heading h1 { font-size: clamp(52px, 4.5vw, 62px); }
   .studio-home-summary > p { font-size: 15px; line-height: 1.75; }
   .studio-home-scene--scope .demo-sidebar { padding-bottom: 20px; }
   .studio-home-scene--scope .demo-profile { position: static; margin: 24px 7px 0; }
+  .studio-hero-demo .demo-sidebar-label { margin-top: 22px; }
+  .studio-page .studio-hero-demo .demo-thread-list > a { padding-block: 7px; }
+  .studio-page .studio-hero-demo .demo-engagement-reference { padding-block: 7px; }
 }
 
 @media (max-width: 600px) {
@@ -518,9 +514,8 @@
   .studio-page .studio-home-heading h1 { font-size: clamp(39px, 10.5vw, 54px); line-height: 1.02; }
   .studio-home-summary > p { font-size: 14px; line-height: 1.75; margin-top: 20px; }
   .studio-home-scene { padding-block: 48px; }
-  .studio-home-scene--scope { padding: 32px 0 48px; }
-  .studio-home-scene--scope .studio-demo-layout,
   .studio-home-scene--plan .studio-demo-layout { width: calc(100% - 36px); }
+  .studio-hero-demo-inner { width: calc(100% - 36px); }
   .studio-phase-label { margin-bottom: 12px; font-size: 12px; }
   .studio-page .studio-demo-heading > h2 { font-size: 30px; }
   .studio-demo-description { font-size: 15px; line-height: 1.8; }

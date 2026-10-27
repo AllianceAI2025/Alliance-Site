@@ -4,6 +4,7 @@
 .legal-record p { margin: 9px 0 0; color: #65756b; font-size: 12px; line-height: 1.85; }
 .legal-record p > strong { color: #405e49; font-weight: 500; }
 .legal-record p.legal-record-people { color: #839083; font-size: 11px; }
+.legal-record p.legal-issue { color: #405e49; font-size: 12px; }
 .legal-carry { padding-left: 13px; border-left: 2px solid #a8c58a; color: #446348; font-size: 12px; line-height: 1.85; margin: 18px 0 0; }
 .legal-record-sources { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 13px; }
 .legal-record-sources .artifact-source,.legal-static-source { font-size: 10px; color: #788b7d; line-height: 1.7; }

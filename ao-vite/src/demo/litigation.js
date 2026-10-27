@@ -1,8 +1,8 @@
 // Entirely fictional firm records. These excerpts are demonstration data, not
 // legal authorities, actual client work, or records of Hellmuth & Johnson.
 export const legalTiming = {
-  scope: { artifact: 3500, firstReady: 15500, typing: 17500, sent: 20000, answer: 20200, nextArtifact: 22500, ready: 28000, end: 32500 },
-  plan: { artifact: 3200, firstReady: 15400, typing: 17200, sent: 19700, answer: 19900, nextArtifact: 22000, ready: 28200, end: 32700 },
+  scope: { artifact: 3500, firstReady: 17800, typing: 19800, sent: 22300, answer: 22500, nextArtifact: 24900, ready: 30900, end: 36900 },
+  plan: { artifact: 3200, firstReady: 16900, typing: 18900, sent: 21400, answer: 21600, nextArtifact: 24000, ready: 30400, end: 36400 },
   deliver: { artifact: 3500, firstReady: 12700, typing: 14500, sent: 18500, answer: 18700, nextArtifact: 21100, ready: 35200, end: 41200 },
 };
 
@@ -10,6 +10,9 @@ export const priorMatters = [
   {
     id: "harbor", number: "HG-21-041", client: "Harbor Point Owners", year: "2023", fictional: true,
     issue: "Roof-water intrusion; disputed installation and inspection records.",
+    legalIssue: "Relevance and scope of inspection-record discovery",
+    northstarQuestion: "How does each requested record connect to a disputed defect?",
+    northstarApplication: "Use the issue-and-exhibit map as a starting structure. Northstar still needs its own supporting record before extending a request to other projects.",
     lead: "Sofia Patel", author: "Avery Ross", role: "Prepared the production chronology and motion outline",
     initial: "The initial assessment assumed the contractor held a substantially complete installation record.",
     changed: "A later custodian interview identified a separate archive and a second collection. The first assessment had understated the discovery effort.",
@@ -17,6 +20,8 @@ export const priorMatters = [
     budget: { approved: 90000, actual: 112500, phase: "Document discovery", phaseApproved: 30000, phaseActual: 49500, reason: "A custodian change and second collection increased discovery work, documented in time narratives and Sofia’s close-out note." },
     motion: {
       result: "Granted in part", kind: "Court order", date: "2023-04-17",
+      argument: "The team linked inspection reports to the east-elevation defects and relevant work period. It also sought other-project files for comparison, but did not establish their connection to the claimed defects.",
+      recordPoint: "The identified project reports were ordered produced. The other-project request was refused because its connection to the claimed defects was not supported.",
       requested: "Production of the contractor’s inspection reports and records from other projects.",
       court: "The order required production of the identified inspection reports. It refused the other-project request because the supporting record did not establish its connection to the claimed defects.",
       v1: "Requested six years of project records and other-project inspection files, without mapping each request to the identified defect locations.",
@@ -30,6 +35,9 @@ export const priorMatters = [
   {
     id: "cedar", number: "CR-22-018", client: "Cedar Ridge Logistics", year: "2024", fictional: true,
     issue: "Distribution-building defects; a usable document inventory was already available.",
+    legalIssue: "A defined production gap resolved before the hearing",
+    northstarQuestion: "Which reports are missing, and could a targeted request resolve the gap?",
+    northstarApplication: "Build a missing-record schedule before treating a motion as the next step. Northstar does not yet have Cedar Ridge’s confirmed inventory or identified records contact.",
     lead: "Jordan Hale", author: "Daniel Okafor", role: "Prepared the document inventory and proposed request",
     initial: "The assessment identified a discrete set of missing reports and a named records contact.",
     changed: "The identified reports were produced after a narrowed request. A scheduled motion to compel production was withdrawn; the court did not decide it.",
@@ -37,6 +45,8 @@ export const priorMatters = [
     budget: { approved: 100000, actual: 97000, phase: "Document discovery", phaseApproved: 31000, phaseActual: 28000, reason: "The existing inventory limited repeat collection. Jordan’s review credited the inventory and voluntary production, not a court victory." },
     motion: {
       result: "Withdrawn after production", kind: "Withdrawal notice", date: "2024-03-11",
+      argument: "The team sought identified inspection and completion reports. An existing inventory and missing-document list made the request specific enough to check against the production received.",
+      recordPoint: "The reports were produced and the motion was withdrawn before the hearing. There was no ruling on the merits.",
       requested: "Production of identified inspection and completion reports.",
       court: "No merits ruling. The withdrawal notice records production of the identified reports before the hearing.",
       v1: "Outlined a motion to compel production while the team confirmed which reports were missing.",
@@ -50,6 +60,9 @@ export const priorMatters = [
   {
     id: "briar", number: "BG-23-067", client: "Briar Glen Properties", year: "2025", fictional: true,
     issue: "Building-envelope defects; responsibility for keeping requested records was disputed.",
+    legalIssue: "Evidence of the responding party’s control of records",
+    northstarQuestion: "What evidence shows who controls the requested reports?",
+    northstarApplication: "Separate the contractor’s project role from evidence of control. Check the current matter’s records and custodian information before relying on that assumption.",
     lead: "Sofia Patel", author: "Lena Torres", role: "Prepared the records-control chronology and revised evidence register",
     initial: "The initial assessment treated the general contractor as the likely custodian of the disputed reports.",
     changed: "The supporting record did not establish that the respondent controlled the documents. The team revised its collection approach after identifying an owner-side archive.",
@@ -57,6 +70,8 @@ export const priorMatters = [
     budget: { approved: 120000, actual: 132000, phase: "Document discovery", phaseApproved: 40000, phaseActual: 50500, reason: "Further records-control work and collection followed the unsuccessful motion. The time narratives and partner review support that explanation." },
     motion: {
       result: "Denied without prejudice", kind: "Court order", date: "2025-02-14",
+      argument: "The first outline relied on the contractor’s project role as the basis for seeking the reports from it. Review separated that role from evidence that the respondent actually controlled the requested documents.",
+      recordPoint: "The supporting record did not establish the respondent’s control of the documents. The order did not decide the underlying defect allegations.",
       requested: "Production of reports the team believed were held by the contractor.",
       court: "The order states that the submitted record did not establish the respondent’s control of the requested documents. It did not decide the underlying defect allegations.",
       v1: "Relied on the contract role as the basis for assuming control of the documents.",
@@ -91,13 +106,13 @@ function document(id, matter, label, title, date, author, text, access = "partne
 for (const matter of priorMatters) {
   const prefix = matter.number;
   matter.sources = { assessment: `${prefix}-ECA`, brief: `${prefix}-BRIEF`, decision: `${prefix}-DECISION`, review: `${prefix}-REVIEW`, cost: `${prefix}-COST`, closeout: `${prefix}-CLOSE` };
-  document(matter.sources.assessment, matter.id, "Initial matter assessment", `${matter.client} · initial assessment`, `${Number(matter.year) - 1}-11-02`, matter.lead, `${matter.issue} ${matter.initial} This was the team’s view at the time, not a later-established fact.`);
-  document(matter.sources.brief, matter.id, "Internal motion drafts", `${matter.client} · argument and revision`, matter.motion.date, matter.author, `Requested relief: ${matter.motion.requested}\n\nDraft 1: ${matter.motion.v1}\n\nReviewed draft: ${matter.motion.v2}`);
+  document(matter.sources.assessment, matter.id, "Initial matter assessment", `${matter.client} · initial assessment`, `${Number(matter.year) - 1}-11-02`, matter.lead, `${matter.issue}\n\nIssue: ${matter.legalIssue}.\n\n${matter.initial} This was the team’s view at the time, not a later-established fact.`);
+  document(matter.sources.brief, matter.id, "Internal motion drafts", `${matter.client} · argument and revision`, matter.motion.date, matter.author, `Issue: ${matter.legalIssue}.\n\nRequested relief: ${matter.motion.requested}\n\nThe firm’s argument: ${matter.motion.argument}\n\nDraft 1: ${matter.motion.v1}\n\nReviewed draft: ${matter.motion.v2}`);
   document(matter.sources.decision, matter.id, matter.motion.kind, `${matter.client} · ${matter.motion.result.toLowerCase()}`, matter.motion.date, matter.motion.kind === "Court order" ? "Fictional court record" : matter.lead, `${matter.motion.result}. ${matter.motion.court}`);
   document(matter.sources.review, matter.id, "Partner review", `${matter.client} · review reasoning`, matter.closeDate, matter.lead, `${matter.motion.review}\n\nWhat the team would carry forward: ${matter.motion.lesson}\n\nLimit: ${matter.limit}`);
   document(matter.sources.cost, matter.id, "Budget and actuals", `${matter.client} · cost reconciliation`, matter.closeDate, "Fictional matter billing record", `Approved matter budget: $${matter.budget.approved.toLocaleString("en-US")}. Actual fees: $${matter.budget.actual.toLocaleString("en-US")}.\n\n${matter.budget.phase}: $${matter.budget.phaseApproved.toLocaleString("en-US")} approved; $${matter.budget.phaseActual.toLocaleString("en-US")} actual.\n\nDocumented explanation: ${matter.budget.reason}`);
   document(matter.sources.closeout, matter.id, "Reviewed close-out", `${matter.client} · what changed and what happened`, matter.closeDate, matter.lead, `Initial view: ${matter.initial}\n\nWhat changed: ${matter.changed}\n\nResult: ${matter.outcome}\n\nTransfer limit: ${matter.limit}`);
-  contexts[matter.id] = { label: "Completed matter", title: matter.client, reference: `${matter.number} · Closed ${matter.year}`, text: `${matter.issue} ${matter.changed}`, facts: [["Lead / reviewer", matter.lead], ["Contributor", `${matter.author} · ${matter.role}`], ["Initial assessment", matter.initial], ["Recorded motion result", matter.motion.result], ["Result and limits", matter.outcome], ["Budget / actual fees", `$${matter.budget.approved.toLocaleString("en-US")} / $${matter.budget.actual.toLocaleString("en-US")}`], ["Documented cost explanation", matter.budget.reason], ["Reuse limit", matter.limit]], access: { kind: "partner-matter-access", label: "Fictional partner access · source documents retain their matter context" } };
+  contexts[matter.id] = { label: "Completed matter", title: matter.client, reference: `${matter.number} · Closed ${matter.year}`, text: matter.issue, facts: [["Legal issue", matter.legalIssue], ["The firm’s argument", matter.motion.argument], ["Recorded motion result", `${matter.motion.result}. ${matter.motion.court}`], ["Partner review", matter.motion.review], ["Initial assessment", matter.initial], ["Result and limits", matter.outcome], ["Reuse limit", matter.limit], ["Lead / reviewer", matter.lead], ["Contributor", `${matter.author} · ${matter.role}`], ["Budget / actual fees", `$${matter.budget.approved.toLocaleString("en-US")} / $${matter.budget.actual.toLocaleString("en-US")}`], ["Documented cost explanation", matter.budget.reason]], access: { kind: "partner-matter-access", label: "Fictional partner access · source documents retain their matter context" } };
 }
 
 document("NS-INSTRUCTIONS", "northstar", "Client instructions", "Northstar · agreed starting position", "2026-10-19", "Margaret Whitfield · client call record", `${currentMatter.instruction}\n\n${currentMatter.established}`, "current-matter");
@@ -118,12 +133,12 @@ export function resolveLegalSource(phase, key) {
 export const legalStories = {
   scope: {
     label: "Similar matters", thread: "Comparable matters", person: "Margaret Whitfield", role: "Partner", initials: "MW",
-    prompt: "Where have we handled a construction-defect dispute like Northstar’s? What changed our view, and what did the work cost?",
-    answer: "Three completed matters are relevant. Harbor needed a second collection after a custodian change; Cedar Ridge had a usable inventory and obtained production before a hearing; Briar Glen’s first custodian assumption was not supported. Their cost records and partner reviews explain the differences. Northstar’s own records-control question remains open.",
+    prompt: "For Northstar’s construction dispute, where have we dealt with similar inspection-record issues? Show me the arguments and what changed our approach.",
+    answer: "Three matters address different parts of that question. Harbor linked inspection reports to specific defects, but did not support its broader other-project request. Cedar Ridge used a missing-document schedule and obtained production before the hearing. Briar Glen relied on an unproven assumption about the respondent’s control of records. The drafts, decision records and partner review show what mattered in each.",
     answerDuration: 2400, artifact: "legal-comparison", artifactAt: legalTiming.scope.artifact, artifactUntil: legalTiming.scope.firstReady, duration: legalTiming.scope.end,
-    commands: [{ typingAt: legalTiming.scope.typing, sentAt: legalTiming.scope.sent, answerAt: legalTiming.scope.answer, answerDuration: 1800, artifact: "legal-questions", artifactAt: legalTiming.scope.nextArtifact, prompt: "Who did that work, and what should we ask before carrying the experience into Northstar?", answer: "Avery prepared Harbor’s chronology; Daniel built Cedar Ridge’s inventory; Lena revised Briar Glen’s records-control evidence. Sofia reviewed Harbor and Briar Glen, while Jordan led Cedar Ridge. Start with who holds Northstar’s reports, which issue each request addresses, and whether the collection assumption is credible. Those records support questions, not a prediction of the result." }],
+    commands: [{ typingAt: legalTiming.scope.typing, sentAt: legalTiming.scope.sent, answerAt: legalTiming.scope.answer, answerDuration: 2000, artifact: "legal-questions", artifactAt: legalTiming.scope.nextArtifact, prompt: "What should we carry into Northstar’s motion assessment, and what still needs evidence?", answer: "Carry Harbor’s issue-and-exhibit mapping, Cedar Ridge’s missing-record schedule and Briar Glen’s distinction between a contractor’s role and evidence of records control. For Northstar, identify the missing reports, connect each request to a disputed issue and establish the custodian evidence. Those steps support a motion assessment; they do not establish the underlying defect claim or approve a filing." }],
     activity: [[0, "Connecting the matter records and reviewed source material"]],
-    summary: "Three fictional matters connect their conditions, contributors, motion outcomes, cost records and reviewed limits to Northstar’s open questions.",
+    summary: "Three fictional matters connect legal issues, the firm’s arguments, disposition records and partner review to the evidence Northstar still needs. People and economics remain in supporting matter records.",
   },
   plan: {
     label: "Motion history", thread: "Arguments and review", person: "Margaret Whitfield", role: "Partner", initials: "MW",
