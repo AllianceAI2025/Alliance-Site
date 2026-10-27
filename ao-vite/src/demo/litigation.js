@@ -3,7 +3,7 @@
 export const legalTiming = {
   scope: { artifact: 3500, firstReady: 15500, typing: 17500, sent: 20000, answer: 20200, nextArtifact: 22500, ready: 28000, end: 32500 },
   plan: { artifact: 3200, firstReady: 15400, typing: 17200, sent: 19700, answer: 19900, nextArtifact: 22000, ready: 28200, end: 32700 },
-  deliver: { artifact: 3500, firstReady: 10800, typing: 13400, sent: 16200, answer: 16400, nextArtifact: 18600, ready: 26700, end: 31200 },
+  deliver: { artifact: 3500, firstReady: 12700, typing: 14500, sent: 18500, answer: 18700, nextArtifact: 21100, ready: 35200, end: 41200 },
 };
 
 export const priorMatters = [
@@ -139,7 +139,7 @@ export const legalStories = {
     prompt: "I’m joining Northstar. What has been decided, what is still open, and what am I responsible for?",
     answer: "Margaret assigned you an internal assessment of a possible motion to compel production and an evidence map for Sofia’s review. The client wants a targeted records approach with limited operational disruption. The file contains the agreement, chronology and photographs; it does not establish liability or who controls the missing reports. Sofia has shared a Harbor review excerpt and the published practice note for this assignment.",
     answerDuration: 2300, artifact: "legal-handoff", artifactAt: legalTiming.deliver.artifact, artifactUntil: legalTiming.deliver.firstReady, duration: legalTiming.deliver.end,
-    commands: [{ typingAt: legalTiming.deliver.typing, sentAt: legalTiming.deliver.sent, answerAt: legalTiming.deliver.answer, answerDuration: 1900, artifact: "legal-handoff-revised", artifactAt: legalTiming.deliver.nextArtifact, prompt: "Use Sofia’s review and the client’s latest email to update the handoff. Explain what changed.", answer: "The October 22 email identifies a former facilities manager who may hold the reports. I’ve retained the earlier contractor-custody assumption as unverified, added the client’s new information and explained the effect on your evidence map. Revision 2 keeps the proposed next step separate from Sofia’s pending decision. No filing, budget change or change to client instructions has been approved." }],
+    commands: [{ typingAt: legalTiming.deliver.typing, sentAt: legalTiming.deliver.sent, answerAt: legalTiming.deliver.answer, answerDuration: 2300, artifact: "legal-handoff-revised", artifactAt: legalTiming.deliver.nextArtifact, prompt: "Prepare the assessment and evidence map using our Litigation Matter Brief template. Include Sofia’s feedback and the latest client email.", answer: "I’ve used the firm’s Litigation Matter Brief format and letterhead. Revision 2 retains the earlier custodian assumption, adds the October 22 email and explains the response to Sofia’s feedback. The evidence map separates the record from proposed work. The Word draft is ready for Sofia’s review. No filing, budget change or change to client instructions has been approved." }],
     activity: [[0, "Grounding the handoff in the approved assignment and permitted sources"]],
     summary: "The handoff keeps client instructions, evidence, an earlier assumption, new correspondence, review reasoning and pending decisions distinct. The sources retain their access boundaries.",
   },

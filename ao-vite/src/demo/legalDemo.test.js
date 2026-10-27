@@ -1,5 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { inflateRawSync } from "node:zlib";
+import { buildMatterBrief, firmTemplate } from "./matterBrief.js";
 import { currentMatter, handoffSources, legalContexts, legalStories, legalTiming, matterBriefRevisions, priorMatters, resolveLegalSource } from "./litigation.js";
 import { conversationAt, playbackFrameAt, playbackRate } from "./demoPlayback.js";
 
@@ -119,4 +122,67 @@ test("the public legal story has no operational writeback or unearned filing app
   assert.deepEqual(legalStories.deliver.threads, ["deliver"]);
   assert.equal(currentMatter.reviewer, "Sofia Patel");
   assert.match(legalStories.deliver.commands[0].answer, /No filing.*has been approved/);
+});
+
+test("the firm brief keeps current-matter evidence and permitted review separate from the broader historical file", () => {
+  const first = buildMatterBrief(false), revised = buildMatterBrief(true);
+  assert.equal(revised.name, "Litigation Matter Brief");
+  assert.equal(revised.author, currentMatter.associate);
+  assert.equal(revised.reviewer, currentMatter.reviewer);
+  assert.equal(revised.revision, 2);
+  assert.equal(revised.status, "Draft for partner review");
+  assert.doesNotMatch(JSON.stringify(first), /NS-EMAIL-22|NS-REVIEW|October 22|former facilities manager/);
+  for (const brief of [first, revised]) {
+    for (const source of brief.sources) assert.equal(resolveLegalSource("deliver", source.id), source.id);
+    for (const row of brief.evidence) for (const id of row.sourceIds) assert.ok(brief.sources.some(source => source.id === id));
+    assert.doesNotMatch(JSON.stringify(brief), /112,500|Cedar Ridge|Briar Glen|cost reconciliation/);
+    assert.match(brief.decision, /No motion has been approved/);
+  }
+  assert.ok(revised.sections.some(part => part.body === currentMatter.newInformation));
+  assert.ok(revised.sources.some(source => source.id === "HARBOR-SHARED-REVIEW" && source.access === "explicit-share"));
+});
+
+// Read the checked-in OOXML rather than only checking a filename or ZIP signature.
+function wordEntries(bytes) {
+  const end = bytes.lastIndexOf(Buffer.from([0x50, 0x4b, 0x05, 0x06]));
+  assert.ok(end >= 0);
+  let offset = bytes.readUInt32LE(end + 16);
+  const result = {};
+  for (let i = 0; i < bytes.readUInt16LE(end + 10); i++) {
+    assert.equal(bytes.readUInt32LE(offset), 0x02014b50);
+    const nameLength = bytes.readUInt16LE(offset + 28);
+    const name = bytes.subarray(offset + 46, offset + 46 + nameLength).toString("utf8");
+    const local = bytes.readUInt32LE(offset + 42);
+    const start = local + 30 + bytes.readUInt16LE(local + 26) + bytes.readUInt16LE(local + 28);
+    const compressed = bytes.subarray(start, start + bytes.readUInt32LE(offset + 20));
+    result[name] = (bytes.readUInt16LE(offset + 10) === 8 ? inflateRawSync(compressed) : compressed).toString("utf8");
+    offset += 46 + nameLength + bytes.readUInt16LE(offset + 30) + bytes.readUInt16LE(offset + 32);
+  }
+  return result;
+}
+
+test("the downloadable Word draft contains the displayed brief, firm letterhead, evidence map and source record", () => {
+  const brief = buildMatterBrief(true);
+  const bytes = readFileSync(new URL(`../../public${firmTemplate.downloadPath}`, import.meta.url));
+  assert.ok(bytes.length > 20000);
+  const entries = wordEntries(bytes);
+  const body = entries["word/document.xml"];
+  for (const text of [brief.documentTitle, brief.name, brief.introduction, brief.review.body, brief.decision, ...brief.sections.map(part => part.body), ...brief.evidence.flatMap(row => [row.record, row.action]), ...brief.sources.map(source => source.id)]) assert.ok(body.includes(text), text);
+  assert.doesNotMatch(body, /â€|Â·/);
+  assert.ok(body.includes("<w:tbl>"), "the evidence map is an editable Word table");
+  assert.ok(entries["docProps/core.xml"].includes(brief.author));
+  const headers = Object.entries(entries).filter(([name]) => /^word\/header\d+\.xml$/.test(name));
+  assert.equal(headers.length, 3);
+  for (const [, xml] of headers) assert.ok(xml.includes(brief.firm));
+  const title = entries["word/styles.xml"].match(/<w:style\b[^>]*w:styleId="Title"[^>]*>[\s\S]*?<\/w:style>/)?.[0];
+  assert.ok(title);
+  assert.doesNotMatch(title, /w:pBdr|w:asciiTheme|w:hAnsiTheme/);
+  assert.match(title, /w:ascii="Georgia"/);
+});
+
+test("the expanded document finishes before the download appears and retains a reading hold", () => {
+  const t = legalTiming.deliver;
+  assert.ok(t.nextArtifact + 13700 < t.ready);
+  assert.ok((t.end - t.ready) / playbackRate >= 6000);
+  assert.match(legalStories.deliver.commands[0].prompt, /Litigation Matter Brief template/);
 });

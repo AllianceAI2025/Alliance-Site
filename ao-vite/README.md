@@ -16,7 +16,7 @@ npm run build
 ```
 
 The existing preview is http://localhost:5176. `npm run build` produces `dist/`.
-`npm test` runs 35 checks: shared playback and retained consulting fixtures,
+`npm test` runs 38 checks: shared playback and retained consulting fixtures,
 plus the active litigation corpus, chronology and source-access scenarios.
 
 ## The fictional firm record
@@ -64,9 +64,16 @@ Avery asks what has been decided, what remains open and what he is responsible
 for. Handoff revision 1 (October 21) contains the client instructions, assignment,
 received materials and unverified custodian assumption. A follow-up uses Sofia's
 review and the October 22 client email to develop revision 2 (October 23).
-The earlier account remains visible in the thread. The new email, proposed
+The earlier account remains visible in the thread. Avery asks for the firm’s
+Litigation Matter Brief template; revision 2 develops into a two-page matter
+assessment and evidence map on fictional Whitfield Hale LLP letterhead. The new email, proposed
 interpretation and pending partner decision are distinct. No filing, budget
 change or amendment of client instructions is approved by creating the brief.
+
+The finished draft has a real Word download at
+`public/demo/northstar-matter-assessment.docx`. Its letterhead, content, evidence
+map and source record use the same model as the chat preview (`matterBrief.js`).
+It remains a draft for Sofia’s review. No filing approval is implied.
 
 Avery's scene shows only his handoff thread. It permits Northstar material,
 published practice guidance and the Harbor excerpt Sofia explicitly shared for
@@ -100,6 +107,7 @@ verified legal authorities or make the attorney's decision.
 - `src/demo/litigation.js`: corpus, story text, events, revisions and source resolver.
 - `src/demo/LegalDemoArtifacts.jsx`: comparison, questions, motion history, draft
   comparison and two retained handoff versions; fields build progressively.
+- `src/demo/matterBrief.js`: shared firm template and versioned brief content.
 - `src/demo/legal-demo.css`: artifact styling within the existing visual system.
 - `src/demo/demoPlayback.js`: shared timeline, visibility and scrolling helpers.
 - `src/demo/legalDemo.test.js`: active corpus and narrative invariants.
@@ -111,6 +119,8 @@ earlier artifacts freeze at their completed version. Each scene plays once,
 holds its last frame, and restarts after leaving and returning. Partial clipping
 of the feed or composer pauses the clock; reduced motion shows the final state.
 Playback runs at 80% speed, about two minutes for the three scenes combined.
+Handoff allows time for the two-page brief to build and holds the completed draft
+before the visit ends.
 
 This is a deterministic frontend demonstration. It does not call an AI model,
 query a real DMS, send email or enforce production authorization. The local source
@@ -133,3 +143,23 @@ The older consulting fixtures (`northstar.js`, `engagementPlan.js`,
 `DemoArtifacts.jsx`, `assessment.json`) and their tests remain available as
 reference material. They are not imported by the active legal scenes or public
 page illustrations. No project-system writeback is shown in the legal demo.
+
+## Rebuilding the Word draft
+
+The checked-in file is editable Word work product. The builder uses python-docx;
+the website build does not require Python. To regenerate after changing the shared
+brief content:
+
+```sh
+node scripts/generate-legal-brief.mjs --python <python-with-python-docx>
+```
+
+The builder applies named Word styles for the firm letterhead, template, title,
+metadata, evidence table and source references. Page size is Letter; source IDs,
+author, reviewer, revision and review status remain in the document. The firm
+identity is invented for the demonstration.
+
+For layout QA in this Windows environment, the packaged render_docx.py was tried
+but LibreOffice was unavailable. The draft was exported read-only with installed
+Microsoft Word and both pages were rendered and visually inspected. The Word
+file and the chat preview are checked for consistent content and permitted sources.

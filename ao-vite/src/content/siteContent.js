@@ -24,7 +24,7 @@ export const firmKnowledge = [
   {
     id: "deliverables", title: "Work product and templates", short: "The structure, source expectations and review standards behind the finished work.",
     body: "Matter assessments, motion outlines, client reports and consulting workbooks carry more than a visual identity. They establish what needs to be addressed, which evidence supports a conclusion and who reviews the work. The current matter or engagement supplies the facts; a template does not supply the answer.",
-    exampleTitle: "Matter Assessment and Evidence Map", exampleType: "Internal work product format",
+    exampleTitle: "Matter Assessment and Evidence Map", exampleType: "Litigation Matter Brief",
     example: "Client instructions. Received materials. Disputed issues. Evidence and missing records. Working assumptions. Options for partner review. Source references and open decisions.",
     detail: "Associate preparation · Partner review · Revisions retained",
     note: "A named format provides the structure. Claims remain traceable to the current matter’s record and review.",
@@ -95,7 +95,7 @@ export const solutionChapters = [
     sections: [
       ["Start with the approved assignment", "Avery’s Northstar brief distinguishes client instructions, received materials, working assumptions and decisions still awaiting review. The assignment names Sofia as reviewer. The materials received do not, by themselves, establish liability or records control."],
       ["Use the knowledge the attorney may access", "Avery can use Northstar’s matter record, published practice guidance and the Harbor review excerpt Sofia explicitly shared for this assignment. Prior authorship does not grant access to Harbor’s whole file. Matter permissions and permitted reuse must be validated in a live deployment."],
-      ["Explain what new information changes", "A new client email identifies a former facilities manager who may hold reports. Revision 2 retains the earlier assumption, cites the email and records the proposed response to Sofia’s feedback. It is a draft for review, not an approved filing or a change to the client’s instructions."],
+      ["Explain what new information changes", "A new client email identifies a former facilities manager who may hold reports. Using the firm’s Litigation Matter Brief template, Avery develops a matter assessment and evidence map. Revision 2 retains the earlier assumption, cites the email and records the proposed response to Sofia’s feedback. It is a draft for review, not an approved filing or a change to the client’s instructions."],
     ],
     result: "An up-to-date handoff that preserves the earlier account, the new source and the decisions that still need an owner.",
   },

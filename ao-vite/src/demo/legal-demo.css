@@ -12,15 +12,37 @@
 .studio-page .legal-draft-comparison h4 { color: #405e49; font-size: 13px; font-weight: 500; margin: 0 0 12px; }
 .legal-draft-comparison p { color: #65756b; font-size: 12px; line-height: 1.85; margin: 0; }
 .studio-page .legal-brief-artifact { padding: 0; overflow: hidden; background: #eef2ed; }
-.legal-document-title { padding: 15px 22px; color: #677b6b; font-size: 11px; line-height: 1.7; }
-.legal-document-page { margin: 0 18px 18px; padding: 28px 30px; background: #fff; box-shadow: 0 9px 30px #233e3508; }
-.studio-page .legal-document-page h3 { font-size: 29px; font-weight: 500; line-height: 1.2; letter-spacing: -.025em; color: #294b36; margin: 16px 0 12px; }
+.legal-document-title { display: flex; gap: 9px; align-items: center; padding: 15px 22px; color: #677b6b; font-size: 11px; line-height: 1.7; }
+.legal-document-title > img { width: 18px; height: 18px; flex: none; }
+.legal-document-page { margin: 0 18px 18px; padding: 32px 34px; background: #fff; box-shadow: 0 9px 30px #233e3508; font-family: Calibri, Inter, sans-serif; }
+.studio-page .legal-document-page h3 { font-family: Georgia, 'Times New Roman', serif; font-size: 27px; font-weight: 400; line-height: 1.2; letter-spacing: -.02em; color: #111; margin: 13px 0 8px; }
+.legal-firm-letterhead { color: #111; margin-bottom: 27px; }
+.legal-firm-letterhead > strong { display: block; font: 400 26px/1.2 Georgia, 'Times New Roman', serif; letter-spacing: -.025em; }
+.legal-firm-letterhead > span { display: block; margin-top: 7px; text-transform: uppercase; letter-spacing: .14em; font: 9px/1.6 Calibri, Inter, sans-serif; }
+.legal-template-name { font-size: 11px; color: #525d56; margin: 0; }
+.legal-document-subtitle { margin: 0 0 19px; color: #343a36; font-size: 13px; }
+.legal-memo-metadata { margin: 0 0 22px; font-size: 12px; color: #303631; }
+.legal-memo-metadata > div { display: grid; grid-template-columns: 45px 1fr; gap: 10px; margin-bottom: 5px; }
+.legal-memo-metadata dt { font-weight: 600; }
+.legal-memo-metadata dd { margin: 0; }
+.legal-document-page .legal-brief-introduction { color: #303631; font-size: 13px; line-height: 1.8; margin: 0 0 21px; }
 .legal-document-byline { font-size: 11px; color: #839083; line-height: 1.7; margin: 0 0 23px; }
 .legal-document-page section { margin-top: 22px; }
-.studio-page .legal-document-page h4 { color: #405e49; font-size: 13px; font-weight: 500; margin: 0 0 9px; }
-.legal-document-page section p { color: #65756b; font-size: 12px; line-height: 1.9; margin: 0; }
+.studio-page .legal-document-page h4 { color: #171b18; font-size: 13px; font-weight: 600; margin: 0 0 9px; }
+.legal-document-page section p { color: #48544b; font-size: 12px; line-height: 1.85; margin: 0; }
+.legal-page-footer { display: flex; justify-content: space-between; gap: 16px; font-size: 10px; color: #7a817b; margin-top: 29px; }
+.legal-evidence-page .legal-firm-letterhead { margin-bottom: 25px; }
+.legal-evidence-map { width: 100%; table-layout: fixed; border-collapse: collapse; color: #414a43; font-size: 11px; line-height: 1.75; }
+.legal-evidence-map th,.legal-evidence-map td { padding: 11px 10px; border: 1px solid #d9dfd9; text-align: left; vertical-align: middle; overflow-wrap: anywhere; font-weight: 400; }
+.legal-evidence-map thead th { background: #e8ece9; color: #171b18; font-weight: 600; }
+.legal-evidence-map th:first-child { width: 23%; }
+.legal-evidence-map tbody th { font-weight: 600; color: #171b18; }
 .legal-document-sources { padding: 0 22px 20px; }
 .legal-document-sources > p { color: #627a65; font-size: 11px; line-height: 1.85; margin: 0 0 16px; }
+.legal-word-download { display: inline-flex; align-items: center; gap: 9px; color: #294b36; font-size: 12px; line-height: 1.6; text-decoration: none; margin-top: 21px; padding-block: 5px; }
+.legal-word-download > img { width: 18px; height: 18px; }
+.legal-word-download > span { margin-left: 8px; }
+.legal-word-download:hover { text-decoration: underline; text-underline-offset: 4px; }
 .studio-legal-visual .inline-artifact { padding: 25px; }
 .studio-legal-visual .artifact-head h3 { font-size: 27px; }
 .studio-legal-visual .legal-record p { font-size: 13px; }
@@ -32,4 +54,13 @@
   .studio-page .legal-document-page h3 { font-size: 25px; }
   .legal-document-title { padding-inline: 18px; }
   .legal-document-sources { padding-inline: 18px; }
+  .legal-firm-letterhead > strong { font-size: 23px; }
+  .legal-evidence-map,.legal-evidence-map tbody { display: block; }
+  .legal-evidence-map thead { display: none; }
+  .legal-evidence-map tr { display: block; border-top: 1px solid #d9dfd9; padding: 16px 0; }
+  .legal-evidence-map th,.legal-evidence-map td { display: block; width: auto!important; border: 0; padding: 0; font-size: 12px; }
+  .legal-evidence-map td { margin-top: 13px; }
+  .legal-evidence-map td::before { display: block; color: #171b18; font-size: 11px; font-weight: 600; margin-bottom: 5px; }
+  .legal-evidence-map td:nth-child(2)::before { content: 'Record and limit'; }
+  .legal-evidence-map td:nth-child(3)::before { content: 'Proposed work'; }
 }

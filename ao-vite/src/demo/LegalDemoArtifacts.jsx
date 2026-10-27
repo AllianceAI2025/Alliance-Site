@@ -1,5 +1,6 @@
 import React from "react";
-import { currentMatter, legalContexts, legalTiming, matterBriefRevisions, priorMatters } from "./litigation.js";
+import { legalContexts, legalTiming, priorMatters } from "./litigation.js";
+import { buildMatterBrief } from "./matterBrief.js";
 import { textAt } from "./demoPlayback.js";
 import "./engagement-demo.css";
 import "./legal-demo.css";
@@ -85,29 +86,41 @@ export function LegalMotionReview({ elapsed = legalTiming.plan.ready, onInspect 
 
 export function LegalHandoff({ elapsed = legalTiming.deliver.ready, revised = true, onInspect }) {
   const at = revised ? legalTiming.deliver.nextArtifact : legalTiming.deliver.artifact;
-  const version = matterBriefRevisions[revised ? 1 : 0];
-  const blocks = [
-    ["Client instructions", currentMatter.instruction],
-    ["Avery’s assignment", currentMatter.assignment],
-    ["Received materials and limits", currentMatter.established],
-    [revised ? "Earlier assumption retained" : "Working assumption · unverified", currentMatter.originalAssumption],
-    ...(revised ? [["New source · Client email, October 22", version.custodian], ["Working interpretation · For partner review", version.interpretation]] : [["Open questions", currentMatter.questions.join(" ")]]),
-  ];
-  return <article className="inline-artifact legal-brief-artifact" aria-label={`Northstar matter handoff revision ${version.revision}`}>
-    <div className="legal-document-title"><Text elapsed={elapsed} at={at}>{`Northstar Foods · Matter handoff · Revision ${version.revision}`}</Text></div>
+  const brief = buildMatterBrief(revised);
+  const footerAt = at + (revised ? 13800 : 8300);
+  const letterhead = <div className="legal-firm-letterhead"><strong>{brief.firm}</strong><span>{brief.practice}</span></div>;
+  return <article className="inline-artifact legal-brief-artifact" aria-label={`Northstar matter handoff revision ${brief.revision}`}>
+    <div className="legal-document-title"><img src="/brand/systems/word.svg" alt="" /><Text elapsed={elapsed} at={at}>{`Northstar Foods · Matter Assessment · Revision ${brief.revision}`}</Text></div>
     <div className="legal-document-page">
-      <p className="artifact-kicker"><Text elapsed={elapsed} at={at + 200}>{`NS-26-014 · ${revised ? "October 23" : "October 21"}, 2026`}</Text></p>
-      <h3><Text elapsed={elapsed} at={at + 300}>{"Construction dispute: records and next decisions"}</Text></h3>
-      <p className="legal-document-byline">Avery Ross · Reviewing partner: Sofia Patel</p>
-      {blocks.map(([label, body], index) => {
-        const time = at + 900 + index * (revised ? 950 : 1100);
-        return elapsed < time ? null : <section key={label} data-follow-at={time}><h4>{label}</h4><p><Text elapsed={elapsed} at={time} duration={850}>{body}</Text></p></section>;
+      {letterhead}
+      <p className="legal-template-name">{brief.name}</p>
+      <h3><Text elapsed={elapsed} at={at + 300}>{brief.documentTitle}</Text></h3>
+      <p className="legal-document-subtitle">{brief.subtitle}</p>
+      <dl className="legal-memo-metadata"><div><dt>To</dt><dd>{brief.reviewer}</dd></div><div><dt>From</dt><dd>{brief.author}</dd></div><div><dt>Matter</dt><dd>{brief.matter}</dd></div><div><dt>Date</dt><dd>{brief.date} · Revision {brief.revision}</dd></div></dl>
+      {elapsed >= at + 1000 && <p className="legal-brief-introduction" data-follow-at={at + 1000}><Text elapsed={elapsed} at={at + 1000} duration={1000}>{brief.introduction}</Text></p>}
+      {brief.sections.map((part, index) => {
+        const time = at + 2100 + index * 950;
+        return elapsed < time ? null : <section key={part.title} data-follow-at={time}><h4>{part.title}</h4><p><Text elapsed={elapsed} at={time} duration={850}>{part.body}</Text></p></section>;
       })}
-      {elapsed >= at + (revised ? 6900 : 6500) && <section data-follow-at={at + (revised ? 6900 : 6500)}><h4>Decision still required</h4><p>{currentMatter.pending}</p></section>}
+      {!revised && elapsed >= at + 7000 && <section data-follow-at={at + 7000}><h4>Questions for partner review</h4><p><Text elapsed={elapsed} at={at + 7000} duration={900}>{brief.review.body}</Text></p></section>}
+      {elapsed >= at + 7000 && <div className="legal-page-footer"><span>{brief.matter} · Internal draft</span><span>{revised ? "1 / 2" : "1"}</span></div>}
     </div>
-    {elapsed >= at + (revised ? 7600 : 6900) && <footer className="legal-document-sources" data-follow-at={at + (revised ? 7600 : 6900)}>
-      {revised && <p>Revision 2 retains the earlier assumption, adds the email and review, and records the proposed response. It is ready for Sofia’s review.</p>}
-      <div className="legal-record-sources">{version.sourceIds.map(id => <Source key={id} id={id} onInspect={onInspect} />)}</div>
+    {revised && elapsed >= at + 7400 && <div className="legal-document-page legal-evidence-page" data-follow-at={at + 7400}>
+      {letterhead}
+      <h3><Text elapsed={elapsed} at={at + 7400}>{"Evidence map and review"}</Text></h3>
+      <p className="legal-document-byline">Proposed work for partner review</p>
+      <table className="legal-evidence-map"><thead><tr><th>Question</th><th>Record and limit</th><th>Proposed work</th></tr></thead><tbody>{brief.evidence.map((item, index) => {
+        const time = at + 8100 + index * 1100;
+        return elapsed < time ? null : <tr key={item.question} data-follow-at={time}><th scope="row">{item.question}</th><td><Text elapsed={elapsed} at={time} duration={1000}>{item.record}</Text></td><td><Text elapsed={elapsed} at={time + 200} duration={900}>{item.action}</Text></td></tr>;
+      })}</tbody></table>
+      {elapsed >= at + 11700 && <section data-follow-at={at + 11700}><h4>{brief.review.title}</h4><p><Text elapsed={elapsed} at={at + 11700} duration={1000}>{brief.review.body}</Text></p></section>}
+      {elapsed >= at + 13000 && <section data-follow-at={at + 13000}><h4>Decision for partner review</h4><p><Text elapsed={elapsed} at={at + 13000} duration={700}>{brief.decision}</Text></p></section>}
+      {elapsed >= footerAt && <div className="legal-page-footer"><span>{brief.matter} · Internal draft</span><span>2 / 2</span></div>}
+    </div>}
+    {elapsed >= footerAt && <footer className="legal-document-sources" data-follow-at={footerAt}>
+      <p>{brief.revisionNote}</p>
+      <div className="legal-record-sources">{brief.sources.map(item => <Source key={item.id} id={item.id} onInspect={onInspect} />)}</div>
+      {revised && elapsed >= legalTiming.deliver.ready && <a className="legal-word-download" href={brief.downloadPath} download={brief.fileName} data-follow-at={legalTiming.deliver.ready}><img src="/brand/systems/word.svg" alt="" />Download Word draft <span aria-hidden="true">↓</span></a>}
     </footer>}
   </article>;
 }
