@@ -76,7 +76,6 @@
 
 /* Scope is the product surface of the hero, with one continuous chat. */
 .studio-home-scene--scope {
-  --home-demo-height: min(660px, max(320px, calc(100svh - 360px)));
   position: relative;
   z-index: 1;
   margin-top: -132px;
@@ -120,24 +119,10 @@
   letter-spacing: -.025em;
 }
 
-/* The hero's live writing area fits below its introduction. The feed absorbs
-   composer wrapping so a typed question cannot push the window offscreen. */
-.studio-home-scene--scope .demo-main {
-  display: flex;
-  flex-direction: column;
-  height: var(--home-demo-height);
+/* Preserve the original conversation height, with application chrome around it. */
+.studio-home-scene--scope .demo-feed {
+  height: min(540px, calc(100svh - 280px));
 }
-.studio-home-scene--scope .demo-sidebar {
-  height: var(--home-demo-height);
-  overflow-y: auto;
-}
-.studio-page .studio-home-scene--scope .demo-feed {
-  flex: 1 1 0;
-  height: auto;
-  min-height: 0;
-}
-.studio-home-scene--scope .demo-player-header { flex-shrink: 0; }
-.studio-home-scene--scope .demo-composer { flex-shrink: 0; }
 
 .studio-home-scene--plan {
   background: radial-gradient(ellipse at 100% 25%, #86c43d1c, transparent 62%), #10261b;
@@ -501,12 +486,12 @@
   .studio-demo-description,
   .studio-home-scene--deliver .studio-demo-description { margin-top: 18px; }
 
-  .studio-home-scene .demo-main {
+  .studio-home-scene:not(.studio-home-scene--scope) .demo-main {
     display: flex;
     flex-direction: column;
     height: var(--home-demo-height);
   }
-  .studio-home-scene .demo-sidebar {
+  .studio-home-scene:not(.studio-home-scene--scope) .demo-sidebar {
     height: var(--home-demo-height);
     overflow-y: auto;
     padding-bottom: 20px;
@@ -515,7 +500,7 @@
     position: static;
     margin: 24px 7px 0;
   }
-  .studio-page .studio-home-scene .demo-feed {
+  .studio-page .studio-home-scene:not(.studio-home-scene--scope) .demo-feed {
     flex: 1 1 0;
     height: auto;
     min-height: 0;

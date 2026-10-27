@@ -1,7 +1,8 @@
 # AllianceOne website
 
 React + Vite marketing site for law, consulting and advisory firms. The active
-homepage preserves the layout and demo dimensions from pre-law hero layout 8a53268
+homepage preserves the hero composition from 8a53268 and the original
+conversation window sizing from 1891aa2
 and demonstrates internal litigation experience across three continuous chat scenes: **Similar matters → Motion history → Matter handoff**. The current
 visual system and autonomous playback are retained. There is no PSA writeback
 in this narrative.
@@ -86,7 +87,9 @@ files, even though Avery helped prepare Harbor's earlier work.
 ## Website structure
 
 - **Home:** the pre-law hero, chapter placement, window dimensions and responsive
-  layout use the full-width hero composition from 8a53268. The windows contain the legal
+  layout use the full-width hero composition from 8a53268. The first window retains
+  the conversation height from 1891aa2, with its header and composer outside that
+  height rather than compressing the whole application into a short panel. The windows contain the legal
   narrative. The existing dark green, warm white and restrained accents remain.
 - **Product (`/allianceone/`):** firm knowledge, practice guidance, work product,
   matter/engagement record, source ownership, decision rights and accountable
