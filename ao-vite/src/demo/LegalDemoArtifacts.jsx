@@ -117,7 +117,6 @@ export function LegalHandoff({ elapsed = legalTiming.deliver.ready, revised = tr
     {elapsed >= footerAt && <footer className="legal-document-sources" data-follow-at={footerAt}>
       <p>{brief.revisionNote}</p>
       <div className="legal-record-sources">{brief.sources.map(item => <Source key={item.id} id={item.id} onInspect={onInspect} />)}</div>
-      {revised && elapsed >= legalTiming.deliver.ready && <a className="legal-word-download" href={brief.downloadPath} download={brief.fileName} data-follow-at={legalTiming.deliver.ready}><img src="/brand/systems/word.svg" alt="" />Download Word draft <span aria-hidden="true">↓</span></a>}
     </footer>}
   </article>;
 }

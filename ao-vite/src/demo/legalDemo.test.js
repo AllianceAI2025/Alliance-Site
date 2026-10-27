@@ -179,7 +179,7 @@ function wordEntries(bytes) {
   return result;
 }
 
-test("the downloadable Word draft contains the displayed brief, firm letterhead, evidence map and source record", () => {
+test("the internal Word reference matches the displayed brief, firm letterhead, evidence map and source record", () => {
   const brief = buildMatterBrief(true);
   const bytes = readFileSync(new URL(`../../public${firmTemplate.downloadPath}`, import.meta.url));
   assert.ok(bytes.length > 20000);
@@ -198,7 +198,7 @@ test("the downloadable Word draft contains the displayed brief, firm letterhead,
   assert.match(title, /w:ascii="Georgia"/);
 });
 
-test("the expanded document finishes before the download appears and retains a reading hold", () => {
+test("the expanded document finishes before the final reading hold", () => {
   const t = legalTiming.deliver;
   assert.ok(t.nextArtifact + 13700 < t.ready);
   assert.ok((t.end - t.ready) / playbackRate >= 6000);

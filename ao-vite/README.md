@@ -72,10 +72,11 @@ assessment and evidence map on fictional Whitfield Hale LLP letterhead. The new 
 interpretation and pending partner decision are distinct. No filing, budget
 change or amendment of client instructions is approved by creating the brief.
 
-The finished draft has a real Word download at
-`public/demo/northstar-matter-assessment.docx`. Its letterhead, content, evidence
-map and source record use the same model as the chat preview (`matterBrief.js`).
-It remains a draft for Sofia’s review. No filing approval is implied.
+The finished brief remains an in-chat artifact with no download control. Its
+letterhead, content, evidence map and source record use `matterBrief.js`. An
+internal Word reference is retained at `public/demo/northstar-matter-assessment.docx`
+for engineering and template QA; it is not linked from the website. The brief
+remains a draft for Sofia’s review. No filing approval is implied.
 
 Avery's scene shows only his handoff thread. It permits Northstar material,
 published practice guidance and the Harbor excerpt Sofia explicitly shared for
@@ -92,8 +93,8 @@ files, even though Avery helped prepare Harbor's earlier work.
   deployment. A Northstar overview uses the same current-matter data as the demo.
 - **Solutions (`/solutions/`):** fuller explanations of comparison, arguments and
   review, handoff, changing evidence and reviewed future reuse. Comparison and
-  review illustrations reuse Home’s records. The full letterhead brief and Word
-  download appear in the demo only; the Solutions handoff section is text only. Consulting and
+  review illustrations reuse Home’s records. The full letterhead brief appears
+  as an artifact in the demo only; the Solutions handoff section is text only. Consulting and
   advisory applications remain part of the broader story.
 - **Company and Design partners:** law firms join consulting and advisory firms
   in the audience, with practice configuration, source integration, adoption and
@@ -148,9 +149,9 @@ The older consulting fixtures (`northstar.js`, `engagementPlan.js`,
 reference material. They are not imported by the active legal scenes or public
 page illustrations. No project-system writeback is shown in the legal demo.
 
-## Rebuilding the Word draft
+## Rebuilding the internal Word reference
 
-The checked-in file is editable Word work product. The builder uses python-docx;
+The checked-in file is an internal reference for template QA, not a website download. The builder uses python-docx;
 the website build does not require Python. To regenerate after changing the shared
 brief content:
 

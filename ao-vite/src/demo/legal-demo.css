@@ -40,10 +40,6 @@
 .legal-evidence-map tbody th { font-weight: 600; color: #171b18; }
 .legal-document-sources { padding: 0 22px 20px; }
 .legal-document-sources > p { color: #627a65; font-size: 11px; line-height: 1.85; margin: 0 0 16px; }
-.legal-word-download { display: inline-flex; align-items: center; gap: 9px; color: #294b36; font-size: 12px; line-height: 1.6; text-decoration: none; margin-top: 21px; padding-block: 5px; }
-.legal-word-download > img { width: 18px; height: 18px; }
-.legal-word-download > span { margin-left: 8px; }
-.legal-word-download:hover { text-decoration: underline; text-underline-offset: 4px; }
 .studio-legal-visual .inline-artifact { padding: 25px; }
 .studio-legal-visual .artifact-head h3 { font-size: 27px; }
 .studio-legal-visual .legal-record p { font-size: 13px; }
