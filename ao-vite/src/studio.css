@@ -84,3 +84,6 @@
   .studio-record-systems h3 { font-size: 23px; }
   .studio-record-systems header > p { font-size: 15px; }
 }
+
+/* The full firm-template brief belongs to the interactive demo. */
+.solution-chapter--deliver .solution-chapter-grid{grid-template-columns:minmax(0,820px)}

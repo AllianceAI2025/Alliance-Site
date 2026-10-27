@@ -36,14 +36,10 @@ export default function LandingPage() {
           <p>AllianceOne connects your firm’s methods, intellectual property, practitioner judgment and past work with the decisions your people make today. For law, consulting and advisory firms.</p>
         </div>
       </div>
-      <Track name="scope" id="scope" className="studio-home-scene studio-home-scene--scope studio-hero-demo">
-        <div className="studio-container studio-hero-demo-inner">
-          <h2 className="demo-sr-only">Similar matters and internal precedent</h2>
-          <p className="studio-hero-demo-caption">Similar matters</p>
-          <div className="studio-demo-proof"><EngagementDemo phase="scope" primary /></div>
-        </div>
-      </Track>
     </Track>
+    <DemoSection phase="scope" label="Similar matters" headline="Start with relevant firm experience." primary>
+      Examine how comparable matters were argued, what the record established and what partner review changed.
+    </DemoSection>
     <DemoSection phase="plan" label="Motion history" headline="Go beyond the outcome.">
       Bring the firm’s arguments, court records and partner review into view. Understand what changed in the work and which lessons apply to the matter in front of you.
     </DemoSection>

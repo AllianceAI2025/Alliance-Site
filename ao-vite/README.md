@@ -1,8 +1,8 @@
 # AllianceOne website
 
 React + Vite marketing site for law, consulting and advisory firms. The active
-homepage leads with a full-width live demo in the hero and demonstrates internal
-litigation experience across three continuous chat scenes: **Similar matters → Motion history → Matter handoff**. The current
+homepage preserves the layout and demo dimensions from pre-law commit b246a0d
+and demonstrates internal litigation experience across three continuous chat scenes: **Similar matters → Motion history → Matter handoff**. The current
 visual system and autonomous playback are retained. There is no PSA writeback
 in this narrative.
 
@@ -84,14 +84,16 @@ files, even though Avery helped prepare Harbor's earlier work.
 
 ## Website structure
 
-- **Home:** the product definition and full-width Similar matters demo share
-  the gradient hero. Motion history and Handoff follow, then firm-level benefits. The existing dark green, warm white and restrained accents remain.
+- **Home:** the pre-law hero, chapter placement, window dimensions and responsive
+  layout are restored directly from b246a0d. The windows contain the legal
+  narrative. The existing dark green, warm white and restrained accents remain.
 - **Product (`/allianceone/`):** firm knowledge, practice guidance, work product,
   matter/engagement record, source ownership, decision rights and accountable
   deployment. A Northstar overview uses the same current-matter data as the demo.
 - **Solutions (`/solutions/`):** fuller explanations of comparison, arguments and
-  review, handoff, changing evidence and reviewed future reuse. Static artifact
-  illustrations reuse the same components and records as Home. Consulting and
+  review, handoff, changing evidence and reviewed future reuse. Comparison and
+  review illustrations reuse Home’s records. The full letterhead brief and Word
+  download appear in the demo only; the Solutions handoff section is text only. Consulting and
   advisory applications remain part of the broader story.
 - **Company and Design partners:** law firms join consulting and advisory firms
   in the audience, with practice configuration, source integration, adoption and
