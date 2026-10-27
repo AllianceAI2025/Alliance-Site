@@ -1,9 +1,9 @@
 # AllianceOne website
 
 React + Vite marketing site for law, consulting and advisory firms. The active
-homepage preserves the hero composition from 8a53268 and the original
-conversation window sizing from 1891aa2
-and demonstrates internal litigation experience across three continuous chat scenes: **Similar matters → Motion history → Matter handoff**. The current
+homepage separates its brand hero from the first demo and retains the original
+conversation window sizing from 1891aa2.
+It demonstrates internal litigation experience across three continuous chat scenes: **Relevant experience → Motion history → Matter handoff**. The current
 visual system and autonomous playback are retained. There is no PSA writeback
 in this narrative.
 
@@ -42,7 +42,7 @@ and demonstration access designation. The source buttons open these records;
 they do not point to public case law. Fee records include discovery-phase figures
 and the documented explanation, rather than inventing a cause from the total.
 
-### 1. Similar matters — Margaret Whitfield, partner
+### 1. Relevant experience — Margaret Whitfield, partner
 
 Margaret asks where the firm has handled comparable inspection-record issues,
 what it argued and what changed its approach. The comparison develops the legal
@@ -86,10 +86,10 @@ files, even though Avery helped prepare Harbor's earlier work.
 
 ## Website structure
 
-- **Home:** the pre-law hero, chapter placement, window dimensions and responsive
-  layout use the full-width hero composition from 8a53268. The first window retains
-  the conversation height from 1891aa2, with its header and composer outside that
-  height rather than compressing the whole application into a short panel. The windows contain the legal
+- **Home:** the first demo's Relevant experience introduction sits on its own
+  light surface below the brand hero. Its full-width window retains the
+  conversation height from 1891aa2, with its header and composer outside that
+  height. The windows contain the legal
   narrative. The existing dark green, warm white and restrained accents remain.
 - **Product (`/allianceone/`):** firm knowledge, practice guidance, work product,
   matter/engagement record, source ownership, decision rights and accountable
@@ -121,7 +121,7 @@ verified legal authorities or make the attorney's decision.
 - `src/demo/legalDemo.test.js`: active corpus and narrative invariants.
 
 The internal phase keys `scope`, `plan`, `deliver` remain for existing anchors,
-layout classes and playback code. Their visible labels are Similar matters,
+layout classes and playback code. Their visible labels are Relevant experience,
 Motion history and Matter handoff. Follow-ups append to the same conversation;
 earlier artifacts freeze at their completed version. Each scene plays once,
 holds its last frame, and restarts after leaving and returning. Partial clipping

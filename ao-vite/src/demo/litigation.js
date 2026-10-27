@@ -132,7 +132,7 @@ export function resolveLegalSource(phase, key) {
 
 export const legalStories = {
   scope: {
-    label: "Similar matters", thread: "Comparable matters", person: "Margaret Whitfield", role: "Partner", initials: "MW",
+    label: "Relevant experience", thread: "Comparable matters", person: "Margaret Whitfield", role: "Partner", initials: "MW",
     prompt: "For Northstar’s construction dispute, where have we dealt with similar inspection-record issues? Show me the arguments and what changed our approach.",
     answer: "Three matters address different parts of that question. Harbor linked inspection reports to specific defects, but did not support its broader other-project request. Cedar Ridge used a missing-document schedule and obtained production before the hearing. Briar Glen relied on an unproven assumption about the respondent’s control of records. The drafts, decision records and partner review show what mattered in each.",
     answerDuration: 2400, artifact: "legal-comparison", artifactAt: legalTiming.scope.artifact, artifactUntil: legalTiming.scope.firstReady, duration: legalTiming.scope.end,

@@ -37,7 +37,7 @@ export default function LandingPage() {
         </div>
       </div>
     </Track>
-    <DemoSection phase="scope" label="Similar matters" headline="Start with relevant firm experience." primary />
+    <DemoSection phase="scope" label="Relevant experience" headline="Start with relevant firm experience." primary />
     <DemoSection phase="plan" label="Motion history" headline="Go beyond the outcome.">
       Bring the firm’s arguments, court records and partner review into view. Understand what changed in the work and which lessons apply to the matter in front of you.
     </DemoSection>

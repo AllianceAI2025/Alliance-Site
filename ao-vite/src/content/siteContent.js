@@ -70,7 +70,7 @@ export const firmTypes = [
 
 export const solutionChapters = [
   {
-    id: "scope", label: "Similar matters", title: "Find what the firm already learned.",
+    id: "scope", label: "Relevant experience", title: "Find what the firm already learned.",
     intro: "A new matter raises questions the firm may have worked through before. AllianceOne brings relevant internal experience to the attorney, with the facts, contributors, decisions and costs that make a comparison useful.",
     sections: [
       ["Compare the conditions, not just the topic", "Examine what the prior matter depended on, the early assessment and what later evidence changed. Northstar’s construction dispute draws on Harbor Point, Cedar Ridge and Briar Glen. The differences are part of the answer: an existing inventory, a custodian change and an unsupported assumption led to different work and results."],
