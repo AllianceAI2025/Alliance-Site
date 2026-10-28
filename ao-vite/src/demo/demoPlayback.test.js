@@ -140,9 +140,9 @@ test("the whole approved plan has a coherent task, booking and decision structur
   for (const key of ["owner", "reviewer", "effort", "due"]) assert.equal(assessment[key], assignment[key]);
   assert.ok(planTiming.deliverablesAt + 13 * 260 + 250 < planTiming.milestonesAt);
   assert.ok(planTiming.milestonesAt + 3 * 250 < planTiming.reviewed);
-  assert.ok(planTiming.resourcesWrittenAt + 5 * 450 < planTiming.deliverablesWrittenAt);
-  assert.ok(planTiming.deliverablesWrittenAt + 13 * 320 + 250 < planTiming.milestonesWrittenAt);
-  assert.ok(planTiming.milestonesWrittenAt + 3 * 250 < planTiming.workspaceCreated);
+  assert.ok(planTiming.resourcesWrittenAt < planTiming.deliverablesWrittenAt);
+  assert.ok(planTiming.deliverablesWrittenAt + 4 * 350 < planTiming.billingWrittenAt);
+  assert.ok(planTiming.billingWrittenAt < planTiming.taskDetailsAt && planTiming.taskDetailsAt < planTiming.workspaceCreated);
 });
 
 test("full-plan readback detects omissions and changes beyond Avery's assignment", () => {
@@ -276,8 +276,8 @@ test("consultant delivery establishes the assignment and method before drafting"
   const method = story.commands[0], draft = story.commands[1];
   assert.ok(method.typingAt > deliveryTiming.assignmentReady);
   assert.equal(method.sentAt, deliveryTiming.methodAsked);
-  assert.ok(method.answer.includes(assessmentFormatName) && method.answer.includes("HG-D01 v1"));
-  assert.ok(method.answer.includes("source and date") && method.answer.includes("unresolved conflicts"));
+  assert.ok(method.answer.includes("observed ownership") && method.answer.includes("dated sources"));
+  assert.ok(method.sources.some(source => source.key === "harbor-review"), "relevant review knowledge supports the current analysis");
   assert.ok(method.sources.every(source => contexts[source.key]));
   assert.ok(draft.typingAt > method.answerAt + method.answerDuration);
   assert.equal(draft.artifact, "assessment-draft");
@@ -293,7 +293,7 @@ test("consultant delivery establishes the assignment and method before drafting"
 });
 
 test("Avery can use assigned materials and explicitly shared or published knowledge", () => {
-  for (const key of ["discovery", "assignment", "evidence", "method", "harbor-review", "ownership-guidance", "record"]) {
+  for (const key of ["discovery", "assignment", "evidence", "avery-update", "method", "harbor-review", "ownership-guidance", "record"]) {
     const context = contexts[resolveDemoSource("deliver", key)];
     assert.ok(context?.access, `${key} has an explicit demonstration source grant`);
     assert.ok(["northstar-delivery-team", "consulting-practice"].includes(context.access.audience));
@@ -353,7 +353,7 @@ test("the approved assessment keeps a Word reference with shared report content"
   assert.equal(assessment.author, assignment.owner);
   assert.equal(assessment.reviewer, assignment.reviewer);
   assert.equal(assessment.revision, 2);
-  assert.ok(assessment.conclusion.includes("Design decisions remain conditional"));
+  assert.ok(assessment.conclusion.includes("Hold Northeast ownership assignments"));
 });
 
 test("OX separates project budget, allocations, task estimates and billing milestones", () => {
@@ -406,8 +406,22 @@ test("the assessment connects evidence limits to decisions, responsible actions 
   assert.ok(report.reviewResponse.includes("does not close"), "report approval must not imply evidence gaps have been resolved");
 });
 
-test("the report pages build after approval and hold before the demo ends", () => {
-  const order = [deliveryTiming.approved, deliveryTiming.exportStarted, deliveryTiming.exportArtifactAt, deliveryTiming.exportPageOne, deliveryTiming.exportMethodAt, deliveryTiming.exportPageTwo, deliveryTiming.exportPageThree, deliveryTiming.exportReviewAt, deliveryTiming.exportSourcesAt, deliveryTiming.exportReady, stories.deliver.duration];
+test("Avery contributes the analysis, client context and wording without closing unconfirmed evidence", () => {
+  const report = JSON.parse(readFileSync(new URL("./assessment.json", import.meta.url), "utf8"));
+  const draft = stories.deliver.commands.find(item => item.artifact === "assessment-draft");
+  const revision = stories.deliver.commands.find(item => item.artifact === "assessment-revision");
+  assert.equal(report.consultantUpdate.reportedBy, assignment.owner);
+  assert.ok(report.consultantUpdate.status.includes("confirmation outstanding"));
+  assert.ok(draft.sources.some(source => source.key === "avery-update"));
+  assert.ok(contexts[resolveDemoSource("deliver", "avery-update")].reference.includes(report.consultantUpdate.reference));
+  assert.ok(revision.prompt.includes(report.conclusion), "the approved report applies Avery’s own revised conclusion");
+  assert.ok(report.brief.findings.find(item => item.area === "Currency").action.includes("confirmation remains open"));
+  const briefWords = [report.conclusion, ...report.brief.findings.map(item => `${item.finding} ${item.action}`), ...report.brief.actions, report.brief.review, report.brief.sources].join(" ").split(/\s+/).length;
+  assert.ok(briefWords < 240, "the report stays short enough for a website demonstration");
+});
+
+test("the one-page report builds after approval and holds before the demo ends", () => {
+  const order = [deliveryTiming.approved, deliveryTiming.exportStarted, deliveryTiming.exportArtifactAt, deliveryTiming.exportPageOne, deliveryTiming.exportFindingsAt, deliveryTiming.exportActionsAt, deliveryTiming.exportReviewAt, deliveryTiming.exportSourcesAt, deliveryTiming.exportReady, stories.deliver.duration];
   assert.ok(order.every((value, index) => !index || value > order[index - 1]));
   assert.ok((stories.deliver.duration - deliveryTiming.exportReady) / playbackRate >= 10000);
   const final = conversationAt(stories.deliver, stories.deliver.duration);

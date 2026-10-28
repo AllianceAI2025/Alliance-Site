@@ -82,54 +82,25 @@ def build():
     footer._p.append(field)
 
     paragraph(doc, DATA['title'], 'Title')
-    paragraph(doc, 'Northstar Foods\nDecision rights and operating model', 'Subtitle')
+    paragraph(doc, DATA['client'], 'Subtitle')
     p = paragraph(doc, f"Prepared by {DATA['author']}  |  Reviewed by {DATA['reviewer']}\n{DATA['date']}  |  Approved revision {DATA['revision']}")
     for run in p.runs:
         run.font.size = Pt(9)
-    doc.add_heading('Executive assessment', 1)
-    paragraph(doc, DATA['decisionTitle']).runs[0].bold = True
-    paragraph(doc, DATA['executiveSummary'])
-    for decision in DATA['decisions']:
-        doc.add_heading(decision['label'] + '  ' + decision['decision'], 2)
-        paragraph(doc, decision['basis'])
-    doc.add_heading('Assessment method', 1)
-    for method in DATA['method']:
-        p = paragraph(doc, '')
-        p.add_run(method['criterion'] + '. ').bold = True
-        p.add_run(method['test'])
-
-    doc.add_page_break()
-    doc.add_heading('Findings and decision limits', 1)
-    for finding in DATA['findings']:
-        doc.add_heading(finding['id'] + '  ' + finding['title'], 2)
-        p = paragraph(doc, finding['source'])
-        for run in p.runs:
-            run.italic = True
-            run.font.size = Pt(9)
-        paragraph(doc, finding['observation'])
-        for lead, content in [('Decision consequence. ', finding['consequence']), ('Release condition. ', finding['release'])]:
-            p = paragraph(doc, '')
-            p.add_run(lead).bold = True
-            p.add_run(content)
-    doc.add_heading('Assessment boundaries', 1)
-    paragraph(doc, DATA['limitations'])
-
-    doc.add_page_break()
-    doc.add_heading('Actions before the diagnostic baseline', 1)
-    paragraph(doc, 'Follow-up targets precede the September 11 baseline gate. Northstar owns its evidence; Avery coordinates validation and Sofia reviews the remaining conditions.')
-    widths = [4.1, 1.9, 1.0]
-    actions = table(doc, ['Action and completion condition', 'Accountable owner', 'Target'], widths)
-    for action in DATA['actionPlan']:
-        row(actions, [action['id'] + '  ' + action['action'] + '\n' + action['finding'] + '. ' + action['doneWhen'], action['owner'] + '\nCoordinate: ' + action['coordinator'], action['target']], widths)
-    doc.add_heading('Reviewed revision', 1)
-    paragraph(doc, DATA['reviewResponse'])
-    doc.add_heading('Source register', 1)
-    for source in DATA['sourceRegister']:
-        p = paragraph(doc, '')
-        p.add_run(source['id'] + '  ' + source['name'] + '. ').bold = True
-        p.add_run(source['use'])
-        for run in p.runs:
-            run.font.size = Pt(10)
+    doc.add_heading('Recommendation', 1)
+    paragraph(doc, DATA['conclusion'])
+    doc.add_heading('Evidence and follow up', 1)
+    evidence = table(doc, ['Area', 'Finding and next check'], [1.0, 6.0])
+    for finding in DATA['brief']['findings']:
+        row(evidence, [finding['area'], finding['finding'] + ' ' + finding['action']], [1.0, 6.0])
+    doc.add_heading('Next actions', 1)
+    for action in DATA['brief']['actions']:
+        paragraph(doc, action, 'List Bullet')
+    p = paragraph(doc, DATA['brief']['review'])
+    for run in p.runs:
+        run.font.size = Pt(10)
+    p = paragraph(doc, 'Basis: ' + DATA['brief']['sources'])
+    for run in p.runs:
+        run.font.size = Pt(9)
     props = doc.core_properties
     props.title, props.subject = DATA['title'], 'Northstar Foods operating-model diagnostic'
     props.author, props.last_modified_by = DATA['author'], DATA['reviewer']

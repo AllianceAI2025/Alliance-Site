@@ -61,9 +61,10 @@ creation. The demonstration does not claim that a POST dependency endpoint exist
   instructions, checklists, assignment estimates, allocations, source references
   and billing amounts/triggers. Mutation tests prove that missing or changed
   records do not produce a successful receipt.
-- `KantataRecord.jsx` renders from the response fixture rather than replaying the
-  original plan as a generic PSA card. Responsive views retain the complete task
-  list while omitting some secondary columns on narrow screens.
+- `KantataRecord.jsx` renders a compact projection of the response fixture:
+  four workstream totals, Avery's assessment task, allocation totals and billing.
+  All 22 task records and six allocations remain in the readback and comparison;
+  shortening the visible receipt does not reduce what was submitted.
 
 Before a live connection: resolve account membership and configured roles,
 validate access and financial permissions, discover status sets and custom
@@ -76,11 +77,13 @@ project locked merely because AllianceOne retains an approved baseline.
 
 ## Report output
 
-`assessment.json` supplies the in-chat draft, reviewed revision, full three-page
-browser preview and internal Word reference. It separates observations from
-decisions, gives each finding a consequence and release condition, and assigns
-evidence follow-up to client owners with coordination and review dates. Approval
-of revision 2 does not resolve the client's outstanding evidence actions.
+`assessment.json` supplies the in-chat draft, reviewed revision, one-page browser
+preview and internal Word reference. Avery contributes evidence analysis, a
+reported Central client conversation (NS-C01), and the wording of his revised
+conclusion. The preview keeps the recommendation, three evidence checks, actions
+and a short review/source note. The fuller findings and source metadata remain
+in the model. Approval does not resolve outstanding evidence or turn a reported
+conversation into confirmed client evidence.
 
 The website previews the export automatically without requiring a download.
 `scripts/build-assessment.py` regenerates the internal `.docx` reference from the

@@ -1,5 +1,9 @@
 .ox-record{color:#344652;font-family:Inter,sans-serif}
 .ox-mobile-label{display:none}
+.ox-allocation-summary{display:flex;justify-content:space-between;gap:12px;margin:0 20px 18px;padding-top:12px;border-top:1px solid #e5eaf0;font-size:10px;color:#617581}
+.ox-allocation-summary strong{font-weight:500;color:#3e5665}
+.ox-row-count{display:block;font-size:8px;font-weight:400;line-height:1.7;color:#7d8c95;margin-top:3px}
+.ox-task-detail--compact>h4{margin-bottom:6px}
 .plan-billing-terms{font-size:11px;line-height:1.9;color:#5d7168;margin-top:18px;padding-top:14px;border-top:1px solid #e4eae6}
 .plan-billing-terms>strong{display:block;font-weight:500;color:#3d594b;margin-bottom:3px}
 .ox-record .psa-record-system{background:#f5f6f8;border-bottom:1px solid #e2e6eb}
@@ -37,6 +41,7 @@
 .ox-task-detail ul{font-size:10px;line-height:1.8;margin:0;padding-left:17px;color:#536a79}
 @media(max-width:600px){
   .ox-section{margin:20px 12px 0}.ox-section>h4{display:block}.ox-section>h4>span{display:block;margin-top:4px;font-size:10px}
+  .ox-allocation-summary{margin-inline:12px;display:block}.ox-allocation-summary>span{display:block;margin-top:5px}.ox-row-count{font-size:9px}
   .ox-record .psa-record-fields{grid-template-columns:1fr 1fr;gap:13px}
   .ox-record table{font-size:10px}.ox-record th{font-size:9px;padding:7px 4px}.ox-record td{padding:8px 4px}
   .ox-resource-table th:nth-child(2),.ox-resource-table td:nth-child(2),.ox-resource-table th:nth-child(3),.ox-resource-table td:nth-child(3),.ox-desktop-label{display:none}

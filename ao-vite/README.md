@@ -126,7 +126,7 @@ with relevant work, current windows and proposed effort. Daniel's Week 3 hold
 remains conditional, and Sofia's Week 10 release needs later review coverage.
 The six-person, 1,840-hour basis carries into Plan after acceptance and confirmation.
 
-**Plan (59.4s, then holds):** A separate conversation begins from accepted proposal v5
+**Plan (48.8s, then holds):** A separate conversation begins from accepted proposal v5
 and a Won opportunity. The same six resources and confirmed windows carry forward.
 The schedule, all fourteen deliverables across four workstreams, and four review gates
 build progressively. Each deliverable has dates, an owner, reviewer, acceptance criteria
@@ -135,8 +135,9 @@ Dependencies apply at acceptance; preparation can overlap.
 
 Sofia reviews the full plan. Margaret types a request to approve plan v1 and submit the
 whole plan to Kantata OX. The separate write result creates the project, then
-shows six hard allocations, four parent tasks, fourteen deliverables, four milestones
-and three separate billing milestones being written. Review and acceptance
+shows a compact receipt with allocation totals, workstream counts, Avery’s task
+and the separate billing schedule. All six allocations, fourteen deliverables and
+four milestones remain in the submitted data and full readback. Review and acceptance
 instructions map to task descriptions and checklists. Commercial terms, scope boundary and client dependencies accompany
 the baseline. The approved plan and accepted proposal are linked in SharePoint.
 A separate response fixture is compared against every approved project field, resource
@@ -145,18 +146,18 @@ and review gate, alongside Avery's assignment. Missing or changed records produc
 discrepancy rather than a success claim. The final receipt confirms the full write and
 readback. The PSA view is a local OX response fixture, not a live tenant connection.
 
-**Deliver (86.3s, then holds):** Avery's sidebar contains his assessment thread;
+**Deliver (69.4s, then holds):** Avery's sidebar contains his assessment thread;
 the manager's pursuit and staffing conversations are absent. Following the workflow
 prototype's consultant sequence, he first asks what he is delivering and what it must
 establish. An assignment brief shows the same 36-hour task, September 7 deadline,
 Sofia review, acceptance criteria and verified PSA assignment from plan v1.
-He then asks which report format applies and what Sofia challenged in his Harbor
-HG-D01 evidence pack. The response identifies the v1 ownership/source defects,
-the accepted v2 corrections and their application to Northstar's evidence limits.
-The report format is named Data Readiness Assessment; the client file is named
-Northstar Foods — Data Readiness Assessment.docx. Template identifiers are not used
-as presentation names. Source links distinguish published practice material from
-Sofia's review excerpt explicitly shared for Northstar.
+Avery brings his own analysis: missing owner fields and an older inventory
+are different validation problems. AllianceOne applies relevant Harbor review
+experience to that question. Avery then reports a client conversation: Central’s
+process is unchanged, but written confirmation remains outstanding. He supplies
+his recommendation, asks for the practice assessment format, checks the draft,
+and writes his own revised conclusion in response to Sofia’s review.
+Published practice material and the shared review excerpt retain their source grants.
 Only after these exchanges does Avery request a draft. Northstar evidence then
 populates the Word-style report, with Avery’s shared Harbor review and the published Ownership and Handoffs note beside
 the work. The Word artifact grows progressively after that drafting request.
@@ -167,7 +168,7 @@ and she approves it. Avery then types a request to export the approved version i
 the named assessment report format. Earlier requests stay in the conversation. Revision 1, Sofia's
 review, revised/approved revision 2, and the export receipt each remain under the
 request that produced them. Export produces
-a three-page Word report preview. Review requests, feedback, revision
+a one-page Word assessment preview. Review requests, feedback, revision
 rationale and approval remain linked to the engagement.
 
 Review, revision and export run automatically and show the actor and resulting
@@ -237,7 +238,7 @@ The report content and OOXML package are checked separately from browser QA.
 
 ## Review checks for the page redesign
 
-- All 31 demo tests pass; the multi-page production build includes
+- All 32 demo tests pass; the multi-page production build includes
   the new Solutions destination and its legacy alias.
 - Home, Product, Solutions, Company, Design partners, Security and the legacy
   How It Works route were checked at phone width, with no horizontal page overflow
@@ -284,13 +285,12 @@ The OX record uses project fields, a complete Task Tracker hierarchy, hard
 allocations, task/resource estimates and a separate Billing Schedule. The
 [field mapping and research](docs/kantata-ox-demo.md) describe the supported API
 objects, unit conversions and tenant-specific implementation work. A separate
-API-shaped fixture is checked against the approved write model; 31 tests include
+API-shaped fixture is checked against the approved write model; 32 tests include
 missing/changed task, checklist, allocation and billing response cases.
 
-Deliver now builds a full three-page report preview on firm letterhead. Findings
-carry decision consequences and release conditions; the action plan has owners,
-dates and completion criteria. Review rationale and the source register remain
-in the approved output. The website does not require visitors to download it.
+Deliver builds one concise report page on firm letterhead: Avery’s recommendation,
+three evidence checks, follow-up owners/dates, and a short review/source note. The
+fuller context remains linked to the work. The website requires no file download.
 
 Law firms are named as a segment across the site. Law-specific demonstrations live
 in the separate demo application, not on the public site.
