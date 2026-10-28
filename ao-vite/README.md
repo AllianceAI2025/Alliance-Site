@@ -1,11 +1,9 @@
 # AllianceOne website
 
-React + Vite marketing site for law, consulting and advisory firms. The active
-homepage brings the first demo window into the brand hero, with its explanatory
-copy beneath it, and retains the original conversation window sizing from 1891aa2.
-It demonstrates internal litigation experience in two continuous conversations: **Apply firm experience → Keep current work grounded**. The current
-visual system and autonomous playback are retained. There is no PSA writeback
-in this narrative.
+React + Vite marketing site for law, consulting and advisory firms. The homepage
+keeps the brand hero, overlapping opening window and established window sizes.
+Three focused scenes follow one lead attorney, Margaret Whitfield, through one
+fictional Northstar matter. These are views of connected work, not lifecycle gates.
 
 ## Development
 
@@ -16,166 +14,116 @@ npm test
 npm run build
 ```
 
-The existing preview is http://localhost:5176. `npm run build` produces `dist/`.
-`npm test` runs 41 checks: shared playback and retained consulting fixtures,
-plus the active litigation corpus, chronology and source-access scenarios.
+Existing preview: http://localhost:5176. Production build: `dist/`.
+The 41 checks cover playback, the retained consulting fixtures and the active
+litigation narrative, source chronology, permitted reuse and document revisions.
 
-## The fictional firm record
+## The demonstration
 
-`src/demo/litigation.js` is the single source of truth for the active demo,
-source inspector and Product overview. It contains three closed matters and one
-current matter. These are invented records and people, not legal authorities,
-actual client work or Hellmuth & Johnson's matters. No real firm endorsement or
-production connection is represented.
+1. **Relevant experience.** Three prior matters answer different questions about
+   repair history, competing causes and earlier complaints. Each connects the
+   initial assessment with later evidence and its recorded result. The question
+   for Northstar is explicit. The opening contains no staffing or pricing pitch.
+2. **Reasoning and approach.** Margaret asks what Harbor's assessment missed.
+   Its initial view, engineering evidence, revised investigation, settlement and
+   documented discovery effort build in sequence. A follow-up examines what
+   supported the production motion, what review changed and what the actual
+   order decided. The Northstar recommendation follows from those differences.
+3. **Work product and new evidence.** Margaret requests an initial assessment in
+   the firm's Litigation Matter Brief format. The document builds on Whitfield
+   Hale LLP letterhead. A proactive agent event connects a newly received email
+   and attachment to the assessment's repair-history assumption. Margaret directs
+   a revision. Revision 2 prioritizes chronology and engineering comparison,
+   retains revision 1 and explains the change. Its legal effect remains open.
 
-| Matter | Experience | Motion disposition | Budget / actual fees |
-| --- | --- | --- | --- |
-| Harbor Point Owners | Unverified collection assumptions; a custodian change and second collection | Granted in part; the other-project request was refused | $90,000 / $112,500 |
-| Cedar Ridge Logistics | Existing inventory and a specific missing-document request | Withdrawn after production; no merits ruling | $100,000 / $97,000 |
-| Briar Glen Properties | Contract role treated as evidence of records control, then corrected | Denied without prejudice on the submitted record | $120,000 / $132,000 |
-| Northstar Foods | Current distribution-center construction dispute; records control unresolved | No motion approved for filing | No budget decision shown |
+There is no associate handoff, persona profile, PSA writeback, download action or
+separate lesson-admission step. Document authorship and source attribution stay
+available. The attorney remains responsible for the recommendation and release.
 
-Each historical matter has an initial assessment, internal draft and revision,
-decision or withdrawal record, partner review, cost reconciliation and reviewed
-close-out. Each excerpt carries an identifier, matter, author, date, record type
-and demonstration access designation. The source buttons open these records;
-they do not point to public case law. Fee records include discovery-phase figures
-and the documented explanation, rather than inventing a cause from the total.
+## Fictional corpus and evidence
 
-### 1. Apply firm experience — Margaret Whitfield, partner
+`src/demo/litigation.js` supplies the shared corpus, source inspector, stories and
+Product overview. These are invented matters and people, not legal authorities,
+actual client work or records of Hellmuth & Johnson. No real firm's letterhead,
+endorsement or production connection is represented.
 
-Margaret asks where the firm has handled comparable inspection-record issues.
-The three-matter comparison surfaces relevant conditions, arguments and recorded
-results, with contributors and original sources available. It then moves to one
-concrete review: why Sofia changed Avery’s Harbor draft and what Northstar
-should carry forward. The original and reviewed drafts, court decision and
-current evidence questions appear in that same thread. There is no second
-retelling of the three motion outcomes. People and documented economics remain
-available in supporting matter records.
+| Matter | Distinct experience | Recorded result |
+| --- | --- | --- |
+| Harbor Point Owners | A completed patch was mistaken for a resolved problem; later engineering and a second archive changed the assessment | Partial production order, followed later by mediation; no liability finding |
+| Cedar Ridge Logistics | Operating logs helped distinguish condensation from alleged defects | Production before the hearing; motion withdrawn without a merits ruling |
+| Briar Glen Properties | An earlier complaint challenged the initial chronology; records control was assumed without sufficient evidence | Motion denied without prejudice; later negotiated resolution |
+| Northstar Foods | Current distribution-center water intrusion, initially understood through a patch and later recurrence | Assessment and proposed investigation; no filing approved |
 
-### 2. Keep current work grounded — Avery Ross, assigned associate
+Each closed matter retains six attributed records: initial assessment, motion
+versions, court order or withdrawal, partner review, fees and reviewed closeout.
+Fees have phase figures and a documented explanation rather than a causal story
+inferred from the amount. The source dialog distinguishes argument, review,
+recorded outcome and transfer limits.
 
-The conversation opens directly with a request to draft the assessment using
-the Litigation Matter Brief template and Sofia’s shared Harbor review, then
-send the first draft to Sofia. There is no joining or handoff setup. Revision 1
-develops in the thread, with its source references and a linked review-request record.
+Northstar's initial sources were available by October 21, 2026. The October 22
+forwarded email encloses a November 3, 2023 message and maintenance log. Source
+`date` and `receivedAt` describe receipt; `originalDate` describes the old evidence.
+The new evidence describes post-patch leakage. It does not establish the same
+cause, determine accrual or settle a legal defense. Margaret's October 23
+instruction is a separate source in revision 2.
 
-The Northstar monitor then posts an unprompted source update. It connects the
-October 22 client email and Sofia’s review to revision 1’s custodian section and
-proposed records approach. The update shows the earlier assumption, the new
-source, the work affected and the decisions still requiring review. It does not
-navigate away or invent a user request to read communications.
+The assessment uses current-matter records, reviewed guidance and authorized
+Harbor/Briar excerpts. Access to those excerpts does not grant access to full
+prior-matter files. The first two scenes assume Margaret has authorized access
+to the compared matters. Production access must enforce actual firm policies.
 
-Avery then asks for revision 2. The two-page assessment and evidence map build
-on fictional Whitfield Hale LLP letterhead, retaining the earlier account and
-explaining what changed and why. No filing, budget change or amendment of client
-instructions is approved by creating the brief.
+## Documents
 
-The finished brief remains an in-chat artifact with no download control. Its
-letterhead, content, evidence map and source record use `matterBrief.js`. An
-internal Word reference is retained at `public/demo/northstar-matter-assessment.docx`
-for engineering and template QA; it is not linked from the website. The brief
-remains a draft for Sofia’s review. No filing approval is implied.
+`src/demo/matterBrief.js` is the versioned content model for the letterhead
+artifact and internal Word reference. Both revisions have Margaret as author.
+The website shows the document and an expandable source record; it does not
+initiate a file download. The retained reference is
+`public/demo/northstar-matter-assessment.docx`.
 
-The assessment window shows only its work thread, without a persona profile or
-role credentials. Authorship and review attribution stay with the documents and
-sources. It permits Northstar material,
-published practice guidance and the Harbor excerpt Sofia explicitly shared for
-this assignment. It does not expose the full Harbor, Cedar Ridge or Briar Glen
-files, even though Avery helped prepare Harbor's earlier work.
+Regenerate the reference after content changes:
+
+```sh
+node scripts/generate-legal-brief.mjs --python /path/to/python
+```
+
+This requires python-docx. The reference contains the assessment, evidence table
+and source appendix. Its OOXML content is checked against the displayed model.
+The current local runtime lacks bundled LibreOffice, so standalone Word page
+rendering is unavailable here; browser artifact layout is verified separately.
+
+## Playback and engineering map
+
+- `EngagementDemo.jsx`: shared shell, sidebar, sources, visibility and following.
+- `litigation.js`: corpus, actors, timing, proactive event and source permissions.
+- `LegalDemoArtifacts.jsx`: progressively built comparison, reasoning, motion
+  review, incoming evidence, original document and revised document.
+- `demoPlayback.js`: retained exchanges, typed follow-ups, frozen artifact clocks,
+  reading holds and automatic scroll calculations.
+- `matterBrief.js`: shared document content and revision-specific evidence.
+
+A scene plays on entering view, pauses when its reading area is clipped and holds
+its completed artifact. Leaving and returning restarts only that scene. The
+response-only hero can begin once the reading pane fits; scenes with follow-up
+requests wait for their composer too. Sources pause the scene and open in a
+local dialog. They do not navigate to an overview or another page. Follow-up
+requests append beneath retained messages; an agent event never invents a user
+request. Each artifact stops changing when its exchange finishes.
+
+For backend implementation, retain stable matter/source/version identifiers,
+authorship and access, original and received dates, evidence-to-claim links,
+assumptions and their status, the attorney's instruction, and the affected
+revision. Capture review and changes as work occurs; reviewed reuse keeps its
+source and limits. A generated explanation is not a verified causal conclusion.
 
 ## Website structure
 
-- **Home:** each demo uses its main headline and a cross-practice description
-  without a separate phase label.
-  The first demo's full-width window overlaps the brand hero; its introduction
-  follows on the light surface below. The window retains the
-  conversation height from 1891aa2, with its header and composer outside that
-  height. The windows contain the legal
-  narrative. The existing dark green, warm white and restrained accents remain.
-- **Product (`/allianceone/`):** firm knowledge, practice guidance, work product,
-  matter/engagement record, source ownership, decision rights and accountable
-  deployment across law, consulting and advisory. Legal details stay in the
-  example panels; a Northstar overview uses the same current-matter data as the demo.
-- **Solutions (`/solutions/`):** cross-practice explanations of comparison, reasoning
-  and review, continuity, changing evidence and reviewed future reuse. Comparison and
-  review illustrations reuse Home’s records. The full letterhead brief appears
-  as an artifact in the demo only; the Solutions continuity section is text only. Consulting and
-  advisory applications remain part of the broader story.
-- **Company and Design partners:** law firms join consulting and advisory firms
-  in the audience. Practice configuration, source integration, adoption and a
-  recurring client workflow are described consistently, with agreed quality
-  criteria and benefit measures. The inquiry fields and submission behavior are unchanged.
+Home is the cross-practice overview with concrete legal examples. Product explains
+firm knowledge, the maintained record, system ownership and deployment.
+Solutions explains comparison, review, changing evidence and reuse. Their legal
+examples share the same records as Home; the full brief appears only in the demo.
+Company and Design partners address law, consulting and advisory consistently.
 
-The positioning remains firm knowledge at the point of work. This is not a claim
-that other AI tools cannot retrieve internal sources or reason across systems.
-Internal firm experience complements current legal research; it does not supply
-verified legal authorities or make the attorney's decision.
-
-## Playback and implementation map
-
-- `src/demo/EngagementDemo.jsx`: shared player, sidebar, source dialog, watchability
-  and automatic conversation following.
-- `src/demo/litigation.js`: corpus, story text, events, revisions and source resolver.
-- `src/demo/LegalDemoArtifacts.jsx`: comparison, retained draft review,
-  source update and two retained brief versions; fields build progressively.
-- `src/demo/matterBrief.js`: shared firm template and versioned brief content.
-- `src/demo/legal-demo.css`: artifact styling within the existing visual system.
-- `src/demo/demoPlayback.js`: shared timeline, visibility and scrolling helpers.
-- `src/demo/legalDemo.test.js`: active corpus and narrative invariants.
-
-The public stories use `scope` and `deliver` as compatibility keys for existing
-window sizing and anchors. Home no longer renders a `plan` demo. Old Home
-`#plan` links resolve to the combined precedent conversation; the Solutions
-reasoning-and-review chapter remains a valid independent section.
-
-`conversationAt` merges typed requests and agent events in chronological order.
-An agent event has its own author, timestamp and source references, without a
-user bubble. Earlier artifact versions freeze at their completed frame. Each
-scene plays once, holds its last frame, and restarts after leaving and returning.
-Partial clipping of the feed or composer pauses the clock; reduced motion shows
-the final state. Playback runs at 80% speed, about two minutes for both stories,
-with a final reading hold. The hero overlap and both retained window dimensions
-are unchanged.
-
-This is a deterministic frontend demonstration. It does not call an AI model,
-query a real DMS, send email or enforce production authorization. The local source
-resolver demonstrates the assigned-work access boundary only. A live implementation must
-perform authorization before retrieval and generation, honor matter barriers,
-retain source identifiers/versions and preserve decision/revision provenance.
-
-Engineering mapping for the selected workflow:
-
-1. Establish matter and user identity, assignment and allowed source scope.
-2. Retrieve comparable records with supporting assessment, cost and review evidence.
-3. Assemble the comparison with stated relevance, differences and missing information.
-4. Link argument versions, disposition records and partner observations separately.
-5. Maintain the current matter's instructions, evidence, assumptions and decisions.
-6. When new evidence arrives, retain the prior state and link the source, interpretation,
-   reviewer and proposed revision. Approval remains a separate event.
-7. Review reusable experience and its permitted audience before future retrieval.
-
-The older consulting fixtures (`northstar.js`, `engagementPlan.js`,
-`DemoArtifacts.jsx`, `assessment.json`) and their tests remain available as
-reference material. They are not imported by the active legal scenes or public
-page illustrations. No project-system writeback is shown in the legal demo.
-
-## Rebuilding the internal Word reference
-
-The checked-in file is an internal reference for template QA, not a website download. The builder uses python-docx;
-the website build does not require Python. To regenerate after changing the shared
-brief content:
-
-```sh
-node scripts/generate-legal-brief.mjs --python <python-with-python-docx>
-```
-
-The builder applies named Word styles for the firm letterhead, template, title,
-metadata, evidence table and source references. Page size is Letter; source IDs,
-author, reviewer, revision and review status remain in the document. The firm
-identity is invented for the demonstration.
-
-For layout QA in this Windows environment, the packaged render_docx.py was tried
-but LibreOffice was unavailable. The draft was exported read-only with installed
-Microsoft Word and both pages were rendered and visually inspected. The Word
-file and the chat preview are checked for consistent content and permitted sources.
+The positioning is firm knowledge at the point of work. This demonstration does
+not claim other platforms cannot search internal precedent, connect systems,
+produce documents or run agents. It illustrates the quality and continuity of
+the firm's reasoning as it is applied to live work.

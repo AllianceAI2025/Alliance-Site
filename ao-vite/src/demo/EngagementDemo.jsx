@@ -21,7 +21,7 @@ function useReducedMotion() {
   return reduced;
 }
 
-function usePlaybackWatchability(demoRef, feed) {
+function usePlaybackWatchability(demoRef, feed, requiresComposer) {
   const [ready, setReady] = useState(false);
   useEffect(() => {
     let frame = null, active = true;
@@ -32,7 +32,9 @@ function usePlaybackWatchability(demoRef, feed) {
       const viewport = window.visualViewport;
       setReady(current => demoPlaybackReadyAt(current, {
         top: feed.current.getBoundingClientRect().top,
-        bottom: composer.getBoundingClientRect().bottom,
+        // A response-only opening can play when the full reading pane fits.
+        // Later scenes wait for the composer too, so typed instructions are seen.
+        bottom: (requiresComposer ? composer : feed.current).getBoundingClientRect().bottom,
         viewportTop: viewport?.offsetTop ?? 0,
         viewportHeight: viewport?.height ?? window.innerHeight,
       }));
@@ -56,7 +58,7 @@ function usePlaybackWatchability(demoRef, feed) {
       viewport?.removeEventListener("resize", schedule);
       viewport?.removeEventListener("scroll", schedule);
     };
-  }, [demoRef, feed]);
+  }, [demoRef, feed, requiresComposer]);
   return ready;
 }
 
@@ -164,7 +166,7 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
   const tracked = useRef(false);
   const completionTracked = useRef(false);
   const demoRef = useVisualDwell(`northstar-${phase}`);
-  const watchable = usePlaybackWatchability(demoRef, feed);
+  const watchable = usePlaybackWatchability(demoRef, feed, story.commands.length > 0);
   const id = useId();
   const conversation = conversationAt(story, elapsed);
   const complete = elapsed >= story.duration;
@@ -239,7 +241,7 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
     else resume();
   };
 
-  return <div className={`engagement-demo engagement-demo--${phase}${primary ? " engagement-demo--primary" : ""}`} ref={demoRef} id={primary ? "demo" : `${phase}-demo`} data-phase={phase} data-elapsed={Math.round(elapsed)} data-complete={complete} data-watchable={watchable}>
+  return <div className={`engagement-demo engagement-demo--${phase}${primary ? " engagement-demo--primary" : ""}`} ref={demoRef} id={primary ? "demo" : `${phase}-demo`} data-phase={phase} data-attorney={story.actor} data-elapsed={Math.round(elapsed)} data-complete={complete} data-watchable={watchable}>
     <section className="demo-stage" aria-label={`${story.label} demonstration`}>
       <div className={`demo-window demo-window--with-sidebar${sidebarOpen ? " demo-window--navigation-open" : ""}`}>
         <>
@@ -257,7 +259,7 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
           <div className="demo-feed" ref={feed} role="log" aria-label={`${story.label} conversation`} aria-live="off">
             <div className="demo-conversation">
               {conversation.exchanges.map(exchange => <div className="demo-exchange" key={exchange.key} data-exchange={exchange.key} data-exchange-kind={exchange.kind || "conversation"}>
-                {exchange.prompt && <div className="demo-user-message" data-follow-at={exchange.sentAt}>{exchange.prompt}</div>}{elapsed >= exchange.answerAt && <div className="demo-agent-response"><div className="demo-agent-name"><img src="/brand/logo-mark.svg" alt="" />{exchange.agent || "AllianceOne"}{exchange.label && <small className="demo-agent-context">{exchange.label}</small>}</div><p data-follow-at={exchange.answerAt}>{textAt(exchange.answer, elapsed, exchange.answerAt, exchange.answerDuration || 1100) || <span className="demo-working"><i className="build-pulse" />{activityAt(story, elapsed)}</span>}</p></div>}
+                {exchange.prompt && <div className="demo-user-message" aria-label={`${story.actor}: ${exchange.prompt}`} data-follow-at={exchange.sentAt}>{exchange.prompt}</div>}{elapsed >= exchange.answerAt && <div className="demo-agent-response"><div className="demo-agent-name"><img src="/brand/logo-mark.svg" alt="" />{exchange.agent || "AllianceOne"}{exchange.label && <small className="demo-agent-context">{exchange.label}</small>}</div><p data-follow-at={exchange.answerAt}>{textAt(exchange.answer, elapsed, exchange.answerAt, exchange.answerDuration || 1100) || <span className="demo-working"><i className="build-pulse" />{activityAt(story, elapsed)}</span>}</p></div>}
                 {exchange.sources && elapsed >= exchange.answerAt + exchange.answerDuration && <div className="demo-response-sources" data-follow-at={exchange.answerAt + exchange.answerDuration}>{exchange.sources.map(item => <button key={item.key} onClick={() => inspect(item.key)}>{item.label} <span aria-hidden="true">↗</span></button>)}</div>}
                 {exchange.artifact && elapsed >= exchange.artifactAt && <div className="demo-artifact-container" data-follow-at={exchange.artifactAt} data-follow-kind="entry"><DemoArtifact type={exchange.artifact} elapsed={exchange.artifactElapsed} onInspect={inspect} /></div>}
               </div>)}

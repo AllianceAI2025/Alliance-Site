@@ -38,10 +38,13 @@ export default function LandingPage() {
       </div>
     </Track>
     <DemoSection phase="scope" headline="Start with relevant firm experience." primary>
-      Find comparable work, examine the reasoning and review behind it, and carry the relevant experience into the client’s current situation.
+      Find comparable work and understand what the team believed, what changed and what the result can tell you about the work ahead.
     </DemoSection>
-    <DemoSection phase="deliver" headline="Keep the work current.">
-      As a team develops its work, agents connect new correspondence and review feedback to the assumptions and deliverables affected. The team can examine the implications and direct the revision.
+    <DemoSection phase="reasoning" headline="Bring the reasoning forward.">
+      Examine the evidence, review and decisions behind a prior approach. Apply what is relevant to the current work, with its differences and limits in view.
+    </DemoSection>
+    <DemoSection phase="deliver" headline="Put that knowledge to work.">
+      Develop work in the firm’s own format. When new evidence challenges an assumption, see what it affects and direct the revision, with the earlier reasoning retained.
     </DemoSection>
     <Track name="workflow" id="workflow" className="studio-home-value"><div className="studio-container">
       <header className="studio-home-value-heading">

@@ -27,7 +27,7 @@ export default function SolutionsPage() {
           <div className="solution-details">{chapter.sections.map(([title, body]) => <article key={title}><h3>{title}</h3><p>{body}</p></article>)}</div>
           <div className="solution-result"><p>{chapter.result}</p></div>
         </div>
-        {chapter.id !== "deliver" && <div className="solution-chapter-visual studio-legal-visual">{chapter.id === "scope" ? <LegalMatterComparison elapsed={legalTiming.scope.firstReady} /> : <LegalMotionReview elapsed={legalTiming.scope.ready} />}</div>}
+        {chapter.id !== "deliver" && <div className="solution-chapter-visual studio-legal-visual">{chapter.id === "scope" ? <LegalMatterComparison elapsed={legalTiming.scope.firstReady} /> : <LegalMotionReview elapsed={legalTiming.reasoning.ready} />}</div>}
       </div></div>
     </Track>)}
     <Track name="delivery_signals" id="delivery-signals" className="studio-section studio-signals">

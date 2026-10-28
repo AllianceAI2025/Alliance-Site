@@ -107,7 +107,7 @@ def write(brief, output):
     doc.add_paragraph(brief["documentTitle"], "Title")
     sub = doc.add_paragraph(brief["subtitle"])
     sub.paragraph_format.space_after = Pt(13)
-    for label, value in (("To", brief["reviewer"]), ("From", brief["author"]), ("Matter", brief["matter"] + " · " + brief["client"]), ("Date", brief["date"] + " · Revision " + str(brief["revision"]) + " · " + brief["status"])):
+    for label, value in (("To", brief["recipient"]), ("From", brief["author"]), ("Matter", brief["matter"] + " · " + brief["client"]), ("Date", brief["date"] + " · Revision " + str(brief["revision"]) + " · " + brief["status"])):
         p = doc.add_paragraph(style="Matter Metadata")
         p.add_run(label + "   ").bold = True
         p.add_run(value)
@@ -117,8 +117,8 @@ def write(brief, output):
         doc.add_paragraph(part["body"])
 
     doc.add_page_break()
-    doc.add_heading("Evidence map and review", 1)
-    intro = doc.add_paragraph("Proposed work for partner review. The record below does not approve a motion for filing.")
+    doc.add_heading("Evidence and recommended work", 1)
+    intro = doc.add_paragraph("Investigation proposed for Margaret’s review.")
     intro.paragraph_format.space_after = Pt(10)
     table = doc.add_table(rows=1, cols=3)
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
@@ -152,9 +152,11 @@ def write(brief, output):
         table.rows[-1]._tr.get_or_add_trPr().append(OxmlElement("w:cantSplit"))
     doc.add_heading(brief["review"]["title"], 2)
     doc.add_paragraph(brief["review"]["body"])
-    doc.add_heading("Decision for partner review", 2)
+    doc.add_heading("Decision for lead attorney review", 2)
     doc.add_paragraph(brief["decision"])
-    doc.add_heading("Source record", 2)
+    doc.add_page_break()
+    doc.add_heading("Source record and revision history", 1)
+    doc.add_paragraph(brief["revisionNote"])
     for item in brief["sources"]:
         doc.add_paragraph(item["id"] + " · " + item["title"] + " · " + item["date"], "Source Reference")
 
