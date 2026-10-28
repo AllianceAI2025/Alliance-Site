@@ -8,7 +8,7 @@ export { CompanyOverview, PartnerInvitation } from "./PageParts.jsx";
 export { practiceServices } from "./content/siteContent.js";
 
 const deliveryOutcomes = [
-  ["Start from experience.", "Find comparable matters and engagements, the arguments and approaches used, what review changed and what the evidence established."],
+  ["Start from experience.", "Find comparable work, the approaches used, what review changed and what the evidence established."],
   ["See what changed, and why.", "Connect new evidence and client instructions with earlier assessments, open questions and decisions that need attention."],
   ["Make the next team stronger.", "Carry reviewed reasoning and results into future work, with their sources, limits and permitted use intact."],
 ];

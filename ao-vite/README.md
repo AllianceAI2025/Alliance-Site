@@ -1,8 +1,8 @@
 # AllianceOne website
 
 React + Vite marketing site for law, consulting and advisory firms. The active
-homepage separates its brand hero from the first demo and retains the original
-conversation window sizing from 1891aa2.
+homepage brings the first demo window into the brand hero, with its explanatory
+copy beneath it, and retains the original conversation window sizing from 1891aa2.
 It demonstrates internal litigation experience across three continuous chat scenes: **Relevant experience → Reasoning and review → Continuity of work**. The current
 visual system and autonomous playback are retained. There is no PSA writeback
 in this narrative.
@@ -88,8 +88,8 @@ files, even though Avery helped prepare Harbor's earlier work.
 
 - **Home:** each demo uses its main headline and a cross-practice description
   without a separate phase label.
-  The first demo's introduction sits on its own
-  light surface below the brand hero. Its full-width window retains the
+  The first demo's full-width window overlaps the brand hero; its introduction
+  follows on the light surface below. The window retains the
   conversation height from 1891aa2, with its header and composer outside that
   height. The windows contain the legal
   narrative. The existing dark green, warm white and restrained accents remain.
@@ -103,8 +103,9 @@ files, even though Avery helped prepare Harbor's earlier work.
   as an artifact in the demo only; the Solutions handoff section is text only. Consulting and
   advisory applications remain part of the broader story.
 - **Company and Design partners:** law firms join consulting and advisory firms
-  in the audience, with practice configuration, source integration, adoption and
-  a bounded first deployment described consistently.
+  in the audience. Practice configuration, source integration, adoption and a
+  recurring client workflow are described consistently, with agreed quality
+  criteria and benefit measures. The inquiry fields and submission behavior are unchanged.
 
 The positioning remains firm knowledge at the point of work. This is not a claim
 that other AI tools cannot retrieve internal sources or reason across systems.

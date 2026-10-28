@@ -102,15 +102,15 @@ export const solutionChapters = [
 ];
 
 export const implementationSteps = [
-  ["Choose the work", "Agree one recurring matter or engagement workflow, its owner, a primary benefit and the quality criteria that will make it useful."],
+  ["Choose the work", "Agree one recurring client workflow, its owner, a primary benefit and the quality criteria that will make it useful."],
   ["Establish the context", "Select historical and current sources. Configure practice guidance, work product formats and review standards; validate useful experience and permitted reuse."],
-  ["Connect and validate the sources", "Agree the selected document, communication, matter and billing sources. Test identity, source access, version handling and traceability before relying on the answers."],
+  ["Connect and validate the sources", "Agree the selected client, project, document, communication and finance sources. Test identity, source access, version handling and traceability before relying on the answers."],
   ["Measure use and refine", "Review preparation and correction effort, useful retrieval, decision support and deployment cost with the sponsor and practitioners."],
 ];
 
 export const practiceServices = [
-  ["Systems integration", "Connect selected document, communication, matter, client and finance sources. Agree ownership, data flows and access checks for the workflow."],
+  ["Systems integration", "Connect selected client, project, document, communication and finance sources. Agree ownership, data flows and access checks for the workflow."],
   ["Practice configuration", "Bring practice guidance, frameworks, work product formats and review standards into the work. Establish which prior experience is supported and permitted for reuse."],
   ["Workflow design", "Define how practitioners assess work, draw on experience, develop analysis and work through review. Preserve decisions, revisions and the reasons behind them as the work develops."],
-  ["Adoption and governance", "Work with partners, attorneys, engagement leaders, consultants and system owners on source access, review rights, responsibilities and measures of useful adoption."],
+  ["Adoption and governance", "Work with practitioners, reviewers, engagement leaders and system owners on source access, review rights, responsibilities and measures of useful adoption."],
 ];

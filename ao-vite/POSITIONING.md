@@ -21,8 +21,8 @@
   product's stage beyond "we are looking for design partners."
 - **Vocabulary:** prefer the business case's terms: *firm knowledge*,
   *engagement record*, *approved baseline*.
-- **Public messaging:** Home, Product and Solutions describe capabilities shared
-  by law, consulting and advisory firms. Keep named matters, motions and other
+- **Public messaging:** Home, Product, Solutions, Company and Design partners
+  describe capabilities shared by law, consulting and advisory firms. Keep named matters, motions and other
   legal specifics inside the fictional demo and example panels. Explain the
   capability around each example in terms of client work, reasoning, review,
   responsibilities, changes and results.

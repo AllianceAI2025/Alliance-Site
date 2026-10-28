@@ -1,5 +1,5 @@
 .studio-home-hero {
-  padding: 116px 0 64px;
+  padding: 116px 0 164px;
 }
 
 .studio-home-heading {
@@ -74,9 +74,13 @@
   line-height: 1.8;
 }
 
-/* The first demo has its own introduction below the brand hero. */
+/* The application overlaps the hero; its explanation follows on the canvas. */
 .studio-home-scene--scope {
-  padding: 40px 0 64px;
+  position: relative;
+  z-index: 1;
+  margin-top: -132px;
+  padding: 0 0 64px;
+  background: transparent;
 }
 
 .studio-home-scene--scope .studio-demo-layout {
@@ -84,9 +88,12 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 20px;
+  gap: 36px;
 }
 
+.studio-home-scene--scope .studio-demo-proof { order: -1; }
+
+.studio-home-scene--scope .studio-demo-intro,
 .studio-home-scene--deliver .studio-demo-intro {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -95,23 +102,8 @@
   margin-inline: 8px;
 }
 
+.studio-home-scene--scope .studio-demo-description,
 .studio-home-scene--deliver .studio-demo-description { margin: 0; }
-
-.studio-home-scene--scope .studio-demo-intro { margin-inline: 8px; }
-.studio-home-scene--scope .studio-demo-heading {
-  display: flex;
-  align-items: baseline;
-  gap: 14px;
-}
-.studio-home-scene--scope .studio-phase-label {
-  flex: none;
-  margin: 0;
-}
-.studio-page .studio-home-scene--scope .studio-demo-heading > h2 {
-  font-size: clamp(22px, 1.9vw, 26px);
-  line-height: 1.2;
-  letter-spacing: -.025em;
-}
 
 /* Preserve the original conversation height, with application chrome around it. */
 .studio-home-scene--scope .demo-feed {
@@ -457,8 +449,9 @@
 
 @media (max-width: 1100px) {
   .studio-home-heading { gap: 36px; }
-  .studio-home-hero { padding: 110px 0 64px; }
+  .studio-home-hero { padding: 110px 0 152px; }
   .studio-home-summary > p { font-size: 15px; }
+  .studio-home-scene--scope { margin-top: -120px; }
   .studio-home-scene--scope .studio-demo-layout,
   .studio-home-scene--plan .studio-demo-layout { width: calc(100% - 56px); }
   .studio-demo-layout { grid-template-columns: minmax(0, 1fr) 230px; gap: 28px; }
@@ -474,9 +467,11 @@
   .studio-home-summary > p { margin: 24px auto 0; }
   .studio-demo-layout { grid-template-columns: 1fr; grid-template-areas: "copy" "demo"; row-gap: 28px; }
 
+  .studio-home-scene--scope .studio-demo-intro,
   .studio-home-scene--deliver .studio-demo-intro,
   .studio-demo-intro { display: block; margin-inline: 8px; max-width: 650px; }
   .studio-demo-description,
+  .studio-home-scene--scope .studio-demo-description,
   .studio-home-scene--deliver .studio-demo-description { margin-top: 18px; }
 
   .studio-home-scene:not(.studio-home-scene--scope) .demo-main {
@@ -503,7 +498,7 @@
 }
 
 @media (min-width: 861px) and (max-height: 780px) {
-  .studio-home-hero { padding: 100px 0 56px; }
+  .studio-home-hero { padding: 100px 0 148px; }
   .studio-page .studio-home-heading h1 { font-size: clamp(52px, 4.7vw, 66px); }
   .studio-home-summary > p { font-size: 15px; line-height: 1.75; }
   .studio-home-scene--scope .demo-sidebar { padding-bottom: 20px; }
@@ -511,16 +506,14 @@
 }
 
 @media (max-width: 600px) {
-  .studio-home-hero { padding: 108px 0 48px; }
+  .studio-home-hero { padding: 108px 0 126px; }
   .studio-page .studio-home-heading h1 { font-size: clamp(39px, 10.5vw, 54px); line-height: 1.02; }
   .studio-home-summary > p { font-size: 14px; line-height: 1.75; margin-top: 20px; }
   .studio-home-scene { padding-block: 48px; }
-  .studio-home-scene--scope { padding: 32px 0 48px; }
+  .studio-home-scene--scope { padding: 0 0 48px; margin-top: -100px; }
   .studio-home-scene--scope .studio-demo-layout,
   .studio-home-scene--plan .studio-demo-layout { width: calc(100% - 36px); }
-  .studio-home-scene--scope .studio-demo-layout { gap: 16px; }
-  .studio-home-scene--scope .studio-demo-heading { gap: 12px; }
-  .studio-page .studio-home-scene--scope .studio-demo-heading > h2 { font-size: 20px; }
+  .studio-home-scene--scope .studio-demo-layout { gap: 28px; }
   .studio-phase-label { margin-bottom: 12px; font-size: 12px; }
   .studio-page .studio-demo-heading > h2 { font-size: 30px; }
   .studio-demo-description { font-size: 15px; line-height: 1.8; }

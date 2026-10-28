@@ -175,7 +175,7 @@ export function PartnerForm() {
         ) : (
           <>
             <p className="eyebrow">LET’S TALK</p><h2 id="partner-title">Tell us a little about your firm.</h2>
-            <p>You don’t need a detailed plan. We’ll start with a conversation about your team and what you’re looking for.</p>
+            <p>Tell us about your practice and the client work you’d like to improve. We’ll start with a conversation about the workflow, systems and people involved.</p>
             <form onSubmit={submit}>
               <label className="honeypot" aria-hidden="true">Website<input tabIndex={-1} autoComplete="off" value={form.botcheck} onChange={update("botcheck")} /></label>
               <label>Name<input required autoComplete="name" value={form.name} onChange={update("name")} /></label>
