@@ -84,3 +84,7 @@
   .studio-record-systems h3 { font-size: 23px; }
   .studio-record-systems header > p { font-size: 15px; }
 }
+
+/* Product value strip links to the full workflow on Solutions. */
+.studio-value-link{display:inline-flex;gap:10px;margin-top:22px;padding-bottom:4px;border-bottom:1px solid #86c43d;color:#07100e;font-size:14px;font-weight:600;text-decoration:none}
+.studio-value-link:hover{border-bottom-color:#07100e}

@@ -65,49 +65,48 @@ export const systemSources = [
 ];
 
 export const productBenefits = [
-  ["More realistic commitments.", "Client conditions, firm methods, comparable work and current resource availability give leaders a basis for testing scope, staffing, effort and pricing assumptions before committing. Gaps and differences remain available for review."],
-  ["Act sooner when delivery drifts.", "Time, milestones, client changes and available financial actuals return from selected firm systems and are compared with the approved plan. Managers can examine causes, affected commitments and context before authorizing changes to scope, resources or sequence."],
-  ["Every engagement informs the next.", "Decisions, review changes and observed results stay connected to client conditions and supporting sources. Practitioners review lessons and limits of permitted reuse before that experience informs new scopes, plans and delivery."],
-  ["Build proof into the proposition.", "Methods and points of view stay connected to the conditions in which they were applied and the results observed. That evidence helps the firm explain its expertise, support proposals and discuss the value behind its fees."],
+  ["More realistic commitments.", "Test scope, staffing, effort and price against comparable work before the firm commits."],
+  ["Act sooner when delivery drifts.", "Compare delivery with the approved plan while there is still time to act."],
+  ["Every engagement informs the next.", "Reviewed decisions and results become knowledge the next team can use."],
+  ["Build proof into the proposition.", "Connect the firm’s methods to observed results when explaining its value to a new client."],
 ];
 
 export const firmTypes = [
-  ["Management consulting", "Similar problem types recur, while each client's facts and constraints change the approach. Relevant engagement experience helps leaders pressure-test scope, staffing and assumptions, and retain the reasoning behind recommendations."],
-  ["Specialist advisory", "Prior work is useful when the facts, caveats and permitted reuse remain clear. Advisory work requires careful source access and information barriers; these requirements are agreed and validated for the selected practice."],
-  ["Technology and transformation", "Longer programs span workstreams, specialists, vendors and operating systems. The approved commercial commitment, dependencies, delivery decisions and implementation evidence need to remain connected across that work."],
-  ["Law firms", "Bring the firm’s practice guidance, prior matters and review standards into current client work, with client confidentiality, information barriers and permitted reuse validated for the selected practice."],
+  ["Management consulting", "Pressure-test scope, staffing and assumptions against comparable engagements, and keep the reasoning behind recommendations."],
+  ["Specialist advisory", "Reuse prior work with its facts, caveats and permitted reuse clear, and information barriers validated for the selected practice."],
+  ["Technology and transformation", "Keep commercial commitments, dependencies and delivery decisions connected across long programs, teams and vendors."],
+  ["Law firms", "Bring practice guidance, prior matters and review standards into current client work, with client confidentiality and information barriers validated for the selected practice."],
 ];
 
 export const solutionChapters = [
   {
     id: "scope", label: "Relevant experience", title: "Turn early context into an approved scope.",
-    intro: "A new opportunity already has a history: the client conversations, objectives and assumptions that made it worth pursuing. AllianceOne brings that context together with firm methods, relevant delivery experience and current resource information to help the manager develop the scope and proposal.",
+    intro: "A new opportunity already has a history. AllianceOne brings the client’s situation together with firm methods, comparable work and current availability, so the scope and proposal start from evidence.",
     sections: [
-      ["Start with the client situation", "An opportunity assigned in CRM gives the engagement manager an owner-linked starting point. Client objectives, discovery findings, source documents, current communications and open questions form the brief. The manager can ask what is known, test assumptions and investigate gaps. New correspondence updates the engagement context so the conversation can focus on what it changes for the proposed work."],
-      ["Find comparable experience, including the people", "Ask where the firm has faced similar conditions. Examine who performed the work, what they delivered, what review changed and what the evidence later showed. Firm methods, frameworks and intellectual property provide an approach; the delivery record helps explain how it worked in practice. The comparison carries its differences and limits so the manager can decide what belongs in the new scope."],
-      ["Test the team, effort and assumptions before committing", "Past delivery identifies relevant capability and prior contributions; current resource information establishes who is available and when. Compare team options, capacity, timing and dependencies before committing. These choices inform the scope boundary, proposed deliverables, effort and pricing assumptions. The manager reviews inclusions, exclusions, client responsibilities and unresolved assumptions before preparing and approving the client proposal."],
+      ["Start with the client situation", "Discovery findings, objectives and open questions form the brief, and new correspondence keeps it current."],
+      ["Find comparable experience, including the people", "See who did similar work, what review changed and what the evidence later showed, with differences and limits in view."],
+      ["Test the team and assumptions before committing", "Compare team options, availability, effort and pricing assumptions before the proposal is approved."],
     ],
-    result: "A reviewed scope and client proposal, with their assumptions, source evidence and approval history.",
+    result: "A reviewed scope and proposal, with its assumptions, sources and approval history.",
   },
   {
     id: "plan", label: "Plan and staffing", title: "Translate the commitment into a delivery plan.",
-    intro: "The accepted proposal establishes what the firm has agreed to deliver. AllianceOne brings the negotiated terms, reviewed staffing assumptions and relevant delivery experience into a feasible engagement plan, with current resource information available to test timing and capacity.",
+    intro: "The accepted proposal becomes a staffed plan: workstreams, deliverables, effort, dates and review gates, tested against current availability.",
     sections: [
-      ["Keep the accepted commitment visible", "The opportunity's won status, accepted proposal and negotiated changes establish the commercial baseline. Workstreams, deliverables, team allocations, effort, dates, dependencies, client responsibilities and review gates are developed against that commitment."],
-      ["Review the whole plan", "The engagement manager can compare staffing options and work through resource capability, current availability, effort, timing and delivery dependencies. The team agrees assignments, deliverables and review responsibilities as part of the whole plan. Approval establishes the governing baseline. Later proposed changes remain distinct until reviewed and authorized, with the original commitment and its reasoning still available."],
-      ["Put the approved plan into the project system", "An approved request creates or updates the corresponding project, work breakdown, assignments, milestones and review gates in the selected PSA or project-management system. Record identifiers and mappings preserve the connection. Readback checks the resulting records against the approved work and exposes missing or different information."],
+      ["Keep the accepted commitment visible", "Negotiated terms and the commercial baseline stay attached as the plan develops."],
+      ["Review and approve the whole plan", "The team agrees assignments and review responsibilities. Approval sets the governing baseline; later changes stay distinct until authorized."],
     ],
-    result: "An approved engagement plan, mapped operating records and evidence that the intended write was completed correctly.",
+    result: "An approved plan, written to the firm’s PSA and verified against what was approved.",
   },
   {
-    id: "deliver", label: "Assigned work", title: "Give each consultant the context to deliver well.",
-    intro: "AllianceOne brings the client’s objectives, agreed commitments, discovery findings and current engagement decisions into each consultant’s approved assignment. Consultants can ask questions, examine evidence and draw on firm methods, templates and relevant, permitted delivery experience as they develop deliverables and work through review.",
+    id: "deliver", label: "Assigned work", title: "Give each team member the context to deliver well.",
+    intro: "Each person starts from an approved assignment, with the client’s objectives, current decisions, firm methods and relevant review experience at hand.",
     sections: [
-      ["Begin with the assignment", "The deliverable's purpose, due date, effort, reviewer, dependencies and acceptance criteria carry forward from the plan. The consultant can ask what is known, what remains unresolved and how those facts affect the work they are responsible for. Client clarifications and current engagement decisions inform the assignment as the wider engagement evolves."],
-      ["Develop the analysis with the firm behind it", "Named report formats, workbooks and presentation structures provide the expected shape. Client evidence supports the conclusions. Published practice guidance and explicitly shared review experience help the consultant adapt the approach, examine sources and explain their reasoning."],
-      ["Work through review and export", "Send a draft and its supporting evidence to the reviewer. Comments stay linked to that version; revisions retain what changed and why. The approved deliverable can be exported in the relevant document format. The consultant’s reasoning, feedback, sources and revisions accumulate as part of the work, linked to the wider engagement and its approval record."],
+      ["Begin with the assignment", "Purpose, due date, effort, reviewer and acceptance criteria carry forward from the plan."],
+      ["Develop the analysis with the firm behind it", "Firm formats and templates shape the work; the client’s evidence supports the conclusions."],
+      ["Work through review", "Feedback stays linked to the draft, revisions keep what changed and why, and the approved version can be exported."],
     ],
-    result: "A reviewed client deliverable and the reasoning, sources and revisions that explain the finished work.",
+    result: "A reviewed deliverable, with the reasoning, sources and revisions that explain it.",
   },
 ];
 

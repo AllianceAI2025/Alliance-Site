@@ -10,7 +10,7 @@ import "./studio.css";
 export function PageShell({ page, dark = false, children }) {
   useFonts();
   useLayoutEffect(() => {
-    const aliases = { "scope-demo": "demo", "how-it-works": "workflow", loop: "workflow", "phase-execute": "phase-deliver", "phase-materialize": "execution", "phase-reconcile": "delivery-signals", "phase-learn": "experience" };
+    const aliases = { "scope-demo": "demo", "how-it-works": "workflow", loop: "workflow", "phase-execute": "phase-deliver", "phase-materialize": "execution", "phase-reconcile": "phase-learn", "delivery-signals": "phase-learn", experience: "phase-learn" };
     const hash = window.location.hash.slice(1);
     document.getElementById(aliases[hash] || hash)?.scrollIntoView({ behavior: "instant", block: "start" });
   }, []);
