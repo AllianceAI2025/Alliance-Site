@@ -26,7 +26,7 @@ export default function ProductEngagementOverview() {
       <p className="product-overview-review">Revision {assessment.revision} · {assessment.reviewer} approved</p>
       <p className="product-overview-conclusion">{assessment.conclusion}</p>
     </section>
-    <div className="product-overview-system"><PsaMark /><span>Approved plan verified in {psaSystem.name}</span></div>
+    <div className="product-overview-system"><PsaMark /><span>{psaSystem.logo ? "Approved plan verified" : `Approved plan verified in ${psaSystem.name}`}</span></div>
     <figcaption>From the Northstar demonstration. Approval, source evidence and review remain linked.</figcaption>
   </figure>;
 }

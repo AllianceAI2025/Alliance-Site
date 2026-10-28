@@ -49,7 +49,7 @@ export function EngagementRecordVisual() {
 }
 
 export function ConnectionVisual() {
-  return <figure className="connection-visual"><div className="connection-origin"><LogoMark size={33} /><strong>AllianceOne</strong><p>Accepted scope · Approved plan · Decision history</p></div><div className="connection-directions"><div><span aria-hidden="true">↓</span><p>Write the{" "}<br /><strong>approved plan</strong></p></div><div><span aria-hidden="true">↑</span><p>Read back{" "}<br /><strong>delivery evidence</strong></p></div></div><div className="connection-system"><PsaMark /><div><strong>{psaSystem.name} · PSA</strong><p>Projects, work breakdown, assignments,{" "}<br />milestones, review gates and time</p></div></div><figcaption>The Northstar demonstration illustrates a {psaSystem.name} write. Production connections are scoped and validated with each firm.</figcaption></figure>;
+  return <figure className="connection-visual"><div className="connection-origin"><LogoMark size={33} /><strong>AllianceOne</strong><p>Accepted scope · Approved plan · Decision history</p></div><div className="connection-directions"><div><span aria-hidden="true">↓</span><p>Write the{" "}<br /><strong>approved plan</strong></p></div><div><span aria-hidden="true">↑</span><p>Read back{" "}<br /><strong>delivery evidence</strong></p></div></div><div className="connection-system"><PsaMark /><div><strong>{psaSystem.logo ? "PSA records" : `${psaSystem.name} · PSA`}</strong><p>Projects, work breakdown, assignments,{" "}<br />milestones, review gates and time</p></div></div><figcaption>The Northstar demonstration illustrates a {psaSystem.name} write. Production connections are scoped and validated with each firm.</figcaption></figure>;
 }
 
 export function PlanScheduleVisual() {

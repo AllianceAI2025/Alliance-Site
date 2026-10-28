@@ -272,11 +272,11 @@ for the facts they own. The longer workflow prototype is a separate application.
 
 ## PSA shown in the demo
 
-The Plan demonstration writes the approved plan to Kantata. The name and optional
-logo live in `src/demo/psaSystem.js`; `src/demo/PsaMark.jsx` shows the official
-logo when `logo` is set and a neutral project glyph otherwise. To add the logo,
-place the official file in `public/brand/systems/`, record its source in
-`public/brand/systems/SOURCES.md`, and set `logo` to its path. The write is
+The Plan demonstration writes the approved plan to Kantata. The destination and
+official orange wordmark are configured in `src/demo/psaSystem.js`. The original
+SVG from Kantata's media kit is retained unchanged, with its source recorded in
+`public/brand/systems/SOURCES.md`. `PsaMark.jsx` displays it at its original aspect
+ratio and at least 100px wide, including in the Product overview. The write is
 illustrated; it does not connect to a Kantata account.
 
 Law firms are named as a segment across the site. Law-specific demonstrations live

@@ -100,7 +100,7 @@ function PlanMilestones({ elapsed, written = false }) {
 
 function PSARecord({ elapsed, verified }) {
   return <section className="psa-record build-slot" aria-label={`Created ${psaSystem.name} record`} data-project-id={readbackProject.id}>
-    <header className="psa-record-system"><PsaMark /><span>{psaSystem.name}</span><small>{verified ? "Complete plan verified" : "Project created"}</small></header>
+    <header className="psa-record-system"><PsaMark />{!psaSystem.logo && <span>{psaSystem.name}</span>}<small>{verified ? "Complete plan verified" : "Project created"}</small></header>
     <div className="psa-record-title" data-follow-at={planTiming.projectCreated}><div><p>{readbackProject.id}</p><h4>{readbackProject.name}</h4></div><span>{readbackProject.status}</span></div>
     <dl className="psa-record-fields" data-follow-at={planTiming.projectCreated + 200}>{[["Project manager", readbackProject.manager], ["Opportunity", readbackProject.opportunity], ["Start / finish", `${readbackProject.start} – ${readbackProject.finish}`], ["Planned effort", `${readbackProject.effort.toLocaleString()} hours`], ["Commitment", "$400,000 · 40 / 40 / 20 billing"], ["Commitment baseline", `${readbackProject.proposal} · ${readbackProject.baseline}`]].map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
     <p className="psa-plan-boundary">{readbackProject.objective} {readbackProject.boundary}</p>
@@ -115,7 +115,7 @@ function PSARecord({ elapsed, verified }) {
 
 function PSAWrite() {
   return <section className="psa-write" aria-label={`Submitting approved plan to ${psaSystem.name}`} data-follow-at={planTiming.approved}>
-    <div><PsaMark /><div><strong>{psaSystem.name}</strong><p>Creating the complete plan: four workstreams, fourteen deliverables with dependencies and acceptance criteria, six resource allocations and four review gates.</p></div><i className="build-pulse" /></div>
+    <div><PsaMark /><div>{!psaSystem.logo && <strong>{psaSystem.name}</strong>}<p>Creating the complete plan: four workstreams, fourteen deliverables with dependencies and acceptance criteria, six resource allocations and four review gates.</p></div><i className="build-pulse" /></div>
     <div><img src="/brand/systems/sharepoint.svg" alt="" /><div><strong>SharePoint</strong><p>Preparing the approved plan and its linked engagement workspace.</p></div></div>
     <p>Source: plan v1 · Margaret’s approval retained with the write request.</p>
   </section>;

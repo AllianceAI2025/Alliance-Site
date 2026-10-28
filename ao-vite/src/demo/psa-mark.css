@@ -1,0 +1,40 @@
+/* Preserve the official wordmark's proportions and 100px minimum width. */
+.psa-record-system > img.psa-vendor-logo,
+.psa-write img.psa-vendor-logo,
+.connection-system > img.psa-vendor-logo,
+.product-overview-system > img.psa-vendor-logo {
+  width: 100px;
+  min-width: 100px;
+  height: auto;
+  max-width: none;
+  flex: none;
+  object-fit: contain;
+}
+.psa-record-system:has(.psa-vendor-logo) {
+  padding: 20px;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.psa-write > div:has(.psa-vendor-logo) {
+  padding-block: 20px;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.psa-write > div:has(.psa-vendor-logo) > div {
+  flex: 1 1 200px;
+  min-width: 0;
+}
+.product-overview-system:has(.psa-vendor-logo) {
+  gap: 20px;
+  padding-block: 20px;
+  flex-wrap: wrap;
+}
+.connection-system:has(.psa-vendor-logo) {
+  gap: 20px;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+.connection-system:has(.psa-vendor-logo) > div {
+  flex: 1 1 180px;
+  min-width: 0;
+}
