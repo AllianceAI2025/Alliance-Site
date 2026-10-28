@@ -9,6 +9,9 @@
 .legal-record-sources { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 13px; }
 .legal-record-sources .artifact-source,.legal-static-source { font-size: 10px; color: #788b7d; line-height: 1.7; }
 .legal-artifact-note { margin: 22px 0 0; font-size: 11px; line-height: 1.8; color: #809083; }
+.demo-agent-name:has(.demo-agent-context) { flex-wrap: wrap; }
+.demo-agent-context { flex-basis: 100%; margin-left: 25px; color: #788b7d; font-size: 10px; font-weight: 400; line-height: 1.7; }
+.legal-review-receipt { color: #446348; }
 .legal-draft-comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 22px; }
 .studio-page .legal-draft-comparison h4 { color: #405e49; font-size: 13px; font-weight: 500; margin: 0 0 12px; }
 .legal-draft-comparison p { color: #65756b; font-size: 12px; line-height: 1.85; margin: 0; }

@@ -1,9 +1,8 @@
 // Entirely fictional firm records. These excerpts are demonstration data, not
 // legal authorities, actual client work, or records of Hellmuth & Johnson.
 export const legalTiming = {
-  scope: { artifact: 3500, firstReady: 17800, typing: 19800, sent: 22300, answer: 22500, nextArtifact: 24900, ready: 30900, end: 36900 },
-  plan: { artifact: 3200, firstReady: 16900, typing: 18900, sent: 21400, answer: 21600, nextArtifact: 24000, ready: 30400, end: 36400 },
-  deliver: { artifact: 3500, firstReady: 12700, typing: 14500, sent: 18500, answer: 18700, nextArtifact: 21100, ready: 35200, end: 41200 },
+  scope: { artifact: 4200, firstReady: 17000, typing: 18500, sent: 21500, answer: 21700, nextArtifact: 24700, ready: 33100, end: 39900 },
+  deliver: { artifact: 3500, assignmentReady: 6200, typing: 7600, sent: 10400, answer: 10600, draftAt: 12800, firstReady: 21800, updateAt: 23800, updateArtifact: 26400, updateReady: 31000, reviseTyping: 32400, reviseSent: 35400, reviseAnswer: 35600, nextArtifact: 38100, ready: 52300, end: 58700 },
 };
 
 export const priorMatters = [
@@ -11,6 +10,7 @@ export const priorMatters = [
     id: "harbor", number: "HG-21-041", client: "Harbor Point Owners", year: "2023", fictional: true,
     issue: "Roof-water intrusion; disputed installation and inspection records.",
     legalIssue: "Relevance and scope of inspection-record discovery",
+    precedentSummary: "Inspection reports were tied to identified defects. The court ordered those reports produced but refused the unsupported request for other-project files.",
     northstarQuestion: "How does each requested record connect to a disputed defect?",
     northstarApplication: "Use the issue-and-exhibit map as a starting structure. Northstar still needs its own supporting record before extending a request to other projects.",
     lead: "Sofia Patel", author: "Avery Ross", role: "Prepared the production chronology and motion outline",
@@ -36,6 +36,7 @@ export const priorMatters = [
     id: "cedar", number: "CR-22-018", client: "Cedar Ridge Logistics", year: "2024", fictional: true,
     issue: "Distribution-building defects; a usable document inventory was already available.",
     legalIssue: "A defined production gap resolved before the hearing",
+    precedentSummary: "A confirmed inventory made the request specific. The reports were produced before the hearing, and the motion was withdrawn without a merits ruling.",
     northstarQuestion: "Which reports are missing, and could a targeted request resolve the gap?",
     northstarApplication: "Build a missing-record schedule before treating a motion as the next step. Northstar does not yet have Cedar Ridge’s confirmed inventory or identified records contact.",
     lead: "Jordan Hale", author: "Daniel Okafor", role: "Prepared the document inventory and proposed request",
@@ -61,6 +62,7 @@ export const priorMatters = [
     id: "briar", number: "BG-23-067", client: "Briar Glen Properties", year: "2025", fictional: true,
     issue: "Building-envelope defects; responsibility for keeping requested records was disputed.",
     legalIssue: "Evidence of the responding party’s control of records",
+    precedentSummary: "The supporting record did not establish who controlled the reports. Relief was denied without prejudice, and the team investigated an owner-side archive.",
     northstarQuestion: "What evidence shows who controls the requested reports?",
     northstarApplication: "Separate the contractor’s project role from evidence of control. Check the current matter’s records and custodian information before relying on that assumption.",
     lead: "Sofia Patel", author: "Lena Torres", role: "Prepared the records-control chronology and revised evidence register",
@@ -119,44 +121,61 @@ document("NS-INSTRUCTIONS", "northstar", "Client instructions", "Northstar · ag
 document("NS-ASSIGNMENT", "northstar", "Approved assignment", "Avery’s Northstar assignment", "2026-10-20", "Margaret Whitfield", currentMatter.assignment, "current-matter");
 document("NS-CHRONOLOGY", "northstar", "Working matter chronology", "Northstar · received materials and unresolved facts", "2026-10-20", "Avery Ross", `${currentMatter.established}\n\n${currentMatter.originalAssumption}\n\nThe team has not established liability, records control or a filing recommendation.`, "current-matter");
 document("NS-EMAIL-22", "northstar", "Client email", "Former facilities manager may hold the reports", "2026-10-22", "Fictional Northstar client contact", currentMatter.newInformation, "current-matter");
+document("NS-REVIEW-REQUEST", "northstar", "Review request", "Revision 1 sent to Sofia for review", "2026-10-21", "Avery Ross", "At Avery’s request, revision 1 of the Litigation Matter Brief and its Northstar source references were shared with Sofia Patel for review. The draft retained the unverified custodian assumption and open evidence questions. Sending it did not approve a filing, change the budget or amend the client’s instructions.", "current-matter");
 document("NS-REVIEW", "northstar", "Partner review of handoff revision 1", "Sofia’s review · distinguish assumption from evidence", "2026-10-22", "Sofia Patel", "State the current custodian assumption as unverified. Explain what the new client email changes. Separate client instructions, received materials, working interpretations and decisions that still require my review.", "current-matter");
 document("PRACTICE-07", "practice", "Published practice note", "Records control and focused production requests", "2026-09-03", "Sofia Patel · Litigation Practice Group", "Map each proposed request to a disputed issue, supporting material and an identified custodian. Distinguish an inference from evidence of control. Preserve the client’s instructions and the limits of the available record. This reviewed practice note provides a method; current legal requirements and legal authorities need separate attorney verification.", "published");
 document("HARBOR-SHARED-REVIEW", "northstar", "Explicitly shared review excerpt", "Avery’s Harbor draft · Sofia’s shared review", "2026-10-20", "Sofia Patel", "For Avery’s Northstar assignment, Sofia shared the review of his Harbor draft: identify the custodian, connect each request to a disputed issue and supporting exhibit, and keep an unsupported other-project request separate. This excerpt is permitted for this assignment; it does not grant access to Harbor’s full file.", "explicit-share");
 contexts.discovery = { label: "Current matter", title: currentMatter.client, reference: `${currentMatter.number} · ${currentMatter.title} · As of October 23, 2026`, text: currentMatter.instruction, facts: [["Matter lead", currentMatter.lead], ["Assigned associate", currentMatter.associate], ["Reviewer", currentMatter.reviewer], ["Assignment", currentMatter.assignment], ["Working assumption", currentMatter.originalAssumption], ["Latest client information", currentMatter.newInformation], ["Pending decisions", currentMatter.pending]], access: { kind: "current-matter", label: "Assigned Northstar matter team" } };
 export const legalContexts = contexts;
-export const handoffSources = ["discovery", "NS-INSTRUCTIONS", "NS-ASSIGNMENT", "NS-CHRONOLOGY", "NS-EMAIL-22", "NS-REVIEW", "PRACTICE-07", "HARBOR-SHARED-REVIEW"];
+export const handoffSources = ["discovery", "NS-INSTRUCTIONS", "NS-ASSIGNMENT", "NS-CHRONOLOGY", "NS-EMAIL-22", "NS-REVIEW", "NS-REVIEW-REQUEST", "PRACTICE-07", "HARBOR-SHARED-REVIEW"];
 export function resolveLegalSource(phase, key) {
   if (!Object.hasOwn(legalStories, phase) || !Object.hasOwn(legalContexts, key)) return null;
   return phase === "deliver" && !handoffSources.includes(key) ? null : key;
 }
 
+export const northstarUpdate = {
+  id: "northstar-source-update", kind: "agent-event", agent: "Northstar monitor",
+  label: "Client email and partner review · October 22, 09:34",
+  occurredAt: "2026-10-22T09:34:00-05:00", sourceIds: ["NS-EMAIL-22", "NS-REVIEW"],
+  affectedRevision: 1,
+  sentAt: legalTiming.deliver.updateAt, answerAt: legalTiming.deliver.updateAt,
+  answerDuration: 2200,
+  answer: "The client has identified a former facilities manager who may hold the missing reports. Sofia’s review asks you to keep the earlier assumption visible and explain this change. Revision 1’s custodian section and proposed records approach need attention.",
+  artifact: "legal-change", artifactAt: legalTiming.deliver.updateArtifact,
+  artifactUntil: legalTiming.deliver.updateReady,
+};
+
 export const legalStories = {
   scope: {
-    label: "Relevant experience", thread: "Comparable matters", person: "Margaret Whitfield", role: "Partner", initials: "MW",
-    prompt: "For Northstar’s construction dispute, where have we dealt with similar inspection-record issues? Show me the arguments and what changed our approach.",
-    answer: "Three matters address different parts of that question. Harbor linked inspection reports to specific defects, but did not support its broader other-project request. Cedar Ridge used a missing-document schedule and obtained production before the hearing. Briar Glen relied on an unproven assumption about the respondent’s control of records. The drafts, decision records and partner review show what mattered in each.",
+    label: "Firm experience in practice", thread: "Precedent and review", person: "Margaret Whitfield", role: "Partner", initials: "MW",
+    prompt: "For Northstar’s construction dispute, where have we dealt with similar inspection-record issues? What did we argue, and what happened?",
+    answer: "Three matters are relevant for different reasons: Harbor tied reports to specific defects, Cedar Ridge worked from a confirmed inventory, and Briar Glen exposed a gap in records-control evidence. I’ve connected the arguments and recorded outcomes with the people who prepared and reviewed the work.",
     answerDuration: 2400, artifact: "legal-comparison", artifactAt: legalTiming.scope.artifact, artifactUntil: legalTiming.scope.firstReady, duration: legalTiming.scope.end,
-    commands: [{ typingAt: legalTiming.scope.typing, sentAt: legalTiming.scope.sent, answerAt: legalTiming.scope.answer, answerDuration: 2000, artifact: "legal-questions", artifactAt: legalTiming.scope.nextArtifact, prompt: "What should we carry into Northstar’s motion assessment, and what still needs evidence?", answer: "Carry Harbor’s issue-and-exhibit mapping, Cedar Ridge’s missing-record schedule and Briar Glen’s distinction between a contractor’s role and evidence of records control. For Northstar, identify the missing reports, connect each request to a disputed issue and establish the custodian evidence. Those steps support a motion assessment; they do not establish the underlying defect claim or approve a filing." }],
-    activity: [[0, "Connecting the matter records and reviewed source material"]],
-    summary: "Three fictional matters connect legal issues, the firm’s arguments, disposition records and partner review to the evidence Northstar still needs. People and economics remain in supporting matter records.",
-  },
-  plan: {
-    label: "Reasoning and review", thread: "Arguments and review", person: "Margaret Whitfield", role: "Partner", initials: "MW",
-    prompt: "How did our motions to compel production go in those matters? Show what we argued, what the court decided and the partner’s review.",
-    answer: "The results differ: Harbor was granted in part, Cedar Ridge was withdrawn after production, and Briar Glen was denied without prejudice. I’ve kept the requested relief, the decision record and the partner’s interpretation separate. Cedar Ridge is not a court win; none of these records predicts Northstar’s outcome.",
-    answerDuration: 2200, artifact: "legal-motions", artifactAt: legalTiming.plan.artifact, artifactUntil: legalTiming.plan.firstReady, duration: legalTiming.plan.end,
-    commands: [{ typingAt: legalTiming.plan.typing, sentAt: legalTiming.plan.sent, answerAt: legalTiming.plan.answer, answerDuration: 1800, artifact: "legal-review", artifactAt: legalTiming.plan.nextArtifact, prompt: "What changed between Harbor’s first draft and the reviewed version, and what matters for Northstar?", answer: "Sofia’s review asked Avery to establish the custodian and tie each request to an issue and exhibit. The revised draft focused the inspection-report request and separated the other-project request. The order still refused that broader request. For Northstar, confirming records control is the next evidence question; the reviewer must decide what the current record supports." }],
-    activity: [[0, "Tracing arguments, decision records and partner observations"]],
-    summary: "The motion history distinguishes court reasoning, a withdrawal after production, partner review and the limits of applying that experience to Northstar.",
+    commands: [{ typingAt: legalTiming.scope.typing, sentAt: legalTiming.scope.sent, answerAt: legalTiming.scope.answer, answerDuration: 2600, artifact: "legal-review", artifactAt: legalTiming.scope.nextArtifact, artifactUntil: legalTiming.scope.ready,
+      prompt: "Why did Sofia change Harbor’s approach, and what should we carry into Northstar’s motion assessment?",
+      answer: "Sofia asked Avery to connect each request to a disputed issue and exhibit, and to establish the custodian. The revision narrowed the request; the court still refused the other-project files. For Northstar, use that evidence map and resolve who controls the missing reports before recommending a motion.",
+    }],
+    activity: [[0, "Connecting comparable matters, arguments and reviewed work"]],
+    summary: "Three prior matters lead to one concrete review history and the evidence questions to carry into Northstar.",
   },
   deliver: {
-    label: "Continuity of work", thread: "Matter handoff", person: "Avery Ross", role: "Associate", initials: "AR", threads: ["deliver"],
-    prompt: "I’m joining Northstar. What has been decided, what is still open, and what am I responsible for?",
-    answer: "Margaret assigned you an internal assessment of a possible motion to compel production and an evidence map for Sofia’s review. The client wants a targeted records approach with limited operational disruption. The file contains the agreement, chronology and photographs; it does not establish liability or who controls the missing reports. Sofia has shared a Harbor review excerpt and the published practice note for this assignment.",
-    answerDuration: 2300, artifact: "legal-handoff", artifactAt: legalTiming.deliver.artifact, artifactUntil: legalTiming.deliver.firstReady, duration: legalTiming.deliver.end,
-    commands: [{ typingAt: legalTiming.deliver.typing, sentAt: legalTiming.deliver.sent, answerAt: legalTiming.deliver.answer, answerDuration: 2300, artifact: "legal-handoff-revised", artifactAt: legalTiming.deliver.nextArtifact, prompt: "Prepare the assessment and evidence map using our Litigation Matter Brief template. Include Sofia’s feedback and the latest client email.", answer: "I’ve used the firm’s Litigation Matter Brief format and letterhead. Revision 2 retains the earlier custodian assumption, adds the October 22 email and explains the response to Sofia’s feedback. The evidence map separates the record from proposed work. The draft is ready for Sofia’s review. No filing, budget change or change to client instructions has been approved." }],
-    activity: [[0, "Grounding the handoff in the approved assignment and permitted sources"]],
-    summary: "The handoff keeps client instructions, evidence, an earlier assumption, new correspondence, review reasoning and pending decisions distinct. The sources retain their access boundaries.",
+    label: "Current work and agent updates", thread: "Matter assessment", person: "Avery Ross", role: "Associate", initials: "AR", threads: ["deliver"],
+    prompt: "I’m joining Northstar. What do I need to produce, and what context should I start from?",
+    answer: "You’re preparing an internal motion assessment and evidence map for Sofia’s review. The client wants a targeted records approach with limited operational disruption. Start from the agreement, chronology and photographs, the firm’s Litigation Matter Brief template and Sofia’s shared Harbor review. Records control remains an open question.",
+    answerDuration: 1800, artifact: "legal-assignment", artifactAt: legalTiming.deliver.artifact, artifactUntil: legalTiming.deliver.assignmentReady, duration: legalTiming.deliver.end,
+    commands: [
+      { typingAt: legalTiming.deliver.typing, sentAt: legalTiming.deliver.sent, answerAt: legalTiming.deliver.answer, answerDuration: 1800, artifact: "legal-handoff", artifactAt: legalTiming.deliver.draftAt, artifactUntil: legalTiming.deliver.firstReady,
+        prompt: "Draft the assessment in our Litigation Matter Brief format. Use Sofia’s shared Harbor feedback, then send revision 1 to her for review.",
+        answer: "I’ll build the draft from Northstar’s instructions and evidence, using the shared review to guide the issue-and-evidence mapping. The custodian assumption stays unverified. When the first draft is ready, I’ll send it with its supporting sources to Sofia.",
+      },
+      { typingAt: legalTiming.deliver.reviseTyping, sentAt: legalTiming.deliver.reviseSent, answerAt: legalTiming.deliver.reviseAnswer, answerDuration: 2100, artifact: "legal-handoff-revised", artifactAt: legalTiming.deliver.nextArtifact, artifactUntil: legalTiming.deliver.ready,
+        prompt: "Revise the assessment and evidence map using the client email and Sofia’s feedback. Keep what changed and why available for her review.",
+        answer: "Revision 2 adds the former manager’s possible archive, preserves the earlier assumption and explains the response to Sofia’s feedback. The evidence map now separates the new source from the proposed archive check. It remains a draft for Sofia’s review. No filing, budget change or change to client instructions has been approved.",
+      },
+    ],
+    events: [northstarUpdate],
+    activity: [[0, "Grounding the assignment in its current record and permitted firm knowledge"], [legalTiming.deliver.updateAt, "Connecting the new email and review with revision 1"]],
+    summary: "Avery develops a sourced assessment, receives a proactive update linked to new correspondence and review, then directs a revision that retains the earlier account.",
   },
 };
 

@@ -51,8 +51,9 @@ export function conversationAt(story, elapsed) {
   // The opening question is already in the thread when the window enters view.
   // Responses, artifacts and subsequent typed requests still follow their clocks.
   const initialExchange = { key: 0, prompt: story.prompt, answer: story.answer, sentAt: 0, answerAt: commonTiming.answerAt, answerDuration: story.answerDuration || 1100, artifact: story.artifact, artifactAt: story.artifactAt || commonTiming.artifactAt, artifactUntil: story.artifactUntil };
-  const exchanges = [initialExchange, ...(story.commands || []).map(command => ({ ...command, key: command.sentAt }))]
+  const exchanges = [initialExchange, ...(story.commands || []).map(command => ({ ...command, key: command.sentAt })), ...(story.events || []).map(event => ({ ...event, key: event.id }))]
     .filter(exchange => elapsed >= exchange.sentAt)
+    .sort((a, b) => a.sentAt - b.sentAt)
     .map(exchange => ({ ...exchange, artifactElapsed: Math.min(elapsed, exchange.artifactUntil ?? elapsed) }));
   const current = exchanges.at(-1) || initialExchange;
   const typing = (story.commands || []).find(command => elapsed >= command.typingAt && elapsed < command.sentAt);

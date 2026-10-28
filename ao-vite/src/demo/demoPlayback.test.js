@@ -46,7 +46,7 @@ test("each scene plays once and holds the exact final frame indefinitely", () =>
   }
 });
 
-test("the website retains three scenes with slower builds and a reading hold", () => {
+test("the retained consulting fixtures keep their original builds and reading holds", () => {
   assert.deepEqual(Object.keys(stories), ["scope", "plan", "deliver"]);
   assert.ok(playbackRate > 0 && playbackRate < 1);
   for (const story of Object.values(stories)) {

@@ -9,7 +9,10 @@ export function PageShell({ page, dark = false, children }) {
   useLayoutEffect(() => {
     const aliases = { "scope-demo": "demo", "how-it-works": "workflow", loop: "workflow", "phase-execute": "phase-deliver", "phase-materialize": "execution", "phase-reconcile": "delivery-signals", "phase-learn": "experience" };
     const hash = window.location.hash.slice(1);
-    document.getElementById(aliases[hash] || hash)?.scrollIntoView({ behavior: "instant", block: "start" });
+    const previousHomeDemo = page === "home" && ["plan", "plan-demo"].includes(hash);
+    const target = previousHomeDemo ? "demo" : aliases[hash] || hash;
+    if (previousHomeDemo) window.history.replaceState(window.history.state, "", "#demo");
+    document.getElementById(target)?.scrollIntoView({ behavior: "instant", block: "start" });
   }, []);
   const inquire = () => window.location.assign("/design-partners/");
   return <div className={`studio-page studio-page--${page}`}><Nav dark={dark} onCta={inquire} /><main id="main-content">{children}</main><Footer onCta={inquire} /></div>;

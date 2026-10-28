@@ -3,7 +3,7 @@
 React + Vite marketing site for law, consulting and advisory firms. The active
 homepage brings the first demo window into the brand hero, with its explanatory
 copy beneath it, and retains the original conversation window sizing from 1891aa2.
-It demonstrates internal litigation experience across three continuous chat scenes: **Relevant experience → Reasoning and review → Continuity of work**. The current
+It demonstrates internal litigation experience in two continuous conversations: **Apply firm experience → Keep current work grounded**. The current
 visual system and autonomous playback are retained. There is no PSA writeback
 in this narrative.
 
@@ -17,7 +17,7 @@ npm run build
 ```
 
 The existing preview is http://localhost:5176. `npm run build` produces `dist/`.
-`npm test` runs 39 checks: shared playback and retained consulting fixtures,
+`npm test` runs 41 checks: shared playback and retained consulting fixtures,
 plus the active litigation corpus, chronology and source-access scenarios.
 
 ## The fictional firm record
@@ -42,36 +42,34 @@ and demonstration access designation. The source buttons open these records;
 they do not point to public case law. Fee records include discovery-phase figures
 and the documented explanation, rather than inventing a cause from the total.
 
-### 1. Relevant experience — Margaret Whitfield, partner
+### 1. Apply firm experience — Margaret Whitfield, partner
 
-Margaret asks where the firm has handled comparable inspection-record issues,
-what it argued and what changed its approach. The comparison develops the legal
-issue, the firm's position and the recorded disposition in each matter. Her
-follow-up asks what Northstar can carry forward and what still needs evidence:
-issue-and-exhibit mapping, a missing-record schedule and proof of records control.
-The original arguments, disposition records and partner review remain inspectable.
-People, fees and documented cost explanations remain in supporting matter records;
-they are not the opening conversation or the comparison's leading fields.
+Margaret asks where the firm has handled comparable inspection-record issues.
+The three-matter comparison surfaces relevant conditions, arguments and recorded
+results, with contributors and original sources available. It then moves to one
+concrete review: why Sofia changed Avery’s Harbor draft and what Northstar
+should carry forward. The original and reviewed drafts, court decision and
+current evidence questions appear in that same thread. There is no second
+retelling of the three motion outcomes. People and documented economics remain
+available in supporting matter records.
 
-### 2. Reasoning and review — Margaret Whitfield, partner
+### 2. Keep current work grounded — Avery Ross, assigned associate
 
-The same three matters supply the requested relief, decision record and partner
-review. A withdrawal after production is not counted as a court win. A partial
-order is not presented as a liability ruling. Margaret then examines Harbor's
-first draft, Sofia's review and what changed in the revised argument. The order's
-stated grounds remain separate from a partner's retrospective observation.
+Avery starts from his assignment, client objectives and permitted firm guidance.
+He asks for the Litigation Matter Brief template and instructs AllianceOne to
+send the first draft to Sofia for review. Revision 1 develops in the thread,
+with its source references and a linked review-request record.
 
-### 3. Continuity of work — Avery Ross, assigned associate
+The Northstar monitor then posts an unprompted source update. It connects the
+October 22 client email and Sofia’s review to revision 1’s custodian section and
+proposed records approach. The update shows the earlier assumption, the new
+source, the work affected and the decisions still requiring review. It does not
+navigate away or invent a user request to read communications.
 
-Avery asks what has been decided, what remains open and what he is responsible
-for. Handoff revision 1 (October 21) contains the client instructions, assignment,
-received materials and unverified custodian assumption. A follow-up uses Sofia's
-review and the October 22 client email to develop revision 2 (October 23).
-The earlier account remains visible in the thread. Avery asks for the firm’s
-Litigation Matter Brief template; revision 2 develops into a two-page matter
-assessment and evidence map on fictional Whitfield Hale LLP letterhead. The new email, proposed
-interpretation and pending partner decision are distinct. No filing, budget
-change or amendment of client instructions is approved by creating the brief.
+Avery then asks for revision 2. The two-page assessment and evidence map build
+on fictional Whitfield Hale LLP letterhead, retaining the earlier account and
+explaining what changed and why. No filing, budget change or amendment of client
+instructions is approved by creating the brief.
 
 The finished brief remains an in-chat artifact with no download control. Its
 letterhead, content, evidence map and source record use `matterBrief.js`. An
@@ -79,7 +77,7 @@ internal Word reference is retained at `public/demo/northstar-matter-assessment.
 for engineering and template QA; it is not linked from the website. The brief
 remains a draft for Sofia’s review. No filing approval is implied.
 
-Avery's scene shows only his handoff thread. It permits Northstar material,
+Avery's scene shows only his assessment thread. It permits Northstar material,
 published practice guidance and the Harbor excerpt Sofia explicitly shared for
 this assignment. It does not expose the full Harbor, Cedar Ridge or Briar Glen
 files, even though Avery helped prepare Harbor's earlier work.
@@ -117,22 +115,26 @@ verified legal authorities or make the attorney's decision.
 - `src/demo/EngagementDemo.jsx`: shared player, sidebar, source dialog, watchability
   and automatic conversation following.
 - `src/demo/litigation.js`: corpus, story text, events, revisions and source resolver.
-- `src/demo/LegalDemoArtifacts.jsx`: comparison, questions, motion history, draft
-  comparison and two retained handoff versions; fields build progressively.
+- `src/demo/LegalDemoArtifacts.jsx`: comparison, retained draft review, assignment,
+  source update and two retained brief versions; fields build progressively.
 - `src/demo/matterBrief.js`: shared firm template and versioned brief content.
 - `src/demo/legal-demo.css`: artifact styling within the existing visual system.
 - `src/demo/demoPlayback.js`: shared timeline, visibility and scrolling helpers.
 - `src/demo/legalDemo.test.js`: active corpus and narrative invariants.
 
-The internal phase keys `scope`, `plan`, `deliver` remain for existing anchors,
-layout classes and playback code. Their visible labels are **Relevant experience**,
-**Reasoning and review**, and **Continuity of work**. Follow-ups append to the same conversation;
-earlier artifacts freeze at their completed version. Each scene plays once,
-holds its last frame, and restarts after leaving and returning. Partial clipping
-of the feed or composer pauses the clock; reduced motion shows the final state.
-Playback runs at 80% speed, about two minutes for the three scenes combined.
-Handoff allows time for the two-page brief to build and holds the completed draft
-before the visit ends.
+The public stories use `scope` and `deliver` as compatibility keys for existing
+window sizing and anchors. Home no longer renders a `plan` demo. Old Home
+`#plan` links resolve to the combined precedent conversation; the Solutions
+reasoning-and-review chapter remains a valid independent section.
+
+`conversationAt` merges typed requests and agent events in chronological order.
+An agent event has its own author, timestamp and source references, without a
+user bubble. Earlier artifact versions freeze at their completed frame. Each
+scene plays once, holds its last frame, and restarts after leaving and returning.
+Partial clipping of the feed or composer pauses the clock; reduced motion shows
+the final state. Playback runs at 80% speed, about two minutes for both stories,
+with a final reading hold. The hero overlap and both retained window dimensions
+are unchanged.
 
 This is a deterministic frontend demonstration. It does not call an AI model,
 query a real DMS, send email or enforce production authorization. The local source

@@ -27,8 +27,8 @@
   capability around each example in terms of client work, reasoning, review,
   responsibilities, changes and results.
 
-The active legal demonstration covers relevant experience, reasoning and review,
-and continuity of work. It contains three fictional closed matters and one current matter; no
+Two active demos show firm precedent and retained review in one conversation,
+then an assigned practitioner developing current work with proactive source updates. It contains three fictional closed matters and one current matter; no
 PSA writeback, real firm attribution or verified legal authority is represented.
 Matter access and permitted reuse are part of the story. Do not claim competitors
 have no internal knowledge capabilities. Source access in the demo is illustrative,
