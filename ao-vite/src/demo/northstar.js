@@ -1,5 +1,5 @@
 import { deliveryTiming, planTiming, scopeTiming } from "./demoPlayback.js";
-import { planDeliverables, planMilestones, readbackPlan } from "./engagementPlan.js";
+import { planBillingSchedule, planDeliverables, planMilestones, readbackPlan } from "./engagementPlan.js";
 import { psaSystem } from "./psaSystem.js";
 export { planDeliverables, planMilestones, readbackPlan };
 export const assessmentFormatName = "Data Readiness Assessment";
@@ -40,7 +40,7 @@ export const staffingCandidates = resources.map((resource, index) => ({ ...resou
 export const assignment = { owner: "Avery Ross", reviewer: "Sofia Patel", effort: 36, due: "September 7", baseline: "Plan v1", deliverable: "Data-readiness assessment" };
 // A separate fixture represents the application's response to the illustrated write.
 export const readbackAssignment = readbackPlan.assignment;
-export const readbackProject = { id: "PRJ-NS-20418", ...readbackPlan.project, deliverables: readbackPlan.deliverables.length, resources: readbackPlan.resources.length, status: "Scheduled" };
+export const readbackProject = { id: "9120418", ...readbackPlan.project, deliverables: readbackPlan.deliverables.length, resources: readbackPlan.resources.length, status: "Project created" };
 export const workstreams = [
   { name: "Diagnostic & evidence", weeks: "1–4", detail: "Hear West and Southeast early; review observed ownership before design.", source: "harbor" },
   { name: "Operating-model design", weeks: "3–8", detail: "Test design options against regional authority, service boundaries and handoffs.", source: "harbor" },
@@ -48,6 +48,7 @@ export const workstreams = [
   { name: "Transition roadmap", weeks: "11–14", detail: "Define owners and readiness evidence for the board’s go/no-go decisions.", source: "meridian" },
 ];
 export const approvedPlan = {
+  billingSchedule: planBillingSchedule,
   project: { name: "Northstar Foods", manager: "Margaret Whitfield", opportunity: "OPP-20418", start: "August 17", finish: "November 20", effort, baseline: "Plan v1", proposal: "Proposal v5", fee: 400000, billing: "40 / 40 / 20", objective: "Decision ownership across eight regions; service maintained; November 20 board decision.", boundary: "Implementation excluded; West and Southeast evidence remains a client dependency." },
   resources,
   workstreams: workstreams.map(({ name, weeks }, index) => ({ id: `WS-0${index + 1}`, name, weeks })),
@@ -111,8 +112,8 @@ export const stories = {
     prompt: "Build the plan from Northstar’s accepted proposal and the team we scoped.",
     answer: "Proposal v5 is accepted; OPP-20418 is Won. Daniel’s Week 3 release is now confirmed. The team we evaluated during scoping carries forward, with Avery’s assessment and Sofia’s review connected to the diagnostic baseline.",
     artifact: "plan", artifactUntil: planTiming.reviewed,
-    duration: 38000,
-    commands: [{ typingAt: planTiming.commandAt, sentAt: planTiming.approved, answerAt: planTiming.responding, answerDuration: 1700, artifact: "commit", artifactAt: planTiming.submissionAt, prompt: `Approve plan v1 and submit the whole engagement plan to ${psaSystem.name}.`, answer: "I’m committing the four workstreams, all fourteen deliverables, their dates, dependencies and acceptance criteria, six resource allocations and four review gates. I’ll file the approved plan in SharePoint, then read every project record back against plan v1." }],
+    duration: 47500,
+    commands: [{ typingAt: planTiming.commandAt, sentAt: planTiming.approved, answerAt: planTiming.responding, answerDuration: 1700, artifact: "commit", artifactAt: planTiming.submissionAt, prompt: `Approve plan v1 and submit the whole engagement plan to ${psaSystem.name}.`, answer: "I’ll create Northstar’s Task Tracker and six hard allocations, with review instructions in each deliverable. The $400,000 budget gets its own 40 / 40 / 20 Billing Schedule. Then I’ll read back the full plan and check it against v1." }],
     activity: [[0, "Grounding the plan in the accepted proposal and reviewed resource basis"], [3500, "Sequencing the confirmed resource windows"], [8000, "Connecting assignments to review coverage"], [planTiming.reviewed, "Sofia reviewed the complete plan v1 · ready for Margaret’s approval"], [planTiming.approved, "Margaret approved and submitted the complete plan"], [planTiming.verified, "The complete PSA readback matches approved plan v1"]],
     summary: `The complete Northstar plan is committed to ${psaSystem.name}: four workstreams, fourteen deliverables, six resource allocations and four review gates. The returned records match approved plan v1.`,
   },
@@ -122,16 +123,16 @@ export const stories = {
     prompt: "What am I delivering for Northstar, and what does it need to establish?",
     answer: "You own the data-readiness assessment within Northstar’s decision-rights diagnostic. It must establish which evidence can support ownership and escalation findings before design, with the limits of each conclusion explicit.\n\nSix of eight regional extracts are received. Northeast ownership fields are incomplete, Central’s inventory is older, and West and Southeast are missing. Coverage, currency, completeness and traceability still need your assessment.",
     answerDuration: 1900, artifact: "assignment-brief", artifactAt: deliveryTiming.assignmentAt, artifactUntil: deliveryTiming.assignmentReady,
-    duration: 43100,
+    duration: 69000,
     commands: [
       { typingAt: deliveryTiming.methodTyping, sentAt: deliveryTiming.methodAsked, answerAt: deliveryTiming.methodAnswer, answerDuration: 2200, prompt: "Which report format should I use, and can I draw on Sofia’s feedback from my Harbor evidence pack?", answer: `Use the ${assessmentFormatName} report and its companion evidence workbook from the practice library. Assess coverage, currency, completeness and traceability; link each conclusion to the operating decision it supports.\n\nSofia shared a review excerpt from your Harbor HG-D01 v1 evidence pack for this Northstar assignment. It combined observed owners with proposed future owners and lacked some record references. Her accepted v2 required separate fields, a source and date for each material entry, and unresolved conflicts kept visible.\n\nThe published Ownership and Handoffs practice note also applies. Use these sources to distinguish Northeast’s missing owners from Central’s older inventory, keeping the absent regions outside an overall readiness conclusion.`, sources: [{ key: "method", label: assessmentFormatName }, { key: "harbor-review", label: "Avery’s Harbor review · Shared by Sofia" }, { key: "ownership-guidance", label: "Ownership and Handoffs · Practice note" }] },
       { typingAt: deliveryTiming.draftTyping, sentAt: deliveryTiming.draftAsked, answerAt: deliveryTiming.draftAnswer, answerDuration: 1300, artifact: "assessment-draft", artifactAt: deliveryTiming.draftAt, artifactUntil: deliveryTiming.draftReady, prompt: `Draft Northstar’s report using the ${assessmentFormatName}. Apply the shared review feedback and keep the evidence limits explicit.`, answer: "I’ll develop the report from your approved assignment and NS-DATA01, using the practice library’s assessment format. The evidence register will keep source dates, observed ownership and unresolved conflicts alongside the findings. Sofia reviews the assessment before the diagnostic baseline." },
       { typingAt: deliveryTiming.sendTyping, sentAt: deliveryTiming.sentForReview, answerAt: deliveryTiming.sendAnswer, answerDuration: 1200, artifact: "assessment-review", artifactAt: deliveryTiming.reviewArtifactAt, artifactUntil: deliveryTiming.feedbackReceived, prompt: "Send this assessment and its supporting evidence to Sofia for review.", answer: "I’ve sent revision 1 and the Northstar evidence to Sofia. Her comments will stay linked to this draft and its approved assignment." },
       { typingAt: deliveryTiming.reviseTyping, sentAt: deliveryTiming.revising, answerAt: deliveryTiming.reviseAnswer, answerDuration: 1300, artifact: "assessment-revision", artifactAt: deliveryTiming.revisionArtifactAt, artifactUntil: deliveryTiming.approved, prompt: "Address Sofia’s feedback. Explain what each evidence gap means for design readiness.", answer: "I’ll distinguish Northeast’s missing owners from Central’s older inventory and keep West and Southeast outside a whole-client readiness conclusion. I’ll return revision 2 to Sofia with the revision rationale." },
-      { typingAt: deliveryTiming.exportTyping, sentAt: deliveryTiming.exportStarted, answerAt: deliveryTiming.exportAnswer, answerDuration: 1200, artifact: "assessment-export", artifactAt: deliveryTiming.exportArtifactAt, prompt: "Export the approved report as Northstar Foods — Data Readiness Assessment.", answer: "Sofia approved revision 2. I’m exporting that exact version as a Word report, with the approval, source evidence and revision history retained in Northstar’s engagement record." },
+      { typingAt: deliveryTiming.exportTyping, sentAt: deliveryTiming.exportStarted, answerAt: deliveryTiming.exportAnswer, answerDuration: 1200, artifact: "assessment-export", artifactAt: deliveryTiming.exportArtifactAt, prompt: "Export the approved report as Northstar Foods — Data Readiness Assessment.", answer: "Sofia approved revision 2. I’m preparing the three-page Word report: executive assessment, evidence and decision limits, followed by the action plan and source register. The approval and revision rationale stay with Northstar’s engagement record." },
     ],
     activity: [[0, "Reading Avery’s committed assignment and client requirements"], [deliveryTiming.methodAsked, "Reading the published report format and shared review excerpt"], [deliveryTiming.draftAsked, "Applying Northstar’s evidence and the practice report format"], [deliveryTiming.draftReady, "Avery’s draft is ready for review"], [deliveryTiming.sentForReview, "Avery requested review of revision 1"], [deliveryTiming.feedbackReceived, "Sofia asked what the evidence gaps prevent the team from concluding"], [deliveryTiming.revising, "Avery requested a revision addressing Sofia’s feedback"], [deliveryTiming.approved, "Sofia approved revision 2 for export"], [deliveryTiming.exportStarted, "Avery requested the approved Word export"]],
-    summary: "Avery sent the assessment to Sofia, addressed her feedback, and received approval for revision 2. The finished Word document is available to download.",
+    summary: "Avery sent the assessment to Sofia, addressed her feedback, and received approval for revision 2. The approved three-page Word report retains the assessment, decision limits, accountable actions and source register.",
   },
 };
 
@@ -197,7 +198,7 @@ export const contexts = {
   accepted: {
     label: "Accepted commitment", title: "Northstar proposal v5", reference: "Elena’s exact-version acceptance · OPP-20418 Won",
     text: "The proposed $420,000 fee followed a reviewed $248,140 internal cost basis and Finance’s 40% direct contribution assumption, before overhead. Elena negotiated $400,000 with 40/40/20 milestone billing. The full scope, fourteen weeks and 1,840 hours remain.",
-    facts: [["Negotiated additions", "Named resources and explicit deliverable acceptance criteria"], ["Boundary", "Implementation excluded"], ["Planning basis", "Accepted proposal v5 retained as the commitment baseline"]],
+    facts: [["Negotiated additions", "Named resources and explicit deliverable acceptance criteria"], ["Billing triggers", "40% at mobilization on August 17; 40% on design review acceptance; 20% on the board decision"], ["Boundary", "Implementation excluded"], ["Planning basis", "Accepted proposal v5 retained as the commitment baseline"]],
   },
   assignment: {
     label: "Approved engagement plan", title: "Avery’s assessment assignment", reference: "Plan v1 · Data-readiness assessment",

@@ -1,9 +1,13 @@
 import React from "react";
 import { PsaMark } from "./PsaMark.jsx";
 import { psaSystem } from "./psaSystem.js";
-import { approvedPlan, assessmentFileName, assessmentFormatName, assignment, effort, historicalCases, readbackAssignment, readbackPlan, readbackProject, resources, staffingCandidates, workstreams } from "./northstar.js";
+import { approvedPlan, assessmentFileName, assessmentFormatName, assignment, effort, historicalCases, readbackAssignment, readbackPlan, resources, staffingCandidates, workstreams } from "./northstar.js";
 import { compareAssignment, comparePlan, deliveryStateAt, deliveryTiming, planExecutionAt, planTiming, precedentBuildAt, progressAt, scopeTiming, textAt } from "./demoPlayback.js";
 import assessment from "./assessment.json";
+import { KantataRecord } from "./KantataRecord.jsx";
+import { compareOXReadback } from "./kantataOX.js";
+import oxReadback from "./kantata-readback.json";
+import { AssessmentReport } from "./AssessmentReport.jsx";
 
 function BuildText({ children, elapsed, at, duration = 500 }) {
   return <>{textAt(children, elapsed, at, duration)}</>;
@@ -98,24 +102,9 @@ function PlanMilestones({ elapsed, written = false }) {
   })}</section>;
 }
 
-function PSARecord({ elapsed, verified }) {
-  return <section className="psa-record build-slot" aria-label={`Created ${psaSystem.name} record`} data-project-id={readbackProject.id}>
-    <header className="psa-record-system"><PsaMark />{!psaSystem.logo && <span>{psaSystem.name}</span>}<small>{verified ? "Complete plan verified" : "Project created"}</small></header>
-    <div className="psa-record-title" data-follow-at={planTiming.projectCreated}><div><p>{readbackProject.id}</p><h4>{readbackProject.name}</h4></div><span>{readbackProject.status}</span></div>
-    <dl className="psa-record-fields" data-follow-at={planTiming.projectCreated + 200}>{[["Project manager", readbackProject.manager], ["Opportunity", readbackProject.opportunity], ["Start / finish", `${readbackProject.start} – ${readbackProject.finish}`], ["Planned effort", `${readbackProject.effort.toLocaleString()} hours`], ["Commitment", "$400,000 · 40 / 40 / 20 billing"], ["Commitment baseline", `${readbackProject.proposal} · ${readbackProject.baseline}`]].map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
-    <p className="psa-plan-boundary">{readbackProject.objective} {readbackProject.boundary}</p>
-    {elapsed >= planTiming.resourcesWrittenAt && <section className="psa-bookings" aria-label="Six committed resource allocations"><h4>Resource allocations <span>1,840 hours across six people</span></h4>{readbackPlan.resources.map((person, index) => {
-      const at = planTiming.resourcesWrittenAt + index * 450;
-      return elapsed >= at && <div className="psa-booking" key={person.id} data-booking-id={person.id} data-follow-at={at}><div><strong>{person.name}</strong><span>{person.role}</span></div><span>W{person.start}–{person.end}<small>{person.capacity}% ceiling</small></span><strong>{person.hours}h</strong></div>;
-    })}</section>}
-    <div className="psa-plan-detail"><PlanWorkbreakdown elapsed={elapsed} written /><PlanMilestones elapsed={elapsed} written /></div>
-    {elapsed >= planTiming.workspaceCreated && <p className="psa-record-origin" data-follow-at={planTiming.workspaceCreated}>Complete plan v1 and the accepted proposal linked to {readbackProject.id}. Avery’s {readbackAssignment.effort}h assessment assignment retained as {readbackAssignment.id}. Approved by Margaret Whitfield.</p>}
-  </section>;
-}
-
 function PSAWrite() {
   return <section className="psa-write" aria-label={`Submitting approved plan to ${psaSystem.name}`} data-follow-at={planTiming.approved}>
-    <div><PsaMark /><div>{!psaSystem.logo && <strong>{psaSystem.name}</strong>}<p>Creating the complete plan: four workstreams, fourteen deliverables with dependencies and acceptance criteria, six resource allocations and four review gates.</p></div><i className="build-pulse" /></div>
+    <div><PsaMark /><div>{!psaSystem.logo && <strong>{psaSystem.name}</strong>}<p>Creating the project, Task Tracker and six hard resource allocations. Review instructions and acceptance criteria stay with each deliverable; the 40 / 40 / 20 terms become a separate Billing Schedule.</p></div><i className="build-pulse" /></div>
     <div><img src="/brand/systems/sharepoint.svg" alt="" /><div><strong>SharePoint</strong><p>Preparing the approved plan and its linked engagement workspace.</p></div></div>
     <p>Source: plan v1 · Margaret’s approval retained with the write request.</p>
   </section>;
@@ -144,21 +133,22 @@ export function PlanArtifact({ elapsed, onInspect }) {
     {elapsed >= 9000 && <p className="plan-continuity" data-follow-at={9000}>Harbor informs Avery’s evidence gate; Meridian informs Lena’s regional validation. Daniel’s W3 release is confirmed. <SourceLink source="availability" onInspect={onInspect}>Resource basis</SourceLink></p>}
     <PlanWorkbreakdown elapsed={elapsed} />
     <PlanMilestones elapsed={elapsed} />
+    {elapsed >= 15000 && <p className="plan-billing-terms" data-follow-at={15000}><strong>Accepted fee · $400,000</strong>40% at mobilization on August 17 · 40% on design review acceptance · 20% on the board decision.</p>}
     {execution.reviewed && <p className="plan-reviewed" data-follow-at={planTiming.reviewed}>Sofia reviewed plan v1. The accepted scope, proposed team and assignment rationale remain linked to this version.</p>}
   </article>;
 }
 
 function PlanCommitArtifact({ elapsed }) {
   const execution = planExecutionAt(elapsed);
-  const mismatches = [...comparePlan(approvedPlan, readbackPlan), ...compareAssignment(assignment, readbackAssignment)];
+  const mismatches = [...comparePlan(approvedPlan, readbackPlan), ...compareAssignment(assignment, readbackAssignment), ...compareOXReadback(approvedPlan, oxReadback)];
   const verified = execution.readbackReady && mismatches.length === 0;
   return <article className="inline-artifact plan-artifact plan-commit-artifact" aria-label={`${psaSystem.name} submission`} data-view="psa" aria-busy={!execution.readbackReady}>
     <ArtifactHead label="Northstar Foods · Approved plan v1" title={execution.readbackReady ? `Complete plan committed to ${psaSystem.name}` : "Committing the engagement plan"} elapsed={elapsed} at={planTiming.submissionAt} />
-    {execution.projectCreated ? <PSARecord elapsed={elapsed} verified={verified} /> : <PSAWrite />}
+    {execution.projectCreated ? <KantataRecord elapsed={elapsed} verified={verified} /> : <PSAWrite />}
     <div className="plan-execution" data-follow-at={planTiming.verified} data-approved={execution.approved} data-verified={verified}>{execution.readbackReady && <>
       <div className="execution-heading"><span className="execution-check" aria-hidden="true">✓</span><strong>Margaret approved and submitted plan v1 to {psaSystem.name}</strong><span>Approved baseline retained</span></div>
       <p className="psa-filing"><img src="/brand/systems/sharepoint.svg" alt="" />{execution.workspaceCreated ? "Approved plan filed in SharePoint" : "Filing the approved plan in SharePoint…"}</p>
-      <p className={`execution-readback${verified ? " is-verified" : ""}`}>{verified ? <><span aria-hidden="true">✓</span> Full readback matched plan v1: 4 workstreams · 14 deliverables · 6 allocations / 1,840h · 4 gates. Dates, reviewers, dependencies, acceptance criteria and commercial terms verified.</> : `Readback differs on ${mismatches.join(", ")}. Review before finalizing.`}</p>
+      <p className={`execution-readback${verified ? " is-verified" : ""}`}>{verified ? <><span aria-hidden="true">✓</span> Full readback matched plan v1: 4 workstreams · 14 deliverables · 6 allocations / 1,840h · 4 gates. Project dates, task hierarchy, assignees, hours, review instructions and the $400,000 billing schedule matched.</> : `Readback differs on ${mismatches.join(", ")}. Review before finalizing.`}</p>
     </>}</div>
   </article>;
 }
@@ -182,6 +172,7 @@ export function DeliveryArtifact({ elapsed, onInspect }) {
       <div className="assessment-letterhead"><img src="/brand/asg/alliance-systems-group-mark-refined.png" alt="" /><span>Alliance Systems Group</span></div>
       <p className="assessment-client">Northstar Foods</p><h3>{assessmentFormatName}</h3><p className="assessment-byline">Avery Ross · Reviewer: Sofia Patel · {state.revising ? "Revision 2" : "Revision 1"}</p>
       <section className="assessment-purpose build-slot" data-follow-at={deliveryTiming.purposeAt}>{elapsed >= deliveryTiming.purposeAt && <><h4>Purpose and assessment basis</h4><p><BuildText elapsed={elapsed} at={deliveryTiming.purposeAt} duration={650}>{assessment.purpose}</BuildText></p></>}</section>
+      {elapsed >= deliveryTiming.purposeAt + 700 && <div className="assessment-draft-method" data-follow-at={deliveryTiming.purposeAt + 700}><strong>Practice assessment method</strong>Coverage · Currency · Completeness · Traceability<br />Each finding records its source, decision consequence and release condition.</div>}
       <div className="assessment-evidence">{assessment.evidence.map((item, index) => {
         const reviseAt = deliveryTiming.revisionContent + index * 500;
         return <div className="assessment-evidence-row build-slot" key={item.label} data-follow-at={state.revising ? reviseAt : deliveryTiming.evidenceAt + index * 700}>{elapsed >= deliveryTiming.evidenceAt + index * 700 && <><span>{item.label}</span><strong>{item.finding}</strong><small>{item.gap}</small>{elapsed >= reviseAt && <p className="assessment-evidence-implication"><BuildText elapsed={elapsed} at={reviseAt} duration={450}>{item.implication}</BuildText></p>}</>}</div>;
@@ -194,7 +185,7 @@ export function DeliveryArtifact({ elapsed, onInspect }) {
       <div className="delivery-record build-slot" data-follow-at={deliveryTiming.approved}>{state.revised && <><p>Review request, feedback, revision rationale and approval retained with their sources.</p><SourceLink source="record" onInspect={onInspect}>Assessment record</SourceLink></>}</div>
     </aside></div>
     <footer className="delivery-workflow build-slot" data-follow-at={state.exportReady ? deliveryTiming.exportReady : state.exporting ? deliveryTiming.exportStarted : state.sentForReview && !state.feedbackReceived ? deliveryTiming.sentForReview : deliveryTiming.draftReady}>
-      {state.draftReady && (!state.sentForReview ? <><div><strong>Avery’s draft is ready for review</strong><p>Revision 1 and its supporting evidence are ready for Sofia.</p></div><span className="delivery-action-status">Draft ready</span></> : !state.feedbackReceived ? <><div><strong>Avery sent revision 1 to Sofia</strong><p>Sofia is reviewing the assessment against the firm’s evidence standard.</p></div><span className="delivery-action-status"><i className="build-pulse" />In review</span></> : !state.revising ? <><div><strong>Sofia returned one review comment</strong><p>Explain which design decisions remain conditional on the evidence gaps.</p></div><span className="delivery-action-status">Feedback received</span></> : !state.approved ? <><div><strong>{state.revised ? "Avery returned revision 2 to Sofia" : "Avery is addressing the review"}</strong><p>{state.revised ? "Sofia is checking the revised conclusion before approval." : "Clarifying design readiness using the evidence gaps and Harbor’s review standard."}</p></div><span className="delivery-action-status"><i className="build-pulse" />{state.revised ? "Final review" : "Revising"}</span></> : state.exportReady ? <><div className="delivery-export-file"><img src="/brand/systems/word.svg" alt="" /><div><strong>{assessmentFileName}</strong><p>Exported · Revision 2 · Sofia approved</p></div></div><a className="delivery-download" href={assessment.downloadPath} download={assessmentFileName}>View Word document <span aria-hidden="true">↓</span></a></> : state.exporting ? <><div><strong>Avery is exporting the approved assessment</strong><p>Preparing the approved report for Word export.</p></div><span className="delivery-action-status"><i className="build-pulse" />Preparing Word</span></> : <><div><strong>Sofia approved revision 2</strong><p>The approved version is ready for Avery’s export request.</p></div><span className="delivery-action-status">Approved for export</span></>)}
+      {state.draftReady && (!state.sentForReview ? <><div><strong>Avery’s draft is ready for review</strong><p>Revision 1 and its supporting evidence are ready for Sofia.</p></div><span className="delivery-action-status">Draft ready</span></> : !state.feedbackReceived ? <><div><strong>Avery sent revision 1 to Sofia</strong><p>Sofia is reviewing the assessment against the firm’s evidence standard.</p></div><span className="delivery-action-status"><i className="build-pulse" />In review</span></> : !state.revising ? <><div><strong>Sofia returned one review comment</strong><p>Explain which design decisions remain conditional on the evidence gaps.</p></div><span className="delivery-action-status">Feedback received</span></> : !state.approved ? <><div><strong>{state.revised ? "Avery returned revision 2 to Sofia" : "Avery is addressing the review"}</strong><p>{state.revised ? "Sofia is checking the revised conclusion before approval." : "Clarifying design readiness using the evidence gaps and Harbor’s review standard."}</p></div><span className="delivery-action-status"><i className="build-pulse" />{state.revised ? "Final review" : "Revising"}</span></> : state.exportReady ? <><div className="delivery-export-file"><img src="/brand/systems/word.svg" alt="" /><div><strong>{assessmentFileName}</strong><p>Exported · Revision 2 · Sofia approved</p></div></div><span className="delivery-action-status">Word export prepared</span></> : state.exporting ? <><div><strong>Avery is exporting the approved assessment</strong><p>Preparing the approved report for Word export.</p></div><span className="delivery-action-status"><i className="build-pulse" />Preparing Word</span></> : <><div><strong>Sofia approved revision 2</strong><p>The approved version is ready for Avery’s export request.</p></div><span className="delivery-action-status">Approved for export</span></>)}
     </footer>
   </article>;
 }
@@ -209,17 +200,10 @@ function AssessmentReviewArtifact({ elapsed }) {
 
 function AssessmentExportArtifact({ elapsed }) {
   const ready = elapsed >= deliveryTiming.exportReady;
-  return <article className="inline-artifact delivery-export-receipt" aria-label="Approved Word export" data-export-ready={ready} data-follow-at={ready ? deliveryTiming.exportReady : deliveryTiming.exportArtifactAt}>
-    <div className="delivery-export-file"><img src="/brand/systems/word.svg" alt="Word" /><div><strong>{assessmentFileName}</strong><p>{ready ? "Exported · Revision 2 · Sofia approved" : "Exporting the approved report to Word…"}</p></div></div>
-    {ready && <>
-      <section className="assessment-page export-document-page" aria-label="Preview of the approved assessment">
-        <div className="assessment-letterhead"><img src="/brand/asg/alliance-systems-group-mark-refined.png" alt="" /><span>Alliance Systems Group</span></div>
-        <p className="assessment-client">Northstar Foods</p><h3>{assessmentFormatName}</h3>
-        <p className="assessment-byline">Avery Ross · Reviewed by Sofia Patel · Revision 2</p>
-        <h4>Assessment and implications</h4><p>{assessment.conclusion}</p>
-      </section>
-      <a className="delivery-download" href={assessment.downloadPath} download={assessmentFileName}>View Word document <span aria-hidden="true">↓</span></a>
-    </>}
+  return <article className="inline-artifact delivery-export-receipt" aria-label="Approved Word export" data-export-ready={ready}>
+    <div className="delivery-export-file" data-follow-at={deliveryTiming.exportArtifactAt}><img src="/brand/systems/word.svg" alt="Word" /><div><strong>{assessmentFileName}</strong><p>{ready ? "Exported · 3 pages · Revision 2 · Sofia approved" : "Preparing the approved three-page Word report…"}</p></div></div>
+    <AssessmentReport elapsed={elapsed} />
+    {ready && <p className="report-export-complete" data-follow-at={deliveryTiming.exportReady}>Word report prepared. Approval, sources and revision rationale retained with NS-D01.</p>}
   </article>;
 }
 

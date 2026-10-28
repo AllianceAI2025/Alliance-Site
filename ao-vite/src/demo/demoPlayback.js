@@ -1,6 +1,6 @@
 export const commonTiming = { promptEnd: 1250, answerAt: 1500, artifactAt: 2700 };
 export const scopeTiming = { precedentAt: 3500, harborAt: 3800, meridianAt: 7100, historyFinished: 10700, commandAt: 11600, applyAt: 13800, responding: 14000, draftAt: 15800, workstreamsAt: 16400, finished: 19000, staffingTyping: 20200, staffingAsked: 22600, staffingAnswer: 22800, staffingAt: 25000, candidatesAt: 25300, availabilityAt: 28500, staffingFinished: 29200 };
-export const planTiming = { deliverablesAt: 9700, milestonesAt: 14000, reviewed: 15500, commandAt: 18000, approved: 20500, responding: 20700, submissionAt: 22500, projectCreated: 23500, resourcesWrittenAt: 24300, deliverablesWrittenAt: 27500, milestonesWrittenAt: 32000, workspaceCreated: 34300, verified: 36000 };
+export const planTiming = { deliverablesAt: 9700, milestonesAt: 14000, reviewed: 15500, commandAt: 18000, approved: 20500, responding: 20700, submissionAt: 22500, projectCreated: 23500, resourcesWrittenAt: 24300, deliverablesWrittenAt: 27500, milestonesWrittenAt: 32000, billingWrittenAt: 33300, taskDetailsAt: 34900, workspaceCreated: 36500, verified: 38500 };
 export const deliveryTiming = {
   assignmentAt: 3650, assignmentReady: 6000, methodTyping: 6500, methodAsked: 8500, methodAnswer: 8700,
   draftTyping: 12500, draftAsked: 14700, draftAnswer: 14900, draftAt: 16300,
@@ -8,7 +8,9 @@ export const deliveryTiming = {
   sendTyping: 21800, sentForReview: 24400, sendAnswer: 24600, reviewArtifactAt: 26100, feedbackReceived: 26800,
   reviseTyping: 27600, revising: 29800, reviseAnswer: 30000, revisionArtifactAt: 31350, revisionContent: 31400,
   conclusionContent: 32900, revised: 33600, approved: 35600, exportTyping: 36600,
-  exportStarted: 39100, exportAnswer: 39300, exportArtifactAt: 40600, exportReady: 41100,
+  exportStarted: 39100, exportAnswer: 39300, exportArtifactAt: 40600,
+  exportPageOne: 41000, exportMethodAt: 46100, exportPageTwo: 47400,
+  exportPageThree: 53400, exportReviewAt: 57500, exportSourcesAt: 59000, exportReady: 60000,
 };
 export const playbackRate = .8;
 
@@ -113,6 +115,7 @@ export function comparePlan(expected, received) {
     workstreams: { key: "id", fields: ["id", "name", "weeks"] },
     deliverables: { key: "id", fields: ["id", "stream", "title", "owner", "reviewer", "start", "due", "dependsOn", "acceptance", "effort"] },
     milestones: { key: "id", fields: ["id", "title", "due", "reviewer", "requires"] },
+    billingSchedule: { key: "id", fields: ["id", "title", "percent", "date", "gate"] },
   };
   for (const [name, { key, fields }] of Object.entries(collections)) {
     const actual = received[name] || [];

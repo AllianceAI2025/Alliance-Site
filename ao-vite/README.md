@@ -106,7 +106,7 @@ universal connectors or automatic improvement from unreviewed data is claimed.
   footer, company page and inquiry form.
 - `src/demo/assessment.json`: shared report copy used by the preview and Word builder.
 - `scripts/build-assessment.py`: regenerates the Word export with `python-docx`.
-- `public/demo/northstar-data-readiness-assessment.docx`: downloadable approved revision 2.
+- `public/demo/northstar-data-readiness-assessment.docx`: internal Word reference for approved revision 2.
 - `public/brand/asg/alliance-systems-group-mark-refined.png`: retained lion concept.
 - `public/brand/systems/SOURCES.md`: application mark sources and usage context.
 
@@ -126,7 +126,7 @@ with relevant work, current windows and proposed effort. Daniel's Week 3 hold
 remains conditional, and Sofia's Week 10 release needs later review coverage.
 The six-person, 1,840-hour basis carries into Plan after acceptance and confirmation.
 
-**Plan (47.5s, then holds):** A separate conversation begins from accepted proposal v5
+**Plan (59.4s, then holds):** A separate conversation begins from accepted proposal v5
 and a Won opportunity. The same six resources and confirmed windows carry forward.
 The schedule, all fourteen deliverables across four workstreams, and four review gates
 build progressively. Each deliverable has dates, an owner, reviewer, acceptance criteria
@@ -134,17 +134,18 @@ and input dependencies. Avery's 36-hour assessment remains within his 384-hour b
 Dependencies apply at acceptance; preparation can overlap.
 
 Sofia reviews the full plan. Margaret types a request to approve plan v1 and submit the
-whole plan to Kantata. The separate write result creates the project, then
-shows all six resource allocations, four workstreams, fourteen task records and four gates being
-written. Accepted commercial terms, scope boundary and client dependencies accompany
+whole plan to Kantata OX. The separate write result creates the project, then
+shows six hard allocations, four parent tasks, fourteen deliverables, four milestones
+and three separate billing milestones being written. Review and acceptance
+instructions map to task descriptions and checklists. Commercial terms, scope boundary and client dependencies accompany
 the baseline. The approved plan and accepted proposal are linked in SharePoint.
 A separate response fixture is compared against every approved project field, resource
 booking, deliverable (including dates, reviewers, dependencies and acceptance criteria)
 and review gate, alongside Avery's assignment. Missing or changed records produce a
 discrepancy rather than a success claim. The final receipt confirms the full write and
-readback. The PSA view is a local response fixture, not a live Microsoft connection.
+readback. The PSA view is a local OX response fixture, not a live tenant connection.
 
-**Deliver (53.9s, then holds):** Avery's sidebar contains his assessment thread;
+**Deliver (86.3s, then holds):** Avery's sidebar contains his assessment thread;
 the manager's pursuit and staffing conversations are absent. Following the workflow
 prototype's consultant sequence, he first asks what he is delivering and what it must
 establish. An assignment brief shows the same 36-hour task, September 7 deadline,
@@ -166,14 +167,14 @@ and she approves it. Avery then types a request to export the approved version i
 the named assessment report format. Earlier requests stay in the conversation. Revision 1, Sofia's
 review, revised/approved revision 2, and the export receipt each remain under the
 request that produced them. Export produces
-a Word-file receipt with a real download. Review requests, feedback, revision
+a three-page Word report preview. Review requests, feedback, revision
 rationale and approval remain linked to the engagement.
 
 Review, revision and export run automatically and show the actor and resulting
 status, with no action buttons to advance the story. Autoplay illustrates the export
-without downloading a file automatically; an optional finished-file link starts a
-browser download. The client-facing document uses Northstar
-evidence and excludes other clients' names and internal precedent discussions.
+without requiring a file download. The client-facing document uses Northstar
+evidence and approved practice guidance. Internal Harbor provenance is retained
+in the model but the exported report does not disclose the prior client's name.
 
 The animation clock drives real intermediate content and bar geometry. Artifact
 rows and sections are absent until their build point; cards do not arrive complete.
@@ -236,7 +237,7 @@ The report content and OOXML package are checked separately from browser QA.
 
 ## Review checks for the page redesign
 
-- All 27 demo tests pass; the multi-page production build includes
+- All 31 demo tests pass; the multi-page production build includes
   the new Solutions destination and its legacy alias.
 - Home, Product, Solutions, Company, Design partners, Security and the legacy
   How It Works route were checked at phone width, with no horizontal page overflow
@@ -272,12 +273,24 @@ for the facts they own. The longer workflow prototype is a separate application.
 
 ## PSA shown in the demo
 
-The Plan demonstration writes the approved plan to Kantata. The destination and
+The Plan demonstration writes the approved plan to Kantata OX. The destination and
 official orange wordmark are configured in `src/demo/psaSystem.js`. The original
 SVG from Kantata's media kit is retained unchanged, with its source recorded in
 `public/brand/systems/SOURCES.md`. `PsaMark.jsx` displays it at its original aspect
 ratio and at least 100px wide, including in the Product overview. The write is
 illustrated; it does not connect to a Kantata account.
+
+The OX record uses project fields, a complete Task Tracker hierarchy, hard
+allocations, task/resource estimates and a separate Billing Schedule. The
+[field mapping and research](docs/kantata-ox-demo.md) describe the supported API
+objects, unit conversions and tenant-specific implementation work. A separate
+API-shaped fixture is checked against the approved write model; 31 tests include
+missing/changed task, checklist, allocation and billing response cases.
+
+Deliver now builds a full three-page report preview on firm letterhead. Findings
+carry decision consequences and release conditions; the action plan has owners,
+dates and completion criteria. Review rationale and the source register remain
+in the approved output. The website does not require visitors to download it.
 
 Law firms are named as a segment across the site. Law-specific demonstrations live
 in the separate demo application, not on the public site.

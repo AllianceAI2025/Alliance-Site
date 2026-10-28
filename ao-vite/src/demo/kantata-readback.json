@@ -1,0 +1,1072 @@
+{
+  "results": [
+    {
+      "key": "workspaces",
+      "id": "9120418"
+    }
+  ],
+  "workspaces": {
+    "9120418": {
+      "title": "Northstar Foods",
+      "description": "Decision ownership across eight regions; service maintained; November 20 board decision.\nImplementation excluded; West and Southeast evidence remains a client dependency.\nProposal v5 · Plan v1 · OPP-20418",
+      "start_date": "2026-08-17",
+      "due_date": "2026-11-20",
+      "primary_maven_id": "61001",
+      "budgeted": true,
+      "price": "400000",
+      "currency": "USD",
+      "id": "9120418",
+      "price_in_cents": 40000000
+    }
+  },
+  "workspace_resources": {
+    "940001": {
+      "id": "940001",
+      "workspace_id": "9120418",
+      "user_id": "61001"
+    },
+    "940002": {
+      "id": "940002",
+      "workspace_id": "9120418",
+      "user_id": "61002"
+    },
+    "940003": {
+      "id": "940003",
+      "workspace_id": "9120418",
+      "user_id": "61003"
+    },
+    "940004": {
+      "id": "940004",
+      "workspace_id": "9120418",
+      "user_id": "61004"
+    },
+    "940005": {
+      "id": "940005",
+      "workspace_id": "9120418",
+      "user_id": "61005"
+    },
+    "940006": {
+      "id": "940006",
+      "workspace_id": "9120418",
+      "user_id": "61006"
+    }
+  },
+  "workspace_allocations": {
+    "950001": {
+      "start_date": "2026-08-17",
+      "end_date": "2026-11-20",
+      "minutes": 10320,
+      "hard": true,
+      "notes": "Engagement lead. Approved plan v1; availability checked before commitment.",
+      "id": "950001",
+      "workspace_resource_id": "940001",
+      "workspace_id": "9120418"
+    },
+    "950002": {
+      "start_date": "2026-08-17",
+      "end_date": "2026-10-23",
+      "minutes": 22800,
+      "hard": true,
+      "notes": "Design lead · reviewer. Approved plan v1; availability checked before commitment.",
+      "id": "950002",
+      "workspace_resource_id": "940002",
+      "workspace_id": "9120418"
+    },
+    "950003": {
+      "start_date": "2026-08-31",
+      "end_date": "2026-11-06",
+      "minutes": 18960,
+      "hard": true,
+      "notes": "Operating-model design. Approved plan v1; availability checked before commitment.",
+      "id": "950003",
+      "workspace_resource_id": "940003",
+      "workspace_id": "9120418"
+    },
+    "950004": {
+      "start_date": "2026-10-05",
+      "end_date": "2026-11-20",
+      "minutes": 11520,
+      "hard": true,
+      "notes": "Transition planning. Approved plan v1; availability checked before commitment.",
+      "id": "950004",
+      "workspace_resource_id": "940004",
+      "workspace_id": "9120418"
+    },
+    "950005": {
+      "start_date": "2026-08-17",
+      "end_date": "2026-11-20",
+      "minutes": 23040,
+      "hard": true,
+      "notes": "Assessment · Harbor experience. Approved plan v1; availability checked before commitment.",
+      "id": "950005",
+      "workspace_resource_id": "940005",
+      "workspace_id": "9120418"
+    },
+    "950006": {
+      "start_date": "2026-08-31",
+      "end_date": "2026-11-06",
+      "minutes": 23760,
+      "hard": true,
+      "notes": "Regional validation · Meridian. Approved plan v1; availability checked before commitment.",
+      "id": "950006",
+      "workspace_resource_id": "940006",
+      "workspace_id": "9120418"
+    }
+  },
+  "stories": {
+    "920001": {
+      "workspace_id": "9120418",
+      "title": "Diagnostic & evidence",
+      "story_type": "task",
+      "state": "not started",
+      "start_date": "2026-08-17",
+      "due_date": "2026-09-11",
+      "id": "920001",
+      "external_reference_ids": [
+        "1020001"
+      ]
+    },
+    "920002": {
+      "workspace_id": "9120418",
+      "title": "Operating-model design",
+      "story_type": "task",
+      "state": "not started",
+      "start_date": "2026-09-07",
+      "due_date": "2026-10-09",
+      "id": "920002",
+      "external_reference_ids": [
+        "1020002"
+      ]
+    },
+    "920003": {
+      "workspace_id": "9120418",
+      "title": "Regional validation",
+      "story_type": "task",
+      "state": "not started",
+      "start_date": "2026-09-28",
+      "due_date": "2026-11-06",
+      "id": "920003",
+      "external_reference_ids": [
+        "1020003"
+      ]
+    },
+    "920004": {
+      "workspace_id": "9120418",
+      "title": "Transition roadmap",
+      "story_type": "task",
+      "state": "not started",
+      "start_date": "2026-10-26",
+      "due_date": "2026-11-20",
+      "id": "920004",
+      "external_reference_ids": [
+        "1020004"
+      ]
+    },
+    "930001": {
+      "workspace_id": "9120418",
+      "title": "Data-readiness assessment",
+      "story_type": "deliverable",
+      "state": "not started",
+      "parent_id": "920001",
+      "assignee_ids": [
+        "61005"
+      ],
+      "start_date": "2026-08-17",
+      "due_date": "2026-09-07",
+      "description": "NS-D01 · Plan v1\nReview: Sofia Patel\nAcceptance: Source dates, missing owners and regional gaps stated; evidence separated from proposed design.",
+      "time_estimate_in_minutes": 2160,
+      "id": "930001",
+      "external_reference_ids": [
+        "1030001"
+      ],
+      "story_task_ids": [
+        "980001",
+        "980002"
+      ]
+    },
+    "930002": {
+      "workspace_id": "9120418",
+      "title": "Discovery and stakeholder findings",
+      "story_type": "deliverable",
+      "state": "not started",
+      "parent_id": "920001",
+      "assignee_ids": [
+        "61005"
+      ],
+      "start_date": "2026-08-17",
+      "due_date": "2026-08-28",
+      "description": "NS-D02 · Plan v1\nReview: Sofia Patel\nAcceptance: West and Southeast heard; sponsor objectives and unresolved questions recorded.",
+      "id": "930002",
+      "external_reference_ids": [
+        "1030002"
+      ],
+      "story_task_ids": [
+        "980003",
+        "980004"
+      ]
+    },
+    "930003": {
+      "workspace_id": "9120418",
+      "title": "Decision-ownership inventory",
+      "story_type": "deliverable",
+      "state": "not started",
+      "parent_id": "920001",
+      "assignee_ids": [
+        "61005"
+      ],
+      "start_date": "2026-08-24",
+      "due_date": "2026-09-11",
+      "description": "NS-D03 · Plan v1\nReview: Sofia Patel\nAcceptance: Observed owners, disputes and supporting evidence traceable by region.\nRequired before acceptance: NS-D01, NS-D02. Preparation can overlap.",
+      "id": "930003",
+      "external_reference_ids": [
+        "1030003"
+      ],
+      "story_task_ids": [
+        "980005",
+        "980006"
+      ]
+    },
+    "930004": {
+      "workspace_id": "9120418",
+      "title": "Diagnostic baseline",
+      "story_type": "deliverable",
+      "state": "not started",
+      "parent_id": "920001",
+      "assignee_ids": [
+        "61002"
+      ],
+      "start_date": "2026-09-07",
+      "due_date": "2026-09-11",
+      "description": "NS-D04 · Plan v1\nReview: Margaret Whitfield\nAcceptance: Evidence limits agreed before design; outstanding client inputs have owners.\nRequired before acceptance: NS-D01, NS-D03. Preparation can overlap.",
+      "id": "930004",
+      "external_reference_ids": [
+        "1030004"
+      ],
+      "story_task_ids": [
+        "980007",
+        "980008"
+      ]
+    },
+    "930005": {
+      "workspace_id": "9120418",
+      "title": "Design principles and decision criteria",
+      "story_type": "deliverable",
+      "state": "not started",
+      "parent_id": "920002",
+      "assignee_ids": [
+        "61003"
+      ],
+      "start_date": "2026-09-07",
+      "due_date": "2026-09-18",
+      "description": "NS-D05 · Plan v1\nReview: Sofia Patel\nAcceptance: Sponsor confirms decision rights and the criteria for assessing options.\nRequired before acceptance: NS-D04. Preparation can overlap.",
+      "id": "930005",
+      "external_reference_ids": [
+        "1030005"
+      ],
+      "story_task_ids": [
+        "980009",
+        "980010"
+      ]
+    },
+    "930006": {
+      "workspace_id": "9120418",
+      "title": "Operating-model options",
+      "story_type": "deliverable",
+      "state": "not started",
+      "parent_id": "920002",
+      "assignee_ids": [
+        "61003"
+      ],
+      "start_date": "2026-09-14",
+      "due_date": "2026-10-02",
+      "description": "NS-D06 · Plan v1\nReview: Sofia Patel\nAcceptance: Options tested with regional leaders; tradeoffs and recommendation retained.\nRequired before acceptance: NS-D05. Preparation can overlap.",
+      "id": "930006",
+      "external_reference_ids": [
+        "1030006"
+      ],
+      "story_task_ids": [
+        "980011",
+        "980012"
+      ]
+    },
+    "930007": {
+      "workspace_id": "9120418",
+      "title": "Service boundaries and handoff design",
+      "story_type": "deliverable",
+      "state": "not started",
+      "parent_id": "920002",
+      "assignee_ids": [
+        "61003"
+      ],
+      "start_date": "2026-09-21",
+      "due_date": "2026-10-09",
+      "description": "NS-D07 · Plan v1\nReview: Sofia Patel\nAcceptance: Accountability across regions and service handoffs is explicit.\nRequired before acceptance: NS-D05. Preparation can overlap.",
+      "id": "930007",
+      "external_reference_ids": [
+        "1030007"
+      ],
+      "story_task_ids": [
+        "980013",
+        "980014"
+      ]
+    },
+    "930008": {
+      "workspace_id": "9120418",
+      "title": "Governance and escalation design",
+      "story_type": "deliverable",
+      "state": "not started",
+      "parent_id": "920002",
+      "assignee_ids": [
+        "61003"
+      ],
+      "start_date": "2026-09-28",
+      "due_date": "2026-10-09",
+      "description": "NS-D08 · Plan v1\nReview: Sofia Patel\nAcceptance: Escalation owners and unresolved exceptions reviewed before regional sign-off.\nRequired before acceptance: NS-D06, NS-D07. Preparation can overlap.",
+      "id": "930008",
+      "external_reference_ids": [
+        "1030008"
+      ],
+      "story_task_ids": [
+        "980015",
+        "980016"
+      ]
+    },
+    "930009": {
+      "workspace_id": "9120418",
+      "title": "Regional ownership matrix",
+      "story_type": "deliverable",
+      "state": "not started",
+      "parent_id": "920003",
+      "assignee_ids": [
+        "61006"
+      ],
+      "start_date": "2026-09-28",
+      "due_date": "2026-10-23",
+      "description": "NS-D09 · Plan v1\nReview: Sofia Patel\nAcceptance: Eight regions have named decision makers and dated acknowledgment.\nRequired before acceptance: NS-D06, NS-D07. Preparation can overlap.",
+      "id": "930009",
+      "external_reference_ids": [
+        "1030009"
+      ],
+      "story_task_ids": [
+        "980017",
+        "980018"
+      ]
+    },
+    "930010": {
+      "workspace_id": "9120418",
+      "title": "Regional validation record",
+      "story_type": "deliverable",
+      "state": "not started",
+      "parent_id": "920003",
+      "assignee_ids": [
+        "61006"
+      ],
+      "start_date": "2026-10-12",
+      "due_date": "2026-11-06",
+      "description": "NS-D10 · Plan v1\nReview: Margaret Whitfield\nAcceptance: Regional responses and remaining disagreements remain linked to the design.\nRequired before acceptance: NS-D08, NS-D09. Preparation can overlap.",
+      "id": "930010",
+      "external_reference_ids": [
+        "1030010"
+      ],
+      "story_task_ids": [
+        "980019",
+        "980020"
+      ]
+    },
+    "930011": {
+      "workspace_id": "9120418",
+      "title": "Exceptions and resolution log",
+      "story_type": "deliverable",
+      "state": "not started",
+      "parent_id": "920003",
+      "assignee_ids": [
+        "61006"
+      ],
+      "start_date": "2026-10-12",
+      "due_date": "2026-11-06",
+      "description": "NS-D11 · Plan v1\nReview: Margaret Whitfield\nAcceptance: Each exception has an owner, decision date and documented resolution or escalation.\nRequired before acceptance: NS-D09. Preparation can overlap.",
+      "id": "930011",
+      "external_reference_ids": [
+        "1030011"
+      ],
+      "story_task_ids": [
+        "980021",
+        "980022"
+      ]
+    },
+    "930012": {
+      "workspace_id": "9120418",
+      "title": "Transition roadmap",
+      "story_type": "deliverable",
+      "state": "not started",
+      "parent_id": "920004",
+      "assignee_ids": [
+        "61004"
+      ],
+      "start_date": "2026-10-26",
+      "due_date": "2026-11-13",
+      "description": "NS-D12 · Plan v1\nReview: Margaret Whitfield\nAcceptance: Sequence, accountable owners and service-continuity dependencies agreed.\nRequired before acceptance: NS-D10, NS-D11. Preparation can overlap.",
+      "id": "930012",
+      "external_reference_ids": [
+        "1030012"
+      ],
+      "story_task_ids": [
+        "980023",
+        "980024"
+      ]
+    },
+    "930013": {
+      "workspace_id": "9120418",
+      "title": "Readiness and go/no-go criteria",
+      "story_type": "deliverable",
+      "state": "not started",
+      "parent_id": "920004",
+      "assignee_ids": [
+        "61004"
+      ],
+      "start_date": "2026-10-26",
+      "due_date": "2026-11-13",
+      "description": "NS-D13 · Plan v1\nReview: Margaret Whitfield\nAcceptance: Mobilization decisions depend on evidence; task completion alone is insufficient.\nRequired before acceptance: NS-D10, NS-D11. Preparation can overlap.",
+      "id": "930013",
+      "external_reference_ids": [
+        "1030013"
+      ],
+      "story_task_ids": [
+        "980025",
+        "980026"
+      ]
+    },
+    "930014": {
+      "workspace_id": "9120418",
+      "title": "Board decision package",
+      "story_type": "deliverable",
+      "state": "not started",
+      "parent_id": "920004",
+      "assignee_ids": [
+        "61001"
+      ],
+      "start_date": "2026-11-09",
+      "due_date": "2026-11-20",
+      "description": "NS-D14 · Plan v1\nReview: Elena Vargas\nAcceptance: Sponsor accepts the recommendation, residual risks and transition decisions; implementation excluded.\nRequired before acceptance: NS-D12, NS-D13. Preparation can overlap.",
+      "id": "930014",
+      "external_reference_ids": [
+        "1030014"
+      ],
+      "story_task_ids": [
+        "980027",
+        "980028"
+      ]
+    },
+    "935001": {
+      "workspace_id": "9120418",
+      "title": "Diagnostic baseline accepted",
+      "story_type": "milestone",
+      "state": "not started",
+      "start_date": "2026-09-11",
+      "due_date": "2026-09-11",
+      "description": "Review: Margaret Whitfield\nRequired before acceptance: NS-D01, NS-D02, NS-D03, NS-D04.",
+      "id": "935001",
+      "external_reference_ids": [
+        "1035001"
+      ],
+      "parent_id": "920001"
+    },
+    "935002": {
+      "workspace_id": "9120418",
+      "title": "Design review complete",
+      "story_type": "milestone",
+      "state": "not started",
+      "start_date": "2026-10-09",
+      "due_date": "2026-10-09",
+      "description": "Review: Sofia Patel\nRequired before acceptance: NS-D05, NS-D06, NS-D07, NS-D08.",
+      "id": "935002",
+      "external_reference_ids": [
+        "1035002"
+      ],
+      "parent_id": "920002"
+    },
+    "935003": {
+      "workspace_id": "9120418",
+      "title": "Regional validation accepted",
+      "story_type": "milestone",
+      "state": "not started",
+      "start_date": "2026-11-06",
+      "due_date": "2026-11-06",
+      "description": "Review: Margaret Whitfield\nRequired before acceptance: NS-D09, NS-D10, NS-D11.",
+      "id": "935003",
+      "external_reference_ids": [
+        "1035003"
+      ],
+      "parent_id": "920003"
+    },
+    "935004": {
+      "workspace_id": "9120418",
+      "title": "Board decision",
+      "story_type": "milestone",
+      "state": "not started",
+      "start_date": "2026-11-20",
+      "due_date": "2026-11-20",
+      "description": "Review: Elena Vargas\nRequired before acceptance: NS-D12, NS-D13, NS-D14.",
+      "id": "935004",
+      "external_reference_ids": [
+        "1035004"
+      ],
+      "parent_id": "920004"
+    }
+  },
+  "assignments": {
+    "960001": {
+      "story_id": "930001",
+      "resource_id": 940005,
+      "current": true,
+      "estimated_minutes": 2160,
+      "id": "960001",
+      "assignee_id": "61005",
+      "allocated_minutes": 0
+    },
+    "960002": {
+      "story_id": "930002",
+      "resource_id": 940005,
+      "current": true,
+      "id": "960002",
+      "assignee_id": "61005",
+      "allocated_minutes": 0
+    },
+    "960003": {
+      "story_id": "930003",
+      "resource_id": 940005,
+      "current": true,
+      "id": "960003",
+      "assignee_id": "61005",
+      "allocated_minutes": 0
+    },
+    "960004": {
+      "story_id": "930004",
+      "resource_id": 940002,
+      "current": true,
+      "id": "960004",
+      "assignee_id": "61002",
+      "allocated_minutes": 0
+    },
+    "960005": {
+      "story_id": "930005",
+      "resource_id": 940003,
+      "current": true,
+      "id": "960005",
+      "assignee_id": "61003",
+      "allocated_minutes": 0
+    },
+    "960006": {
+      "story_id": "930006",
+      "resource_id": 940003,
+      "current": true,
+      "id": "960006",
+      "assignee_id": "61003",
+      "allocated_minutes": 0
+    },
+    "960007": {
+      "story_id": "930007",
+      "resource_id": 940003,
+      "current": true,
+      "id": "960007",
+      "assignee_id": "61003",
+      "allocated_minutes": 0
+    },
+    "960008": {
+      "story_id": "930008",
+      "resource_id": 940003,
+      "current": true,
+      "id": "960008",
+      "assignee_id": "61003",
+      "allocated_minutes": 0
+    },
+    "960009": {
+      "story_id": "930009",
+      "resource_id": 940006,
+      "current": true,
+      "id": "960009",
+      "assignee_id": "61006",
+      "allocated_minutes": 0
+    },
+    "960010": {
+      "story_id": "930010",
+      "resource_id": 940006,
+      "current": true,
+      "id": "960010",
+      "assignee_id": "61006",
+      "allocated_minutes": 0
+    },
+    "960011": {
+      "story_id": "930011",
+      "resource_id": 940006,
+      "current": true,
+      "id": "960011",
+      "assignee_id": "61006",
+      "allocated_minutes": 0
+    },
+    "960012": {
+      "story_id": "930012",
+      "resource_id": 940004,
+      "current": true,
+      "id": "960012",
+      "assignee_id": "61004",
+      "allocated_minutes": 0
+    },
+    "960013": {
+      "story_id": "930013",
+      "resource_id": 940004,
+      "current": true,
+      "id": "960013",
+      "assignee_id": "61004",
+      "allocated_minutes": 0
+    },
+    "960014": {
+      "story_id": "930014",
+      "resource_id": 940001,
+      "current": true,
+      "id": "960014",
+      "assignee_id": "61001",
+      "allocated_minutes": 0
+    }
+  },
+  "story_tasks": {
+    "980001": {
+      "id": "980001",
+      "story_id": "930001",
+      "name": "Source dates, missing owners and regional gaps stated; evidence separated from proposed design.",
+      "completed": false
+    },
+    "980002": {
+      "id": "980002",
+      "story_id": "930001",
+      "name": "Review with Sofia Patel before acceptance.",
+      "completed": false
+    },
+    "980003": {
+      "id": "980003",
+      "story_id": "930002",
+      "name": "West and Southeast heard; sponsor objectives and unresolved questions recorded.",
+      "completed": false
+    },
+    "980004": {
+      "id": "980004",
+      "story_id": "930002",
+      "name": "Review with Sofia Patel before acceptance.",
+      "completed": false
+    },
+    "980005": {
+      "id": "980005",
+      "story_id": "930003",
+      "name": "Observed owners, disputes and supporting evidence traceable by region.",
+      "completed": false
+    },
+    "980006": {
+      "id": "980006",
+      "story_id": "930003",
+      "name": "Review with Sofia Patel before acceptance.",
+      "completed": false
+    },
+    "980007": {
+      "id": "980007",
+      "story_id": "930004",
+      "name": "Evidence limits agreed before design; outstanding client inputs have owners.",
+      "completed": false
+    },
+    "980008": {
+      "id": "980008",
+      "story_id": "930004",
+      "name": "Review with Margaret Whitfield before acceptance.",
+      "completed": false
+    },
+    "980009": {
+      "id": "980009",
+      "story_id": "930005",
+      "name": "Sponsor confirms decision rights and the criteria for assessing options.",
+      "completed": false
+    },
+    "980010": {
+      "id": "980010",
+      "story_id": "930005",
+      "name": "Review with Sofia Patel before acceptance.",
+      "completed": false
+    },
+    "980011": {
+      "id": "980011",
+      "story_id": "930006",
+      "name": "Options tested with regional leaders; tradeoffs and recommendation retained.",
+      "completed": false
+    },
+    "980012": {
+      "id": "980012",
+      "story_id": "930006",
+      "name": "Review with Sofia Patel before acceptance.",
+      "completed": false
+    },
+    "980013": {
+      "id": "980013",
+      "story_id": "930007",
+      "name": "Accountability across regions and service handoffs is explicit.",
+      "completed": false
+    },
+    "980014": {
+      "id": "980014",
+      "story_id": "930007",
+      "name": "Review with Sofia Patel before acceptance.",
+      "completed": false
+    },
+    "980015": {
+      "id": "980015",
+      "story_id": "930008",
+      "name": "Escalation owners and unresolved exceptions reviewed before regional sign-off.",
+      "completed": false
+    },
+    "980016": {
+      "id": "980016",
+      "story_id": "930008",
+      "name": "Review with Sofia Patel before acceptance.",
+      "completed": false
+    },
+    "980017": {
+      "id": "980017",
+      "story_id": "930009",
+      "name": "Eight regions have named decision makers and dated acknowledgment.",
+      "completed": false
+    },
+    "980018": {
+      "id": "980018",
+      "story_id": "930009",
+      "name": "Review with Sofia Patel before acceptance.",
+      "completed": false
+    },
+    "980019": {
+      "id": "980019",
+      "story_id": "930010",
+      "name": "Regional responses and remaining disagreements remain linked to the design.",
+      "completed": false
+    },
+    "980020": {
+      "id": "980020",
+      "story_id": "930010",
+      "name": "Review with Margaret Whitfield before acceptance.",
+      "completed": false
+    },
+    "980021": {
+      "id": "980021",
+      "story_id": "930011",
+      "name": "Each exception has an owner, decision date and documented resolution or escalation.",
+      "completed": false
+    },
+    "980022": {
+      "id": "980022",
+      "story_id": "930011",
+      "name": "Review with Margaret Whitfield before acceptance.",
+      "completed": false
+    },
+    "980023": {
+      "id": "980023",
+      "story_id": "930012",
+      "name": "Sequence, accountable owners and service-continuity dependencies agreed.",
+      "completed": false
+    },
+    "980024": {
+      "id": "980024",
+      "story_id": "930012",
+      "name": "Review with Margaret Whitfield before acceptance.",
+      "completed": false
+    },
+    "980025": {
+      "id": "980025",
+      "story_id": "930013",
+      "name": "Mobilization decisions depend on evidence; task completion alone is insufficient.",
+      "completed": false
+    },
+    "980026": {
+      "id": "980026",
+      "story_id": "930013",
+      "name": "Review with Margaret Whitfield before acceptance.",
+      "completed": false
+    },
+    "980027": {
+      "id": "980027",
+      "story_id": "930014",
+      "name": "Sponsor accepts the recommendation, residual risks and transition decisions; implementation excluded.",
+      "completed": false
+    },
+    "980028": {
+      "id": "980028",
+      "story_id": "930014",
+      "name": "Review with Elena Vargas before acceptance.",
+      "completed": false
+    }
+  },
+  "external_references": {
+    "1020001": {
+      "service_name": "AllianceOne",
+      "service_model": "workstream",
+      "service_model_ref": "WS-01",
+      "id": "1020001",
+      "subject_id": 920001,
+      "subject_ref": {
+        "key": "stories",
+        "id": "920001"
+      }
+    },
+    "1020002": {
+      "service_name": "AllianceOne",
+      "service_model": "workstream",
+      "service_model_ref": "WS-02",
+      "id": "1020002",
+      "subject_id": 920002,
+      "subject_ref": {
+        "key": "stories",
+        "id": "920002"
+      }
+    },
+    "1020003": {
+      "service_name": "AllianceOne",
+      "service_model": "workstream",
+      "service_model_ref": "WS-03",
+      "id": "1020003",
+      "subject_id": 920003,
+      "subject_ref": {
+        "key": "stories",
+        "id": "920003"
+      }
+    },
+    "1020004": {
+      "service_name": "AllianceOne",
+      "service_model": "workstream",
+      "service_model_ref": "WS-04",
+      "id": "1020004",
+      "subject_id": 920004,
+      "subject_ref": {
+        "key": "stories",
+        "id": "920004"
+      }
+    },
+    "1030001": {
+      "service_name": "AllianceOne",
+      "service_model": "deliverable",
+      "service_model_ref": "NS-D01",
+      "id": "1030001",
+      "subject_id": 930001,
+      "subject_ref": {
+        "key": "stories",
+        "id": "930001"
+      }
+    },
+    "1030002": {
+      "service_name": "AllianceOne",
+      "service_model": "deliverable",
+      "service_model_ref": "NS-D02",
+      "id": "1030002",
+      "subject_id": 930002,
+      "subject_ref": {
+        "key": "stories",
+        "id": "930002"
+      }
+    },
+    "1030003": {
+      "service_name": "AllianceOne",
+      "service_model": "deliverable",
+      "service_model_ref": "NS-D03",
+      "id": "1030003",
+      "subject_id": 930003,
+      "subject_ref": {
+        "key": "stories",
+        "id": "930003"
+      }
+    },
+    "1030004": {
+      "service_name": "AllianceOne",
+      "service_model": "deliverable",
+      "service_model_ref": "NS-D04",
+      "id": "1030004",
+      "subject_id": 930004,
+      "subject_ref": {
+        "key": "stories",
+        "id": "930004"
+      }
+    },
+    "1030005": {
+      "service_name": "AllianceOne",
+      "service_model": "deliverable",
+      "service_model_ref": "NS-D05",
+      "id": "1030005",
+      "subject_id": 930005,
+      "subject_ref": {
+        "key": "stories",
+        "id": "930005"
+      }
+    },
+    "1030006": {
+      "service_name": "AllianceOne",
+      "service_model": "deliverable",
+      "service_model_ref": "NS-D06",
+      "id": "1030006",
+      "subject_id": 930006,
+      "subject_ref": {
+        "key": "stories",
+        "id": "930006"
+      }
+    },
+    "1030007": {
+      "service_name": "AllianceOne",
+      "service_model": "deliverable",
+      "service_model_ref": "NS-D07",
+      "id": "1030007",
+      "subject_id": 930007,
+      "subject_ref": {
+        "key": "stories",
+        "id": "930007"
+      }
+    },
+    "1030008": {
+      "service_name": "AllianceOne",
+      "service_model": "deliverable",
+      "service_model_ref": "NS-D08",
+      "id": "1030008",
+      "subject_id": 930008,
+      "subject_ref": {
+        "key": "stories",
+        "id": "930008"
+      }
+    },
+    "1030009": {
+      "service_name": "AllianceOne",
+      "service_model": "deliverable",
+      "service_model_ref": "NS-D09",
+      "id": "1030009",
+      "subject_id": 930009,
+      "subject_ref": {
+        "key": "stories",
+        "id": "930009"
+      }
+    },
+    "1030010": {
+      "service_name": "AllianceOne",
+      "service_model": "deliverable",
+      "service_model_ref": "NS-D10",
+      "id": "1030010",
+      "subject_id": 930010,
+      "subject_ref": {
+        "key": "stories",
+        "id": "930010"
+      }
+    },
+    "1030011": {
+      "service_name": "AllianceOne",
+      "service_model": "deliverable",
+      "service_model_ref": "NS-D11",
+      "id": "1030011",
+      "subject_id": 930011,
+      "subject_ref": {
+        "key": "stories",
+        "id": "930011"
+      }
+    },
+    "1030012": {
+      "service_name": "AllianceOne",
+      "service_model": "deliverable",
+      "service_model_ref": "NS-D12",
+      "id": "1030012",
+      "subject_id": 930012,
+      "subject_ref": {
+        "key": "stories",
+        "id": "930012"
+      }
+    },
+    "1030013": {
+      "service_name": "AllianceOne",
+      "service_model": "deliverable",
+      "service_model_ref": "NS-D13",
+      "id": "1030013",
+      "subject_id": 930013,
+      "subject_ref": {
+        "key": "stories",
+        "id": "930013"
+      }
+    },
+    "1030014": {
+      "service_name": "AllianceOne",
+      "service_model": "deliverable",
+      "service_model_ref": "NS-D14",
+      "id": "1030014",
+      "subject_id": 930014,
+      "subject_ref": {
+        "key": "stories",
+        "id": "930014"
+      }
+    },
+    "1035001": {
+      "service_name": "AllianceOne",
+      "service_model": "review_gate",
+      "service_model_ref": "G1",
+      "id": "1035001",
+      "subject_id": 935001,
+      "subject_ref": {
+        "key": "stories",
+        "id": "935001"
+      }
+    },
+    "1035002": {
+      "service_name": "AllianceOne",
+      "service_model": "review_gate",
+      "service_model_ref": "G2",
+      "id": "1035002",
+      "subject_id": 935002,
+      "subject_ref": {
+        "key": "stories",
+        "id": "935002"
+      }
+    },
+    "1035003": {
+      "service_name": "AllianceOne",
+      "service_model": "review_gate",
+      "service_model_ref": "G3",
+      "id": "1035003",
+      "subject_id": 935003,
+      "subject_ref": {
+        "key": "stories",
+        "id": "935003"
+      }
+    },
+    "1035004": {
+      "service_name": "AllianceOne",
+      "service_model": "review_gate",
+      "service_model_ref": "G4",
+      "id": "1035004",
+      "subject_id": 935004,
+      "subject_ref": {
+        "key": "stories",
+        "id": "935004"
+      }
+    }
+  },
+  "billing_milestones": {
+    "970001": {
+      "workspace_id": "9120418",
+      "title": "Mobilization · 40%",
+      "amount_in_cents": 16000000,
+      "billing_type": "fixed_date",
+      "date_to_invoice": "2026-08-17",
+      "id": "970001"
+    },
+    "970002": {
+      "workspace_id": "9120418",
+      "title": "Design review accepted · 40%",
+      "amount_in_cents": 16000000,
+      "billing_type": "upon_completion",
+      "story_id": "935002",
+      "id": "970002"
+    },
+    "970003": {
+      "workspace_id": "9120418",
+      "title": "Board decision · 20%",
+      "amount_in_cents": 8000000,
+      "billing_type": "upon_completion",
+      "story_id": "935004",
+      "id": "970003"
+    }
+  }
+}

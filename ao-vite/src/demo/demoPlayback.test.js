@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { psaSystem } from "./psaSystem.js";
+import { compareOXReadback, mapPlanToOX, oxAccount } from "./kantataOX.js";
 import { approvedPlan, assessmentFileName, assessmentFormatName, assignment, contexts, effort, historicalCases, readbackAssignment, readbackPlan, readbackProject, resolveDemoSource, resources, staffingCandidates, stories } from "./northstar.js";
 import { advanceScrollTop, commonTiming, compareAssignment, comparePlan, conversationAt, deliveryStateAt, deliveryTiming, demoPlaybackReadyAt, demoVisibleAt, followScrollTop, playbackFrameAt, planExecutionAt, planTiming, playbackRate, precedentBuildAt, progressAt, scopeTiming, textAt } from "./demoPlayback.js";
 
@@ -344,7 +345,7 @@ test("delivery goes from review request to feedback, revision, approval and expo
   assert.ok((deliveryTiming.exportStarted - deliveryTiming.approved) / playbackRate >= 3500);
 });
 
-test("the approved assessment has a real Word download and shared report content", () => {
+test("the approved assessment keeps a Word reference with shared report content", () => {
   const assessment = JSON.parse(readFileSync(new URL("./assessment.json", import.meta.url), "utf8"));
   const bytes = readFileSync(new URL(`../../public${assessment.downloadPath}`, import.meta.url));
   assert.equal(bytes.subarray(0, 4).toString("hex"), "504b0304");
@@ -353,6 +354,65 @@ test("the approved assessment has a real Word download and shared report content
   assert.equal(assessment.reviewer, assignment.reviewer);
   assert.equal(assessment.revision, 2);
   assert.ok(assessment.conclusion.includes("Design decisions remain conditional"));
+});
+
+test("OX separates project budget, allocations, task estimates and billing milestones", () => {
+  const write = mapPlanToOX(approvedPlan);
+  assert.equal(write.workspace.price, 400000, "project price uses currency units");
+  assert.equal(write.workspace.currency, "USD");
+  assert.equal(write.allocations.reduce((sum, allocation) => sum + allocation.minutes, 0), 1840 * 60);
+  assert.ok(write.allocations.every(allocation => allocation.hard && !Object.hasOwn(allocation, "percentage")), "availability ceilings are not written as allocations");
+  assert.equal(write.stories.filter(item => item.story.story_type === "task").length, 4);
+  assert.equal(write.stories.filter(item => item.story.story_type === "deliverable").length, 14);
+  assert.equal(write.stories.filter(item => item.story.story_type === "milestone").length, 4);
+  assert.equal(write.assignments.find(item => item.story_id === 930001).estimated_minutes, 36 * 60);
+  assert.equal(write.assignments.filter(item => item.estimated_minutes !== undefined).length, 1, "do not fabricate detailed task estimates from project-level effort");
+  assert.equal(write.billing_milestones.reduce((sum, bill) => sum + bill.amount_in_cents, 0), 400000 * 100);
+  assert.deepEqual(write.billing_milestones.map(bill => bill.amount_in_cents), [16000000, 16000000, 8000000]);
+  assert.equal(write.billing_milestones[0].billing_type, "fixed_date");
+  assert.equal(write.billing_milestones[1].story_id, 935002);
+  assert.equal(write.billing_milestones[2].story_id, 935004);
+  for (const { story } of write.stories) {
+    assert.ok(!Object.hasOwn(story, "reviewer") && !Object.hasOwn(story, "acceptance"));
+    if (story.story_type === "deliverable") assert.ok(story.description.includes("Review:") && story.checklist.length === 2);
+  }
+});
+
+test("OX readback catches native field, hierarchy, checklist, allocation and billing drift", () => {
+  const response = JSON.parse(readFileSync(new URL("./kantata-readback.json", import.meta.url), "utf8"));
+  assert.deepEqual(compareOXReadback(approvedPlan, response), []);
+  const changed = structuredClone(response);
+  changed.workspaces[oxAccount.workspaceId].price = "420000";
+  changed.stories[930009].parent_id = "920001";
+  changed.stories[930001].assignee_ids = ["61003"];
+  changed.story_tasks[changed.stories[930001].story_task_ids[0]].name = "Unreviewed substitute";
+  changed.workspace_allocations[950005].minutes += 2160;
+  changed.billing_milestones[970002].amount_in_cents = 160000;
+  delete changed.stories[930014];
+  const differences = compareOXReadback(approvedPlan, changed);
+  for (const key of ["project.price", "stories.count", "story.930009.parent_id", "story.930001.assignee_ids", "story.930001.checklist", "allocation.4.minutes", "billing.1.amount_in_cents", "story.930014.title"]) assert.ok(differences.includes(key), key);
+});
+
+test("the assessment connects evidence limits to decisions, responsible actions and sources", () => {
+  const report = JSON.parse(readFileSync(new URL("./assessment.json", import.meta.url), "utf8"));
+  assert.deepEqual(report.method.map(item => item.criterion), ["Coverage", "Currency", "Completeness", "Traceability"]);
+  assert.equal(report.findings.length, 3);
+  for (const finding of report.findings) {
+    assert.ok(finding.source && finding.consequence && finding.release);
+    assert.ok(report.actionPlan.some(action => action.finding === finding.id));
+  }
+  assert.ok(report.actionPlan.every(action => action.owner && action.coordinator && action.target && action.doneWhen));
+  assert.ok(report.sourceRegister.find(source => source.id === "S04").use.includes("does not establish facts about Northstar"));
+  assert.ok(report.reviewResponse.includes("does not close"), "report approval must not imply evidence gaps have been resolved");
+});
+
+test("the report pages build after approval and hold before the demo ends", () => {
+  const order = [deliveryTiming.approved, deliveryTiming.exportStarted, deliveryTiming.exportArtifactAt, deliveryTiming.exportPageOne, deliveryTiming.exportMethodAt, deliveryTiming.exportPageTwo, deliveryTiming.exportPageThree, deliveryTiming.exportReviewAt, deliveryTiming.exportSourcesAt, deliveryTiming.exportReady, stories.deliver.duration];
+  assert.ok(order.every((value, index) => !index || value > order[index - 1]));
+  assert.ok((stories.deliver.duration - deliveryTiming.exportReady) / playbackRate >= 10000);
+  const final = conversationAt(stories.deliver, stories.deliver.duration);
+  assert.equal(final.exchanges.length, 6);
+  assert.equal(final.exchanges.at(-1).artifact, "assessment-export");
 });
 
 test("the accepted effort fits each person's confirmed resource window", () => {

@@ -1,0 +1,61 @@
+.engagement-demo .inline-artifact.delivery-export-receipt{display:block;padding:0;background:#eef1f3;overflow:hidden}
+.inline-artifact.delivery-export-receipt>.delivery-export-file{padding:15px 20px;background:#f8fafb;border-bottom:1px solid #e1e7eb}
+.report-pages{padding:0 17px 17px;width:100%;max-width:810px;margin-inline:auto}
+.engagement-demo .report-page.assessment-page{margin:17px 0 0;padding:30px 35px 16px;border:1px solid #e4e8eb;box-shadow:0 3px 12px #2b3e4c08}
+.report-page .assessment-letterhead{padding-bottom:13px;border-bottom:1px solid #dce4e8;margin-bottom:24px;color:#395563;font-size:11px}
+.report-page.assessment-page h3{font-size:30px;max-width:400px;line-height:1.08;color:#2e4e60;letter-spacing:-.7px;margin-bottom:9px}
+.report-page .report-subtitle{font-size:11px;color:#617786;line-height:1.7;margin:0 0 16px}
+.report-page .assessment-byline{font-size:9px;color:#6a7d89;margin-bottom:24px}
+.report-page .report-section-number{font-size:9px;letter-spacing:.5px;text-transform:uppercase;color:#687e8b;margin:0 0 10px}
+.report-page.assessment-page h4{font-size:12px;font-weight:600;color:#345469;line-height:1.6;margin-bottom:7px}
+.report-page.assessment-page p:not([class]){font-size:11px;line-height:1.85;color:#4d6372;margin:0}
+.report-executive{padding:16px 18px;background:#f0f5f7;border-left:3px solid #7d9b90}
+.report-executive h4{font-size:16px!important;font-weight:500!important;line-height:1.45!important}
+.report-decision-list{margin-top:19px}
+.report-decision-list>div{display:grid;grid-template-columns:70px minmax(0,1fr);gap:14px;padding:14px 0;border-bottom:1px solid #e7ecef}
+.report-decision-list>div>span{font-size:10px;font-weight:600;color:#4d6d61;padding-top:3px}
+.report-decision-list>div:last-child>span{color:#8d7250}
+.report-method{margin-top:22px}
+.report-method dl{margin:0}.report-method dl>div{display:grid;grid-template-columns:85px 1fr;gap:12px;padding:7px 0;font-size:10px;line-height:1.8}
+.report-method dt{color:#4b6272;font-weight:600}.report-method dd{margin:0;color:#637784}
+.report-page .report-source-note{font-size:9px;line-height:1.8;color:#7a8992;margin:5px 0 10px}
+.report-finding{margin-top:23px;padding-bottom:20px;border-bottom:1px solid #e4eaee}
+.report-finding p>strong{display:block;font-size:10px;margin:10px 0 3px;color:#466275}
+.report-decision-consequence{border-left:2px solid #a4b9b0;padding-left:11px}
+.report-limitations{margin-top:23px}
+.report-page .report-action-intro{font-size:10px;line-height:1.9;color:#627785;margin:14px 0}
+.report-action-table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:10px;line-height:1.8;text-align:left;color:#4f6775;margin-top:15px}
+.report-action-table th{font-size:9px;font-weight:500;background:#edf3f5;padding:8px;border-bottom:1px solid #d6e0e6;vertical-align:top;color:#526c7d}
+.report-action-table th:first-child{width:57%}.report-action-table th:nth-child(2){width:28%}.report-action-table th:nth-child(3){width:15%}
+.report-action-table td{padding:12px 8px;border-bottom:1px solid #e3e9ed;vertical-align:top;overflow-wrap:break-word}
+.report-action-table strong{display:block;font-weight:500;color:#405d70}
+.report-action-table span,.report-action-table small{display:block;font-size:9px;color:#7b8992;margin-top:3px}
+.report-action-table p{font-size:10px!important;line-height:1.8!important;margin-top:6px!important}
+.report-review-record{margin-top:23px;padding:14px 16px;background:#f2f5f4}
+.report-review-record p{font-size:10px!important}
+.report-source-register{margin-top:23px}
+.report-source-register>div{display:grid;grid-template-columns:25px minmax(0,1fr);gap:9px;margin:11px 0;font-size:9px;line-height:1.8;color:#7a8a95}
+.report-source-register p{font-size:9px!important;line-height:1.8!important;color:#6b7d89!important}
+.report-source-register strong{display:block;font-weight:500;color:#4e6574}
+.report-page-footer{display:flex;justify-content:space-between;gap:12px;border-top:1px solid #e0e7eb;padding-top:11px;margin-top:27px;font-size:8px;line-height:1.7;color:#87949d}
+.report-export-complete{padding:0 20px 17px;font-size:10px!important;color:#506b5b!important}
+.assessment-draft-method{margin:14px 0;padding-top:10px;border-top:1px solid #edf1f4;font-size:10px;color:#617986;line-height:1.8}
+.assessment-draft-method>strong{display:block;font-size:10px;font-weight:500;color:#446274;margin-bottom:4px}
+@media(max-width:600px){
+  .report-pages{padding:0 7px 7px}.engagement-demo .report-page.assessment-page{padding:22px 12px 13px;margin-top:10px}
+  .report-page.assessment-page h3{font-size:26px}.report-page .assessment-letterhead{font-size:10px}
+  .report-executive{padding:12px}.report-decision-list>div{grid-template-columns:1fr;gap:4px}
+  .report-method dl>div{grid-template-columns:1fr;gap:2px;font-size:10px}
+  .report-action-table th:first-child{width:50%}.report-action-table th:nth-child(2){width:30%}.report-action-table th:nth-child(3){width:20%}
+  .report-action-table td,.report-action-table th{padding:8px 4px}.report-action-table p{font-size:10px!important}
+  .report-page .assessment-byline{font-size:10px}.report-page-footer{font-size:8px}
+}
+@media(max-width:440px){
+  .report-action-table,.report-action-table tbody{display:block;width:100%}
+  .report-action-table thead{display:none}
+  .report-action-table tr{display:grid;grid-template-columns:minmax(0,1fr) 65px;gap:8px 10px;padding:12px 0;border-bottom:1px solid #e3e9ed}
+  .report-action-table td{border:0;padding:0;min-width:0}
+  .report-action-table td:first-child{grid-column:1/-1}
+  .report-action-table td:nth-child(2)::before,.report-action-table td:nth-child(3)::before{display:block;font-size:9px;color:#80909b;margin-bottom:3px}
+  .report-action-table td:nth-child(2)::before{content:"Accountable owner"}.report-action-table td:nth-child(3)::before{content:"Target"}
+}
