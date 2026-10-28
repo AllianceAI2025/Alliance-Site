@@ -1,16 +1,18 @@
 export const commonTiming = { promptEnd: 1250, answerAt: 1500, artifactAt: 2700 };
 export const scopeTiming = { precedentAt: 3500, harborAt: 3800, meridianAt: 7100, historyFinished: 10700, commandAt: 11600, applyAt: 13800, responding: 14000, draftAt: 15800, workstreamsAt: 16400, finished: 19000, staffingTyping: 20200, staffingAsked: 22600, staffingAnswer: 22800, staffingAt: 25000, candidatesAt: 25300, availabilityAt: 28500, staffingFinished: 29200 };
-export const planTiming = { deliverablesAt: 9700, milestonesAt: 14000, reviewed: 15500, commandAt: 18000, approved: 20500, responding: 20700, submissionAt: 22500, projectCreated: 23500, resourcesWrittenAt: 24300, deliverablesWrittenAt: 25000, milestonesWrittenAt: 27000, billingWrittenAt: 27300, taskDetailsAt: 28400, workspaceCreated: 29600, verified: 31000 };
+// The plan view summarizes workstreams and gates; every deliverable is still
+// written to the PSA and verified in the readback.
+export const planTiming = { workstreamsAt: 9700, billingTermsAt: 12400, reviewed: 13600, commandAt: 16100, approved: 18600, responding: 18800, submissionAt: 20600, projectCreated: 21600, resourcesWrittenAt: 22400, deliverablesWrittenAt: 23100, milestonesWrittenAt: 25100, billingWrittenAt: 25400, taskDetailsAt: 26500, workspaceCreated: 27700, verified: 29100 };
 export const deliveryTiming = {
   assignmentAt: 3650, assignmentReady: 6000, methodTyping: 6500, methodAsked: 8500, methodAnswer: 8700,
   draftTyping: 12500, draftAsked: 14700, draftAnswer: 14900, draftAt: 16300,
   purposeAt: 16700, evidenceAt: 17800, initialConclusionAt: 20200, guidanceAt: 20700, draftReady: 21300,
   sendTyping: 21800, sentForReview: 24400, sendAnswer: 24600, reviewArtifactAt: 26100, feedbackReceived: 26800,
   reviseTyping: 27600, revising: 29800, reviseAnswer: 30000, revisionArtifactAt: 31350, revisionContent: 31400,
-  conclusionContent: 32900, revised: 33600, approved: 35600, exportTyping: 36600,
-  exportStarted: 39100, exportAnswer: 39300, exportArtifactAt: 40600,
-  exportPageOne: 41000, exportFindingsAt: 42200, exportActionsAt: 44300,
-  exportReviewAt: 45800, exportSourcesAt: 46600, exportReady: 47300,
+  conclusionContent: 31700, revised: 33200, approved: 34700, exportTyping: 35600,
+  exportStarted: 37600, exportAnswer: 37800, exportArtifactAt: 39100,
+  exportPageOne: 39300, exportFindingsAt: 39900, exportActionsAt: 40800,
+  exportReviewAt: 41600, exportSourcesAt: 42100, exportReady: 42500,
 };
 export const playbackRate = .8;
 

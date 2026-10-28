@@ -138,8 +138,8 @@ test("the whole approved plan has a coherent task, booking and decision structur
   }
   const assessment = approvedPlan.deliverables.find(item => item.title === assignment.deliverable);
   for (const key of ["owner", "reviewer", "effort", "due"]) assert.equal(assessment[key], assignment[key]);
-  assert.ok(planTiming.deliverablesAt + 13 * 260 + 250 < planTiming.milestonesAt);
-  assert.ok(planTiming.milestonesAt + 3 * 250 < planTiming.reviewed);
+  assert.ok(planTiming.workstreamsAt + 3 * 600 + 400 < planTiming.billingTermsAt, "the four workstream summaries finish before the fee terms");
+  assert.ok(planTiming.billingTermsAt + 600 < planTiming.reviewed);
   assert.ok(planTiming.resourcesWrittenAt < planTiming.deliverablesWrittenAt);
   assert.ok(planTiming.deliverablesWrittenAt + 4 * 350 < planTiming.billingWrittenAt);
   assert.ok(planTiming.billingWrittenAt < planTiming.taskDetailsAt && planTiming.taskDetailsAt < planTiming.workspaceCreated);

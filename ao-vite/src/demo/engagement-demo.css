@@ -369,3 +369,28 @@
   .psa-booking>div>span,.psa-booking small{font-size:10px}
   .plan-dependency-note{font-size:10px}
 }
+
+/* Plan summary: workstreams with their review gates. */
+.plan-workstreams{margin-top:23px}
+.plan-workstreams>h4{display:flex;justify-content:space-between;gap:12px;font-size:12px;color:#354f42;margin-bottom:10px}
+.plan-workstreams>h4>span{font-weight:400;font-size:9px;color:#6d7f74}
+.plan-workstream-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;padding:11px 12px;border-bottom:1px solid #e8eeea;font-size:10px;line-height:1.6}
+.plan-workstream-row>div>strong{display:block;font-weight:500;color:#3a5547;font-size:11px}
+.plan-workstream-row>div>span,.plan-workstream-gate>small{display:block;font-size:9px;color:#667e70}
+.plan-workstream-gate>span{display:block;color:#3a5547}
+@media (max-width:760px){
+  .plan-workstreams>h4{flex-direction:column;gap:3px}
+  .plan-workstream-row{grid-template-columns:1fr;gap:4px}
+}
+
+/* Revision 2: only the change, not a second full draft. */
+.assessment-revision{padding:0;overflow:hidden}
+.revision-change{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;padding:16px 18px}
+.revision-change>div{border-radius:8px;padding:12px 14px;font-size:11px;line-height:1.65}
+.revision-change small{display:block;font-size:9px;color:#6d7f74;margin-bottom:5px}
+.revision-before{background:#f4f6f5;color:#7a8a81}
+.revision-before>p{text-decoration:line-through;text-decoration-color:#b9c4bd}
+.revision-after{background:#eef5e8;color:#2f4a3a;border-left:2px solid #86c43d}
+.revision-status{padding:0 18px 14px}
+.revision-status .review-approval{font-size:10px;color:#4f6a5a;margin-top:6px}
+@media (max-width:760px){.revision-change{grid-template-columns:1fr}}

@@ -64,42 +64,24 @@ function StaffingArtifact({ elapsed, onInspect }) {
   </article>;
 }
 
-function PlanWorkbreakdown({ elapsed, written = false }) {
-  const plan = written ? readbackPlan : approvedPlan;
-  const start = written ? planTiming.deliverablesWrittenAt : planTiming.deliverablesAt;
-  const step = written ? 320 : 260;
+// The plan view summarizes each workstream with its review gate. Every
+// deliverable is still written to the PSA and checked in the readback.
+function PlanWorkstreams({ elapsed }) {
+  const start = planTiming.workstreamsAt;
   if (elapsed < start) return null;
-  return <section className="plan-workbreakdown" aria-label={written ? "Four workstreams and fourteen committed deliverables" : "Four workstreams and fourteen planned deliverables"}>
-    <h4 data-follow-at={start}>Workstreams and deliverables <span>{written ? `Written to ${psaSystem.name}` : "Plan v1"}</span></h4>
-    {plan.workstreams.map(stream => {
-      const tasks = plan.deliverables.filter(item => item.stream === stream.id);
-      const firstAt = start + plan.deliverables.indexOf(tasks[0]) * step;
-      if (elapsed < firstAt) return null;
-      return <section className="plan-workstream" key={stream.id} data-workstream={stream.id}>
-        <header><strong>{stream.name}</strong><span>W{stream.weeks}</span></header>
-        {tasks.map(task => {
-          const at = start + plan.deliverables.indexOf(task) * step;
-          if (elapsed < at) return null;
-          return <div className="plan-deliverable" key={task.id} data-deliverable-id={task.id} data-record-id={task.recordId} data-follow-at={at}>
-            <div className="plan-deliverable-content"><small>{task.id}{written ? ` · ${task.recordId}` : ""}</small><strong><BuildText elapsed={elapsed} at={at} duration={130}>{task.title}</BuildText></strong><p><BuildText elapsed={elapsed} at={at + 100} duration={150}>{task.acceptance}</BuildText></p>{task.dependsOn.length > 0 && <small>Requires {task.dependsOn.join(" · ")} before acceptance</small>}</div>
-            <div className="plan-deliverable-owner"><strong>{task.owner}</strong><span>Review · {task.reviewer}</span>{task.effort && <small>{task.effort}h assignment</small>}</div>
-            <div className="plan-deliverable-date"><span>{task.start} –</span><strong>{task.due}</strong></div>
-          </div>;
-        })}
-      </section>;
+  return <section className="plan-workstreams" aria-label="Four workstreams, fourteen deliverables and four review gates">
+    <h4 data-follow-at={start}>Workstreams and review gates <span>14 deliverables · 4 gates</span></h4>
+    {approvedPlan.workstreams.map((stream, index) => {
+      const at = start + index * 600;
+      if (elapsed < at) return null;
+      const count = approvedPlan.deliverables.filter(item => item.stream === stream.id).length;
+      const gate = approvedPlan.milestones.find(item => approvedPlan.deliverables.find(task => task.id === item.requires[0])?.stream === stream.id);
+      return <div className="plan-workstream-row" key={stream.id} data-workstream={stream.id} data-follow-at={at}>
+        <div><strong><BuildText elapsed={elapsed} at={at} duration={250}>{stream.name}</BuildText></strong><span>W{stream.weeks} · {count} deliverables</span></div>
+        {gate && <div className="plan-workstream-gate"><span>{gate.title}</span><small>{gate.reviewer} · {gate.due}</small></div>}
+      </div>;
     })}
-    <p className="plan-dependency-note">Dependencies apply at acceptance; preparation can overlap. Resource allocations cover delivery, review and engagement management.</p>
   </section>;
-}
-
-function PlanMilestones({ elapsed, written = false }) {
-  const plan = written ? readbackPlan : approvedPlan;
-  const start = written ? planTiming.milestonesWrittenAt : planTiming.milestonesAt;
-  if (elapsed < start) return null;
-  return <section className="plan-milestones" aria-label={written ? "Committed review gates" : "Planned review gates"}><h4>Review and client decision gates</h4>{plan.milestones.map((gate, index) => {
-    const at = start + index * 250;
-    return elapsed >= at && <div key={gate.id} data-gate-id={gate.id} data-follow-at={at}><div><strong>{gate.title}</strong><span>{gate.reviewer} · {gate.requires.join(" / ")}</span></div><span>{gate.due}</span></div>;
-  })}</section>;
 }
 
 function PSAWrite() {
@@ -131,9 +113,8 @@ export function PlanArtifact({ elapsed, onInspect }) {
     <p className="schedule-caption">Bars show confirmed windows; labels are weekly availability ceilings.</p>
     {elapsed >= 8000 && <div className="plan-review-gate" data-follow-at={8000}><div><strong>Avery’s assessment</strong><span>{assignment.effort}h · {assignment.due}</span></div><span className="gate-arrow" aria-hidden="true">→</span><div><strong>Sofia’s review</strong><span>Before the diagnostic baseline</span></div><SourceLink source="assignment" onInspect={onInspect}>Assignment basis</SourceLink></div>}
     {elapsed >= 9000 && <p className="plan-continuity" data-follow-at={9000}>Harbor informs Avery’s evidence gate; Meridian informs Lena’s regional validation. Daniel’s W3 release is confirmed. <SourceLink source="availability" onInspect={onInspect}>Resource basis</SourceLink></p>}
-    <PlanWorkbreakdown elapsed={elapsed} />
-    <PlanMilestones elapsed={elapsed} />
-    {elapsed >= 15000 && <p className="plan-billing-terms" data-follow-at={15000}><strong>Accepted fee · $400,000</strong>40% at mobilization on August 17 · 40% on design review acceptance · 20% on the board decision.</p>}
+    <PlanWorkstreams elapsed={elapsed} />
+    {elapsed >= planTiming.billingTermsAt && <p className="plan-billing-terms" data-follow-at={planTiming.billingTermsAt}><strong>Accepted fee · $400,000</strong>40% at mobilization on August 17 · 40% on design review acceptance · 20% on the board decision.</p>}
     {execution.reviewed && <p className="plan-reviewed" data-follow-at={planTiming.reviewed}>Sofia reviewed plan v1. The accepted scope, proposed team and assignment rationale remain linked to this version.</p>}
   </article>;
 }
@@ -160,7 +141,7 @@ function AssignmentBrief({ elapsed, onInspect }) {
     <dl className="assignment-brief-facts">{[["Planned effort", `${assignment.effort} hours`], ["Due", assignment.due], ["Reviewer", assignment.reviewer]].map(([label, value], index) => <div key={label} data-follow-at={3900 + index * 150}>{elapsed >= 3900 + index * 150 && <><dt>{label}</dt><dd><BuildText elapsed={elapsed} at={3900 + index * 150} duration={200}>{value}</BuildText></dd></>}</div>)}</dl>
     {elapsed >= 4500 && <section data-follow-at={4500}><h4>What it must establish</h4><p><BuildText elapsed={elapsed} at={4500} duration={550}>{assessment.purpose}</BuildText></p></section>}
     {elapsed >= 5200 && <section data-follow-at={5200}><h4>Acceptance criteria</h4><p><BuildText elapsed={elapsed} at={5200} duration={550}>{task.acceptance}</BuildText></p></section>}
-    {elapsed >= deliveryTiming.assignmentReady && <footer className="artifact-footer" data-follow-at={deliveryTiming.assignmentReady}><span>Plan v1 · {readbackAssignment.id} · Verified in {psaSystem.name}</span><SourceLink source="assignment" onInspect={onInspect}>Approved assignment</SourceLink></footer>}
+    {elapsed >= deliveryTiming.assignmentReady && <footer className="artifact-footer" data-follow-at={deliveryTiming.assignmentReady}><span>Plan v1 · {psaSystem.name} assignment {readbackAssignment.id} · Verified</span><SourceLink source="assignment" onInspect={onInspect}>Approved assignment</SourceLink></footer>}
   </article>;
 }
 
@@ -198,11 +179,27 @@ function AssessmentReviewArtifact({ elapsed }) {
   </article>;
 }
 
+// Revision 2 shows only what changed; the full draft above stays as revision 1.
+function AssessmentRevisionArtifact({ elapsed, onInspect }) {
+  const state = deliveryStateAt(elapsed);
+  return <article className="inline-artifact assessment-revision" aria-label="Assessment revision 2" data-review-status={state.approved ? "approved" : state.revised ? "final-review" : "revising"}>
+    <header className="document-file" data-follow-at={deliveryTiming.revisionArtifactAt}><img src="/brand/systems/word.svg" alt="Word" /><span>{assessmentFileName}</span><small>{state.approved ? "Sofia approved revision 2" : state.revised ? "Revision 2 · with Sofia" : "Revision 2 · in progress"}</small></header>
+    <div className="revision-change">
+      <div className="revision-before"><small>Revision 1 · conclusion</small><p>{assessment.initialConclusion}</p></div>
+      <div className="revision-after" data-follow-at={deliveryTiming.conclusionContent}><small>Revision 2 · Avery’s wording</small><p>{elapsed >= deliveryTiming.conclusionContent ? <BuildText elapsed={elapsed} at={deliveryTiming.conclusionContent} duration={deliveryTiming.revised - deliveryTiming.conclusionContent}>{assessment.conclusion}</BuildText> : <span className="demo-working"><i className="build-pulse" />Applying Avery’s decision boundary</span>}</p></div>
+    </div>
+    <div className="revision-status build-slot" data-follow-at={state.approved ? deliveryTiming.approved : deliveryTiming.revised}>{state.revised && <>
+      <p className="review-resolution"><span aria-hidden="true">✓</span> Responds to Sofia: the diagnostic work is separated from the design decisions on hold.</p>
+      {state.approved && <p className="review-approval">Sofia approved revision 2. Evidence findings, sources and the earlier version stay with the assessment record. <SourceLink source="record" onInspect={onInspect}>Assessment record</SourceLink></p>}
+    </>}</div>
+  </article>;
+}
+
 function AssessmentExportArtifact({ elapsed }) {
   const ready = elapsed >= deliveryTiming.exportReady;
   return <article className="inline-artifact delivery-export-receipt" aria-label="Approved Word export" data-export-ready={ready}>
     <div className="delivery-export-file" data-follow-at={deliveryTiming.exportArtifactAt}><img src="/brand/systems/word.svg" alt="Word" /><div><strong>{assessmentFileName}</strong><p>{ready ? "Exported · 1 page · Revision 2 · Sofia approved" : "Preparing the approved one-page Word assessment…"}</p></div></div>
-    <AssessmentReport elapsed={elapsed} />
+    <div className="report-thumbnail" aria-hidden={!ready}><AssessmentReport elapsed={elapsed} /></div>
     {ready && <p className="report-export-complete" data-follow-at={deliveryTiming.exportReady}>Word report prepared. Approval, sources and revision rationale retained with NS-D01.</p>}
   </article>;
 }
@@ -216,5 +213,6 @@ export default function DemoArtifact({ type, elapsed, onInspect }) {
   if (type === "assignment-brief") return <AssignmentBrief elapsed={elapsed} onInspect={onInspect} />;
   if (type === "assessment-review") return <AssessmentReviewArtifact elapsed={elapsed} />;
   if (type === "assessment-export") return <AssessmentExportArtifact elapsed={elapsed} />;
+  if (type === "assessment-revision") return <AssessmentRevisionArtifact elapsed={elapsed} onInspect={onInspect} />;
   return <DeliveryArtifact elapsed={elapsed} onInspect={onInspect} />;
 }

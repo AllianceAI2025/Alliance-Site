@@ -67,3 +67,9 @@
   .report-action-table td:nth-child(2)::before,.report-action-table td:nth-child(3)::before{display:block;font-size:9px;color:#80909b;margin-bottom:3px}
   .report-action-table td:nth-child(2)::before{content:"Accountable owner"}.report-action-table td:nth-child(3)::before{content:"Target"}
 }
+
+/* The exported report appears as a page preview beside its file card. */
+.report-thumbnail{max-width:540px;margin:14px auto 0;padding:0 17px 17px}
+.report-thumbnail .report-pages{zoom:.64;padding:0;max-width:none}
+.report-thumbnail .report-page{box-shadow:0 6px 22px #2c435522}
+@media (max-width:600px){.report-thumbnail{padding:0 7px 7px}.report-thumbnail .report-pages{zoom:.82}}
