@@ -80,7 +80,7 @@ export const firmTypes = [
 
 export const solutionChapters = [
   {
-    id: "scope", label: "Scope", title: "Turn early context into an approved scope.",
+    id: "scope", label: "Relevant experience", title: "Turn early context into an approved scope.",
     intro: "A new opportunity already has a history: the client conversations, objectives and assumptions that made it worth pursuing. AllianceOne brings that context together with firm methods, relevant delivery experience and current resource information to help the manager develop the scope and proposal.",
     sections: [
       ["Start with the client situation", "An opportunity assigned in CRM gives the engagement manager an owner-linked starting point. Client objectives, discovery findings, source documents, current communications and open questions form the brief. The manager can ask what is known, test assumptions and investigate gaps. New correspondence updates the engagement context so the conversation can focus on what it changes for the proposed work."],
@@ -90,7 +90,7 @@ export const solutionChapters = [
     result: "A reviewed scope and client proposal, with their assumptions, source evidence and approval history.",
   },
   {
-    id: "plan", label: "Plan", title: "Translate the commitment into a delivery plan.",
+    id: "plan", label: "Plan and staffing", title: "Translate the commitment into a delivery plan.",
     intro: "The accepted proposal establishes what the firm has agreed to deliver. AllianceOne brings the negotiated terms, reviewed staffing assumptions and relevant delivery experience into a feasible engagement plan, with current resource information available to test timing and capacity.",
     sections: [
       ["Keep the accepted commitment visible", "The opportunity's won status, accepted proposal and negotiated changes establish the commercial baseline. Workstreams, deliverables, team allocations, effort, dates, dependencies, client responsibilities and review gates are developed against that commitment."],
@@ -100,7 +100,7 @@ export const solutionChapters = [
     result: "An approved engagement plan, mapped operating records and evidence that the intended write was completed correctly.",
   },
   {
-    id: "deliver", label: "Deliver", title: "Give each consultant the context to deliver well.",
+    id: "deliver", label: "Assigned work", title: "Give each consultant the context to deliver well.",
     intro: "AllianceOne brings the client’s objectives, agreed commitments, discovery findings and current engagement decisions into each consultant’s approved assignment. Consultants can ask questions, examine evidence and draw on firm methods, templates and relevant, permitted delivery experience as they develop deliverables and work through review.",
     sections: [
       ["Begin with the assignment", "The deliverable's purpose, due date, effort, reviewer, dependencies and acceptance criteria carry forward from the plan. The consultant can ask what is known, what remains unresolved and how those facts affect the work they are responsible for. Client clarifications and current engagement decisions inform the assignment as the wider engagement evolves."],

@@ -370,7 +370,7 @@ test("the same people and precedent carry into the assessment assignment", () =>
   assert.ok(reviewer.end >= 4, "reviewer is retained through the assessment gate");
   assert.equal(assignment.effort, 36);
   assert.equal(resources.find(resource => resource.name === "Lena Torres").precedent, "meridian");
-  for (const key of ["harbor", "meridian"]) assert.deepEqual(contexts[key].carry.map(([phase]) => phase), ["Scope", "Plan", "Deliver"]);
+  for (const key of ["harbor", "meridian"]) assert.deepEqual(contexts[key].carry.map(([phase]) => phase), ["Approach", "Plan and staffing", "Assigned work"]);
 });
 
 test("review, approval, writes and readback happen in order", () => {

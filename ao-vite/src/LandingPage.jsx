@@ -13,11 +13,11 @@ const deliveryOutcomes = [
   ["Every engagement informs the next.", "Reviewed decisions, results and lessons become firm knowledge the next team can draw on."],
 ];
 
-function DemoSection({ phase, label, headline, children, primary = false }) {
+function DemoSection({ phase, headline, children, primary = false }) {
   return <Track name={phase} id={phase} className={`studio-home-scene studio-home-scene--${phase}${phase === "plan" ? " studio-dark-field" : ""}`}>
     <div className="studio-container studio-demo-layout">
       <header className="studio-demo-intro">
-        <div className="studio-demo-heading"><p className="studio-phase-label">{label}</p><h2>{headline}</h2></div>
+        <div className="studio-demo-heading"><h2>{headline}</h2></div>
         {children && <p className="studio-demo-description">{children}</p>}
       </header>
       <div className="studio-demo-proof">
@@ -37,13 +37,13 @@ export default function LandingPage() {
         </div>
       </div>
     </Track>
-    <DemoSection phase="scope" label="Scope" headline="Start with relevant firm experience." primary>
+    <DemoSection phase="scope" headline="Start with relevant firm experience." primary>
       Develop the scope and proposal using client context, firm methods, comparable work and current resource availability.
     </DemoSection>
-    <DemoSection phase="plan" label="Plan" headline="Carry the approved plan into delivery.">
+    <DemoSection phase="plan" headline="Carry the approved plan into delivery.">
       Develop the deliverables, resource allocations, effort, dependencies and review gates. Review the commitments before creating and verifying records in the firm’s PSA or project system.
     </DemoSection>
-    <DemoSection phase="deliver" label="Deliver" headline="Bring firm knowledge into each assignment.">
+    <DemoSection phase="deliver" headline="Bring firm knowledge into each assignment.">
       Give consultants the engagement context, methods and relevant review experience to develop their analysis, examine evidence and work through feedback.
     </DemoSection>
     <Track name="workflow" id="workflow" className="studio-home-value"><div className="studio-container">

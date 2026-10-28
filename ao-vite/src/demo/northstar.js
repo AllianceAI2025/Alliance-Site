@@ -94,7 +94,7 @@ export const historicalCases = [
 ];
 export const stories = {
   scope: {
-    label: "Scope", thread: "Understanding the engagement", person: "Margaret Whitfield",
+    label: "Relevant experience", thread: "Understanding the engagement", person: "Margaret Whitfield",
     prompt: "Where have we done similar work, and what should we carry into Northstar?",
     answer: "Harbor Grain is the closest match: regional leaders challenged ownership after design, causing rework and a one-week delay. Meridian’s on-time transition still saw slow adoption. For Northstar, I’d bring regional voices forward and require explicit ownership acknowledgment and readiness evidence.",
     answerDuration: 1900, artifact: "precedent", artifactAt: scopeTiming.precedentAt, artifactUntil: scopeTiming.historyFinished,
@@ -107,7 +107,7 @@ export const stories = {
     summary: "Harbor and Meridian’s client conditions, contributors, deliverables, review changes and outcomes shape Northstar’s scope and resource fit. Current availability is checked separately.",
   },
   plan: {
-    label: "Plan", thread: "Engagement planning and staffing", person: "Margaret Whitfield",
+    label: "Plan and staffing", thread: "Engagement planning and staffing", person: "Margaret Whitfield",
     prompt: "Build the plan from Northstar’s accepted proposal and the team we scoped.",
     answer: "Proposal v5 is accepted; OPP-20418 is Won. Daniel’s Week 3 release is now confirmed. The team we evaluated during scoping carries forward, with Avery’s assessment and Sofia’s review connected to the diagnostic baseline.",
     artifact: "plan", artifactUntil: planTiming.reviewed,
@@ -117,7 +117,7 @@ export const stories = {
     summary: `The complete Northstar plan is committed to ${psaSystem.name}: four workstreams, fourteen deliverables, six resource allocations and four review gates. The returned records match approved plan v1.`,
   },
   deliver: {
-    label: "Deliver", thread: "Data-readiness assessment", person: "Avery Ross",
+    label: "Assigned work", thread: "Data-readiness assessment", person: "Avery Ross",
     threads: ["deliver"],
     prompt: "What am I delivering for Northstar, and what does it need to establish?",
     answer: "You own the data-readiness assessment within Northstar’s decision-rights diagnostic. It must establish which evidence can support ownership and escalation findings before design, with the limits of each conclusion explicit.\n\nSix of eight regional extracts are received. Northeast ownership fields are incomplete, Central’s inventory is older, and West and Southeast are missing. Coverage, currency, completeness and traceability still need your assessment.",
@@ -176,13 +176,13 @@ export const contexts = {
     label: "Firm engagement record", title: "Harbor Grain", reference: "EV-104 · Assignment register, accepted deliverables, review revisions and closing report",
     text: historicalCases[0].conditions + " " + historicalCases[0].review,
     facts: [...historicalCases[0].deliverables.map(item => [item.id + " · " + item.format, `${item.title}. ${item.owner}; reviewed by ${item.reviewer}. Accepted v2: ${item.accepted}.`]), ["Outcome", historicalCases[0].outcome], ["Transfer limits", historicalCases[0].limit]],
-    carry: [["Scope", "Regional voices and an evidence gate before design."], ["Plan", "Avery’s relevant experience informs the proposed assignment; Sofia reviews before the baseline."], ["Deliver", "The assessment retains observed owners, source dates, unresolved evidence and the reviewer’s rationale."]],
+    carry: [["Approach", "Regional voices and an evidence gate before design."], ["Plan and staffing", "Avery’s relevant experience informs the proposed assignment; Sofia reviews before the baseline."], ["Assigned work", "The assessment retains observed owners, source dates, unresolved evidence and the reviewer’s rationale."]],
   },
   meridian: {
     label: "Firm engagement record", title: "Meridian Components", reference: "EV-087 · Assignment register, accepted deliverables, review revisions and delivery review",
     text: historicalCases[1].conditions + " " + historicalCases[1].review,
     facts: [...historicalCases[1].deliverables.map(item => [item.id + " · " + item.format, `${item.title}. ${item.owner}; reviewed by ${item.reviewer}. Accepted v2: ${item.accepted}.`]), ["Outcome", historicalCases[1].outcome], ["Transfer limits", historicalCases[1].limit]],
-    carry: [["Scope", "Explicit service boundaries and transition-readiness criteria."], ["Plan", "Lena owns regional validation, with acknowledgment built into the plan."], ["Deliver", "The assessment identifies which decisions and service boundaries each evidence gap affects."]],
+    carry: [["Approach", "Explicit service boundaries and transition-readiness criteria."], ["Plan and staffing", "Lena owns regional validation, with acknowledgment built into the plan."], ["Assigned work", "The assessment identifies which decisions and service boundaries each evidence gap affects."]],
   },
   discovery: {
     label: "Client context", title: "Northstar Foods", reference: "Salesforce OPP-20418 · Sponsor discovery NS-D01",
