@@ -55,10 +55,10 @@ available in supporting matter records.
 
 ### 2. Keep current work grounded — Avery Ross, assigned associate
 
-Avery starts from his assignment, client objectives and permitted firm guidance.
-He asks for the Litigation Matter Brief template and instructs AllianceOne to
-send the first draft to Sofia for review. Revision 1 develops in the thread,
-with its source references and a linked review-request record.
+The conversation opens directly with a request to draft the assessment using
+the Litigation Matter Brief template and Sofia’s shared Harbor review, then
+send the first draft to Sofia. There is no joining or handoff setup. Revision 1
+develops in the thread, with its source references and a linked review-request record.
 
 The Northstar monitor then posts an unprompted source update. It connects the
 October 22 client email and Sofia’s review to revision 1’s custodian section and
@@ -77,7 +77,9 @@ internal Word reference is retained at `public/demo/northstar-matter-assessment.
 for engineering and template QA; it is not linked from the website. The brief
 remains a draft for Sofia’s review. No filing approval is implied.
 
-Avery's scene shows only his assessment thread. It permits Northstar material,
+The assessment window shows only its work thread, without a persona profile or
+role credentials. Authorship and review attribution stay with the documents and
+sources. It permits Northstar material,
 published practice guidance and the Harbor excerpt Sofia explicitly shared for
 this assignment. It does not expose the full Harbor, Cedar Ridge or Briar Glen
 files, even though Avery helped prepare Harbor's earlier work.
@@ -98,7 +100,7 @@ files, even though Avery helped prepare Harbor's earlier work.
 - **Solutions (`/solutions/`):** cross-practice explanations of comparison, reasoning
   and review, continuity, changing evidence and reviewed future reuse. Comparison and
   review illustrations reuse Home’s records. The full letterhead brief appears
-  as an artifact in the demo only; the Solutions handoff section is text only. Consulting and
+  as an artifact in the demo only; the Solutions continuity section is text only. Consulting and
   advisory applications remain part of the broader story.
 - **Company and Design partners:** law firms join consulting and advisory firms
   in the audience. Practice configuration, source integration, adoption and a
@@ -115,7 +117,7 @@ verified legal authorities or make the attorney's decision.
 - `src/demo/EngagementDemo.jsx`: shared player, sidebar, source dialog, watchability
   and automatic conversation following.
 - `src/demo/litigation.js`: corpus, story text, events, revisions and source resolver.
-- `src/demo/LegalDemoArtifacts.jsx`: comparison, retained draft review, assignment,
+- `src/demo/LegalDemoArtifacts.jsx`: comparison, retained draft review,
   source update and two retained brief versions; fields build progressively.
 - `src/demo/matterBrief.js`: shared firm template and versioned brief content.
 - `src/demo/legal-demo.css`: artifact styling within the existing visual system.
@@ -138,7 +140,7 @@ are unchanged.
 
 This is a deterministic frontend demonstration. It does not call an AI model,
 query a real DMS, send email or enforce production authorization. The local source
-resolver demonstrates the persona boundary only. A live implementation must
+resolver demonstrates the assigned-work access boundary only. A live implementation must
 perform authorization before retrieval and generation, honor matter barriers,
 retain source identifiers/versions and preserve decision/revision provenance.
 

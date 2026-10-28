@@ -40,7 +40,7 @@ export const firmKnowledge = [
   {
     id: "quality", title: "Review and quality standards", short: "What reviewers challenge, what changes and what remains a professional decision.",
     body: "Review makes the firm’s standards concrete. The record retains the draft, the reviewer’s challenge, the response and what changed. Supporting evidence, the team’s interpretation and an approved decision remain distinguishable. Practitioners own the analysis and the decision to advance the work.",
-    exampleTitle: "Separate the assumption from the evidence.", exampleType: "Northstar handoff review",
+    exampleTitle: "Separate the assumption from the evidence.", exampleType: "Northstar assessment review",
     example: "Sofia asks Avery to retain the unverified custodian assumption, add the client’s new email and explain what it changes. Revision 2 proposes further records-control work; it does not approve a motion for filing.",
     detail: "Revision 1 → Partner feedback → Revision 2 for review",
     note: "Fictional review. A proposed response and an approved decision remain separate, with the earlier account retained.",
@@ -91,9 +91,9 @@ export const solutionChapters = [
   },
   {
     id: "deliver", label: "Continuity of work", title: "Keep the reasoning available as work changes.",
-    intro: "Joining an assignment should not require reconstructing its history from scattered messages and files. Each team member can understand what has been agreed, why, what remains open and what they are responsible for.",
+    intro: "As work develops, new evidence, client instructions and review can change the team’s understanding. AllianceOne keeps the current assessment connected to its sources, earlier assumptions and the decisions still requiring review.",
     sections: [
-      ["Start with the agreed assignment", "Bring the client’s objectives, scope, responsibilities, dependencies and review expectations into view. Distinguish approved decisions from working assumptions and proposals awaiting review, so the team starts from a shared account of the work."],
+      ["Keep the agreed basis in view", "Keep the client’s objectives, scope, responsibilities, dependencies and review expectations connected to the analysis. Distinguish approved decisions from working assumptions and proposals awaiting review as the work develops."],
       ["Draw on the relevant firm knowledge", "Use practice guidance, templates, quality standards and relevant delivery experience while developing the assignment. Context follows the firm’s source access and reuse rules; work on one assignment does not automatically grant access to another."],
       ["Explain what new information changes", "Connect new correspondence, discovery and review feedback with the earlier understanding. Show which assumptions or deliverables are affected and why a revision is proposed. Keep the earlier version, the source and the response together as the team works through the decision."],
     ],

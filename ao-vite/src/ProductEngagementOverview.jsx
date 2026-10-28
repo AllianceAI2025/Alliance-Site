@@ -15,7 +15,7 @@ export default function ProductEngagementOverview() {
       <p className="product-overview-label">What changed · October 22</p>
       <h4>A records assumption needs checking.</h4>
       <div className="product-overview-evidence"><strong>{currentMatter.newInformation}</strong><span>{currentMatter.originalAssumption}</span></div>
-      <p className="product-overview-review">Handoff revision 2 · For Sofia’s review</p>
+      <p className="product-overview-review">Assessment revision 2 · For Sofia’s review</p>
       <p className="product-overview-conclusion">{currentMatter.interpretation}</p>
     </section>
     <figcaption>Fictional matter. Earlier assumptions, new sources and proposed decisions remain distinguishable.</figcaption>

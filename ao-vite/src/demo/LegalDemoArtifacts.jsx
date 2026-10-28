@@ -49,16 +49,6 @@ export function LegalMotionReview({ elapsed = legalTiming.scope.ready, onInspect
   </article>;
 }
 
-export function LegalAssignment({ elapsed, onInspect }) {
-  const at = legalTiming.deliver.artifact;
-  return <article className="inline-artifact" aria-label="Avery’s Northstar assignment">
-    <Head label="Northstar Foods · Assigned work" title="An assessment for Sofia’s review" elapsed={elapsed} at={at} />
-    {elapsed >= at + 500 && <section className="legal-record"><h4>Client objective</h4><p><Text elapsed={elapsed} at={at + 500}>{currentMatter.instruction}</Text></p></section>}
-    {elapsed >= at + 1400 && <section className="legal-record"><h4>What remains open</h4><p><Text elapsed={elapsed} at={at + 1400}>{currentMatter.originalAssumption}</Text></p></section>}
-    {elapsed >= at + 2100 && <div className="legal-record-sources" data-follow-at={at + 2100}><Source id="NS-ASSIGNMENT" onInspect={onInspect} /><Source id="HARBOR-SHARED-REVIEW" onInspect={onInspect} /><Source id="PRACTICE-07" onInspect={onInspect} /></div>}
-  </article>;
-}
-
 export function LegalSourceUpdate({ elapsed, onInspect }) {
   const at = legalTiming.deliver.updateArtifact;
   return <article className="inline-artifact legal-source-update" aria-label="New sources affecting revision 1">
@@ -75,12 +65,12 @@ export function LegalSourceUpdate({ elapsed, onInspect }) {
   </article>;
 }
 
-export function LegalHandoff({ elapsed = legalTiming.deliver.ready, revised = true, onInspect }) {
-  const at = revised ? legalTiming.deliver.nextArtifact : legalTiming.deliver.draftAt;
+export function LegalAssessment({ elapsed = legalTiming.deliver.ready, revised = true, onInspect }) {
+  const at = revised ? legalTiming.deliver.nextArtifact : legalTiming.deliver.artifact;
   const brief = buildMatterBrief(revised);
   const footerAt = at + (revised ? 13800 : 8300);
   const letterhead = <div className="legal-firm-letterhead"><strong>{brief.firm}</strong><span>{brief.practice}</span></div>;
-  return <article className="inline-artifact legal-brief-artifact" aria-label={`Northstar matter handoff revision ${brief.revision}`}>
+  return <article className="inline-artifact legal-brief-artifact" aria-label={`Northstar assessment revision ${brief.revision}`}>
     <div className="legal-document-title"><img src="/brand/systems/word.svg" alt="" /><Text elapsed={elapsed} at={at}>{`Northstar Foods · Matter Assessment · Revision ${brief.revision}`}</Text></div>
     <div className="legal-document-page">
       {letterhead}
@@ -119,9 +109,8 @@ export function LegalHandoff({ elapsed = legalTiming.deliver.ready, revised = tr
 export default function LegalDemoArtifact({ type, elapsed, onInspect }) {
   const shared = { elapsed, onInspect };
   if (type === "legal-comparison") return <LegalMatterComparison {...shared} />;
-  if (type === "legal-assignment") return <LegalAssignment {...shared} />;
   if (type === "legal-change") return <LegalSourceUpdate {...shared} />;
   if (type === "legal-review") return <LegalMotionReview {...shared} />;
-  if (type === "legal-handoff" || type === "legal-handoff-revised") return <LegalHandoff {...shared} revised={type === "legal-handoff-revised"} />;
+  if (type === "legal-assessment" || type === "legal-assessment-revised") return <LegalAssessment {...shared} revised={type === "legal-assessment-revised"} />;
   return null;
 }

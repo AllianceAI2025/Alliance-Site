@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { inflateRawSync } from "node:zlib";
 import { buildMatterBrief, firmTemplate } from "./matterBrief.js";
-import { currentMatter, handoffSources, legalContexts, legalStories, legalTiming, matterBriefRevisions, northstarUpdate, priorMatters, resolveLegalSource } from "./litigation.js";
+import { currentMatter, assessmentSources, legalContexts, legalStories, legalTiming, matterBriefRevisions, northstarUpdate, priorMatters, resolveLegalSource } from "./litigation.js";
 import { conversationAt, playbackFrameAt, playbackRate } from "./demoPlayback.js";
 
 test("three distinct closed matters and one current matter underpin the same Northstar story", () => {
@@ -14,8 +14,8 @@ test("three distinct closed matters and one current matter underpin the same Nor
     assert.ok(matter.closeDate < currentMatter.asOf);
     assert.ok(matter.author && matter.lead && matter.initial && matter.changed && matter.outcome && matter.limit);
   }
-  assert.equal(legalStories.deliver.person, currentMatter.associate);
-  assert.equal(legalStories.scope.person, currentMatter.lead);
+  assert.equal(buildMatterBrief().author, currentMatter.associate);
+  assert.equal(buildMatterBrief().reviewer, currentMatter.reviewer);
 });
 
 test("every historical claim has dated, attributed assessment, draft, result, review and cost records", () => {
@@ -83,13 +83,13 @@ test("fee comparisons retain phase figures and a documented cause rather than in
 });
 
 test("associate access is restricted to this assignment, published guidance and an explicitly shared excerpt", () => {
-  for (const id of handoffSources) assert.equal(resolveLegalSource("deliver", id), id);
+  for (const id of assessmentSources) assert.equal(resolveLegalSource("deliver", id), id);
   for (const matter of priorMatters) {
     assert.equal(resolveLegalSource("deliver", matter.id), null);
     for (const id of Object.values(matter.sources)) assert.equal(resolveLegalSource("deliver", id), null);
   }
   // Having authored Harbor's draft does not grant access to its retained file.
-  assert.equal(priorMatters[0].author, legalStories.deliver.person);
+  assert.equal(priorMatters[0].author, currentMatter.associate);
   assert.equal(resolveLegalSource("deliver", priorMatters[0].sources.brief), null);
   assert.equal(legalContexts["HARBOR-SHARED-REVIEW"].access.kind, "explicit-share");
   assert.match(legalContexts["HARBOR-SHARED-REVIEW"].text, /does not grant access.*full file/);
@@ -99,7 +99,7 @@ test("associate access is restricted to this assignment, published guidance and 
   assert.equal(resolveLegalSource("scope", "missing"), null);
 });
 
-test("new correspondence revises the handoff without leaking into the retained first version or approving action", () => {
+test("new correspondence revises the assessment without leaking into the retained first version or approving action", () => {
   const [first, next] = matterBriefRevisions;
   assert.ok(!first.sourceIds.includes("NS-EMAIL-22"));
   assert.ok(!first.sourceIds.includes("NS-REVIEW"));
@@ -116,8 +116,10 @@ test("two public conversations cover precedent and review, then current work and
   assert.deepEqual(Object.keys(legalStories), ["scope", "deliver"]);
   assert.equal(legalStories.scope.commands[0].artifact, "legal-review");
   assert.match(legalStories.scope.commands[0].prompt, /Sofia.*Harbor.*Northstar/);
-  assert.equal(legalStories.deliver.artifact, "legal-assignment");
-  assert.deepEqual(legalStories.deliver.commands.map(command => command.artifact), ["legal-handoff", "legal-handoff-revised"]);
+  assert.equal(legalStories.deliver.artifact, "legal-assessment");
+  assert.doesNotMatch(legalStories.deliver.prompt, /joining|handoff|what do I need/i);
+  assert.match(legalStories.deliver.prompt, /Draft Northstar.*Litigation Matter Brief/);
+  assert.deepEqual(legalStories.deliver.commands.map(command => command.artifact), ["legal-assessment-revised"]);
   assert.equal(resolveLegalSource("plan", priorMatters[0].sources.brief), null);
 });
 
@@ -143,20 +145,20 @@ test("typed requests append below frozen artifact versions with a reading hold",
 
 test("a proactive source event follows the first draft and its review request without inventing a user turn", () => {
   const story = legalStories.deliver, t = legalTiming.deliver;
-  const draft = story.commands[0];
+  const draft = story;
   assert.ok(draft.artifactUntil >= draft.artifactAt + 8300, "the first draft and review receipt finish before the update");
   assert.ok(t.updateAt > draft.artifactUntil + 1500);
   assert.ok(t.updateReady < t.reviseTyping);
   const before = conversationAt(story, t.updateAt - 1);
-  assert.equal(before.exchanges.length, 2);
+  assert.equal(before.exchanges.length, 1);
   assert.doesNotMatch(JSON.stringify(before.exchanges), /former facilities manager|NS-EMAIL-22|NS-REVIEW"/);
   const during = conversationAt(story, t.updateAt);
-  assert.equal(during.exchanges.length, 3);
+  assert.equal(during.exchanges.length, 2);
   assert.equal(during.exchanges.at(-1).key, northstarUpdate.id);
   assert.equal(during.exchanges.at(-1).kind, "agent-event");
   assert.equal(during.exchanges.at(-1).prompt, undefined);
   assert.equal(during.typing, false);
-  assert.equal(during.exchanges[1].artifactElapsed, draft.artifactUntil);
+  assert.equal(during.exchanges[0].artifactElapsed, draft.artifactUntil);
   assert.equal(northstarUpdate.affectedRevision, 1);
   assert.deepEqual(northstarUpdate.sourceIds, ["NS-EMAIL-22", "NS-REVIEW"]);
   for (const id of northstarUpdate.sourceIds) {
@@ -165,9 +167,9 @@ test("a proactive source event follows the first draft and its review request wi
   }
   assert.ok(legalContexts["NS-REVIEW-REQUEST"].date < legalContexts["NS-REVIEW"].date);
   const final = conversationAt(story, story.duration);
-  assert.deepEqual(final.exchanges.map(item => item.artifact), ["legal-assignment", "legal-handoff", "legal-change", "legal-handoff-revised"]);
+  assert.deepEqual(final.exchanges.map(item => item.artifact), ["legal-assessment", "legal-change", "legal-assessment-revised"]);
   assert.ok(final.exchanges.at(-1).sentAt > northstarUpdate.artifactUntil);
-  assert.equal(final.exchanges.filter(item => item.prompt).length, 3);
+  assert.equal(final.exchanges.filter(item => item.prompt).length, 2);
 });
 
 test("the public legal story has no operational writeback or unearned filing approval", () => {
@@ -237,5 +239,5 @@ test("the expanded document finishes before the final reading hold", () => {
   const t = legalTiming.deliver;
   assert.ok(t.nextArtifact + 13700 < t.ready);
   assert.ok((t.end - t.ready) / playbackRate >= 6000);
-  assert.match(legalStories.deliver.commands[0].prompt, /Litigation Matter Brief (format|template)/);
+  assert.match(legalStories.deliver.prompt, /Litigation Matter Brief (format|template)/);
 });
