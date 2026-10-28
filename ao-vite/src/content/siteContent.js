@@ -1,4 +1,6 @@
-// Public messaging spans professional practices; legal details stay in example records.
+// Public content drawn from Main's Explore AllianceOne / How It Works pages
+// and the September 2026 business case. Product = maintained knowledge and
+// engagement state. Solutions = decisions and work supported across an engagement.
 export const navigation = [
   { key: "home", label: "Home", href: "/" },
   { key: "product", label: "Product", href: "/allianceone/" },
@@ -7,110 +9,118 @@ export const navigation = [
 ];
 
 export const waysOfWorking = [
-  ["Approach", "How the firm frames the problem, the questions it asks first, the evidence it trusts, and the precedent it brings forward."],
+  ["Approach", "How the firm frames the problem, the questions it asks first, the evidence it trusts, and the experience it brings forward."],
   ["Think", "The options considered, the tradeoffs made, the assumptions carried, and the reasoning behind the recommendation."],
-  ["Deliver", "How scope, staffing, sequence, review, decisions, changes and outcomes fit together in practice."],
+  ["Deliver", "How scope, staffing, sequence, governance, decisions, changes, and outcomes fit together in practice."],
 ];
 
 export const firmKnowledge = [
   {
-    id: "methods", title: "Methods and practice guidance", short: "The questions the firm asks, the evidence it trusts, and the way it structures the work.",
-    body: "Practice guidance, methodologies, frameworks and internal publications establish how your firm works. AllianceOne connects that guidance with the conditions in which it has been applied. Teams can examine the method, its sources and its limits while deciding how to approach the current assignment.",
-    exampleTitle: "Records control and focused production requests", exampleType: "Litigation Practice Library",
-    example: "Map each proposed request to a disputed issue, supporting material and an identified custodian. Distinguish an inference about custody from evidence of control.",
-    detail: "Sofia Patel · Reviewed practice guidance · September 3, 2026",
-    note: "Fictional practice note. Internal guidance provides a method; current legal requirements and authorities need separate attorney verification.",
+    id: "methods", title: "Methods and frameworks", short: "The questions the firm asks, the evidence it trusts, and the way it structures a problem.",
+    body: "Your methodologies, proprietary frameworks, diagnostic tools, training and internal publications establish how your firm works. AllianceOne connects that practice knowledge with the conditions in which it has been applied, so a team can understand which approach fits and how to adapt it.",
+    exampleTitle: "Ownership and Handoffs", exampleType: "Practice Methods Library",
+    example: "Separate observed ownership from a proposed future model. Record the evidence, date and unresolved conflicts before recommending a design.",
+    detail: "Prepared by Lena Torres · Reviewed by Sofia Patel",
+    note: "Published practice guidance can inform the work within its permitted audience. A firm's point of view and evidence of a client result remain distinguishable.",
   },
   {
-    id: "deliverables", title: "Work product and templates", short: "The structure, source expectations and review standards behind the finished work.",
-    body: "Assessments, reports, presentations and workbooks carry more than a visual identity. They establish what needs to be addressed, which evidence supports a conclusion and who reviews the work. Each assignment supplies the client context; the firm’s templates and review standards guide how the work is developed.",
-    exampleTitle: "Initial Matter Assessment", exampleType: "Litigation Matter Brief",
-    example: "Client instructions. Received materials. Disputed issues. Evidence and missing records. Working assumptions. Options for partner review. Source references and open decisions.",
-    detail: "Margaret Whitfield · Matter lead · Revisions retained",
-    note: "A named format provides the structure. Claims remain traceable to the current matter’s record and review.",
+    id: "deliverables", title: "Deliverable types and templates", short: "The proven shapes, required sections, source expectations, and review gates behind client work.",
+    body: "Report formats, diagnostic workbooks and presentation structures carry more than a visual identity. They establish required sections, source expectations, analysis and review gates. Teams can develop a deliverable with those requirements present throughout the work, rather than discover them in final review.",
+    exampleTitle: "Data Readiness Assessment", exampleType: "Report format and companion evidence workbook",
+    example: "Purpose and boundaries. Evidence by region. Observed ownership. Unresolved conflicts. Implications for design readiness. Conclusions and source references.",
+    detail: "Practice Methods team · Consultant preparation · Engagement review",
+    note: "A named report format provides the structure. The engagement's own evidence supports the client conclusions.",
   },
   {
-    id: "precedent", title: "Prior work and experience", short: "Comparable conditions, contributors, approaches, costs, decisions and observed results.",
-    body: "A useful comparison goes beyond finding a similar document. It brings together the initial assessment, what the team did, what changed in review, the eventual result and cost against budget. Relevant differences remain visible. Where the record stops, AllianceOne can identify the contributor to ask rather than invent an explanation.",
-    exampleTitle: "Harbor Point Owners → Northstar", exampleType: "Relevant internal matter experience",
-    example: "Harbor’s engineering evidence and second archive changed its initial causation assessment. The reviewed closeout explains the additional discovery effort. Northstar uses that experience to test its repair history before settling the approach.",
-    detail: "Avery Ross · Motion preparation / Sofia Patel · Review and close-out",
-    note: "Fictional example. A partner’s matter access does not automatically extend to the associate on another matter. Explicitly shared excerpts retain their permitted use.",
+    id: "precedent", title: "Prior work and experience", short: "Comparable scopes, staffing patterns, decisions, changes, outcomes, and lessons from delivery.",
+    body: "Comparable work connects client conditions, scope, people, effort, decisions and observed results. Review feedback and the revisions it produced help explain what mattered. A team can examine both the similarity and the limits before applying an earlier approach to a new client.",
+    exampleTitle: "Harbor → Northstar", exampleType: "Relevant delivery experience",
+    example: "Avery's Harbor review distinguished observed decision owners from design proposals. For Northstar, that experience informs the evidence register and the questions to resolve before design.",
+    detail: "Avery Ross · Evidence preparation / Sofia Patel · Review",
+    note: "The manager examines the relevant engagement record. Avery uses the review excerpt Sofia explicitly shared for his Northstar assignment.",
   },
   {
-    id: "quality", title: "Review and quality standards", short: "What reviewers challenge, what changes and what remains a professional decision.",
-    body: "Review makes the firm’s standards concrete. The record retains the draft, the reviewer’s challenge, the response and what changed. Supporting evidence, the team’s interpretation and an approved decision remain distinguishable. Practitioners own the analysis and the decision to advance the work.",
-    exampleTitle: "Separate the assumption from the evidence.", exampleType: "Northstar assessment review",
-    example: "New correspondence challenges the resolved-repair account in Northstar’s first assessment. Margaret directs a revised chronology and engineering comparison. Revision 2 retains the earlier view, new evidence and reason for the recommendation.",
-    detail: "Revision 1 → New evidence → Margaret’s instruction → Revision 2",
-    note: "Fictional review. A proposed response and an approved decision remain separate, with the earlier account retained.",
+    id: "quality", title: "Review and quality standards", short: "The criteria partners and engagement leaders use to determine whether work is ready to advance.",
+    body: "Partner and engagement-leader review makes the firm's standards concrete. The record can retain what a reviewer challenged, the evidence requested, the consultant's response and the resulting change. That reasoning helps the current team improve the work and gives later teams a more useful basis for preparation.",
+    exampleTitle: "What does the evidence allow us to conclude?", exampleType: "Northstar assessment review",
+    example: "Sofia asks Avery to explain what each evidence gap prevents the team from concluding. Revision 2 carries those implications into the assessment's conclusion before approval and export.",
+    detail: "Revision 1 → Review feedback → Revised conclusion → Approval",
+    note: "Feedback stays linked to the draft and assignment it concerns. Practitioners remain responsible for the analysis and the decision to approve it.",
   },
+];
+
+export const precedentChain = [
+  ["Conditions", "The client problem, objectives, constraints and information available at the time."],
+  ["Approach", "The method chosen, assumptions carried, alternatives considered and reasons for the choice."],
+  ["People", "Who contributed, what they delivered and which capability or experience the work required."],
+  ["Review", "What was challenged, what changed and why the revised work was accepted."],
+  ["Results", "What was observed, what remains uncertain and when the experience is relevant again."],
 ];
 
 export const systemSources = [
-  { name: "Client, practice and project systems", owns: "Client and work identifiers, teams, assignments and status", contributes: "The current assignment, responsible people and context for the work" },
-  { name: "Document management", owns: "Files, versions, work product and document access", contributes: "Analyses, reports, review history and supporting evidence, linked to their sources" },
-  { name: "Email and communications", owns: "Messages, participants, dates and attachments", contributes: "Client instructions, clarifications and the conversations behind decisions" },
-  { name: "Time and billing", owns: "Time narratives, budgets, fees and invoices", contributes: "Actual effort and cost, examined alongside the documented reasons for change" },
+  { name: "CRM", owns: "Accounts, contacts, opportunity stage, pipeline and activities", contributes: "The client situation, opportunity owner and the context behind a new pursuit", icon: "salesforce" },
+  { name: "PSA / project management", owns: "Projects, work breakdown, assignments, milestones, time and status", contributes: "The approved plan goes into execution; operating records return as evidence", icon: "psa" },
+  { name: "Documents and communications", owns: "Files, email, meetings, deliverables and practice materials", contributes: "Sources, conversations and review evidence linked to the engagement they concern", icon: "sharepoint" },
+  { name: "ERP and billing", owns: "Actual costs, invoices, revenue, collections and financial reporting", contributes: "Available actuals give commercial decisions and delivery variance their context", icon: "dynamics" },
 ];
 
 export const productBenefits = [
-  ["Start from experience.", "Practitioners and engagement leaders can find comparable work, who contributed, what changed and what it cost. Source-linked differences help them test an approach, scope or estimate while accounting for the conditions behind the earlier result."],
-  ["See what changed, and why.", "New evidence, client instructions and available time or cost records remain connected to the earlier assessment. Leaders can examine what is affected and decide whether the approach, staffing, scope or budget needs to change."],
-  ["Make the next team stronger.", "Decisions, reviewed revisions and observed results stay connected to their conditions and supporting sources. The next team can draw on that experience within the firm’s access rules, with gaps and limits of reuse visible."],
-  ["Build evidence of value.", "Connect the firm’s methods and experience with what actually happened in the work. Leadership gains a clearer account of effort, outcomes and the reasons behind them, rather than relying on a finished document or fee total alone."],
+  ["More realistic commitments.", "Client conditions, firm methods, comparable work and current resource availability give leaders a basis for testing scope, staffing, effort and pricing assumptions before committing. Gaps and differences remain available for review."],
+  ["Act sooner when delivery drifts.", "Time, milestones, client changes and available financial actuals return from selected firm systems and are compared with the approved plan. Managers can examine causes, affected commitments and context before authorizing changes to scope, resources or sequence."],
+  ["Every engagement informs the next.", "Decisions, review changes and observed results stay connected to client conditions and supporting sources. Practitioners review lessons and limits of permitted reuse before that experience informs new scopes, plans and delivery."],
+  ["Build proof into the proposition.", "Methods and points of view stay connected to the conditions in which they were applied and the results observed. That evidence helps the firm explain its expertise, support proposals and discuss the value behind its fees."],
 ];
 
 export const firmTypes = [
-  ["Law firms", "Bring the firm’s methods, prior work, client context and review standards into current assignments. Keep decisions, costs and results connected within the selected practice’s access and reuse rules."],
-  ["Management consulting", "Use comparable engagements, firm methods and resource experience to pressure-test scope, staffing and assumptions. Keep the reasoning behind recommendations and delivery changes available for the next team."],
-  ["Specialist advisory", "Bring specialist methods and experience into recurring client work, with the facts, caveats and permitted reuse still clear. Validate source access and information barriers for the selected practice."],
-  ["Technology and transformation", "Keep commercial commitments, dependencies, specialist contributions and implementation evidence connected across workstreams, vendors and operating systems."],
+  ["Management consulting", "Similar problem types recur, while each client's facts and constraints change the approach. Relevant engagement experience helps leaders pressure-test scope, staffing and assumptions, and retain the reasoning behind recommendations."],
+  ["Specialist advisory", "Prior work is useful when the facts, caveats and permitted reuse remain clear. Advisory work requires careful source access and information barriers; these requirements are agreed and validated for the selected practice."],
+  ["Technology and transformation", "Longer programs span workstreams, specialists, vendors and operating systems. The approved commercial commitment, dependencies, delivery decisions and implementation evidence need to remain connected across that work."],
+  ["Law firms", "Bring the firm’s practice guidance, prior matters and review standards into current client work, with client confidentiality, information barriers and permitted reuse validated for the selected practice."],
 ];
 
 export const solutionChapters = [
   {
-    id: "scope", label: "Relevant experience", title: "Find what the firm already learned.",
-    intro: "Each new assignment raises questions the firm may have worked through before. AllianceOne brings relevant experience to the team, with the client context, contributors, decisions and economics that make a comparison useful.",
+    id: "scope", label: "Scope", title: "Turn early context into an approved scope.",
+    intro: "A new opportunity already has a history: the client conversations, objectives and assumptions that made it worth pursuing. AllianceOne brings that context together with firm methods, relevant delivery experience and current resource information to help the manager develop the scope and proposal.",
     sections: [
-      ["Compare the conditions", "Examine the client’s objectives, constraints and initial assessment alongside what later evidence changed. See why the team chose its approach, what the work depended on and which differences matter for the current assignment."],
-      ["Connect the people and economics", "See who prepared the work, who reviewed it and what experience they contributed. Read effort and cost against budget alongside time records and the reasons documented during delivery and close-out. Gaps in that account remain visible, with the people to ask identified."],
-      ["Carry forward better questions", "Use relevant experience to test the proposed approach, scope, resource fit and effort assumptions. Identify the evidence still needed and the questions worth asking earlier. The team decides what applies to the client’s situation."],
+      ["Start with the client situation", "An opportunity assigned in CRM gives the engagement manager an owner-linked starting point. Client objectives, discovery findings, source documents, current communications and open questions form the brief. The manager can ask what is known, test assumptions and investigate gaps. New correspondence updates the engagement context so the conversation can focus on what it changes for the proposed work."],
+      ["Find comparable experience, including the people", "Ask where the firm has faced similar conditions. Examine who performed the work, what they delivered, what review changed and what the evidence later showed. Firm methods, frameworks and intellectual property provide an approach; the delivery record helps explain how it worked in practice. The comparison carries its differences and limits so the manager can decide what belongs in the new scope."],
+      ["Test the team, effort and assumptions before committing", "Past delivery identifies relevant capability and prior contributions; current resource information establishes who is available and when. Compare team options, capacity, timing and dependencies before committing. These choices inform the scope boundary, proposed deliverables, effort and pricing assumptions. The manager reviews inclusions, exclusions, client responsibilities and unresolved assumptions before preparing and approving the client proposal."],
     ],
-    result: "A supported comparison, the people behind it and a clearer basis for the current approach and commitments.",
+    result: "A reviewed scope and client proposal, with their assumptions, source evidence and approval history.",
   },
   {
-    id: "plan", label: "Reasoning and review", title: "Understand the work behind the result.",
-    intro: "A finished deliverable rarely explains all the decisions behind it. AllianceOne connects the options considered, supporting evidence, draft changes and review feedback so teams can understand how the work reached its conclusion.",
+    id: "plan", label: "Plan", title: "Translate the commitment into a delivery plan.",
+    intro: "The accepted proposal establishes what the firm has agreed to deliver. AllianceOne brings the negotiated terms, reviewed staffing assumptions and relevant delivery experience into a feasible engagement plan, with current resource information available to test timing and capacity.",
     sections: [
-      ["Trace the reasoning and its revision", "Ask which options the team considered, why it chose an approach and what the reviewer challenged. Keep the original draft, feedback, response and revised work together, with the assumptions and tradeoffs that explain the change."],
-      ["Distinguish evidence from interpretation", "Examine what the sources established, what the team inferred and what the reviewer approved. Retain unresolved questions and the conditions behind a result so later teams can judge whether the experience is relevant."],
-      ["Apply experience with its limits", "Bring useful review standards and prior reasoning into current analysis. Test them against this client’s objectives, evidence and constraints. Practitioners remain responsible for the recommendation, its supporting work and the decision to advance it."],
+      ["Keep the accepted commitment visible", "The opportunity's won status, accepted proposal and negotiated changes establish the commercial baseline. Workstreams, deliverables, team allocations, effort, dates, dependencies, client responsibilities and review gates are developed against that commitment."],
+      ["Review the whole plan", "The engagement manager can compare staffing options and work through resource capability, current availability, effort, timing and delivery dependencies. The team agrees assignments, deliverables and review responsibilities as part of the whole plan. Approval establishes the governing baseline. Later proposed changes remain distinct until reviewed and authorized, with the original commitment and its reasoning still available."],
+      ["Put the approved plan into the project system", "An approved request creates or updates the corresponding project, work breakdown, assignments, milestones and review gates in the selected PSA or project-management system. Record identifiers and mappings preserve the connection. Readback checks the resulting records against the approved work and exposes missing or different information."],
     ],
-    result: "A source-linked account of reasoning, review and revisions that helps the team develop stronger work.",
+    result: "An approved engagement plan, mapped operating records and evidence that the intended write was completed correctly.",
   },
   {
-    id: "deliver", label: "Continuity of work", title: "Keep the reasoning available as work changes.",
-    intro: "As work develops, new evidence, client instructions and review can change the team’s understanding. AllianceOne keeps the current assessment connected to its sources, earlier assumptions and the decisions still requiring review.",
+    id: "deliver", label: "Deliver", title: "Give each consultant the context to deliver well.",
+    intro: "AllianceOne brings the client’s objectives, agreed commitments, discovery findings and current engagement decisions into each consultant’s approved assignment. Consultants can ask questions, examine evidence and draw on firm methods, templates and relevant, permitted delivery experience as they develop deliverables and work through review.",
     sections: [
-      ["Keep the agreed basis in view", "Keep the client’s objectives, scope, responsibilities, dependencies and review expectations connected to the analysis. Distinguish approved decisions from working assumptions and proposals awaiting review as the work develops."],
-      ["Draw on the relevant firm knowledge", "Use practice guidance, templates, quality standards and relevant delivery experience while developing the assignment. Context follows the firm’s source access and reuse rules; work on one assignment does not automatically grant access to another."],
-      ["Explain what new information changes", "Connect new correspondence, discovery and review feedback with the earlier understanding. Show which assumptions or deliverables are affected and why a revision is proposed. Keep the earlier version, the source and the response together as the team works through the decision."],
+      ["Begin with the assignment", "The deliverable's purpose, due date, effort, reviewer, dependencies and acceptance criteria carry forward from the plan. The consultant can ask what is known, what remains unresolved and how those facts affect the work they are responsible for. Client clarifications and current engagement decisions inform the assignment as the wider engagement evolves."],
+      ["Develop the analysis with the firm behind it", "Named report formats, workbooks and presentation structures provide the expected shape. Client evidence supports the conclusions. Published practice guidance and explicitly shared review experience help the consultant adapt the approach, examine sources and explain their reasoning."],
+      ["Work through review and export", "Send a draft and its supporting evidence to the reviewer. Comments stay linked to that version; revisions retain what changed and why. The approved deliverable can be exported in the relevant document format. The consultant’s reasoning, feedback, sources and revisions accumulate as part of the work, linked to the wider engagement and its approval record."],
     ],
-    result: "A current working record that supports delivery, preserves the reasons for change and makes responsibilities clear.",
+    result: "A reviewed client deliverable and the reasoning, sources and revisions that explain the finished work.",
   },
 ];
 
 export const implementationSteps = [
-  ["Choose the work", "Agree one recurring client workflow, its owner, a primary benefit and the quality criteria that will make it useful."],
-  ["Establish the context", "Select historical and current sources. Configure practice guidance, work product formats and review standards; validate useful experience and permitted reuse."],
-  ["Connect and validate the sources", "Agree the selected client, project, document, communication and finance sources. Test identity, source access, version handling and traceability before relying on the answers."],
-  ["Measure use and refine", "Review preparation and correction effort, useful retrieval, decision support and deployment cost with the sponsor and practitioners."],
+  ["Choose the work", "Agree one recurring engagement type, its owner, a primary benefit and the quality criteria that will make the workflow useful."],
+  ["Establish the context", "Select historical and current practice sources, validate useful knowledge, and configure methods, report formats, review standards and permitted reuse."],
+  ["Connect the execution system", "Map the approved plan to one PSA or project-management system. Validate writes, retained record identifiers, readback, differences and approved changes."],
+  ["Measure use and refine", "Review preparation and correction effort, decision quality, useful management action and deployment cost with the sponsor and practitioners."],
 ];
 
 export const practiceServices = [
-  ["Systems integration", "Connect selected client, project, document, communication and finance sources. Agree ownership, data flows and access checks for the workflow."],
-  ["Practice configuration", "Bring practice guidance, frameworks, work product formats and review standards into the work. Establish which prior experience is supported and permitted for reuse."],
-  ["Workflow design", "Define how practitioners assess work, draw on experience, develop analysis and work through review. Preserve decisions, revisions and the reasons behind them as the work develops."],
-  ["Adoption and governance", "Work with practitioners, reviewers, engagement leaders and system owners on source access, review rights, responsibilities and measures of useful adoption."],
+  ["Systems integration", "Connect the selected CRM, PSA, project, document, communication and finance sources. Define record ownership, data flows and the mappings required for the engagement workflow."],
+  ["Practice configuration", "Bring your methods, frameworks, report formats and review standards into the work. Establish which practice materials and prior experience are useful, supported and permitted for reuse."],
+  ["Workflow design", "Define how an opportunity becomes an approved scope, proposal and delivery plan, and how authorized decisions carry into the systems that run the work."],
+  ["Adoption and governance", "Work with sponsors, managers, consultants and reviewers on approval rights, source access, evidence standards, responsibilities and the measures of useful adoption."],
 ];

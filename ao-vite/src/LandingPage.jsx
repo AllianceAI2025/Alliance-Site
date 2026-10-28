@@ -8,16 +8,16 @@ export { CompanyOverview, PartnerInvitation } from "./PageParts.jsx";
 export { practiceServices } from "./content/siteContent.js";
 
 const deliveryOutcomes = [
-  ["Start from experience.", "Find comparable work, the approaches used, what review changed and what the evidence established."],
-  ["See what changed, and why.", "Connect new evidence and client instructions with earlier assessments, open questions and decisions that need attention."],
-  ["Make the next team stronger.", "Carry reviewed reasoning and results into future work, with their sources, limits and permitted use intact."],
+  ["More realistic commitments.", "Test scope, resource fit, availability, effort and pricing assumptions before the firm commits."],
+  ["Act sooner when delivery drifts.", "Time, milestones and changes return from the firm’s systems and are compared with the approved plan while there is still time to act."],
+  ["Every engagement informs the next.", "Reviewed decisions, results and lessons become firm knowledge the next team can draw on."],
 ];
 
-function DemoSection({ phase, headline, children, primary = false }) {
+function DemoSection({ phase, label, headline, children, primary = false }) {
   return <Track name={phase} id={phase} className={`studio-home-scene studio-home-scene--${phase}${phase === "plan" ? " studio-dark-field" : ""}`}>
     <div className="studio-container studio-demo-layout">
       <header className="studio-demo-intro">
-        <div className="studio-demo-heading"><h2>{headline}</h2></div>
+        <div className="studio-demo-heading"><p className="studio-phase-label">{label}</p><h2>{headline}</h2></div>
         {children && <p className="studio-demo-description">{children}</p>}
       </header>
       <div className="studio-demo-proof">
@@ -33,24 +33,24 @@ export default function LandingPage() {
       <div className="studio-container studio-home-heading">
         <h1>Firm knowledge at{" "}<br />the point of work.</h1>
         <div className="studio-home-summary">
-          <p>AllianceOne connects your firm’s methods, intellectual property, practitioner judgment and past work with the decisions your people make today. For law, consulting and advisory firms.</p>
+          <p>AllianceOne connects your firm’s methods, intellectual property, practitioner judgment and engagement history with how teams scope, staff, plan and deliver client work. For consulting, advisory and law firms.</p>
         </div>
       </div>
     </Track>
-    <DemoSection phase="scope" headline="Start with relevant firm experience." primary>
-      Find comparable work and understand what the team believed, what changed and what the result can tell you about the work ahead.
+    <DemoSection phase="scope" label="Scope" headline="Start with relevant firm experience." primary>
+      Develop the scope and proposal using client context, firm methods, comparable work and current resource availability.
     </DemoSection>
-    <DemoSection phase="reasoning" headline="Bring the reasoning forward.">
-      Examine the evidence, review and decisions behind a prior approach. Apply what is relevant to the current work, with its differences and limits in view.
+    <DemoSection phase="plan" label="Plan" headline="Carry the approved plan into delivery.">
+      Develop the deliverables, resource allocations, effort, dependencies and review gates. Review the commitments before creating and verifying records in the firm’s PSA or project system.
     </DemoSection>
-    <DemoSection phase="deliver" headline="Put that knowledge to work.">
-      Develop work in the firm’s own format. When new evidence challenges an assumption, see what it affects and direct the revision, with the earlier reasoning retained.
+    <DemoSection phase="deliver" label="Deliver" headline="Bring firm knowledge into each assignment.">
+      Give consultants the engagement context, methods and relevant review experience to develop their analysis, examine evidence and work through feedback.
     </DemoSection>
     <Track name="workflow" id="workflow" className="studio-home-value"><div className="studio-container">
       <header className="studio-home-value-heading">
-        <p className="studio-home-value-kicker">Better firm economics. Stronger evidence of value.</p>
+        <p className="studio-home-value-kicker">Better engagement economics. Stronger evidence of value.</p>
         <h2>Better conditions for delivery.</h2>
-        <p>When the firm’s knowledge is present while decisions are made, teams spend less time reconstructing the past. Leaders can examine the reasoning, effort and results together, and each matter or engagement strengthens the next.</p>
+        <p>AllianceOne keeps approved commitments connected to what happens in delivery, so leaders act with better context and each engagement strengthens the next.</p>
       </header>
       <div className="studio-home-benefits">
         {deliveryOutcomes.map(([title, body]) => <article key={title}><h3>{title}</h3><p>{body}</p></article>)}

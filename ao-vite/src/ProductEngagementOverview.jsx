@@ -1,23 +1,32 @@
 import React from "react";
 import { LogoMark } from "./Site.jsx";
-import { currentMatter } from "./demo/litigation.js";
+import { readbackPlan } from "./demo/engagementPlan.js";
+import { PsaMark } from "./demo/PsaMark.jsx";
+import { psaSystem } from "./demo/psaSystem.js";
+import assessment from "./demo/assessment.json";
 
 export default function ProductEngagementOverview() {
-  return <figure className="product-engagement-overview" aria-label="Northstar matter overview">
-    <div className="product-overview-top"><LogoMark size={27} /><span>Matter overview · {currentMatter.number}</span></div>
-    <h3>{currentMatter.client}</h3>
-    <p className="product-overview-objective">{currentMatter.title}</p>
+  const { project, resources, deliverables } = readbackPlan;
+  const task = deliverables.find(item => item.id === "NS-D01");
+  const coverage = assessment.evidence.find(item => item.label === "Coverage");
+
+  return <figure className="product-engagement-overview" aria-label="Northstar engagement overview">
+    <div className="product-overview-top"><LogoMark size={27} /><span>Engagement overview</span></div>
+    <h3>{project.name}</h3>
+    <p className="product-overview-objective">{project.objective}</p>
     <dl className="product-overview-baseline">
-      <div><dt>Client instructions</dt><dd>{currentMatter.instruction}</dd></div>
-      <div><dt>Current work</dt><dd>{currentMatter.assignment}<small>Matter lead · {currentMatter.lead}</small></dd></div>
+      <div><dt>Accepted commitment</dt><dd>{project.proposal} · Client accepted</dd></div>
+      <div><dt>Approved plan</dt><dd>{project.baseline} · {resources.length} resources · {deliverables.length} deliverables<small>{project.effort.toLocaleString("en-US")} hours · {project.manager}</small></dd></div>
     </dl>
-    <section className="product-overview-work" aria-label="Current information and pending decision">
-      <p className="product-overview-label">What changed · October 22</p>
-      <h4>New evidence challenges the repair history.</h4>
-      <div className="product-overview-evidence"><strong>{currentMatter.newInformation}</strong><span>{currentMatter.originalAssumption}</span></div>
-      <p className="product-overview-review">Assessment revision 2 · For Margaret’s review</p>
-      <p className="product-overview-conclusion">{currentMatter.interpretation}</p>
+    <section className="product-overview-work" aria-label="Current delivery and review">
+      <p className="product-overview-label">Current delivery</p>
+      <h4>{task.title}</h4>
+      <p className="product-overview-byline">{task.owner} · Review: {task.reviewer}</p>
+      <div className="product-overview-evidence"><strong>{coverage.finding}</strong><span>{coverage.gap}</span></div>
+      <p className="product-overview-review">Revision {assessment.revision} · {assessment.reviewer} approved</p>
+      <p className="product-overview-conclusion">{assessment.conclusion}</p>
     </section>
-    <figcaption>Fictional matter. Earlier assumptions, new sources and proposed decisions remain distinguishable.</figcaption>
+    <div className="product-overview-system"><PsaMark /><span>Approved plan verified in {psaSystem.name}</span></div>
+    <figcaption>From the Northstar demonstration. Approval, source evidence and review remain linked.</figcaption>
   </figure>;
 }

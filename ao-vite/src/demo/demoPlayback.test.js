@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import { psaSystem } from "./psaSystem.js";
 import { approvedPlan, assessmentFileName, assessmentFormatName, assignment, contexts, effort, historicalCases, readbackAssignment, readbackPlan, readbackProject, resolveDemoSource, resources, staffingCandidates, stories } from "./northstar.js";
 import { advanceScrollTop, commonTiming, compareAssignment, comparePlan, conversationAt, deliveryStateAt, deliveryTiming, demoPlaybackReadyAt, demoVisibleAt, followScrollTop, playbackFrameAt, planExecutionAt, planTiming, playbackRate, precedentBuildAt, progressAt, scopeTiming, textAt } from "./demoPlayback.js";
 
@@ -46,7 +47,7 @@ test("each scene plays once and holds the exact final frame indefinitely", () =>
   }
 });
 
-test("the retained consulting fixtures keep their original builds and reading holds", () => {
+test("the website retains three scenes with slower builds and a reading hold", () => {
   assert.deepEqual(Object.keys(stories), ["scope", "plan", "deliver"]);
   assert.ok(playbackRate > 0 && playbackRate < 1);
   for (const story of Object.values(stories)) {
@@ -69,7 +70,7 @@ test("PSA submission is typed and sent after review, before any application writ
   const sent = conversationAt(story, planTiming.approved);
   assert.equal(sent.typing, false);
   assert.equal(sent.prompt, story.commands[0].prompt);
-  assert.ok(sent.prompt.includes("Approve plan v1") && sent.prompt.includes("Project Operations"));
+  assert.ok(sent.prompt.includes("Approve plan v1") && sent.prompt.includes(psaSystem.name));
   assert.equal(sent.answer, story.commands[0].answer);
   assert.ok(planTiming.projectCreated >= sent.answerAt + sent.answerDuration);
   assert.equal(conversationAt(story, story.duration).prompt, sent.prompt);

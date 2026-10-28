@@ -1,5 +1,6 @@
 import { deliveryTiming, planTiming, scopeTiming } from "./demoPlayback.js";
 import { planDeliverables, planMilestones, readbackPlan } from "./engagementPlan.js";
+import { psaSystem } from "./psaSystem.js";
 export { planDeliverables, planMilestones, readbackPlan };
 export const assessmentFormatName = "Data Readiness Assessment";
 export const assessmentFileName = "Northstar Foods — Data Readiness Assessment.docx";
@@ -111,9 +112,9 @@ export const stories = {
     answer: "Proposal v5 is accepted; OPP-20418 is Won. Daniel’s Week 3 release is now confirmed. The team we evaluated during scoping carries forward, with Avery’s assessment and Sofia’s review connected to the diagnostic baseline.",
     artifact: "plan", artifactUntil: planTiming.reviewed,
     duration: 38000,
-    commands: [{ typingAt: planTiming.commandAt, sentAt: planTiming.approved, answerAt: planTiming.responding, answerDuration: 1700, artifact: "commit", artifactAt: planTiming.submissionAt, prompt: "Approve plan v1 and submit the whole engagement plan to Project Operations.", answer: "I’m committing the four workstreams, all fourteen deliverables, their dates, dependencies and acceptance criteria, six resource bookings and four review gates. I’ll file the approved plan in SharePoint, then read every project record back against plan v1." }],
+    commands: [{ typingAt: planTiming.commandAt, sentAt: planTiming.approved, answerAt: planTiming.responding, answerDuration: 1700, artifact: "commit", artifactAt: planTiming.submissionAt, prompt: `Approve plan v1 and submit the whole engagement plan to ${psaSystem.name}.`, answer: "I’m committing the four workstreams, all fourteen deliverables, their dates, dependencies and acceptance criteria, six resource allocations and four review gates. I’ll file the approved plan in SharePoint, then read every project record back against plan v1." }],
     activity: [[0, "Grounding the plan in the accepted proposal and reviewed resource basis"], [3500, "Sequencing the confirmed resource windows"], [8000, "Connecting assignments to review coverage"], [planTiming.reviewed, "Sofia reviewed the complete plan v1 · ready for Margaret’s approval"], [planTiming.approved, "Margaret approved and submitted the complete plan"], [planTiming.verified, "The complete PSA readback matches approved plan v1"]],
-    summary: "The complete Northstar plan is committed to Dynamics 365 Project Operations: four workstreams, fourteen deliverables, six resource bookings and four review gates. The returned records match approved plan v1.",
+    summary: `The complete Northstar plan is committed to ${psaSystem.name}: four workstreams, fourteen deliverables, six resource allocations and four review gates. The returned records match approved plan v1.`,
   },
   deliver: {
     label: "Deliver", thread: "Data-readiness assessment", person: "Avery Ross",
@@ -160,7 +161,7 @@ export const contexts = {
     facts: [["Engagement manager", "Margaret Whitfield"], ["Assessment reviewer", "Sofia Patel"], ["Client dependencies", "West and Southeast participation and missing regional evidence"], ["Scope boundary", "Full source audit and implementation excluded"]],
   },
   "consultant-assignment": {
-    label: "Committed assignment", title: "Avery’s data-readiness assessment", reference: `Plan v1 · ${readbackAssignment.id} · Project Operations readback`,
+    label: "Committed assignment", title: "Avery’s data-readiness assessment", reference: `Plan v1 · ${readbackAssignment.id} · ${psaSystem.name} readback`,
     access: { kind: "assignment", audience: "northstar-delivery-team", label: "Available through Avery’s Northstar delivery assignment" },
     text: "Establish which regional evidence can support ownership and escalation findings before design. Keep observed owners separate from design proposals and retain source dates, missing evidence and unresolved conflicts. Sofia reviews before the September 11 baseline.",
     facts: [["Owner", assignment.owner], ["Planned effort", `${assignment.effort} hours`], ["Due", assignment.due], ["Reviewer", assignment.reviewer]],
@@ -190,7 +191,7 @@ export const contexts = {
   },
   availability: {
     label: "Current resource confirmation", title: "Capability and availability", reference: "Alicia’s confirmation · checked during pursuit",
-    text: "Delivery experience supports fit; current availability is checked separately before proposal submission. These holds become bookings after acceptance and plan approval.",
+    text: "Delivery experience supports fit; current availability is checked separately before proposal submission. These holds become allocations after acceptance and plan approval.",
     facts: [["Avery Ross", "Harbor evidence inventory · available at 75%"], ["Lena Torres", "Meridian ownership matrix · available from Week 3"], ["Daniel Okafor", "Conditionally held from Week 3 at 80%"], ["Reviewed basis", "Six people · 1,840 hours over fourteen weeks"]],
   },
   accepted: {

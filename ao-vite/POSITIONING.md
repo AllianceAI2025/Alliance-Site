@@ -1,16 +1,25 @@
 # AllianceOne — Positioning & Language Registers
 
-## Current rules (firm knowledge, including legal work)
+## Current rules (align with the investor business case)
 
 - **Product definition:** AllianceOne connects firm methods, intellectual property,
-  practitioner judgment and past matters and engagements with current client work.
-  Law firms join consulting and advisory firms in the customer base. The application maintains the approved engagement context around
-  the models; it does not claim general-purpose platforms cannot retrieve, reason
-  or act across systems.
-- **Ownership:** AllianceOne maintains the matter and engagement context: client
-  instructions, assignments, evidence, working assumptions, review and decisions.
-  Source systems remain authoritative for their records and access controls.
-  A proposed interpretation is distinct from an approved decision.
+  practitioner judgment and engagement history with how teams scope, staff, plan
+  and deliver client work. The application maintains the approved engagement
+  context around the models; it does not claim general-purpose platforms cannot
+  retrieve, reason or act across systems.
+- **Audience:** consulting-led. Name the audience as "consulting, advisory and
+  law firms" (in that order). The first customer in the business case is
+  management consulting firms that also deliver implementation work. Law is a
+  segment named on Home, Product, Company and Design partners, not the lead
+  example. Law-specific demos live in the separate demo application.
+- **Ownership:** AllianceOne maintains the approved engagement record: firm
+  methods, standards and prior work connected with accepted scope, the approved
+  plan and the rationale for authorized changes. CRM, PSA, document and finance
+  systems remain authoritative for the records they own.
+- **Demo:** the website demo is the consulting end to end (Scope → Plan with
+  the approved plan written to the PSA and read back → Deliver). The PSA shown is
+  Kantata, configured in `src/demo/psaSystem.js`; it is an illustrated write, not
+  a connected account.
 - **Models:** AllianceOne uses frontier models (OpenAI, Anthropic, Google).
   Don't claim how model changes are evaluated or released, don't claim model
   improvements automatically make AllianceOne better, and don't claim
@@ -20,24 +29,12 @@
 - **Naming:** "design partner," never "pilot partner." Don't describe the
   product's stage beyond "we are looking for design partners."
 - **Vocabulary:** prefer the business case's terms: *firm knowledge*,
-  *engagement record*, *approved baseline*.
-- **Public messaging:** Home, Product, Solutions, Company and Design partners
-  describe capabilities shared by law, consulting and advisory firms. Keep named matters, motions and other
-  legal specifics inside the fictional demo and example panels. Explain the
-  capability around each example in terms of client work, reasoning, review,
-  responsibilities, changes and results.
-
-Two active demos show firm precedent and retained review in one conversation,
-then an assigned practitioner developing current work with proactive source updates. It contains three fictional closed matters and one current matter; no
-PSA writeback, real firm attribution or verified legal authority is represented.
-Matter access and permitted reuse are part of the story. Do not claim competitors
-have no internal knowledge capabilities. Source access in the demo is illustrative,
-not production authorization.
+  *engagement record*, *approved baseline*. Avoid "precedent" in public copy;
+  lawyers read it as case law. Use "prior work" or "experience".
 
 The exploration registers below preserve earlier consulting positioning work.
-The current rules above govern the expanded public story. The September 2026
-business case remains context for the consulting offering, not evidence that
-the legal workflow has been validated in production.
+The current rules above and the September 2026 business case govern public
+product claims.
 
 ## The spine (the one idea everything flows from)
 

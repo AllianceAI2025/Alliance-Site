@@ -1,7 +1,7 @@
 import React, { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import { capture, useVisualDwell } from "../analytics";
-import DemoArtifact from "./LegalDemoArtifacts.jsx";
-import { legalContexts as contexts, resolveLegalSource as resolveDemoSource, legalStories as stories, priorMatters } from "./litigation.js";
+import DemoArtifact from "./DemoArtifacts.jsx";
+import { contexts, resolveDemoSource, stories } from "./northstar.js";
 import { activityAt, advanceScrollTop, conversationAt, demoPlaybackReadyAt, demoVisibleAt, followScrollTop, playbackFrameAt, playbackRate, textAt } from "./demoPlayback.js";
 import "./engagement-demo.css";
 
@@ -21,7 +21,7 @@ function useReducedMotion() {
   return reduced;
 }
 
-function usePlaybackWatchability(demoRef, feed, requiresComposer) {
+function usePlaybackWatchability(demoRef, feed) {
   const [ready, setReady] = useState(false);
   useEffect(() => {
     let frame = null, active = true;
@@ -32,9 +32,7 @@ function usePlaybackWatchability(demoRef, feed, requiresComposer) {
       const viewport = window.visualViewport;
       setReady(current => demoPlaybackReadyAt(current, {
         top: feed.current.getBoundingClientRect().top,
-        // A response-only opening can play when the full reading pane fits.
-        // Later scenes wait for the composer too, so typed instructions are seen.
-        bottom: (requiresComposer ? composer : feed.current).getBoundingClientRect().bottom,
+        bottom: composer.getBoundingClientRect().bottom,
         viewportTop: viewport?.offsetTop ?? 0,
         viewportHeight: viewport?.height ?? window.innerHeight,
       }));
@@ -58,7 +56,7 @@ function usePlaybackWatchability(demoRef, feed, requiresComposer) {
       viewport?.removeEventListener("resize", schedule);
       viewport?.removeEventListener("scroll", schedule);
     };
-  }, [demoRef, feed, requiresComposer]);
+  }, [demoRef, feed]);
   return ready;
 }
 
@@ -146,7 +144,7 @@ function ContextDialog({ source, onClose }) {
     {context.access && <p className="context-access">{context.access.label}</p>}
     {context.facts && <dl className="context-facts">{context.facts.map(([label, text]) => <div key={label}><dt>{label}</dt><dd>{text}</dd></div>)}</dl>}
     {context.carry && <section className="context-carry"><h4>Carried into Northstar</h4>{context.carry.map(([label, text]) => <div key={label}><strong>{label}</strong><p>{text}</p></div>)}</section>}
-    <footer>Fictional matter records and people · not legal authorities or actual client work</footer>
+    <footer>Illustrative engagement records · fictional client and practitioner data</footer>
   </dialog>;
 }
 
@@ -166,7 +164,7 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
   const tracked = useRef(false);
   const completionTracked = useRef(false);
   const demoRef = useVisualDwell(`northstar-${phase}`);
-  const watchable = usePlaybackWatchability(demoRef, feed, story.commands.length > 0);
+  const watchable = usePlaybackWatchability(demoRef, feed);
   const id = useId();
   const conversation = conversationAt(story, elapsed);
   const complete = elapsed >= story.duration;
@@ -241,25 +239,26 @@ export default function EngagementDemo({ phase = "scope", primary = false }) {
     else resume();
   };
 
-  return <div className={`engagement-demo engagement-demo--${phase}${primary ? " engagement-demo--primary" : ""}`} ref={demoRef} id={primary ? "demo" : `${phase}-demo`} data-phase={phase} data-attorney={story.actor} data-elapsed={Math.round(elapsed)} data-complete={complete} data-watchable={watchable}>
+  return <div className={`engagement-demo engagement-demo--${phase}${primary ? " engagement-demo--primary" : ""}`} ref={demoRef} id={primary ? "demo" : `${phase}-demo`} data-phase={phase} data-elapsed={Math.round(elapsed)} data-complete={complete} data-watchable={watchable}>
     <section className="demo-stage" aria-label={`${story.label} demonstration`}>
       <div className={`demo-window demo-window--with-sidebar${sidebarOpen ? " demo-window--navigation-open" : ""}`}>
         <>
-          {sidebarOpen && <button className="demo-sidebar-scrim" aria-label="Close matter navigation" onClick={() => setSidebarOpen(false)} />}
-          <aside className="demo-sidebar" id={`${id}-sidebar`} aria-label="Demo matters">
-            <div className="demo-sidebar-brand"><img src="/brand/logo-mark.svg" alt="" /><span>AllianceOne</span><button className="demo-sidebar-close" aria-label="Close matter sidebar" onClick={() => setSidebarOpen(false)}><Icon name="close" /></button></div>
-            <p className="demo-sidebar-label">Matters</p>
+          {sidebarOpen && <button className="demo-sidebar-scrim" aria-label="Close engagement navigation" onClick={() => setSidebarOpen(false)} />}
+          <aside className="demo-sidebar" id={`${id}-sidebar`} aria-label="Demo engagements">
+            <div className="demo-sidebar-brand"><img src="/brand/logo-mark.svg" alt="" /><span>AllianceOne</span><button className="demo-sidebar-close" aria-label="Close engagement sidebar" onClick={() => setSidebarOpen(false)}><Icon name="close" /></button></div>
+            <p className="demo-sidebar-label">Engagements</p>
             <div className="demo-northstar-row"><button className="demo-engagement-name" onClick={() => inspect("discovery")}><Icon name="folder" />Northstar Foods</button><button className="demo-thread-toggle" aria-label="Toggle Northstar Foods threads" aria-expanded={threadsOpen} aria-controls={`${id}-threads`} onClick={() => setThreadsOpen(!threadsOpen)}><Icon name="chevron" className={threadsOpen ? "is-expanded" : ""} /></button></div>
             {threadsOpen && <nav className="demo-thread-list" id={`${id}-threads`} aria-label="Northstar Foods threads">{Object.entries(stories).filter(([key]) => !story.threads || story.threads.includes(key)).map(([key, item]) => <a key={key} href={`#${key}`} aria-current={key === phase ? "page" : undefined} onClick={() => setSidebarOpen(false)}>{item.thread}</a>)}</nav>}
-            {phase !== "deliver" && priorMatters.map(matter => <button key={matter.id} className="demo-engagement-reference" onClick={() => inspect(matter.id)}><Icon name="folder" />{matter.client}</button>)}
+            {phase !== "deliver" && <><button className="demo-engagement-reference" onClick={() => inspect("harbor")}><Icon name="folder" />Harbor Grain</button><button className="demo-engagement-reference" onClick={() => inspect("meridian")}><Icon name="folder" />Meridian</button></>}
+            <div className="demo-profile"><span>{phase === "deliver" ? "AR" : "MW"}</span><div>{story.person}<small>{phase === "deliver" ? "Consultant" : "Engagement manager"}</small></div></div>
           </aside>
         </>
         <div className="demo-main">
-          <header className="demo-player-header"><div><button className="demo-sidebar-toggle" aria-label="Toggle matter sidebar" aria-controls={`${id}-sidebar`} aria-expanded={sidebarOpen} onClick={() => setSidebarOpen(!sidebarOpen)}><Icon name="menu" /></button><strong>Northstar Foods</strong><span>{story.thread}</span></div>{!reduced && !complete && <div className="demo-controls"><button onClick={toggle} aria-label={`${playing ? "Pause" : "Play"} ${story.label} demo`} title={playing ? "Pause animation" : "Resume animation"}><Icon name={playing ? "pause" : "play"} /></button></div>}</header>
+          <header className="demo-player-header"><div><button className="demo-sidebar-toggle" aria-label="Toggle engagement sidebar" aria-controls={`${id}-sidebar`} aria-expanded={sidebarOpen} onClick={() => setSidebarOpen(!sidebarOpen)}><Icon name="menu" /></button><strong>Northstar Foods</strong><span>{story.thread}{phase === "deliver" ? " · Avery Ross" : ""}</span></div>{!reduced && !complete && <div className="demo-controls"><button onClick={toggle} aria-label={`${playing ? "Pause" : "Play"} ${story.label} demo`} title={playing ? "Pause animation" : "Resume animation"}><Icon name={playing ? "pause" : "play"} /></button></div>}</header>
           <div className="demo-feed" ref={feed} role="log" aria-label={`${story.label} conversation`} aria-live="off">
             <div className="demo-conversation">
-              {conversation.exchanges.map(exchange => <div className="demo-exchange" key={exchange.key} data-exchange={exchange.key} data-exchange-kind={exchange.kind || "conversation"}>
-                {exchange.prompt && <div className="demo-user-message" aria-label={`${story.actor}: ${exchange.prompt}`} data-follow-at={exchange.sentAt}>{exchange.prompt}</div>}{elapsed >= exchange.answerAt && <div className="demo-agent-response"><div className="demo-agent-name"><img src="/brand/logo-mark.svg" alt="" />{exchange.agent || "AllianceOne"}{exchange.label && <small className="demo-agent-context">{exchange.label}</small>}</div><p data-follow-at={exchange.answerAt}>{textAt(exchange.answer, elapsed, exchange.answerAt, exchange.answerDuration || 1100) || <span className="demo-working"><i className="build-pulse" />{activityAt(story, elapsed)}</span>}</p></div>}
+              {conversation.exchanges.map(exchange => <div className="demo-exchange" key={exchange.key} data-exchange={exchange.key}>
+                <div className="demo-user-message" data-follow-at={exchange.sentAt}>{exchange.prompt}</div>{elapsed >= exchange.answerAt && <div className="demo-agent-response"><div className="demo-agent-name"><img src="/brand/logo-mark.svg" alt="" />AllianceOne</div><p data-follow-at={exchange.answerAt}>{textAt(exchange.answer, elapsed, exchange.answerAt, exchange.answerDuration || 1100) || <span className="demo-working"><i className="build-pulse" />{activityAt(story, elapsed)}</span>}</p></div>}
                 {exchange.sources && elapsed >= exchange.answerAt + exchange.answerDuration && <div className="demo-response-sources" data-follow-at={exchange.answerAt + exchange.answerDuration}>{exchange.sources.map(item => <button key={item.key} onClick={() => inspect(item.key)}>{item.label} <span aria-hidden="true">↗</span></button>)}</div>}
                 {exchange.artifact && elapsed >= exchange.artifactAt && <div className="demo-artifact-container" data-follow-at={exchange.artifactAt} data-follow-kind="entry"><DemoArtifact type={exchange.artifact} elapsed={exchange.artifactElapsed} onInspect={inspect} /></div>}
               </div>)}

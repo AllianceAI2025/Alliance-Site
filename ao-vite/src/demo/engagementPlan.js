@@ -24,7 +24,7 @@ export const planMilestones = [
   { id: "G4", title: "Board decision", due: "November 20", reviewer: "Elena Vargas", requires: ["NS-D12", "NS-D13", "NS-D14"] },
 ];
 
-// Independent returned records for the illustrated Project Operations write.
+// Independent returned records for the illustrated PSA write.
 // These do not reuse approved plan objects, so readback can detect differences.
 export const readbackPlan = {
   project: { name: "Northstar Foods", manager: "Margaret Whitfield", opportunity: "OPP-20418", start: "August 17", finish: "November 20", effort: 1840, baseline: "Plan v1", proposal: "Proposal v5", fee: 400000, billing: "40 / 40 / 20", objective: "Decision ownership across eight regions; service maintained; November 20 board decision.", boundary: "Implementation excluded; West and Southeast evidence remains a client dependency." },

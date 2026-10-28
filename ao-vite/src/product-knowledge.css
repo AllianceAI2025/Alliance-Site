@@ -42,7 +42,7 @@
 .product-overview-review { margin: 18px 0 7px; color: #506b46; font-size: 12px; font-weight: 500; }
 .product-overview-conclusion { margin: 0; color: #62705e; font-size: 13px; line-height: 1.75; }
 .product-overview-system { display: flex; align-items: center; gap: 8px; margin-top: 22px; color: #62705e; font-size: 11px; line-height: 1.65; }
-.product-overview-system > img { width: 19px; height: 19px; flex: none; }
+.product-overview-system > img, .product-overview-system > .psa-mark { width: 19px; height: 19px; flex: none; }
 .product-engagement-overview > figcaption { margin-top: 14px; color: #85907e; font-size: 10px; line-height: 1.75; }
 
 .studio-product-deployment {

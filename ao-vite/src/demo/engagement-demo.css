@@ -278,14 +278,14 @@
 .plan-execution .execution-readback{font-size:10px;line-height:1.9}
 .psa-write{padding:23px 0 8px}
 .psa-write>div{display:flex;align-items:center;gap:12px;margin:0 0 20px}
-.psa-write img{width:25px;height:25px;object-fit:contain;flex:none}
+.psa-write img,.psa-write .psa-mark{width:25px;height:25px;object-fit:contain;flex:none}
 .psa-write strong{font-size:11px;font-weight:500;color:#344c41}
 .psa-write p{margin:3px 0 0;font-size:11px;line-height:1.8;color:#5f737e}
 .psa-write>.build-pulse{margin-left:auto}
 .psa-write>p{font-size:10px;margin-top:25px}
 .plan-execution:empty{display:none}
 .psa-record-system{display:flex;align-items:center;gap:9px;padding:13px 16px;background:#f2f5f8;font-size:11px;color:#354956}
-.psa-record-system>img{width:20px;height:20px;object-fit:contain}
+.psa-record-system>img,.psa-record-system>.psa-mark{width:20px;height:20px;object-fit:contain}
 .psa-record-system>small{margin-left:auto;font-size:10px;color:#60717c}
 .psa-record-title{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:18px 20px 9px}
 .psa-record-title p{font-size:10px;color:#5f737e;margin:0 0 5px}
