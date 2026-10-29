@@ -1,0 +1,76 @@
+{
+  "client": "Northstar Foods",
+  "title": "Data readiness assessment",
+  "author": "Avery Ross",
+  "reviewer": "Sofia Patel",
+  "date": "September 7, 2026",
+  "revision": 2,
+  "template": "ASG DR01",
+  "templateVersion": "1.2",
+  "templateName": "Data Readiness Assessment · Practice report",
+  "downloadPath": "/demo/northstar-data-readiness-assessment.docx",
+  "purpose": "Establish which regional evidence can support the decision-rights diagnostic, with observed ownership kept separate from proposed design.",
+  "initialConclusion": "Begin diagnosis with the six supplied regions. Hold cross-region design decisions while the ownership, currency and coverage checks remain open.",
+  "conclusion": "Proceed with diagnosis in the six supplied regions. Hold Northeast ownership assignments and cross-region escalation routes until the evidence gaps are resolved.",
+  "reviewComment": "Which ownership and escalation decisions are you asking the team to hold? Make that explicit in the recommendation.",
+  "evidence": [
+    { "label": "Coverage", "finding": "6 of 8 regional extracts", "gap": "West and Southeast outstanding", "implication": "The current evidence cannot establish a complete view of decision ownership across all eight regions." },
+    { "label": "Ownership", "finding": "Northeast incomplete", "gap": "Affected decision owners need validation", "implication": "Decisions involving disputed or missing owners require regional confirmation before the design baseline." },
+    { "label": "Currency", "finding": "Central: prior quarter", "gap": "Client confirmation outstanding", "implication": "Avery reports that Central’s process is unchanged. Obtain dated client confirmation before treating the inventory as current evidence." }
+  ],
+  "executiveSummary": "The evidence supports a bounded diagnostic, not an eight-region design-readiness conclusion. Six regional extracts have been received. Two absent extracts, incomplete Northeast ownership fields and Central’s older inventory leave material questions about who makes decisions today. These gaps affect the completeness and reliability of the diagnostic baseline; they are not evidence that the proposed operating model is wrong.",
+  "decisionTitle": "Proceed with diagnosis; hold the affected design decisions.",
+  "brief": {
+    "findings": [
+      { "area": "Coverage", "finding": "Six of eight regions received.", "action": "Obtain West and Southeast before an eight-region conclusion." },
+      { "area": "Ownership", "finding": "Northeast owner fields are incomplete.", "action": "Validate observed owners; do not infer that the roles are unassigned." },
+      { "area": "Currency", "finding": "Central’s inventory is from the prior quarter.", "action": "Avery reports the process is unchanged; dated confirmation remains open." }
+    ],
+    "actions": [
+      "Regional leads: provide missing extracts and validate owners by September 9; Avery coordinates.",
+      "Central lead: confirm the current process and source period by September 9.",
+      "Sofia: review evidence exceptions before Margaret’s September 11 baseline decision."
+    ],
+    "review": "Revision 2 states the design decisions on hold. Sofia approved the report; the client’s evidence actions remain open.",
+    "sources": "NS-DATA01 · NS-C01: Avery’s September 7 client conversation, confirmation pending · Approved plan v1 · Practice assessment method"
+  },
+  "consultantUpdate": {
+    "reference": "NS-C01",
+    "reportedBy": "Avery Ross",
+    "date": "September 7, 2026",
+    "statement": "Central’s regional lead told Avery the decision process has not changed since the prior-quarter inventory.",
+    "status": "Reported client conversation; dated written confirmation outstanding"
+  },
+  "decisions": [
+    { "label": "Proceed", "decision": "Initial diagnostic work", "basis": "Use the six supplied extracts to identify decision patterns and prepare validation questions. Record the coverage and source date of each material finding." },
+    { "label": "Conditional", "decision": "Ownership and escalation design", "basis": "Validate Northeast decision owners and establish whether Central’s inventory remains current before relying on those records for design." },
+    { "label": "Hold", "decision": "Eight-region diagnostic baseline", "basis": "Do not generalize to West or Southeast until their evidence and regional responses are received. Sofia reviews the residual gaps before Margaret accepts the baseline." }
+  ],
+  "method": [
+    { "criterion": "Coverage", "test": "Reconcile the evidence register to all eight regions and the decisions in scope." },
+    { "criterion": "Currency", "test": "Check the source period and ask whether subsequent operating changes invalidate the record." },
+    { "criterion": "Completeness", "test": "Identify missing decision owners, unresolved ownership disputes and absent regional responses." },
+    { "criterion": "Traceability", "test": "Retain the source, date and validation response behind each finding; separate observed ownership from proposed design." }
+  ],
+  "limitations": "Receipt of an extract establishes availability, not validated ownership or readiness. This report does not certify data quality across all fields, conclude that every supplied region is ready for design, or assess implementation readiness. Implementation remains outside the accepted scope.",
+  "findings": [
+    { "id": "F01", "title": "Regional coverage is incomplete", "source": "NS-DATA01 · coverage log, reviewed September 7", "observation": "Six of eight regional extracts are received. West and Southeast remain outstanding.", "consequence": "Cross-region findings must state their six-region coverage. The team cannot yet conclude that the ownership pattern applies across Northstar.", "release": "Receive both extracts, record their coverage and dates, and obtain regional responses to the diagnostic questions." },
+    { "id": "F02", "title": "Northeast ownership requires validation", "source": "NS-DATA01 · Northeast ownership exceptions", "observation": "The supplied extract has incomplete decision-owner fields. A missing field does not identify who currently holds the decision right.", "consequence": "Do not present proposed owners as observed facts. Decisions that depend on those owners remain conditional until the regional lead validates them.", "release": "Record the observed owner, source and dated regional response; retain any dispute for Sofia’s review." },
+    { "id": "F03", "title": "Central’s inventory may not reflect current operations", "source": "NS-DATA01 · Source-period note; NS-C01 · Avery’s reported conversation", "observation": "Central supplied a prior-quarter inventory. Avery reports that its regional lead said the process is unchanged; dated written confirmation remains outstanding.", "consequence": "Use the inventory to frame questions, with its period visible. The reported conversation does not establish confirmed current ownership or escalation routes.", "release": "Obtain a current extract or a dated confirmation identifying subsequent changes and confirming which entries remain valid." }
+  ],
+  "actionPlan": [
+    { "id": "A01", "finding": "F01", "action": "Obtain West and Southeast evidence and regional responses", "owner": "Northstar regional leads", "coordinator": "Avery Ross", "target": "September 9", "doneWhen": "Both extracts are registered with source dates, coverage and responses to the diagnostic questions." },
+    { "id": "A02", "finding": "F02", "action": "Validate Northeast’s missing decision owners", "owner": "Northeast regional lead", "coordinator": "Avery Ross", "target": "September 9", "doneWhen": "Observed owners and their supporting records are confirmed; disputes remain identified separately." },
+    { "id": "A03", "finding": "F03", "action": "Confirm Central’s inventory or replace it", "owner": "Central regional lead", "coordinator": "Avery Ross", "target": "September 9", "doneWhen": "A current extract or dated confirmation explains which entries remain valid and what changed." },
+    { "id": "A04", "finding": "F01–F03", "action": "Review the evidence exceptions before the baseline gate", "owner": "Sofia Patel", "coordinator": "Margaret Whitfield", "target": "September 11", "doneWhen": "The diagnostic baseline records resolved gaps, remaining conditions and Margaret’s acceptance decision." }
+  ],
+  "reviewResponse": "Sofia’s review of revision 1 challenged the jump from evidence received to design readiness. Revision 2 makes each finding’s decision consequence and release condition explicit, assigns follow-up owners and dates, and prevents a six-region diagnostic from being presented as an eight-region conclusion. Approval of the report does not close the client’s outstanding evidence actions.",
+  "sourceRegister": [
+    { "id": "S01", "name": "NS-DATA01 · Regional evidence register", "use": "Northstar evidence: receipt status, ownership exceptions and source periods. Reviewed September 7, 2026." },
+    { "id": "S02", "name": "Approved engagement plan v1 · NS-D01 / G1", "use": "Assignment: Avery, 36 hours, September 7; Sofia reviews before the September 11 diagnostic baseline." },
+    { "id": "S03", "name": "Data Readiness Assessment · Practice library", "use": "Firm method: coverage, currency, completeness, traceability and the report structure." },
+    { "id": "S04", "name": "Evidence review guidance · Shared by Sofia", "internalReference": "Harbor HG-D01 · Shared review excerpt", "use": "Approved guidance on observed versus proposed ownership, source dates and unresolved conflicts. Informs the method; does not establish facts about Northstar." },
+    { "id": "S05", "name": "NS-C01 · Avery’s Central conversation", "use": "Reported by Avery on September 7. Client statement about process continuity; dated written confirmation remains outstanding." }
+  ],
+  "sources": ["NS-DATA01 regional evidence register", "Approved engagement plan v1", "Data Readiness Assessment · Practice library", "Harbor HG-D01 · Shared review excerpt"]
+}

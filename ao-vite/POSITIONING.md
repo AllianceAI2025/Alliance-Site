@@ -2,14 +2,27 @@
 
 ## Current rules (align with the investor business case)
 
-- **One-liner:** *Frontier models know how to reason. AllianceOne knows how
-  your firm works.*
-- **Ownership:** AllianceOne is the system of record for how your firm works:
-  its methods, standards, and precedent, plus the engagement's accepted scope,
-  approved plan, and the rationale for every change. CRM, PSA, document, and
-  finance systems remain authoritative for the facts they own.
-- **Models:** AllianceOne uses frontier models (OpenAI, Anthropic, Google).
-  Don't claim how model changes are evaluated or released, don't claim model
+- **Product definition:** AllianceOne connects firm methods, intellectual property,
+  practitioner judgment and engagement history with how teams scope, staff, plan
+  and deliver client work. The application maintains the approved engagement
+  context around the models; it does not claim general-purpose platforms cannot
+  retrieve, reason or act across systems.
+- **Audience:** consulting-led. Name the audience as "consulting, advisory and
+  law firms" (in that order). The first customer in the business case is
+  management consulting firms that also deliver implementation work. Law is a
+  segment named on Home, Product, Company and Design partners, not the lead
+  example. Law-specific demos live in the separate demo application.
+- **Ownership:** AllianceOne maintains the approved engagement record: firm
+  methods, standards and prior work connected with accepted scope, the approved
+  plan and the rationale for authorized changes. CRM, PSA, document and finance
+  systems remain authoritative for the records they own.
+- **Demo:** the website demo is the consulting end to end (Scope → Plan with
+  the approved plan written to the PSA and read back → Deliver). The PSA shown is
+  Kantata, configured in `src/demo/psaSystem.js`; it is an illustrated write, not
+  a connected account.
+- **Models:** Frontier models from OpenAI, Anthropic and Google may be named as
+  what every firm can access. Don't claim AllianceOne uses any specific provider,
+  don't claim how model changes are evaluated or released, don't claim model
   improvements automatically make AllianceOne better, and don't claim
   competitors can't build it.
 - **Calls to action:** invite partnership; don't say "decide whether to
@@ -17,7 +30,12 @@
 - **Naming:** "design partner," never "pilot partner." Don't describe the
   product's stage beyond "we are looking for design partners."
 - **Vocabulary:** prefer the business case's terms: *firm knowledge*,
-  *engagement record*, *approved baseline*.
+  *engagement record*, *approved baseline*. Avoid "precedent" in public copy;
+  lawyers read it as case law. Use "prior work" or "experience".
+
+The exploration registers below preserve earlier consulting positioning work.
+The current rules above and the September 2026 business case govern public
+product claims.
 
 ## The spine (the one idea everything flows from)
 

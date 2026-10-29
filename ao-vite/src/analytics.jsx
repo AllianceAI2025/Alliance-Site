@@ -11,6 +11,7 @@ export function getPageName() {
   if (path.startsWith("/allianceone")) return "allianceone";
   if (path.startsWith("/platform")) return "platform";
   if (path.startsWith("/how-it-works")) return "how_it_works";
+  if (path.startsWith("/solutions")) return "solutions";
   if (path.startsWith("/security")) return "security";
   if (path.startsWith("/company")) return "company";
   return path.replace(/^\//, "") || "home";
@@ -49,7 +50,7 @@ function trackSiteNavigation() {
     if (!link) return;
     const destination = new URL(link.href, window.location.href);
     if (destination.origin !== window.location.origin) return;
-    const location = link.closest(".mobile-nav") ? "mobile_menu"
+    const location = link.closest(".mobile-nav, .quiet-mobile-nav") ? "mobile_menu"
       : link.closest(".site-nav") ? "header"
       : link.closest("footer, .site-footer") ? "footer" : "in_page";
     capture("navigation_clicked", {
