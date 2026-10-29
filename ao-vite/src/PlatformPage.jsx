@@ -24,7 +24,7 @@ export default function PlatformPage() {
       <SourceOwnership />
     </div></Track>
     <Track name="models" id="models" className="studio-section studio-model-section"><div className="studio-container">
-      <div className="studio-model-intro"><p className="studio-kicker">The application around the models</p><h2>The model is not the edge.</h2><p>Frontier models from OpenAI, Anthropic and Google can research, analyze, draft and act across connected systems. Every firm has access to them. What they don’t maintain is your firm’s account of its own work: which approach fits which client, what the firm committed, what changed and what actually happened.</p></div>
+      <div className="studio-model-intro"><h2>The model is not the edge.</h2><p>Frontier models from OpenAI, Anthropic and Google can research, analyze, draft and act across connected systems. Every firm has access to them. What they don’t maintain is your firm’s account of its own work: which approach fits which client, what the firm committed, what changed and what actually happened.</p></div>
       <p className="studio-model-declaration">Frontier models know how to reason.{" "}<br />AllianceOne knows how your firm works.</p>
       <div className="studio-model-comparison" role="table" aria-label="General-purpose AI compared with AllianceOne">
         <div className="studio-model-comparison-head" role="row"><span role="columnheader" /><span role="columnheader">General-purpose AI</span><span role="columnheader">AllianceOne</span></div>
