@@ -294,3 +294,26 @@ fuller context remains linked to the work. The website requires no file download
 
 Law firms are named as a segment across the site. Law-specific demonstrations live
 in the separate demo application, not on the public site.
+
+## Product and Solutions application close-ups
+
+`src/ProductSnippets.jsx` replaces the large editorial illustrations on Product
+and Solutions with focused application views. Product shows the engagement
+context, a source inspector with Methods / Templates / Experience / Review tabs,
+and a proposed change compared with the accepted scope. Solutions shows resource
+fit, plan approval, Kantata readback, the assessment revision and agent updates.
+The existing page copy and homepage player remain separate from these components.
+
+`src/product-snippets.css` owns the tinted stages, cropped application panels and
+responsive layouts. Each view opens with meaningful content, reveals one short
+action at 900ms / 2800ms, then holds. Leaving the view resets that presentation;
+reduced motion opens the finished state. Keyboard and pointer controls let a
+visitor inspect sources, resource choices, revisions and signal types directly.
+
+`src/productSnippets.js` projects the same approved Northstar plan, named resources
+and independent OX response used by Home. Additional fictional event snapshots
+illustrate time, milestone and client-request signals: 32 hours logged plus
+Avery's 10-hour remaining estimate; a September 11 gate moved to September 14;
+and a request for rollout support beyond the accepted scope. These examples
+retain the governing baseline and require a manager decision. All activity is
+local presentation state; the views do not read or write connected systems.

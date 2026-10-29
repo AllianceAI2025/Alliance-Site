@@ -1,13 +1,13 @@
 import React from "react";
 import { Track } from "./analytics";
-import { EngagementRecordVisual, KnowledgeExplorer, PageShell, PartnerInvitation, SourceOwnership } from "./PageParts.jsx";
-import ProductEngagementOverview from "./ProductEngagementOverview.jsx";
+import { PageShell, PartnerInvitation, SourceOwnership } from "./PageParts.jsx";
+import { ChangeRecordSnippet, EngagementContextSnippet, ProductKnowledgeSnippets } from "./ProductSnippets.jsx";
 import { firmTypes, modelComparison, productBenefits } from "./content/siteContent.js";
 import "./product-knowledge.css";
 
 export default function PlatformPage() {
   return <PageShell page="product">
-    <Track name="product_hero" className="studio-product-hero"><div className="studio-container studio-product-hero-grid"><div className="studio-product-hero-copy"><p className="studio-kicker">Explore AllianceOne</p><h1>Put your firm’s knowledge to work in every engagement.</h1><p>AllianceOne connects your firm's methods, intellectual property, practitioner judgment and engagement history with how teams scope, staff, plan and deliver client work.</p><p>It carries the approved plan into the systems your firm already uses, then connects actual delivery and outcomes back to the decisions that shaped it.</p></div><div className="studio-paper-scene"><ProductEngagementOverview /></div></div></Track>
+    <Track name="product_hero" className="studio-product-hero"><div className="studio-container studio-product-hero-grid"><div className="studio-product-hero-copy"><p className="studio-kicker">Explore AllianceOne</p><h1>Put your firm’s knowledge to work in every engagement.</h1><p>AllianceOne connects your firm's methods, intellectual property, practitioner judgment and engagement history with how teams scope, staff, plan and deliver client work.</p><p>It carries the approved plan into the systems your firm already uses, then connects actual delivery and outcomes back to the decisions that shaped it.</p></div><div className="studio-paper-scene"><EngagementContextSnippet /></div></div></Track>
     <Track name="models" id="models" className="studio-section studio-model-section"><div className="studio-container">
       <div className="studio-model-intro"><h2>The model is not the edge.</h2><p>Frontier models from OpenAI, Anthropic and Google can research, analyze, draft and act across connected systems. Every firm has access to them. What they don’t maintain is your firm’s account of its own work: which approach fits which client, what the firm committed, what changed and what actually happened.</p></div>
       <p className="studio-model-declaration">Frontier models know how to reason.{" "}<br />AllianceOne knows how your firm works.</p>
@@ -27,10 +27,10 @@ export default function PlatformPage() {
         <h2>Preserve the chain that makes judgment credible.</h2>
         <p id="precedent">The firm’s intellectual property stays active while teams are making decisions, not dormant in a repository or flattened into a generic answer.</p>
       </header>
-      <KnowledgeExplorer />
+      <ProductKnowledgeSnippets />
     </div></Track>
     <Track name="engagement_record" id="record" className="studio-section studio-product-record"><div className="studio-container">
-      <div className="studio-record-feature"><div className="studio-feature-copy"><p className="studio-kicker">The approved engagement record</p><h2>Keep the decisions{" "}<br />with the work.</h2><p>Accepted scope, commercial assumptions and the approved plan establish the commitment. Workstreams, assignments and review gates stay linked as delivery develops. Conversations and sources explain proposed revisions; authorized changes retain the earlier baseline, who approved them and why.</p></div><EngagementRecordVisual /></div>
+      <div className="studio-record-feature"><div className="studio-feature-copy"><p className="studio-kicker">The approved engagement record</p><h2>Keep the decisions{" "}<br />with the work.</h2><p>Accepted scope, commercial assumptions and the approved plan establish the commitment. Workstreams, assignments and review gates stay linked as delivery develops. Conversations and sources explain proposed revisions; authorized changes retain the earlier baseline, who approved them and why.</p></div><ChangeRecordSnippet /></div>
     </div></Track>
     <Track name="source_systems" id="systems" className="studio-section studio-product-systems"><div className="studio-container">
       <header className="studio-section-heading"><p className="studio-kicker">Your existing systems</p><h2>Connected to the systems{" "}<br />your firm already runs.</h2><p>AllianceOne connects the context across CRM, project tools, documents and billing. Each system continues to own its records; sources and permissions are agreed for the selected workflow.</p></header>
