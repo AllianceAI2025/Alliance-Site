@@ -123,3 +123,13 @@ export const practiceServices = [
   ["Workflow design", "Define how an opportunity becomes an approved scope, proposal and delivery plan, and how authorized decisions carry into the systems that run the work."],
   ["Adoption and governance", "Work with sponsors, managers, consultants and reviewers on approval rights, source access, evidence standards, responsibilities and the measures of useful adoption."],
 ];
+
+// Product · "The model is not the edge." General-purpose AI is described at its
+// current capability; AllianceOne's column names what it adds around the models.
+export const modelComparison = [
+  ["Unit of work", "A request, task or multi-step workflow", "The engagement, from first client signal through outcome"],
+  ["Firm context", "Searches connected company data", "Connects methods, people, decisions and results to the engagement they shaped"],
+  ["Authority", "Works with the records it is given", "Knows which scope, version and approval governs, and who must approve a change"],
+  ["Action", "Takes actions across tools", "Writes only approved plans to your systems and verifies what came back"],
+  ["Learning", "Improves as the models improve", "Tests the firm’s own methods against delivery results"],
+];

@@ -2,7 +2,7 @@ import React from "react";
 import { Track } from "./analytics";
 import { EngagementRecordVisual, KnowledgeExplorer, PageShell, PartnerInvitation, SourceOwnership } from "./PageParts.jsx";
 import ProductEngagementOverview from "./ProductEngagementOverview.jsx";
-import { firmTypes, productBenefits } from "./content/siteContent.js";
+import { firmTypes, modelComparison, productBenefits } from "./content/siteContent.js";
 import "./product-knowledge.css";
 
 export default function PlatformPage() {
@@ -23,11 +23,18 @@ export default function PlatformPage() {
       <header className="studio-section-heading"><p className="studio-kicker">Your existing systems</p><h2>Connected to the systems{" "}<br />your firm already runs.</h2><p>AllianceOne connects the context across CRM, project tools, documents and billing. Each system continues to own its records; sources and permissions are agreed for the selected workflow.</p></header>
       <SourceOwnership />
     </div></Track>
-    <Track name="models" className="studio-section studio-model-section"><div className="studio-container"><div className="studio-model-intro"><p className="studio-kicker">The application around the models</p><h2>The model is not the edge.</h2><p>Frontier models know how to reason. AllianceOne knows how your firm works.</p></div><div className="studio-model-responsibilities"><article><h3>Relevant firm context</h3><p>The method, practitioner reasoning and delivery experience that apply to this client's conditions, with their supporting sources and limits.</p></article><article><h3>Authority to act</h3><p>Which scope and plan govern, who approved them, what changed, and which operating records should receive the approved intent.</p></article><article><h3>Continuity after the conversation</h3><p>The decisions, revisions, system receipts and observed results that remain available through delivery and future work.</p></article></div>
+    <Track name="models" id="models" className="studio-section studio-model-section"><div className="studio-container">
+      <div className="studio-model-intro"><p className="studio-kicker">The application around the models</p><h2>The model is not the edge.</h2><p>Frontier models from OpenAI, Anthropic and Google can research, analyze, draft and act across connected systems. Every firm has access to them. What they don’t maintain is your firm’s account of its own work: which approach fits which client, what the firm committed, what changed and what actually happened.</p></div>
+      <p className="studio-model-declaration">Frontier models know how to reason.{" "}<br />AllianceOne knows how your firm works.</p>
+      <div className="studio-model-comparison" role="table" aria-label="General-purpose AI compared with AllianceOne">
+        <div className="studio-model-comparison-head" role="row"><span role="columnheader" /><span role="columnheader">General-purpose AI</span><span role="columnheader">AllianceOne</span></div>
+        {modelComparison.map(([dimension, general, alliance]) => <div className="studio-model-comparison-row" role="row" key={dimension}><strong role="rowheader">{dimension}</strong><p role="cell" data-label="General-purpose AI">{general}</p><p role="cell" data-label="AllianceOne">{alliance}</p></div>)}
+      </div>
       <section className="studio-product-deployment" aria-labelledby="product-deployment-title">
-        <h3 id="product-deployment-title">An accountable deployment.</h3>
-        <p>AllianceOne combines a maintained engagement model with practice configuration, approval rules and validated mappings to your selected PSA or project system. Alliance Systems Group implements the workflow with your team and provides ongoing support, with responsibilities and acceptance criteria agreed for the deployment.</p>
+        <h3 id="product-deployment-title">Built to make buying the better choice.</h3>
+        <p>A firm could assemble this on a frontier platform. AllianceOne brings a maintained engagement model, configured practice knowledge, approval rules and validated connections to your PSA or project system. Alliance Systems Group implements the workflow with your team and provides ongoing support, with responsibilities and acceptance criteria agreed for the deployment.</p>
       </section>
+      <div className="studio-model-moat"><h3>Your experience is the part competitors cannot license.</h3><p>When decisions stay connected to their conditions and outcomes, each completed engagement adds evidence to the firm’s methods, points of view and ability to deliver with confidence.</p></div>
     </div></Track>
     <Track name="value" id="value" className="studio-section"><div className="studio-container studio-value-layout"><header className="studio-section-heading"><h2>Better engagement economics.{" "}<br />Stronger evidence of value.</h2><p>Firm knowledge, an approved baseline and reviewed results give leaders a stronger basis for shaping engagements and explaining the firm’s value.</p><a className="studio-value-link" href="/solutions/">See how it works across an engagement <span aria-hidden="true">↗</span></a></header><div className="studio-value-list">{productBenefits.map(([title, body]) => <article key={title}><h3>{title}</h3><p>{body}</p></article>)}</div></div></Track>
     <Track name="firms" id="firms" className="studio-firms studio-section"><div className="studio-container"><header className="studio-section-heading"><h2>For project-based{" "}<br />professional services.</h2><p>Our starting focus is management consulting firms that also deliver implementation work. The same model of firm knowledge and connected client work extends to specialist advisory, technology practices and law firms.</p></header><div className="studio-firm-list">{firmTypes.map(([title, body]) => <article key={title}><h3>{title}</h3><p>{body}</p></article>)}</div></div></Track>

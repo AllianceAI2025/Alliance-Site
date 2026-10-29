@@ -20,8 +20,9 @@
   the approved plan written to the PSA and read back → Deliver). The PSA shown is
   Kantata, configured in `src/demo/psaSystem.js`; it is an illustrated write, not
   a connected account.
-- **Models:** AllianceOne uses frontier models (OpenAI, Anthropic, Google).
-  Don't claim how model changes are evaluated or released, don't claim model
+- **Models:** Frontier models from OpenAI, Anthropic and Google may be named as
+  what every firm can access. Don't claim AllianceOne uses any specific provider,
+  don't claim how model changes are evaluated or released, don't claim model
   improvements automatically make AllianceOne better, and don't claim
   competitors can't build it.
 - **Calls to action:** invite partnership; don't say "decide whether to
