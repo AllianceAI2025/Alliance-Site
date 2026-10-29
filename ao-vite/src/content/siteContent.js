@@ -87,7 +87,7 @@ export const solutionChapters = [
       ["Find comparable experience, including the people", "See who did similar work, what review changed and what the evidence later showed, with differences and limits in view."],
       ["Test the team and assumptions before committing", "Compare team options, availability, effort and pricing assumptions before the proposal is approved."],
     ],
-    result: "A reviewed scope and proposal, with its assumptions, sources and approval history.",
+    result: "Less rework in scoping: the scope and proposal start from comparable work, with assumptions, sources and approvals retained.",
   },
   {
     id: "plan", label: "Plan and staffing", title: "Translate the commitment into a delivery plan.",
@@ -96,7 +96,7 @@ export const solutionChapters = [
       ["Keep the accepted commitment visible", "Negotiated terms and the commercial baseline stay attached as the plan develops."],
       ["Review and approve the whole plan", "The team agrees assignments and review responsibilities. Approval sets the governing baseline; later changes stay distinct until authorized."],
     ],
-    result: "An approved plan, written to the firm’s PSA and verified against what was approved.",
+    result: "A clean handoff into delivery: the approved plan is written to your PSA and verified, so the team starts from the commitment instead of rebuilding it.",
   },
   {
     id: "deliver", label: "Assigned work", title: "Give each team member the context to deliver well.",
@@ -106,7 +106,7 @@ export const solutionChapters = [
       ["Develop the analysis with the firm behind it", "Firm formats and templates shape the work; the client’s evidence supports the conclusions."],
       ["Work through review", "Feedback stays linked to the draft, revisions keep what changed and why, and the approved version can be exported."],
     ],
-    result: "A reviewed deliverable, with the reasoning, sources and revisions that explain it.",
+    result: "Less time reconstructing context: each deliverable reaches review with the reasoning, sources and revisions that explain it.",
   },
 ];
 

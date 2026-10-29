@@ -3,6 +3,7 @@ import { Footer, LogoMark, Nav, useFonts } from "./Site.jsx";
 import { Track, capture } from "./analytics";
 import { firmKnowledge, practiceServices, systemSources } from "./content/siteContent.js";
 import { readbackPlan } from "./demo/engagementPlan.js";
+import assessment from "./demo/assessment.json";
 import { PsaMark } from "./demo/PsaMark.jsx";
 import { psaSystem } from "./demo/psaSystem.js";
 import "./studio.css";
@@ -57,7 +58,7 @@ export function PlanScheduleVisual() {
 }
 
 export function AssessmentReviewVisual() {
-  return <figure className="assessment-review-visual"><article className="assessment-paper"><div className="assessment-paper-top"><img src="/brand/systems/word.svg" alt="" /><span>Northstar Foods</span></div><h3>Data Readiness{" "}<br />Assessment</h3><p className="preview-assessment-byline">Prepared by Avery Ross{" "}<br />Reviewed by Sofia Patel</p><h4>Evidence and design readiness</h4><p>Observed decision owners remain separate from proposed future owners. Missing regional evidence limits the conclusions that can support design.</p><h4>Implications for the diagnostic</h4><p>Resolve the source dates, ownership gaps and contradictory accounts before a whole-client readiness conclusion is accepted.</p><div className="assessment-paper-footer"><span>Northstar engagement record</span><span>Revision 2</span></div></article><aside className="assessment-review-note"><span className="person-initials">SP</span><div><strong>Sofia Patel · Review</strong><p>Explain what each evidence gap prevents the team from concluding.</p><small>Addressed in the revised conclusion</small></div></aside><figcaption>The draft, review feedback, revision and approval stay linked to Avery's assignment.</figcaption></figure>;
+  return <figure className="assessment-review-visual"><article className="assessment-paper"><div className="assessment-paper-top"><img src="/brand/systems/word.svg" alt="" /><span>Northstar Foods</span></div><h3>Data Readiness{" "}<br />Assessment</h3><p className="preview-assessment-byline">Prepared by Avery Ross{" "}<br />Reviewed by Sofia Patel</p><h4>Evidence and design readiness</h4><p>Observed decision owners remain separate from proposed future owners. Missing regional evidence limits the conclusions that can support design.</p><h4>Recommendation</h4><p>{assessment.conclusion}</p><div className="assessment-paper-footer"><span>Northstar engagement record</span><span>Revision 2</span></div></article><aside className="assessment-review-note"><span className="person-initials">SP</span><div><strong>Sofia Patel · Review</strong><p>{assessment.reviewComment}</p><small>Addressed in the revised conclusion</small></div></aside><figcaption>The draft, review feedback, revision and approval stay linked to Avery's assignment.</figcaption></figure>;
 }
 
 export function SourceOwnership() {
